@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Portal", "src\RepoC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Transmitter", "src\RepoCat.Transmitter\RepoCat.Transmitter.csproj", "{4455B3FB-565B-4020-A619-D6ED25E4F0DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Tests", "tests\RepoCat.Tests\RepoCat.Tests.csproj", "{2DDC3EA2-8817-4D5A-80EC-DAF60B01AB6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EDD18317-7871-4682-B214-DF2985656B6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{4455B3FB-565B-4020-A619-D6ED25E4F0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4455B3FB-565B-4020-A619-D6ED25E4F0DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4455B3FB-565B-4020-A619-D6ED25E4F0DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DDC3EA2-8817-4D5A-80EC-DAF60B01AB6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DDC3EA2-8817-4D5A-80EC-DAF60B01AB6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DDC3EA2-8817-4D5A-80EC-DAF60B01AB6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DDC3EA2-8817-4D5A-80EC-DAF60B01AB6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2DDC3EA2-8817-4D5A-80EC-DAF60B01AB6A} = {EDD18317-7871-4682-B214-DF2985656B6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {397FD6B5-7959-4985-8025-0D125CD07D21}

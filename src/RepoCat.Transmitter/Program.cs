@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoCat.Transmitter
 {
@@ -9,17 +10,11 @@ namespace RepoCat.Transmitter
     {
         static void Main(string[] args)
         {
-            var codeFolderPath = args[0];
-
-            var uriProvider = new LocalProjectUriProvider();
-            var uris = uriProvider.GetUris(codeFolderPath);
-
-            var infoProvider = new ProjectInfoProvider();
-            var infos = infoProvider.GetInfos(uris);
-
-
-            Directory.CreateDirectory(@"C:\test\");
-            File.WriteAllLines(@"C:\test\output.txt", args);
+            var worker = new Worker();
+            worker.Work(args[0], args[1]).GetAwaiter().GetResult();
+            Console.ReadKey();
+            //Directory.CreateDirectory(@"C:\test\");
+            //File.WriteAllLines(@"C:\test\output.txt", args);
         }
     }
 }

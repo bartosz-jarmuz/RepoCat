@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.IO;
+using System.Xml.Linq;
 
 namespace RepoCat.Transmitter
 {
@@ -9,10 +10,8 @@ namespace RepoCat.Transmitter
         public string ProjectPath { get; set; }
         public string TargetExt { get; set; }
         public string OutputType { get; set; }
-    }
+        public string RepoCatManifest { get; set; }
+        public string GetName() => Path.GetFileName(ProjectPath);
 
-    public class Manifest
-    {
-        public XDocument
     }
 }

@@ -12,7 +12,7 @@ namespace RepoCat.Transmitter
             var codeDirectory = new DirectoryInfo(rootUri);
             if (codeDirectory.Exists)
             {
-                return codeDirectory.EnumerateFiles()
+                return codeDirectory.EnumerateFiles("*",SearchOption.AllDirectories)
                     .Where(x => x.FullName.EndsWith(".csproj", StringComparison.CurrentCultureIgnoreCase))
                     .Select(x => x.FullName);
             }

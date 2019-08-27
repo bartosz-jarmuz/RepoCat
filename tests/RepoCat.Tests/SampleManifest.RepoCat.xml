@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project>
+  <Component>
+    <Name>PneumaticPick</Name>
+    <Authors>Jim Beam</Authors>
+    <Description>You don't even know you need it</Description>
+    <DocumentationUri>http://google.com</DocumentationUri>
+    <Tags Values="Some;Thing;More">
+      <Tag>Mining</Tag>
+      <Tag>Teeth</Tag>
+      <Tag>Hygiene</Tag>
+      <Tag>Industry</Tag>
+      <Tag>Tools</Tag>
+    </Tags>
+  </Component>
+</Project>
