@@ -9,27 +9,28 @@ namespace RepoCat.Transmitter
     {
         public async Task Work(string codeFolderPath, string baseApiAddress)
         {
-            Console.WriteLine($"Code folder path: [{codeFolderPath}]");
-            Console.WriteLine($"Api base URL: [{codeFolderPath}]");
+            Program.Log.Info($"Code folder path: [{codeFolderPath}]");
+            Program.Log.Info($"Api base URL: [{codeFolderPath}]");
 
             LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
-            List<string> uris = uriProvider.GetUris(codeFolderPath).ToList();
-            Console.WriteLine($"Found {uris.Count} project URIs");
+            var uris = uriProvider.GetUris(codeFolderPath);
+             Program.Log.Debug($"Finished loading project URIs");
 
             ProjectInfoProvider infoProvider = new ProjectInfoProvider();
-            List<ProjectInfo> infos = infoProvider.GetInfos(uris).ToList();
-            Console.WriteLine($"Loaded {infos.Count} project infos");
+            var infos = infoProvider.GetInfos(uris).ToList();
+            Program.Log.Info($"Loaded {infos.Count} project infos.");
 
             var sender = new Sender(null);
             var tasks = new List<Task>();
             foreach (ProjectInfo projectInfo in infos)
             {
-                Console.WriteLine($"Sending {projectInfo.GetName()} project info");
 
                 tasks.Add(sender.Send(projectInfo));
             }
 
             await Task.WhenAll(tasks);
+
+            Program.Log.Info("All done");
         }
     }
 }

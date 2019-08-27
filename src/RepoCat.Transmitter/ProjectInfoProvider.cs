@@ -31,7 +31,7 @@ namespace RepoCat.Transmitter
                     x.EvaluatedInclude.EndsWith("RepoCat.xml", StringComparison.CurrentCultureIgnoreCase));
                 if (manifestInclude != null)
                 {
-                    Console.WriteLine($"Reading info from {uri}");
+                     Program.Log.Debug($"Reading info from {uri}");
 
                     var info = new ProjectInfo()
                     {
@@ -44,14 +44,14 @@ namespace RepoCat.Transmitter
                     info.RepoCatManifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault();
 
                     info.RepoCatManifest = File.ReadAllText(info.RepoCatManifestPath);
-                    Console.WriteLine("Read OK");
+                    Program.Log.Info($"Read OK from {uri}");
 
                     return info;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("***ERROR***" + ex.Message);
+                Program.Log.Warn("Error while loading project info " +  ex.Message);
             }
             return null;
         }

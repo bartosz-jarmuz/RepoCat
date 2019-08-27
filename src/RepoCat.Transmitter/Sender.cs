@@ -21,6 +21,8 @@ namespace RepoCat.Transmitter
 
         public async Task Send(ProjectInfo info)
         {
+            Program.Log.Debug($"Sending {info.GetName()} project info");
+
             Directory.CreateDirectory(@"C:\test");
             string serialized;
             try
@@ -44,6 +46,8 @@ namespace RepoCat.Transmitter
             {
                 //todo
             }
+            Program.Log.Info($"Sent {info.GetName()} project info OK.");
+
         }
     }
 }
