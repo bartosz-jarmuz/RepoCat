@@ -1,7 +1,7 @@
-﻿using System.IO;
-using System.Xml.Linq;
+﻿using System;
+using System.IO;
 
-namespace RepoCat.Transmitter
+namespace RepoCat.Models.ProjectInfo
 {
     public class ProjectInfo
     {
@@ -13,6 +13,6 @@ namespace RepoCat.Transmitter
         public string TargetExt { get; set; }
         public string OutputType { get; set; }
         public string RepoCatManifest { get; set; }
-        public string GetName() => Path.GetFileName(ProjectPath);
+        public string GetName() => Path.GetFileName(this.ProjectPath);
     }
 }

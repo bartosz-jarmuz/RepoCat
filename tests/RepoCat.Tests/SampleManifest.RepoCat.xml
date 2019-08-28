@@ -5,12 +5,13 @@
     <Authors>Jim Beam</Authors>
     <Description>You don't even know you need it</Description>
     <DocumentationUri>http://google.com</DocumentationUri>
-    <Tags Values="Some;Thing;More">
-      <Tag>Mining</Tag>
-      <Tag>Teeth</Tag>
-      <Tag>Hygiene</Tag>
-      <Tag>Industry</Tag>
-      <Tag>Tools</Tag>
-    </Tags>
+    <Tags Values="Mining;Teeth;Hygiene"/>
+  </Component>
+  <Component>
+    <Name>SteamPick</Name>
+    <Authors>Jack Black</Authors>
+    <Description>You know you don't need it</Description>
+    <DocumentationUri>http://google.com</DocumentationUri>
+    <Tags Values="Coal;Steam;Injury"/>
   </Component>
 </Project>

@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using Microsoft.Build.Evaluation;
+using RepoCat.Models.ProjectInfo;
 
 namespace RepoCat.Transmitter
 {

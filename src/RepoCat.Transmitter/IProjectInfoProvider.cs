@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using RepoCat.Models.ProjectInfo;
 
 namespace RepoCat.Transmitter
 {

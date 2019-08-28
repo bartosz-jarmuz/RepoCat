@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -13,6 +14,9 @@ using Microsoft.EntityFrameworkCore;
 using RepoCat.Portal.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using RepoCat.Portal.Data.RepoCatDb.BooksApi.Models;
+using RepoCat.Portal.Services;
 
 namespace RepoCat.Portal
 {
@@ -42,7 +46,22 @@ namespace RepoCat.Portal
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.Configure<RepoCatDbSettings>(Configuration.GetSection("RepoCatDbSettings"));
+
+            services.AddSingleton<IRepoCatDbSettings>(sp => sp.GetRequiredService<IOptions<RepoCatDbSettings>>().Value);
+            services.AddSingleton<ManifestsService>();
+
+            ConfigureAutomapper(services);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+        }
+
+        private static void ConfigureAutomapper(IServiceCollection services)
+        {
+            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,5 +92,7 @@ namespace RepoCat.Portal
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        
     }
 }
