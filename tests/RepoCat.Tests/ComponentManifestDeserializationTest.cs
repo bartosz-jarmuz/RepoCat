@@ -1,7 +1,7 @@
 using System.IO;
+using FluentAssertions;
 using NUnit.Framework;
 using RepoCat.Portal.Models;
-using Shouldly;
 
 namespace Tests
 {
@@ -19,31 +19,24 @@ namespace Tests
 
             var components = ManifestDeserializer.LoadComponents(text);
 
-            components.Count.ShouldBe(2);
+            components.Count.Should().Be(2);
             var first = components[0];
             var second = components[1];
 
 
-            first.Name.ShouldBe("PneumaticPick");
-            first.Description.ShouldBe("You don't even know you need it");
-            first.Authors.ShouldBe("Jim Beam");
-            first.DocumentationUri.ShouldBe("http://google.com");
-            first.Tags.ShouldSatisfyAllConditions(
-                ()=> first.Tags.Count.ShouldBe(3),
-                () => first.Tags.ShouldContain("Mining"),
-                () => first.Tags.ShouldContain("Teeth"),
-                () => first.Tags.ShouldContain("Hygiene")
-            );
+            first.Name.Should().Be("PneumaticPick");
+            first.Description.Should().Be("You don't even know you need it");
+            first.Authors.Should().Be("Jim Beam");
+            first.DocumentationUri.Should().Be("http://google.com");
+            first.Tags.Should().BeEquivalentTo(new []{ "Hygiene" ,"Teeth", "Mining"  });
 
-            second.Name.ShouldBe("SteamPick");
-            second.Authors.ShouldBe("Jack Black");
 
-            second.Tags.ShouldSatisfyAllConditions(
-                () => first.Tags.Count.ShouldBe(3),
-                () => second.Tags.ShouldContain("Coal"),
-                () => second.Tags.ShouldContain("Steam"),
-                () => second.Tags.ShouldContain("Injury")
-            );
+
+
+            second.Name.Should().Be("SteamPick");
+            second.Authors.Should().Be("Jack Black");
+
+            second.Tags.Should().BeEquivalentTo(new[] { "Coal", "Steam", "Injury" });
 
 
         }
