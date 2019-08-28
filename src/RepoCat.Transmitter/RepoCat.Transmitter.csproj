@@ -60,10 +60,12 @@
     <Compile Include="IProjectUriProvider.cs" />
     <Compile Include="LocalProjectUriProvider.cs" />
     <Compile Include="Program.cs" />
+    <None Include="Start.bat" />
     <Compile Include="ProjectInfo.cs" />
     <Compile Include="ProjectInfoProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sender.cs" />
+    <Compile Include="TransmitterArguments.cs" />
     <Compile Include="Worker.cs" />
   </ItemGroup>
   <ItemGroup>

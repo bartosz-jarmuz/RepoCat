@@ -5,6 +5,8 @@ namespace RepoCat.Transmitter
 {
     public class ProjectInfo
     {
+        public string Repo { get; set; }
+        public string RepoStamp { get; set; }
         public string RepoCatManifestPath { get; set; }
         public string AssemblyName { get; set; }
         public string ProjectPath { get; set; }
@@ -12,6 +14,5 @@ namespace RepoCat.Transmitter
         public string OutputType { get; set; }
         public string RepoCatManifest { get; set; }
         public string GetName() => Path.GetFileName(ProjectPath);
-
     }
 }

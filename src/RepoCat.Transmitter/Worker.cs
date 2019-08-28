@@ -7,30 +7,30 @@ namespace RepoCat.Transmitter
 {
     public class Worker
     {
-        public async Task Work(string codeFolderPath, string baseApiAddress)
+        public async Task Work(TransmitterArguments args)
         {
-            Program.Log.Info($"Code folder path: [{codeFolderPath}]");
-            Program.Log.Info($"Api base URL: [{codeFolderPath}]");
-
-            LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
-            var uris = uriProvider.GetUris(codeFolderPath);
-             Program.Log.Debug($"Finished loading project URIs");
-
-            ProjectInfoProvider infoProvider = new ProjectInfoProvider();
-            var infos = infoProvider.GetInfos(uris).ToList();
-            Program.Log.Info($"Loaded {infos.Count} project infos.");
-
-            var sender = new Sender(null);
-            var tasks = new List<Task>();
-            foreach (ProjectInfo projectInfo in infos)
+            try
             {
+                Program.Log.Info($"Code folder path: [{args.CodeRootFolder}]");
+                Program.Log.Info($"Api base URL: [{args.ApiBaseUri}]");
+                Program.Log.Info($"Repo: [{args.Repo}]");
+                Program.Log.Info($"Repo stamp: [{args.RepoStamp}]");
 
-                tasks.Add(sender.Send(projectInfo));
+                LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
+                var uris = uriProvider.GetUris(args.CodeRootFolder);
+
+                ProjectInfoProvider infoProvider = new ProjectInfoProvider();
+                var infos = infoProvider.GetInfos(uris, args.Repo, args.RepoStamp);
+
+                var sender = new Sender(args.ApiBaseUri);
+                await sender.Send(infos);
+
+                Program.Log.Info("All done");
             }
-
-            await Task.WhenAll(tasks);
-
-            Program.Log.Info("All done");
+            catch (Exception ex)
+            {
+                Program.Log.Fatal(ex);
+            }
         }
     }
 }

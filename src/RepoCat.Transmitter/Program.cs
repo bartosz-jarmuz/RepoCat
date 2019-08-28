@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
@@ -15,8 +14,7 @@ namespace RepoCat.Transmitter
         static void Main(string[] args)
         {
             var worker = new Worker();
-            worker.Work(args[0], args[1]).GetAwaiter().GetResult();
-            Console.ReadKey();
+            worker.Work(new TransmitterArguments(args) ).GetAwaiter().GetResult();
         }
     }
 }

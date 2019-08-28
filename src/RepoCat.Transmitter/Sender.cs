@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -13,40 +15,52 @@ namespace RepoCat.Transmitter
 
         public Sender(Uri baseAddress)
         {
-            //this.client = new HttpClient()
-            //{
-            //    BaseAddress = baseAddress
-            //};
+            this.client = new HttpClient()
+            {
+                BaseAddress = baseAddress
+            };
+        }
+
+        public async Task Send(IEnumerable<ProjectInfo> infos)
+        {
+            var tasks = new List<Task>();
+
+            var infoCounter = 0;
+            foreach (ProjectInfo projectInfo in infos)
+            {
+                infoCounter++;
+                tasks.Add(this.Send(projectInfo));
+            }
+            Program.Log.Info($"Waiting for all {infoCounter} project infos to be sent.");
+
+            await Task.WhenAll(tasks);
         }
 
         public async Task Send(ProjectInfo info)
         {
             Program.Log.Debug($"Sending {info.GetName()} project info");
 
-            Directory.CreateDirectory(@"C:\test");
             string serialized;
             try
             {
                 serialized = JsonConvert.SerializeObject(info);
-                File.WriteAllText(Path.Combine(@"C:\test", info.AssemblyName), serialized);
             }   
-            catch
+            catch (Exception ex)
             {
+                Program.Log.Error($"Error while serializing project info: {info.GetName()}", ex);
                 return;
-                //todo
             }
 
             try
             {
-                await Task.Delay(1);
-                //var content = new StringContent(serialized);
-                //await this.client.PostAsync("api/manifest", content);
+                var content = new StringContent(serialized, Encoding.UTF8, "application/json");
+                await this.client.PostAsync("api/manifest", content);
+                Program.Log.Info($"Sent {info.GetName()} project info OK.");
             }
-            catch
+            catch (Exception ex)
             {
-                //todo
+                Program.Log.Error($"Error while sending project info: {info.GetName()}. {serialized}", ex);
             }
-            Program.Log.Info($"Sent {info.GetName()} project info OK.");
 
         }
     }

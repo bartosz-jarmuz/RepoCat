@@ -9,20 +9,24 @@ namespace RepoCat.Transmitter
 {
     class ProjectInfoProvider : IProjectInfoProvider
     {
-        public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris)
+        public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, string repo, string repoStamp)
         {
+            var counter = 0;
             foreach (string uri in uris)
             {
-                var info = this.GetInfo(uri);
+                counter++;
+                var info = this.GetInfo(uri,repo, repoStamp);
                 if (info != null)
                 {
                     yield return info;
                 }
             }
+            Program.Log.Info($"Loaded project infos for {counter} projects.");
+
         }
 
 
-        public ProjectInfo GetInfo(string uri)
+        public ProjectInfo GetInfo(string uri, string repo, string repoStamp)
         {
             try
             {
@@ -38,12 +42,14 @@ namespace RepoCat.Transmitter
                         AssemblyName = prj.Properties.FirstOrDefault(x => x.Name.Equals("AssemblyName", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
                         TargetExt = prj.Properties.FirstOrDefault(x => x.Name.Equals("TargetExt", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
                         OutputType = prj.Properties.FirstOrDefault(x => x.Name.Equals("OutputType", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
-                        ProjectPath = prj.FullPath
+                        ProjectPath = prj.FullPath,
+                        Repo = repo,
+                        RepoStamp = repoStamp,
+                        RepoCatManifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault(),
                     };
 
-                    info.RepoCatManifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault();
-
                     info.RepoCatManifest = File.ReadAllText(info.RepoCatManifestPath);
+
                     Program.Log.Info($"Read OK from {uri}");
 
                     return info;
@@ -55,5 +61,7 @@ namespace RepoCat.Transmitter
             }
             return null;
         }
+
+      
     }
 }
