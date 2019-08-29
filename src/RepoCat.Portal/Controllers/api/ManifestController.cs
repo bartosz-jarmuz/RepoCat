@@ -37,15 +37,22 @@ namespace RepoCat.Portal.Controllers.api
             return this.CreatedAtAction("Get", prjManifest.Id);
         }
 
-       
+        [HttpGet]
+        [Route("search")]
+        public async Task<List<ProjectManifest>> Search(string q)
+        {
+            var filter =
+                Builders<ProjectManifest>.Filter.Where(x =>
+                    x.AssemblyName.ToLower().Contains(q.ToLower()));
+            var result = await this.service.manifests.FindAsync(filter);
+            return await result.ToListAsync();
+        }
 
         [HttpGet]
         public ProjectManifest Get(string id)
         {
             return this.service.Get(id);
         }
-
-
 
         [HttpPost]
         [Route("Test")]
