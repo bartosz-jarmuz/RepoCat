@@ -53,7 +53,9 @@ namespace RepoCat.Portal
 
             ConfigureAutomapper(services);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddRazorPagesOptions(o=>o.AllowAreas = true);
 
         }
 
