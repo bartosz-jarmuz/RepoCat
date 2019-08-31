@@ -1,0 +1,134 @@
+﻿@model BrowseRepositoryViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (!@Model.ProjectManifestViewModel.Any())
+{
+    <h3>Sorry, nothing to show</h3>
+}
+else
+{
+    <h2>
+        Repository overview
+    </h2>
+    <div class="row">
+        <div class="col-6 col-lg-3">
+            <div class="card">
+                <div class="card-body p-3 d-flex align-items-center">
+                    <i class="fa fa-cogs bg-primary p-3 font-2xl mr-3"></i>
+                    <div>
+                        <div class="text-value-sm text-primary">@Model.RepoName</div>
+                        <div class="text-muted text-uppercase font-weight-bold small">Repository name</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card">
+                <div class="card-body p-3 d-flex align-items-center">
+                    <i class="fa fa-stamp bg-primary p-3 font-2xl mr-3"></i>
+                    <div>
+                        <div class="text-value-sm text-primary">@Model.RepoStamp</div>
+                        <div class="text-muted text-uppercase font-weight-bold small">Repo stamp</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card">
+                <div class="card-body p-3 d-flex align-items-center">
+                    <i class="fa fa-chart-bar bg-primary p-3 font-2xl mr-3"></i>
+                    <div>
+                        <div class="text-value-sm text-primary">@Model.NumberOfProjects</div>
+                        <div class="text-muted text-uppercase font-weight-bold small">Number of projects</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card">
+                <div class="card-body p-3 d-flex align-items-center">
+                    <i class="fa fa-clock bg-primary p-3 font-2xl mr-3"></i>
+                    <div>
+                        <div class="text-value-sm text-primary">@Model.ImportedDate</div>
+                        <div class="text-muted text-uppercase font-weight-bold small">Imported date</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2>
+        Projects list
+    </h2>
+    <div class="row">
+        @foreach (var manifest in Model.ProjectManifestViewModel)
+        {
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>@manifest.GetProjectName()</strong> <span class="badge badge-secondary">@manifest.OutputType</span>
+                        <div class="card-header-actions">
+                            <a class="card-header-action btn-minimize" href="#" data-toggle="collapse" data-target="#@manifest.AssemblyName.Replace(".","")" aria-expanded="true">
+                                <i class="icon-arrow-up"></i>
+                            </a>
+                            <a class="card-header-action btn-close" href="#">
+                                <i class="icon-close"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="collapse show" id="@manifest.AssemblyName.Replace(".","")">
+
+                        <div class="card-body project-card">
+                            <div class="row">
+                                <div class="col-md-3 project-info">
+                                    <dl>
+                                        <dt>Project name:</dt>
+                                        <dd>@manifest.GetProjectName()</dd>
+                                        <dt>Assembly name:</dt>
+                                        <dd>@manifest.GetAssemblyName()</dd>
+                                        <dt>Project path:</dt>
+                                        <dd class="project-path">@manifest.ProjectPath</dd>
+                                    </dl>
+
+                                </div>
+                                <div class="col-md-9">
+                                    <ul class="compontents-list">
+                                        @foreach (var component in manifest.Components)
+                                        {
+                                            <li class="component">
+                                                <div>
+                                                    <span class="component-label">Component name:&nbsp;</span>
+                                                    <span> @component.Name</span>
+                                                </div>
+                                                <div>
+                                                    <span class="component-label">Docs link:&nbsp;</span>
+                                                    <a href="@component.DocumentationUri" target="_blank" class="help-link">@component.DocumentationUri</a>
+                                                </div>
+                                                <div>
+                                                    <span class="component-label description">Description:&nbsp;</span>
+                                                    <span class="description">
+                                                        @component.Description
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <span class="component-label">Tags:&nbsp;</span>
+                                                    @foreach (var tag in @component.Tags)
+                                                    {
+                                                        <span class="badge badge-info tag"><i class="fa fa-tag"></i>&nbsp;<a href="#">@tag</a></span>
+                                                    }
+
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

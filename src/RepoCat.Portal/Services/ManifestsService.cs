@@ -14,8 +14,8 @@ namespace RepoCat.Portal.Services
 
         public ManifestsService(IRepoCatDbSettings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            MongoClient client = new MongoClient(settings.ConnectionString);
+            IMongoDatabase database = client.GetDatabase(settings.DatabaseName);
 
             this.manifests = database.GetCollection<ProjectManifest>(settings.ManifestsCollectionName);
         }
@@ -29,6 +29,17 @@ namespace RepoCat.Portal.Services
         {
             IAsyncCursor<string> result = await this.manifests.DistinctAsync(x => x.Repo, FilterDefinition<ProjectManifest>.Empty);
             return await result.ToListAsync();
+        }
+
+        public async Task<Tuple<string,List<ProjectManifest>>> GetCurrentProjects(string repositoryName)
+        {
+            FilterDefinition<ProjectManifest> repoNameFilter = Builders<ProjectManifest>.Filter.Where(x => x.Repo.ToLower().Contains(repositoryName));
+            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepoStamp, repoNameFilter)).ToListAsync();
+            string newestStamp = StampSorter.GetNewestStamp(stamps);
+
+            FilterDefinition<ProjectManifest> filter = repoNameFilter & Builders<ProjectManifest>.Filter.Where(x => x.RepoStamp == newestStamp);
+            var manifests = await (await this.manifests.FindAsync(filter)).ToListAsync();
+            return new Tuple<string, List<ProjectManifest>>(newestStamp, manifests);
         }
 
         public ProjectManifest Get(string id)

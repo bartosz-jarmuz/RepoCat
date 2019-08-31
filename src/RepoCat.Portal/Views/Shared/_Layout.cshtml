@@ -12,35 +12,38 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-  <meta name="author" content="Łukasz Holeczek">
-  <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-  <title>@ViewData["Title"] - CoreUI.Mvc</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+    <title>@ViewData["Title"] - CoreUI.Mvc</title>
 
-  <!-- Icons-->
-  <link href="~/lib/@@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
-  <link href="~/lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-  <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="~/lib/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <!-- Icons-->
+    <link href="~/lib/@@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
+    <link href="~/lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
+    @*<link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">*@
 
-  <environment include="Development">
-    <!-- Template styles -->
-    <link href="~/css/style.css" rel="stylesheet">
-    <link href="~/vendors/pace-progress/css/pace.css" rel="stylesheet">
-    <!-- styles tweaks -->
-    <link rel="stylesheet" href="~/css/site.css">
-  </environment>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
+    @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/v4-shims.css">*@
+    <link href="~/lib/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
-  <environment exclude="Development">
-    <!-- Template styles -->
-    <link href="~/css/style.min.css" rel="stylesheet" asp-append-version="true">
-    <link href="~/vendors/pace-progress/css/pace.min.css" rel="stylesheet" asp-append-version="true">
-    <!-- styles tweaks -->
-    <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true">
-  </environment>
+    <environment include="Development">
+        <!-- Template styles -->
+        <link href="~/css/style.css" rel="stylesheet">
+        <link href="~/vendors/pace-progress/css/pace.css" rel="stylesheet">
+        <!-- styles tweaks -->
+        <link rel="stylesheet" href="~/css/site.css">
+    </environment>
+
+    <environment exclude="Development">
+        <!-- Template styles -->
+        <link href="~/css/style.min.css" rel="stylesheet" asp-append-version="true">
+        <link href="~/vendors/pace-progress/css/pace.min.css" rel="stylesheet" asp-append-version="true">
+        <!-- styles tweaks -->
+        <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true">
+    </environment>
 
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show bg-gray-200">

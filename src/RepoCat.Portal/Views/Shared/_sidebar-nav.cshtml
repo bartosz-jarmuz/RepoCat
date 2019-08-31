@@ -8,9 +8,9 @@
         <li class="nav-title">Browse</li>
         <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="#">
-                <i class="nav-icon icon-puzzle"></i> Repositories
+                <i class="fa fa-boxes"></i> Repositories
             </a>
-            <cache expires-after="@TimeSpan.FromMinutes(5)">
+            <cache expires-after="@TimeSpan.FromMilliseconds(500)">
                 <ul class="nav-dropdown-items">
                     @await Component.InvokeAsync("RepositoryList")
                 </ul>

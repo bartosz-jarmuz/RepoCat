@@ -23,3 +23,61 @@
     margin-top: 24px !important;
 }
 
+
+.project-card {
+    background: #fff;
+}
+
+.compontents-list {
+    padding: 0;
+    list-style: none;
+}
+
+.tag a{
+    color: #000;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.project-card .component {
+    position: relative;
+    padding: 1rem 1rem 1rem 2rem;
+    border-bottom: 1px solid #c8ced3
+}
+
+.project-card .component:hover {
+    background: #f0f3f5
+}
+
+.project-card .component .component-label {
+    font-weight: bold;  
+}
+
+.project-card .title {
+    font-weight: 700
+}
+
+
+.project-card .component .description {
+    font-size: 13px
+}
+
+.project-info {
+    padding: 1rem;
+    border-right: 1px solid #c8ced3;
+}
+
+.project-info dt {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.project-info dd {
+    color: #23282c;
+    border-bottom: 1px solid #c8ced3;
+    margin-bottom: 15px;
+}
+
+.project-info .project-path {
+    font-size: 12px;
+}

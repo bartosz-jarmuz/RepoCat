@@ -51,7 +51,7 @@ namespace RepoCat.Portal
             services.AddSingleton<IRepoCatDbSettings>(sp => sp.GetRequiredService<IOptions<RepoCatDbSettings>>().Value);
             services.AddSingleton<ManifestsService>();
 
-            ConfigureAutomapper(services);
+            ConfigureAutoMapper(services);
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -59,7 +59,7 @@ namespace RepoCat.Portal
 
         }
 
-        private static void ConfigureAutomapper(IServiceCollection services)
+        private static void ConfigureAutoMapper(IServiceCollection services)
         {
             var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
             IMapper mapper = mappingConfig.CreateMapper();
