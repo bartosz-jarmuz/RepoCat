@@ -15,12 +15,16 @@ namespace RepoCat.Transmitter
             var counter = 0;
             foreach (string uri in uris)
             {
+                Program.Log.Debug($"Checking project #{counter} for manifest file. {uri}");
+
                 counter++;
                 var info = this.GetInfo(uri,repo, repoStamp);
                 if (info != null)
                 {
                     yield return info;
                 }
+                Program.Log.Debug($"Project #{counter} does not contain a manifest file. {uri}");
+
             }
             Program.Log.Info($"Loaded project infos for {counter} projects.");
 
@@ -36,7 +40,7 @@ namespace RepoCat.Transmitter
                     x.EvaluatedInclude.EndsWith("RepoCat.xml", StringComparison.CurrentCultureIgnoreCase));
                 if (manifestInclude != null)
                 {
-                     Program.Log.Debug($"Reading info from {uri}");
+                     Program.Log.Debug($"Reading manifest info from {uri}");
 
                     var info = new ProjectInfo()
                     {
