@@ -36,11 +36,14 @@ namespace RepoCat.Portal.Controllers
             List<ProjectManifestViewModel> manifests = this.mapper.Map<List<ProjectManifestViewModel>>(currentProjects.Item2);
             if (manifests.Any())
             {
-                model.RepoStamp = currentProjects.Item1;
                 model.ProjectManifestViewModel = manifests;
+                model.RepoStamp = currentProjects.Item1;
+                var orderedTimes = manifests.OrderByDescending(x => x.AddedDateTime).ToList();
+                model.ImportedDate = orderedTimes.First().AddedDateTime;
+                model.ImportDuration = model.ImportedDate - orderedTimes.Last().AddedDateTime;
                 model.NumberOfProjects = manifests.Count;
-                model.ImportedDate = manifests.OrderByDescending(x => x.AddedDateTime).First().AddedDateTime;
-
+                model.NumberOfComponents = manifests.Sum(x=>x.Components.Count);
+                model.NumberOfTags = manifests.Sum(prj => prj.Components.Sum(cmp=> cmp.Tags.Count));
             }
 
             return this.View(model);

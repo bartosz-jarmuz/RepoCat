@@ -28,6 +28,10 @@
     background: #fff;
 }
 
+.project-card .header {
+    font-size: 15px
+}
+
 .compontents-list {
     padding: 0;
     list-style: none;

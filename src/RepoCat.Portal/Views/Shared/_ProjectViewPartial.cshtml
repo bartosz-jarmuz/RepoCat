@@ -1,0 +1,68 @@
+@model ProjectManifestViewModel
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong>@Model.GetProjectName()</strong> <span class="badge badge-secondary">@Model.OutputType</span>
+            <div class="card-header-actions">
+                <a class="card-header-action btn-minimize" href="#" data-toggle="collapse" data-target="#@Model.GetIdentifier()" aria-expanded="true">
+                    <i class="icon-arrow-up"></i>
+                </a>
+                <a class="card-header-action btn-close" href="#">
+                    <i class="icon-close"></i>
+                </a>
+            </div>
+        </div>
+        <div class="collapse show" id="@Model.GetIdentifier()">
+
+            <div class="card-body project-card">
+                <div class="row">
+                    <div class="col-md-3 project-info">
+                        <dl>
+                            <dt>Project name:</dt>
+                            <dd>@Model.GetProjectName()</dd>
+                            <dt>Assembly name:</dt>
+                            <dd>@Model.GetAssemblyName()</dd>
+                            <dt>Project path:</dt>
+                            <dd class="project-path">@Model.ProjectPath</dd>
+                        </dl>
+
+                    </div>
+                    <div class="col-md-9">
+                        <ul class="compontents-list">
+                            @foreach (var component in Model.Components)
+                            {
+                                <li class="component">
+                                    <div class="header">
+                                        <span class="component-label">Component name:&nbsp;</span>
+                                        <span> @component.Name</span>
+                                    </div>
+                                    <div>
+                                        <span class="component-label">Docs link:&nbsp;</span>
+                                        @if (!string.IsNullOrEmpty(component.DocumentationUri))
+                                        {
+                                            <a href="@component.DocumentationUri" target="_blank" class="help-link"> <i class="fa fa-external-link-alt"></i> @component.DocumentationUri</a>
+                                        }
+                                    </div>
+                                    <div>
+                                        <span class="component-label description">Description:&nbsp;</span>
+                                        <span class="description">
+                                            @component.Description
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="component-label">Tags:&nbsp;</span>
+                                        @foreach (var tag in @component.Tags)
+                                        {
+                                            <span class="badge badge-info tag"><i class="fa fa-tag"></i>&nbsp;<a href="#">@tag</a></span>
+                                        }
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

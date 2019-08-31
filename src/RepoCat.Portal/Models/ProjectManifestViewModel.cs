@@ -11,7 +11,9 @@ namespace RepoCat.Portal.Models
         public DateTime AddedDateTime { get; set; } = DateTime.UtcNow;
         public string AssemblyName { get; set; }
         public string ProjectPath { get; set; }
-
+        public string TargetExt { get; set; }
+        public string OutputType { get; set; }
+        public List<ComponentManifestViewModel> Components { get; set; } = new List<ComponentManifestViewModel>();
         public string GetProjectName()
         {
             if (!string.IsNullOrEmpty(this.ProjectPath))
@@ -32,9 +34,14 @@ namespace RepoCat.Portal.Models
             return "";
         }
 
-        public string TargetExt { get; set; }
-        public string OutputType { get; set; }
+        public string GetIdentifier()
+        {
+            if (!string.IsNullOrEmpty(this.AssemblyName))
+            {
+                return (this.GetProjectName() + this.AssemblyName + this.TargetExt).Replace(".", "");
+            }
 
-        public List<ComponentManifestViewModel> Components { get; set; } = new List<ComponentManifestViewModel>();
+            return "";
+        }
     }
 }

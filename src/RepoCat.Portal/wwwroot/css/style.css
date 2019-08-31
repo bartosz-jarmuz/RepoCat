@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*!
  * CoreUI - Open Source Dashboard UI Kit
  * @version v2.0.0
@@ -12593,8 +12593,9 @@ app-root {
 }
 
 .app-footer {
-  -ms-flex: 0 0 50px;
-  flex: 0 0 50px;
+  -ms-flex: 0 0 15px;
+  flex: 0 0 15px;
+    font-size: 10px;
 }
 
 .app-body {
