@@ -2,15 +2,12 @@ using System.IO;
 using FluentAssertions;
 using NUnit.Framework;
 using RepoCat.Portal.Models;
+using RepoCat.Portal.Services;
 
 namespace Tests
 {
     public class ComponentManifestDeserializationTest
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
 
         [Test]
         public void SampleManifest_MultipleComponents_WorksOK()
@@ -30,15 +27,10 @@ namespace Tests
             first.DocumentationUri.Should().Be("http://google.com");
             first.Tags.Should().BeEquivalentTo(new []{ "Hygiene" ,"Teeth", "Mining"  });
 
-
-
-
             second.Name.Should().Be("SteamPick");
             second.Authors.Should().Be("Jack Black");
 
             second.Tags.Should().BeEquivalentTo(new[] { "Coal", "Steam", "Injury" });
-
-
         }
     }
 }

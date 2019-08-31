@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using RepoCat.Portal.Models;
 
-namespace RepoCat.Portal.Models
+namespace RepoCat.Portal.Services
 {
     public static class ManifestDeserializer
     {
