@@ -25,6 +25,12 @@ namespace RepoCat.Portal.Services
             return this.manifests.Find(manifest => true).ToList();
         }
 
+        public async Task<List<string>> GetRepositories()
+        {
+            IAsyncCursor<string> result = await this.manifests.DistinctAsync(x => x.Repo, FilterDefinition<ProjectManifest>.Empty);
+            return await result.ToListAsync();
+        }
+
         public ProjectManifest Get(string id)
         {
             return this.manifests.Find<ProjectManifest>(manifest => manifest.Id == id).FirstOrDefault();

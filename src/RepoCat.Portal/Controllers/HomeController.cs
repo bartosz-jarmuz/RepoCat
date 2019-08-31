@@ -5,19 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Portal.Models;
+using RepoCat.Portal.Services;
 
 namespace RepoCat.Portal.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ManifestsService manifestsService;
+
+        public HomeController(ManifestsService manifestsService)
         {
-            return View();
+            this.manifestsService = manifestsService;
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = new HomeViewModel {Repositories = await this.manifestsService.GetRepositories()};
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

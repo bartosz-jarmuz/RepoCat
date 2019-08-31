@@ -9,6 +9,8 @@ namespace RepoCat.Portal
         public MappingProfile()
         {
             this.CreateMap<ProjectInfo, ProjectManifest>();
+            this.CreateMap<ProjectManifest, ProjectManifestViewModel>();
+            this.CreateMap<ComponentManifest, ComponentManifestViewModel>();
         }
     }
 }

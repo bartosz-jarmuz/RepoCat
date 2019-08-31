@@ -41,9 +41,7 @@ namespace RepoCat.Portal.Controllers.api
         [Route("search")]
         public async Task<List<ProjectManifest>> Search(string q)
         {
-            var filter =
-                Builders<ProjectManifest>.Filter.Where(x =>
-                    x.AssemblyName.ToLower().Contains(q.ToLower()));
+            var filter = Builders<ProjectManifest>.Filter.Where(x => x.AssemblyName.ToLower().Contains(q.ToLower()));
             var result = await this.service.manifests.FindAsync(filter);
             return await result.ToListAsync();
         }

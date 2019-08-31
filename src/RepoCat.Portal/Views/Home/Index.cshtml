@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HomeViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 <div class="row">
@@ -20,10 +22,9 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="multiple-select">Select repositories:</label>
                         <div class="col-md-9">
-                            <select id="multiple-select" name="multiple-select" class="form-control" size="3" multiple>
-                                <option value="1">Option #1</option>
-                                <option value="2">Option #2</option>
-                                <option value="3">Option #3</option>
+                            <select asp-for="Repository" 
+                                    asp-items="@(new SelectList(Model.Repositories))">
+                                <option>Please select one</option>
                             </select>
                         </div>
                     </div>
