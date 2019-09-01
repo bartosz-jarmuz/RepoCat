@@ -1,0 +1,8 @@
+@model IEnumerable<ProjectManifestViewModel>
+
+<div class="row">
+@foreach (ProjectManifestViewModel manifest in Model)
+{
+    <partial name="_ProjectViewPartial" for="@manifest"/>
+}
+</div>

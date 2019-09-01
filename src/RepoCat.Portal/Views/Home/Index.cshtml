@@ -3,60 +3,39 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<partial name="_SearchFormPartial" for="@Model"/>
+
 <div class="row">
     <div class="col-md-12">
-        <div class="card">
+        <div class="card" id="searchResultsCard" style="display: none;">
+          
             <div class="card-header">
-                <strong>Repository search</strong>
+                <strong>Search results</strong>
             </div>
             <div class="card-body">
-                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Search phrase:</label>
-                        <div class="col-md-9">
-                            <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Insert search text or keywords">
-                        </div>
-                    </div>
-                  
-                  
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="multiple-select">Select repositories:</label>
-                        <div class="col-md-9">
-                            <select asp-for="Repository" 
-                                    asp-items="@(new SelectList(Model.Repositories))">
-                                <option>Please select one</option>
-                            </select>
-                        </div>
-                    </div>
-                   
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Search in:</label>
-                        <div class="col-md-9 col-form-label">
-                            <div class="form-check form-check-inline mr-1">
-                                <input class="form-check-input" type="checkbox" id="inline-checkbox1" value="check1">
-                                <label class="form-check-label" for="inline-checkbox1">Names</label>
-                            </div>
-                            <div class="form-check form-check-inline mr-1">
-                                <input class="form-check-input" type="checkbox" id="inline-checkbox2" value="check2">
-                                <label class="form-check-label" for="inline-checkbox2">Descriptions</label>
-                            </div>
-                            <div class="form-check form-check-inline mr-1">
-                                <input class="form-check-input" type="checkbox" id="inline-checkbox3" value="check3">
-                                <label class="form-check-label" for="inline-checkbox3">Tags</label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-sm btn-primary">
-                    <i class="fa fa-dot-circle-o"></i> Search
-                </button>
-                <button type="reset" class="btn btn-sm btn-danger">
-                    <i class="fa fa-ban"></i> Reset form
-                </button>
+                <div id="searchResults"></div>
             </div>
         </div>
     </div>
- </div>
+</div>
 
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#selectedRepo option')[0].selected = true;
+
+            $("#searchBtn").click(function () {
+                var overlay = $(this).closest('.card').find('.overlay');
+                $(overlay).fadeIn();
+                $.get('@Url.Action("Search")?repositoryName='+ $('#selectedRepo').val() + '&query=' + $('#searchQuery').val(),
+                    function (data) {
+                        $(overlay).fadeOut();
+                        $('#searchResultsCard').fadeIn();
+                        $("#searchResults").html(data);
+
+                });
+            });
+        });
+    </script>
+}

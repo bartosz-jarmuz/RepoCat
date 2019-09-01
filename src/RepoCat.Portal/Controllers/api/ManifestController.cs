@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using RepoCat.Models.ProjectInfo;
 using RepoCat.Portal.Models;
+using RepoCat.Portal.Models.Domain;
 using RepoCat.Portal.Services;
 
 namespace RepoCat.Portal.Controllers.api
@@ -37,14 +38,7 @@ namespace RepoCat.Portal.Controllers.api
             return this.CreatedAtAction("Get", prjManifest.Id);
         }
 
-        [HttpGet]
-        [Route("search")]
-        public async Task<List<ProjectManifest>> Search(string q)
-        {
-            var filter = Builders<ProjectManifest>.Filter.Where(x => x.AssemblyName.ToLower().Contains(q.ToLower()));
-            var result = await this.service.manifests.FindAsync(filter);
-            return await result.ToListAsync();
-        }
+       
 
         [HttpGet]
         public ProjectManifest Get(string id)

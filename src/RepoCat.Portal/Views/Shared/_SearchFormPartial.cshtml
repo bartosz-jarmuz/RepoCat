@@ -1,0 +1,55 @@
+@model HomeViewModel
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="card">
+            <partial name="_busy-spinner" />
+
+            <div class="card-header">
+                <strong>Repository search</strong>
+            </div>
+            <div class="card-body">
+                <div class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-md-9">
+                            <input type="text" id="searchQuery" class="form-control" placeholder="Search...">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="multiple-select">Select repositories:</label>
+                        <div class="col-md-9">
+                            <select id="selectedRepo" asp-for="Repository" asp-items="@(new SelectList(Model.Repositories))" size="5" style="width: 150px;" >
+                            </select>
+                        </div>
+                    </div>
+
+                    @*<div class="form-group row">
+                        <label class="col-md-3 col-form-label">Search in:</label>
+                        <div class="col-md-9 col-form-label">
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input" type="checkbox" id="inline-checkbox1" value="check1">
+                                <label class="form-check-label" for="inline-checkbox1">Names</label>
+                            </div>
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input" type="checkbox" id="inline-checkbox2" value="check2">
+                                <label class="form-check-label" for="inline-checkbox2">Descriptions</label>
+                            </div>
+                            <div class="form-check form-check-inline mr-1">
+                                <input class="form-check-input" type="checkbox" id="inline-checkbox3" value="check3">
+                                <label class="form-check-label" for="inline-checkbox3">Tags</label>
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" id="searchBtn" class="btn btn-sm btn-primary">
+                    <i class="fa fa-dot-circle-o"></i> Search
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,7 +10,7 @@ namespace RepoCat.Portal.Models
         public int NumberOfProjects { get; set; }
         public DateTime ImportedDate { get; set; }
         public TimeSpan ImportDuration { get; set; }
-        public List<ProjectManifestViewModel> ProjectManifestViewModel { get; set; }
+        public List<ProjectManifestViewModel> ProjectManifestViewModels { get; set; } = new List<ProjectManifestViewModel>();
         public int NumberOfComponents { get; set; }
         public int NumberOfTags { get; set; }
     }

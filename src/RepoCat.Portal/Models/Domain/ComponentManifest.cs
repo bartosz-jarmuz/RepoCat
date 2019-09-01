@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace RepoCat.Portal.Models
+namespace RepoCat.Portal.Models.Domain
 {
     [XmlRoot("Component")]
     public class ComponentManifest

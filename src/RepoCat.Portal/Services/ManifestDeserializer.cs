@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using RepoCat.Portal.Models;
+using RepoCat.Portal.Models.Domain;
 
 namespace RepoCat.Portal.Services
 {

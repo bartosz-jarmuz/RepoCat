@@ -4,7 +4,7 @@
     ViewData["Title"] = "Repository overview";
 }
 
-@if (!@Model.ProjectManifestViewModel.Any())
+@if (!@Model.ProjectManifestViewModels.Any())
 {
     <h3>Sorry, nothing to show</h3>
 }
@@ -92,10 +92,5 @@ else
     <h2>
         Projects list
     </h2>
-    <div class="row">
-        @foreach (var manifest in Model.ProjectManifestViewModel)
-        {
-            <partial name="_ProjectViewPartial" for="@manifest"/>
-        }
-</div>
+    <partial name="_ProjectsListPartial" for="@Model.ProjectManifestViewModels"/>
 }

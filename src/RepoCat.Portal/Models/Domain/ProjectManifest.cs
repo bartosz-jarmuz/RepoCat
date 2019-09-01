@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace RepoCat.Portal.Models
+namespace RepoCat.Portal.Models.Domain
 {
     public class ProjectManifest
     {
