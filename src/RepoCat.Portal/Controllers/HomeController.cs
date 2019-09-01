@@ -33,22 +33,10 @@ namespace RepoCat.Portal.Controllers
         [Route("search")]
         public async Task<PartialViewResult> Search(string repositoryName, string query)
         {
-            if (string.IsNullOrEmpty(query))
-            {
-                var result  = await this.manifestsService.GetAllCurrentProjects(repositoryName);
+            var result = await this.manifestsService.FindCurrentProjects(repositoryName, query);
+            List<ProjectManifestViewModel> manifests = this.mapper.Map<List<ProjectManifestViewModel>>(result.Manifests);
 
-                List<ProjectManifestViewModel> manifests = this.mapper.Map<List<ProjectManifestViewModel>>(result.Manifests);
-
-                return this.PartialView("_ProjectsListPartial", manifests);
-            }
-            else
-            {
-                var result = await this.manifestsService.FindCurrentProjects(repositoryName, query);
-                List<ProjectManifestViewModel> manifests = this.mapper.Map<List<ProjectManifestViewModel>>(result.Manifests);
-
-                return this.PartialView("_ProjectsListPartial", manifests);
-            }
-           
+            return this.PartialView("_ProjectsListPartial", manifests);
         }
 
         public IActionResult About()

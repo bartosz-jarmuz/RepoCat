@@ -72,7 +72,11 @@ namespace RepoCat.Portal.Services
             string newestStamp = StampSorter.GetNewestStamp(stamps);
 
             FilterDefinition<ProjectManifest> filter = repoNameFilter & Builders<ProjectManifest>.Filter.Where(x => x.RepoStamp == newestStamp);
-            filter = filter & Builders<ProjectManifest>.Filter.Text(query);
+            if (!string.IsNullOrEmpty(query))
+            {
+                filter = filter & Builders<ProjectManifest>.Filter.Text(query);
+            }
+
             var list = await (await this.manifests.FindAsync(filter)).ToListAsync();
 
             stopwatch.Stop();
