@@ -23,12 +23,12 @@ namespace Tests
 
             first.Name.Should().Be("PneumaticPick");
             first.Description.Should().Be("You don't even know you need it");
-            first.Authors.Should().Be("Jim Beam");
+            first.ContactEmail.Should().Be("Jim Beam");
             first.DocumentationUri.Should().Be("http://google.com");
             first.Tags.Should().BeEquivalentTo(new []{ "Hygiene" ,"Teeth", "Mining"  });
 
             second.Name.Should().Be("SteamPick");
-            second.Authors.Should().Be("Jack Black");
+            second.ContactEmail.Should().Be("Jack Black");
 
             second.Tags.Should().BeEquivalentTo(new[] { "Coal", "Steam", "Injury" });
         }

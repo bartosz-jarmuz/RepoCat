@@ -36,6 +36,8 @@ namespace RepoCat.Portal.Controllers
         {
             ManifestQueryResult result = await this.manifestsService.FindCurrentProjects(repositoryName, query, isRegex);
             var queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
+            queryResultViewModel.QueryString = query;
+            queryResultViewModel.IsRegex = isRegex;
 
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }

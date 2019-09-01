@@ -4,7 +4,29 @@
     <div class="col-md-12">
         <div id="searchResultsCard">
             <h2>Search results:</h2>
-            <h6>Found @Model.Manifests.Count matches in @(Model.Elapsed.TotalMilliseconds)ms</h6>
+            <p>
+                <span>Found @Model.Manifests.Count matches </span>
+                <span>
+                    @if (Model.IsRegex)
+                    {
+                        <span>for RegEx: </span>
+                        <a class="badge badge-dark tag" href="#">@Model.QueryString</a>
+                    }
+                    else
+                    {
+                        @if (@Model.SearchTokens.Any())
+                        {
+                            <span>for </span>
+                            @foreach (var token in Model.SearchTokens)
+                            {
+                                <a class="badge badge-warning tag" href="#"><i class="fa fa-tag"></i>&nbsp;@token</a>
+                            }
+                        }
+                    }
+                </span>
+                
+                <span>in @(Model.Elapsed.TotalMilliseconds)ms</span>
+            </p>
         </div>
     </div>
 </div>

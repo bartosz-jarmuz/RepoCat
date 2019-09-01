@@ -2,14 +2,14 @@
 <Project>
   <Component>
     <Name>PneumaticPick</Name>
-    <Authors>Jim Beam</Authors>
+    <ContactEmail>Jim Beam</ContactEmail>
     <Description>You don't even know you need it</Description>
     <DocumentationUri>http://google.com</DocumentationUri>
     <Tags Values="Mining;Teeth;Hygiene"/>
   </Component>
   <Component>
     <Name>SteamPick</Name>
-    <Authors>Jack Black</Authors>
+    <ContactEmail>Jack Black</ContactEmail>
     <Description>You know you don't need it</Description>
     <DocumentationUri>http://google.com</DocumentationUri>
     <Tags Values="Coal;Steam;Injury"/>
