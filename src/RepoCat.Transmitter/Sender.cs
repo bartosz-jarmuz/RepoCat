@@ -54,9 +54,16 @@ namespace RepoCat.Transmitter
 
             try
             {
-                var content = new StringContent(serialized, Encoding.UTF8, "application/json");
-                await this.client.PostAsync("api/manifest", content);
-                Program.Log.Info($"Sent {info.GetName()} project info OK.");
+                StringContent content = new StringContent(serialized, Encoding.UTF8, "application/json");
+                HttpResponseMessage result = await this.client.PostAsync("api/manifest", content);
+                if (result.IsSuccessStatusCode)
+                {
+                    Program.Log.Info($"Sent {info.GetName()} project info OK.");
+                }
+                else
+                {
+                    Program.Log.Error($"Error - {result.StatusCode} - {result.ReasonPhrase} - while sending {info.GetName()}.");
+                }
             }
             catch (Exception ex)
             {
