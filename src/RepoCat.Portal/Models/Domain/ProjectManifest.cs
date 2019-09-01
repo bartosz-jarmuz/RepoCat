@@ -15,6 +15,7 @@ namespace RepoCat.Portal.Models.Domain
         public DateTime AddedDateTime { get; set; } = DateTime.UtcNow;
         public string AssemblyName { get; set; }
         public string ProjectPath { get; set; }
+        public string ProjectName { get; set; }
         public string TargetExt { get; set; }
         public string OutputType { get; set; }
 

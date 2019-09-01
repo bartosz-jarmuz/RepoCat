@@ -39,7 +39,7 @@ namespace RepoCat.Transmitter
 
         public async Task Send(ProjectInfo info)
         {
-            Program.Log.Debug($"Sending {info.GetName()} project info");
+            Program.Log.Debug($"Sending {info.ProjectName} project info");
 
             string serialized;
             try
@@ -48,7 +48,7 @@ namespace RepoCat.Transmitter
             }   
             catch (Exception ex)
             {
-                Program.Log.Error($"Error while serializing project info: {info.GetName()}", ex);
+                Program.Log.Error($"Error while serializing project info: {info.ProjectName}", ex);
                 return;
             }
 
@@ -58,16 +58,16 @@ namespace RepoCat.Transmitter
                 HttpResponseMessage result = await this.client.PostAsync("api/manifest", content);
                 if (result.IsSuccessStatusCode)
                 {
-                    Program.Log.Info($"Sent {info.GetName()} project info OK.");
+                    Program.Log.Info($"Sent {info.ProjectName} project info OK.");
                 }
                 else
                 {
-                    Program.Log.Error($"Error - {result.StatusCode} - {result.ReasonPhrase} - while sending {info.GetName()}.");
+                    Program.Log.Error($"Error - {result.StatusCode} - {result.ReasonPhrase} - while sending {info.ProjectName}.");
                 }
             }
             catch (Exception ex)
             {
-                Program.Log.Error($"Error while sending project info: {info.GetName()}. {serialized}", ex);
+                Program.Log.Error($"Error while sending project info: {info.ProjectName}. {serialized}", ex);
             }
 
         }

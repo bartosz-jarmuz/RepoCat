@@ -48,6 +48,7 @@ namespace RepoCat.Transmitter
                         TargetExt = prj.Properties.FirstOrDefault(x => x.Name.Equals("TargetExt", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
                         OutputType = prj.Properties.FirstOrDefault(x => x.Name.Equals("OutputType", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
                         ProjectPath = prj.FullPath,
+                        ProjectName = Path.GetFileNameWithoutExtension(prj.FullPath),
                         Repo = repo,
                         RepoStamp = repoStamp,
                         RepoCatManifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault(),

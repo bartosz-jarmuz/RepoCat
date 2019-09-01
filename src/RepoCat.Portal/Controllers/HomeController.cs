@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using RepoCat.Portal.Models;
+using RepoCat.Portal.Models.Domain;
 using RepoCat.Portal.Services;
 
 namespace RepoCat.Portal.Controllers
@@ -31,12 +32,12 @@ namespace RepoCat.Portal.Controllers
 
         [HttpGet]
         [Route("search")]
-        public async Task<PartialViewResult> Search(string repositoryName, string query)
+        public async Task<PartialViewResult> Search(string repositoryName, string query, bool isRegex)
         {
-            var result = await this.manifestsService.FindCurrentProjects(repositoryName, query);
-            List<ProjectManifestViewModel> manifests = this.mapper.Map<List<ProjectManifestViewModel>>(result.Manifests);
+            ManifestQueryResult result = await this.manifestsService.FindCurrentProjects(repositoryName, query, isRegex);
+            var queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
 
-            return this.PartialView("_ProjectsListPartial", manifests);
+            return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
 
         public IActionResult About()

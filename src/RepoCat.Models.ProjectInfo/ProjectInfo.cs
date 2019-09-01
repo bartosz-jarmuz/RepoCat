@@ -13,6 +13,6 @@ namespace RepoCat.Models.ProjectInfo
         public string TargetExt { get; set; }
         public string OutputType { get; set; }
         public string RepoCatManifest { get; set; }
-        public string GetName() => Path.GetFileName(this.ProjectPath);
+        public string ProjectName { get; set; }
     }
 }

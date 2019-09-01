@@ -6,19 +6,9 @@
 
 <partial name="_SearchFormPartial" for="@Model"/>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="card" id="searchResultsCard" style="display: none;">
-          
-            <div class="card-header">
-                <strong>Search results</strong>
-            </div>
-            <div class="card-body">
-                <div id="searchResults"></div>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="searchResults" style="display: none;"></div>
+
+
 
 @section scripts {
     <script type="text/javascript">
@@ -28,10 +18,10 @@
             $("#searchBtn").click(function () {
                 var overlay = $(this).closest('.card').find('.overlay');
                 $(overlay).fadeIn();
-                $.get('@Url.Action("Search")?repositoryName='+ $('#selectedRepo').val() + '&query=' + $('#searchQuery').val(),
+                $.get('@Url.Action("Search")?repositoryName=' + $('#selectedRepo').val() + '&query=' + $('#searchQuery').val() + '&isRegex=' +  $('#isRegex').is(':checked'),
                     function (data) {
                         $(overlay).fadeOut();
-                        $('#searchResultsCard').fadeIn();
+                        $('#searchResults').fadeIn();
                         $("#searchResults").html(data);
 
                 });

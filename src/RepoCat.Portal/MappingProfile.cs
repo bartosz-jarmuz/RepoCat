@@ -12,6 +12,7 @@ namespace RepoCat.Portal
             this.CreateMap<ProjectInfo, ProjectManifest>();
             this.CreateMap<ProjectManifest, ProjectManifestViewModel>();
             this.CreateMap<ComponentManifest, ComponentManifestViewModel>();
+            this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>();
         }
     }
 }

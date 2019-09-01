@@ -11,18 +11,11 @@ namespace RepoCat.Portal.Models
         public DateTime AddedDateTime { get; set; } = DateTime.UtcNow;
         public string AssemblyName { get; set; }
         public string ProjectPath { get; set; }
+        public string ProjectName { get; set; }
         public string TargetExt { get; set; }
         public string OutputType { get; set; }
         public List<ComponentManifestViewModel> Components { get; set; } = new List<ComponentManifestViewModel>();
-        public string GetProjectName()
-        {
-            if (!string.IsNullOrEmpty(this.ProjectPath))
-            {
-                return Path.GetFileNameWithoutExtension(this.ProjectPath);
-            }
-
-            return "";
-        }
+     
 
         public string GetAssemblyName()
         {
@@ -38,7 +31,7 @@ namespace RepoCat.Portal.Models
         {
             if (!string.IsNullOrEmpty(this.AssemblyName))
             {
-                return (this.GetProjectName() + this.AssemblyName + this.TargetExt).Replace(".", "");
+                return (this.ProjectName + this.AssemblyName + this.TargetExt).Replace(".", "");
             }
 
             return "";

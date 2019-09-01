@@ -3,7 +3,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <strong>@Model.GetProjectName()</strong> <span class="badge badge-secondary">@Model.OutputType</span>
+            <strong>@Model.ProjectName</strong> <span class="badge badge-secondary">@Model.OutputType</span>
             <div class="card-header-actions">
                 <a class="card-header-action btn-minimize" href="#" data-toggle="collapse" data-target="#@Model.GetIdentifier()" aria-expanded="true">
                     <i class="icon-arrow-up"></i>
@@ -20,7 +20,7 @@
                     <div class="col-md-3 project-info">
                         <dl>
                             <dt>Project name:</dt>
-                            <dd>@Model.GetProjectName()</dd>
+                            <dd>@Model.ProjectName</dd>
                             <dt>Assembly name:</dt>
                             <dd>@Model.GetAssemblyName()</dd>
                             <dt>Project path:</dt>

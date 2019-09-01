@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using RepoCat.Portal.Data.RepoCatDb.BooksApi.Models;
 using RepoCat.Portal.Models;
@@ -64,7 +66,7 @@ namespace RepoCat.Portal.Services
             };
         }
 
-        public async Task<ManifestQueryResult> FindCurrentProjects(string repositoryName, string query)
+        public async Task<ManifestQueryResult> FindCurrentProjects(string repositoryName, string query, bool isRegex)
         {
             var stopwatch = Stopwatch.StartNew();
             FilterDefinition<ProjectManifest> repoNameFilter = Builders<ProjectManifest>.Filter.Where(x => x.Repo.ToLower().Contains(repositoryName));
@@ -74,7 +76,7 @@ namespace RepoCat.Portal.Services
             FilterDefinition<ProjectManifest> filter = repoNameFilter & Builders<ProjectManifest>.Filter.Where(x => x.RepoStamp == newestStamp);
             if (!string.IsNullOrEmpty(query))
             {
-                filter = filter & Builders<ProjectManifest>.Filter.Text(query);
+                filter = filter & BuildTextQuery(query, isRegex);
             }
 
             var list = await (await this.manifests.FindAsync(filter)).ToListAsync();
@@ -90,6 +92,30 @@ namespace RepoCat.Portal.Services
                 
         }
 
+        private FilterDefinition<ProjectManifest> BuildTextQuery(string query, bool isRegex)
+        {
+            if (!isRegex)
+            {
+                return Builders<ProjectManifest>.Filter.Text(query);
+            }
+            else
+            {
+                var regex = new BsonRegularExpression(new System.Text.RegularExpressions.Regex(query, System.Text.RegularExpressions.RegexOptions.IgnoreCase));
+                return Builders<ProjectManifest>.Filter.Regex(this.GetComponentFieldName(nameof(ComponentManifest.Tags)), regex) 
+                    | Builders<ProjectManifest>.Filter.Regex(this.GetComponentFieldName(nameof(ComponentManifest.Name)), regex)
+                    | Builders<ProjectManifest>.Filter.Regex(x=>x.AssemblyName, regex)
+                    | Builders<ProjectManifest>.Filter.Regex(x=>x.ProjectName, regex)
+                    | Builders<ProjectManifest>.Filter.Regex(x=>x.TargetExt, regex)
+                    ;
+            }
+        }
+
+        private string GetComponentFieldName(string field)
+        {
+            return nameof(ProjectManifest.Components) + "." + field;
+        }
+
+     
 
         public ProjectManifest Get(string id)
         {
