@@ -9,6 +9,7 @@ using RepoCat.Portal.Services;
 
 namespace RepoCat.Portal.Controllers
 {
+    [Area("Catalog")]
     public class RepositoryController : Controller
     {
         private readonly ManifestsService service;

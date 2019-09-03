@@ -14,32 +14,9 @@ namespace RepoCat.Portal.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ManifestsService manifestsService;
-        private readonly IMapper mapper;
 
-        public HomeController(ManifestsService manifestsService, IMapper mapper)
+        public HomeController()
         {
-            this.manifestsService = manifestsService;
-            this.mapper = mapper;
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            var model = new HomeViewModel {Repositories = await this.manifestsService.GetRepositories()};
-
-            return View(model);
-        }
-
-        [HttpGet]
-        [Route("search")]
-        public async Task<PartialViewResult> Search(string repositoryName, string query, bool isRegex)
-        {
-            ManifestQueryResult result = await this.manifestsService.FindCurrentProjects(repositoryName, query, isRegex);
-            var queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
-            queryResultViewModel.QueryString = query;
-            queryResultViewModel.IsRegex = isRegex;
-
-            return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
 
         public IActionResult About()

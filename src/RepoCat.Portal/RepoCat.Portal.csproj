@@ -23,4 +23,9 @@
     <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Models.ProjectInfo.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Catalog\Models\" />
+  </ItemGroup>
+
 </Project>
