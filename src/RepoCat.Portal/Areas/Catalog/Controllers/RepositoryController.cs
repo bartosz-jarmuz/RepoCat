@@ -10,6 +10,7 @@ using RepoCat.Portal.Services;
 namespace RepoCat.Portal.Controllers
 {
     [Area("Catalog")]
+    [Route("Repository")]
     public class RepositoryController : Controller
     {
         private readonly ManifestsService service;
@@ -26,6 +27,7 @@ namespace RepoCat.Portal.Controllers
             return await this.service.GetRepositories();
         }
 
+        [Route("{repositoryName}")]
         public async Task<ViewResult> Index(string repositoryName)
         {
             var model = new BrowseRepositoryViewModel()

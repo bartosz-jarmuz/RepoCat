@@ -22,7 +22,7 @@ namespace RepoCat.Portal.ViewComponents
 
             var names = await this.service.GetRepositories();
             var model = new RepositoriesListViewModel {Repositories = names};
-            return View(model);
+            return View("~/Areas/Catalog/Views/Shared/Components/RepositoryList/Default.cshtml", model);
         }
     }
 }

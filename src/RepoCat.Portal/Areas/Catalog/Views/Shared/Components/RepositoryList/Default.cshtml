@@ -1,0 +1,9 @@
+﻿@model  RepositoriesListViewModel
+@foreach (var name in @Model.Repositories)
+{
+    <li class="nav-item" >
+        <a class="nav-link" asp-area="Catalog" asp-controller="Repository" asp-action="Index" asp-route-repositoryName="@name">
+            <i class="nav-icon fab fa-codepen"></i> @name
+        </a>
+    </li>
+}

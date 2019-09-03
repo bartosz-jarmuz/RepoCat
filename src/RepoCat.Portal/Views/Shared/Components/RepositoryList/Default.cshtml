@@ -1,9 +1,0 @@
-﻿@model  RepositoriesListViewModel
-@foreach (var name in @Model.Repositories)
-{
-    <li class="nav-item" style="padding-left: 15px;">
-        <a class="nav-link" asp-area="Catalog" asp-controller="Repository" asp-action="Index" asp-route-repositoryName="@name" asp-route-view="base-breadcrumb">
-            <i class="nav-icon fab fa-codepen"></i> @name
-        </a>
-    </li>
-}

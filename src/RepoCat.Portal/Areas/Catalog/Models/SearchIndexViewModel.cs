@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RepoCat.Portal.Models
 {
-    public class HomeViewModel
+    public class SearchIndexViewModel
     {
         public string Repository { get; set; } 
         public List<string> Repositories { get; set; } = new List<string>();

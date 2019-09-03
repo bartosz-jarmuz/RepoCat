@@ -1,20 +1,15 @@
-﻿<nav class="sidebar-nav">
+﻿@using RepoCat.Portal.ViewComponents
+<nav class="sidebar-nav">
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link" asp-area="Catalog" asp-controller="Search" asp-action="Index" >
                 <i class="nav-icon icon-magnifier"></i> Search
             </a>
         </li>
-        <li class="nav-title">Browse</li>
-        <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="#">
-                <i class="nav-icon fa fa-boxes"></i> Repositories
-            </a>
+        <li class="nav-title">Connected repositories</li>
+          
             <cache expires-after="@TimeSpan.FromMilliseconds(500)">
-                <ul class="nav-dropdown-items">
-                    @await Component.InvokeAsync("RepositoryList")
-                </ul>
+                @await Component.InvokeAsync("RepositoryList")
             </cache>
-        </li>
     </ul>
 </nav>

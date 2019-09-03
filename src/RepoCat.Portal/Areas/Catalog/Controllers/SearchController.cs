@@ -22,7 +22,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var model = new HomeViewModel {Repositories = await this.manifestsService.GetRepositories()};
+            var model = new SearchIndexViewModel {Repositories = await this.manifestsService.GetRepositories()};
 
             return this.View(model);
         }
