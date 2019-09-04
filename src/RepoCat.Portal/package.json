@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {
+    "@ttskch/select2-bootstrap4-theme" :  "1.2.3" 
+  }
+}

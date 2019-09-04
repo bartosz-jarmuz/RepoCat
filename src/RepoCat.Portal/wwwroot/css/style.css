@@ -1860,28 +1860,33 @@ pre code {
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #73818f;
-  opacity: 1;
+    color: #73818f;
+    opacity: 0.3;
 }
 
 .form-control::-moz-placeholder {
-  color: #73818f;
-  opacity: 1;
+    color: #73818f;
+    opacity: 0.3;
 }
 
 .form-control:-ms-input-placeholder {
-  color: #73818f;
-  opacity: 1;
+    color: #73818f;
+    opacity: 0.3;
 }
 
 .form-control::-ms-input-placeholder {
-  color: #73818f;
-  opacity: 1;
+    color: #73818f;
+    opacity: 0.3;
 }
 
 .form-control::placeholder {
-  color: #73818f;
-  opacity: 1;
+    color: #73818f;
+    opacity: 0.3;
+}
+
+input::placeholder {
+    color: #73818f;
+    opacity: 0.3;
 }
 
 .form-control:disabled, .form-control[readonly] {

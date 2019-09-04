@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "select2@4.0.10",
+      "destination": "wwwroot/vendors/select2/"
+    },
+    {
+      "library": "font-awesome@5.10.2",
+      "destination": "wwwroot/vendors/font-awesome/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "node_modules/@ttskch/select2-bootstrap4-theme/dist/",
+      "destination": "wwwroot/vendors/select2/themes/"
+    }
+  ]
+}

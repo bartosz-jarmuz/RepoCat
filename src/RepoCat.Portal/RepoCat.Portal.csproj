@@ -23,4 +23,13 @@
     <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Models.ProjectInfo.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="wwwroot\vendors\font-awesome\sprites\" />
+    <Folder Include="wwwroot\vendors\font-awesome\webfonts\" />
+    <Folder Include="wwwroot\vendors\select2\css\" />
+    <Folder Include="wwwroot\vendors\select2\js\i18n\" />
+    <Folder Include="wwwroot\vendors\select2\themes\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,17 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$('.select2').each(function () {
+    var css = {};
+    if ($(this).hasClass('form-control-lg')) {
+        css = {
+            color: '#4d555d',
+            'font-size': 'large'
+        }
+    }
 
-// Write your JavaScript code.
+    $(this).select2({
+        theme: 'bootstrap4',
+        placeholder: $(this).attr('placeholder'),
+        width: 'style',
+        allowClear: Boolean($(this).data('allow-clear')),
+        containerCss: css
+    });
+});

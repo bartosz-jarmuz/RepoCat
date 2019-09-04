@@ -3,34 +3,67 @@
 <div class="row">
     <div class="col-md-12">
 
-        <div class="card">
+        <div class="card card-accent-info">
             <partial name="_busy-spinner" />
-
             <div class="card-header">
-                <strong>Repository search</strong>
+                Repository search
             </div>
             <div class="card-body">
-                <div class="form-horizontal">
-                    <div class="form-group row">
+                <div class="form">
+                    <div class="row align-items-center">
                         <div class="col-md-9">
-                            <input type="text" id="searchQuery" class="form-control" placeholder="Search..." asp-for="Query">
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <small class="help-block text-secondary">Select repository</small>
+                                        <select data-allow-clear="0" class="form-control form-control-lg select2 select2-hidden-accessible" placeholder="Select repository..." id="selectedRepo" asp-for="Repository" asp-items="@(new SelectList(Model.Repositories))"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="form-group row">
+                                        <div class="col-md-10">
+                                            <small class="help-block text-secondary">Search for</small>
+                                            <input type="text" id="searchQuery" class="form-control form-control-lg" placeholder="Keywords or phrases" asp-for="Query">
+                                            <div class="form-check checkbox">
+                                                <input class="form-check-input" id="isRegex" asp-for="IsRegex" type="checkbox" value="">
+                                                <label class="form-check-label" for="isRegex">Is Regex search?</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <small class="help-block text-secondary">&nbsp;</small>
+                                            <div>
+                                                <button type="submit" id="searchBtn" class="btn btn-lg btn-primary">
+                                                    <i class="fa fa-dot-circle-o"></i> Search
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="col-md-3">
-                            <button type="submit" id="searchBtn" class="btn btn-sm btn-primary">
-                                <i class="fa fa-dot-circle-o"></i> Search
-                            </button>
+
+                        <div class="col-md-3 small align-self-center">
+                            <ul>
+                                <li>
+                                    Specify keywords to look for in database.
+                                </li>
+                                <li>To <strong>exclude</strong> a term, prepend it with -</li>
+                                <li>To look for a <strong>phrase</strong>, use ""</li>
+                                <li>
+                                    For example:
+                                    <span style="border: gray solid 1px; padding: 0px 1px;">GUI Plugin "JSON Validator" -xml</span>
+                                </li>
+                                <li>You can use a regular expression if you're brave enough</li>
+                            </ul>
                         </div>
+
                     </div>
-                    <div class="form-check checkbox">
-                        <input class="form-check-input" id="isRegex" asp-for="IsRegex" type="checkbox" value="">
-                        <label class="form-check-label" for="isRegex" >Is Regex search?</label>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="multiple-select">Select repositories:</label>
-                        <div class="col-md-9">
-                            <select class="form-control" id="selectedRepo" asp-for="Repository" asp-items="@(new SelectList(Model.Repositories))" size="5"></select>
-                        </div>
-                    </div>
+                    
+                    
+                    
                 </div>
             </div>
          

@@ -19,6 +19,7 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
+
             @if (Model?.Repository == null)
             {
                 @:$('#selectedRepo option')[0].selected = true;
@@ -32,7 +33,6 @@
                     return false;  
                 }
             });  
-
 
             $("#searchBtn").click(function () {
                 var overlay = $(this).closest('.card').find('.overlay');
