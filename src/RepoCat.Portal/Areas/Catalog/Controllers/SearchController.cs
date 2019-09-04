@@ -37,7 +37,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         }
 
         [HttpGet]
-        [Route("{controller}/Result/{repositoryName}", Order = 1)]
+        [Route("{controller}/{repositoryName}/Result")]
         public async Task<IActionResult> GetSearchResultPage(string repositoryName, string query, bool isRegex)
         {
             SearchIndexViewModel model = new SearchIndexViewModel
