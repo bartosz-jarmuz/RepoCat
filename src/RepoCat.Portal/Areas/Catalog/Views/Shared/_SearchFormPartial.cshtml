@@ -13,7 +13,7 @@
                 <div class="form-horizontal">
                     <div class="form-group row">
                         <div class="col-md-9">
-                            <input type="text" id="searchQuery" class="form-control" placeholder="Search...">
+                            <input type="text" id="searchQuery" class="form-control" placeholder="Search..." asp-for="Query">
                         </div>
                         <div class="col-md-3">
                             <button type="submit" id="searchBtn" class="btn btn-sm btn-primary">
@@ -22,8 +22,8 @@
                         </div>
                     </div>
                     <div class="form-check checkbox">
-                        <input class="form-check-input" id="isRegex" type="checkbox" value="">
-                        <label class="form-check-label" for="isRegex">Is Regex search?</label>
+                        <input class="form-check-input" id="isRegex" asp-for="IsRegex" type="checkbox" value="">
+                        <label class="form-check-label" for="isRegex" >Is Regex search?</label>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="multiple-select">Select repositories:</label>

@@ -2,29 +2,42 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    string initialDisplay = Model?.Result != null ?"" : "display: none;";
+
 }
 
-<partial name="_SearchFormPartial" for="@Model"/>
+<partial name="_SearchFormPartial" for="@Model" />
 
-<div id="searchResults" style="display: none;"></div>
-
+<div id="searchResults" style="@initialDisplay">
+@if (Model.Result != null)
+{
+    await Html.RenderPartialAsync("_SearchResultPartial", Model.Result);
+}
+</div>
 
 
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#selectedRepo option')[0].selected = true;
+            @if (Model?.Repository == null)
+            {
+                @:$('#selectedRepo option')[0].selected = true;
+            }
 
             $("#searchBtn").click(function () {
                 var overlay = $(this).closest('.card').find('.overlay');
                 $(overlay).fadeIn();
-                $.get('@Url.Action("Search")?repositoryName=' + $('#selectedRepo').val() + '&query=' + $('#searchQuery').val() + '&isRegex=' +  $('#isRegex').is(':checked'),
+
+                var queryString = '?repositoryName=' + $('#selectedRepo').val() +'&query=' + $('#searchQuery').val() + '&isRegex=' +$('#isRegex').is(':checked');
+                $.get('@Url.Action("Search")' + queryString,
                     function (data) {
                         $(overlay).fadeOut();
                         $('#searchResults').fadeIn();
                         $("#searchResults").html(data);
 
-                });
+                    });
+                history.pushState(null, null, '@Url.Action("GetSearchResultPage")' + queryString);
+
             });
         });
     </script>
