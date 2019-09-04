@@ -28,7 +28,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         }
 
         [HttpGet]
-        [Route("search")]
+        [Route("Search/{repositoryName}")]
         public async Task<PartialViewResult> Search(string repositoryName, string query, bool isRegex)
         {
             ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(repositoryName, query, isRegex);
@@ -37,7 +37,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         }
 
         [HttpGet]
-        [Route("result")]
+        [Route("{controller}/Result/{repositoryName}", Order = 1)]
         public async Task<IActionResult> GetSearchResultPage(string repositoryName, string query, bool isRegex)
         {
             SearchIndexViewModel model = new SearchIndexViewModel
