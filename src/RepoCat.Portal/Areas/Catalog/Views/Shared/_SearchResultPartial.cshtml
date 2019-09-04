@@ -1,3 +1,4 @@
+@using RepoCat.Portal.Areas.Catalog.Models
 @model ManifestQueryResultViewModel
 
 <div class="row">
@@ -19,7 +20,8 @@
                             <span>for </span>
                             @foreach (var token in Model.SearchTokens)
                             {
-                                <a class="badge badge-warning tag" href="#"><i class="fa fa-tag"></i>&nbsp;@token</a>
+                                <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.Repo, token))"/>
+
                             }
                         }
                     }

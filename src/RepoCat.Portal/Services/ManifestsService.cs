@@ -84,10 +84,12 @@ namespace RepoCat.Portal.Services
             stopwatch.Stop();
             return new ManifestQueryResult()
             {
+                Repo = repositoryName,
                 RepoStamp = newestStamp,
                 Elapsed = stopwatch.Elapsed,
-                Manifests = list
-
+                Manifests = list,
+                IsRegex = isRegex,
+                QueryString = query
             };
                 
         }

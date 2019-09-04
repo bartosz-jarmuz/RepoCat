@@ -41,5 +41,6 @@ namespace RepoCat.Portal.Models
         public List<ProjectManifestViewModel> Manifests { get; set; } = new List<ProjectManifestViewModel>();
         public TimeSpan Elapsed { get; set; }
         public string RepoStamp { get; set; }
+        public string Repo { get; set; }
     }
 }

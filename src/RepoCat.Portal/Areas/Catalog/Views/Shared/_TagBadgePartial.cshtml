@@ -1,0 +1,3 @@
+@model RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel
+
+<a class="badge badge-warning tag" href="@Url.Action("GetSearchResultPage", "Search", new { repositoryName = @Model.RepoName, query = Model.TagText})"><i class="fa fa-tag"></i>&nbsp;@Model.TagText</a>
