@@ -33,12 +33,14 @@
                     return false;  
                 }
             });  
+            //RegexColorizer.addStyleSheet();
+            RegexColorizer.colorizeAll();
 
             $("#searchBtn").click(function () {
                 var overlay = $(this).closest('.card').find('.overlay');
                 $(overlay).fadeIn();
 
-                var queryString ='?query=' + $('#searchQuery').val() + '&isRegex=' + $('#isRegex').is(':checked');
+                var queryString ='?query=' + encodeURIComponent($('#searchQuery').val()) + '&isRegex=' + $('#isRegex').is(':checked');
                 var url = '@Url.Action("Search", new {repositoryName = "___repoName___"})' + queryString;
                 url = url.replace("___repoName___", $('#selectedRepo').val());
                 $.get(url,
@@ -46,13 +48,13 @@
                         $(overlay).fadeOut();
                         $('#searchResults').fadeIn();
                         $("#searchResults").html(data);
+                        RegexColorizer.colorizeAll();
 
                     });
                 var historyUrl = '@Url.Action("GetSearchResultPage",new {repositoryName = "___repoName___"})' + queryString;
                 historyUrl = historyUrl.replace("___repoName___", $('#selectedRepo').val());
 
                 history.pushState(null, null,historyUrl);
-
             });
         });
     </script>

@@ -29,6 +29,8 @@
     @*SelectBoxes*@
     <link href="~/vendors/select2/css/select2.min.css" rel="stylesheet" />
     <link href="~/vendors/select2/themes/select2-bootstrap4.min.css" rel="stylesheet" />
+    
+    <link href="~/vendors/regex-colorizer/themes/regexpal.css" rel="stylesheet" />
 
     <environment include="Development">
         <!-- Template styles -->
@@ -51,93 +53,94 @@
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show bg-gray-200">
 
-  <!-- APP-HEADER-->
-  <partial name="_app-header" />
-  <!-- /APP-HEADER-->
+    <!-- APP-HEADER-->
+    <partial name="_app-header" />
+    <!-- /APP-HEADER-->
 
-  <partial name="_CookieConsentPartial" />
+    <partial name="_CookieConsentPartial" />
 
-  <div class="app-body">
-    <div class="sidebar">
+    <div class="app-body">
+        <div class="sidebar">
 
-      <!-- SIDEBAR-NAV -->
-      <partial name="_sidebar-nav" />
-      <!-- /SIDEBAR-NAV -->
+            <!-- SIDEBAR-NAV -->
+            <partial name="_sidebar-nav" />
+            <!-- /SIDEBAR-NAV -->
 
-      <button class="sidebar-minimizer brand-minimizer" type="button"></button>
-    </div>
-    <main class="main">
-
-      <!-- VIEW-BREADCRUMBS -->
-      @RenderSection("Breadcrumbs", required: false)
-      <!-- /VIEW-BREADCRUMBS -->
-
-      <div class="container-fluid">
-
-        <!-- VIEW-STYLES -->
-        @RenderSection("Styles", required: false)
-        <!-- /VIEW-STYLES -->
-
-        <div class="animated fadeIn">
-
-          <!-- VIEW-CONTENT -->
-          @RenderBody()
-          <!-- /VIEW-CONTENT -->
-
+            <button class="sidebar-minimizer brand-minimizer" type="button"></button>
         </div>
+        <main class="main">
 
-        <!-- VIEW-MODALS -->
-        @RenderSection("Modals", required: false)
-        <!-- /VIEW-MODALS -->
+            <!-- VIEW-BREADCRUMBS -->
+            @RenderSection("Breadcrumbs", required: false)
+            <!-- /VIEW-BREADCRUMBS -->
 
-      </div>
-    </main>
+            <div class="container-fluid">
 
-    @*<partial name="_aside-menu" />*@
+                <!-- VIEW-STYLES -->
+                @RenderSection("Styles", required: false)
+                <!-- /VIEW-STYLES -->
 
-  </div>
-  <footer class="app-footer">
-    <div>
-      <a href="https://github.com/bartosz-jarmuz/RepoCat">RepoCat</a>
-      <span>&copy; 2019 Bartosz Jarmuż.</span>
+                <div class="animated fadeIn">
+
+                    <!-- VIEW-CONTENT -->
+                    @RenderBody()
+                    <!-- /VIEW-CONTENT -->
+
+                </div>
+
+                <!-- VIEW-MODALS -->
+                @RenderSection("Modals", required: false)
+                <!-- /VIEW-MODALS -->
+
+            </div>
+        </main>
+
+        @*<partial name="_aside-menu" />*@
+
     </div>
-    <div class="ml-auto">
-      <span>UI powered by</span>
-      <a href="https://coreui.io">CoreUI</a>
-    </div>
-  </footer>
+    <footer class="app-footer">
+        <div>
+            <a href="https://github.com/bartosz-jarmuz/RepoCat">RepoCat</a>
+            <span>&copy; 2019 Bartosz Jarmuż.</span>
+        </div>
+        <div class="ml-auto">
+            <span>UI powered by</span>
+            <a href="https://coreui.io">CoreUI</a>
+        </div>
+    </footer>
 
-  <environment include="Development">
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-  </environment>
-  <environment exclude="Development">
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-            asp-fallback-test="window.jQuery"
-            crossorigin="anonymous"
-            integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-    </script>
-  </environment>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+    </environment>
 
-  <script src="~/lib/popper.js/dist/umd/popper.min.js"></script>
-  <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="~/lib/pace-progress/pace.min.js"></script>
-  <script src="~/lib/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-  <script src="~/lib/@@coreui/coreui/dist/js/coreui.min.js"></script>
-  <script src="~/lib/@@coreui/coreui/dist/js/coreui.min.js"></script>
-  <script src="~/vendors/select2/js/select2.full.min.js"></script>
+    <script src="~/lib/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/lib/pace-progress/pace.min.js"></script>
+    <script src="~/lib/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="~/lib/@@coreui/coreui/dist/js/coreui.min.js"></script>
+    <script src="~/lib/@@coreui/coreui/dist/js/coreui.min.js"></script>
+    <script src="~/vendors/select2/js/select2.full.min.js"></script>
+    <script src="~/vendors/regex-colorizer/regex-colorizer.js"></script>
 
-<environment include="Development">
-    <script src="~/js/site.js" asp-append-version="true"></script>
-  </environment>
-  <environment exclude="Development">
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
-  </environment>
+    <environment include="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
 
 
-  <!-- VIEW-SCRIPTS -->
-  @RenderSection("Scripts", required: false)
-  <!-- /VIEW-SCRIPTS -->
+    <!-- VIEW-SCRIPTS -->
+    @RenderSection("Scripts", required: false)
+    <!-- /VIEW-SCRIPTS -->
 
 </body>
 </html>
