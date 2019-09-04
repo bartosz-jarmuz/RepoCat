@@ -24,6 +24,16 @@
                 @:$('#selectedRepo option')[0].selected = true;
             }
 
+            $('#searchQuery').keypress(function (e) {
+                var key = e.which;
+                if(key === 13)  // the enter key code
+                {
+                    $('#searchBtn').click();
+                    return false;  
+                }
+            });  
+
+
             $("#searchBtn").click(function () {
                 var overlay = $(this).closest('.card').find('.overlay');
                 $(overlay).fadeIn();
