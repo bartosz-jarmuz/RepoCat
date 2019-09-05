@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Models;
 using RepoCat.Portal.Services;
 
@@ -53,5 +54,26 @@ namespace RepoCat.Portal.Controllers
 
         }
 
+        [HttpGet]
+        public async Task<ViewResult> AddProject()
+        {
+            await Task.Delay(0);
+            return this.View(new AddProjectModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProject(AddProjectModel project)
+        {
+            if (!ModelState.IsValid)
+            {
+                this.TempData["error"] = "Incorrect input.";
+                return this.View(project);
+            }
+
+            this.TempData["success"] = "Added project to catalog";
+            return this.View(new AddProjectModel());
+
+
+        }
     }
 }

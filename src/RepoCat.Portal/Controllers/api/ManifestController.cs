@@ -38,44 +38,10 @@ namespace RepoCat.Portal.Controllers.api
             return this.CreatedAtAction("Get", prjManifest.Id);
         }
 
-       
-
         [HttpGet]
         public ProjectManifest Get(string id)
         {
             return this.service.Get(id);
-        }
-
-        [HttpPost]
-        [Route("Test")]
-        public IActionResult Test()
-        {
-            var projectManifest = new ProjectManifest()
-            {
-                AssemblyName = "Some.dll",
-                OutputType = "Class Library"
-                ,
-                Components = new List<ComponentManifest>()
-                {
-                    new ComponentManifest()
-                    {
-                        Description = "Some cool tool",
-                        Tags = new List<string>() {"Utility", "Awesome", "Cool"},
-                        Name = "Worker",
-
-                    },
-                    new ComponentManifest()
-                    {
-                        Description = "Not as cool tool",
-                        Tags = new List<string>() {"Utility", "Awesome", "Cool"},
-                        Name = "Worker",
-
-                    },
-                }
-            };
-            this.service.Create(projectManifest);
-
-            return this.Ok();
         }
 
     }

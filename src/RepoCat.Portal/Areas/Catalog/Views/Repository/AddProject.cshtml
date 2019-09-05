@@ -1,0 +1,33 @@
+﻿@model RepoCat.Portal.Areas.Catalog.Models.AddProjectModel
+
+@{
+    ViewData["Title"] = "Add project";
+}
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> @TempData["success"]
+        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+else if (TempData["success"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> @TempData["error"].
+        <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+}
+
+<div class="card">
+TO DO
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>    
+}

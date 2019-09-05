@@ -2,14 +2,21 @@
 <nav class="sidebar-nav">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" asp-area="Catalog" asp-controller="Search" asp-action="Index" >
+            <a class="nav-link" asp-area="Catalog" asp-controller="Search" asp-action="Index">
                 <i class="nav-icon icon-magnifier"></i> Search
             </a>
         </li>
-        <li class="nav-title">Connected repositories</li>
-          
-            <cache expires-after="@TimeSpan.FromMilliseconds(500)">
-                @await Component.InvokeAsync("RepositoryList")
-            </cache>
+        <li class="nav-title">Manage</li>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Catalog" asp-controller="Repository" asp-action="AddProject">
+                    <i class="nav-icon fa fa-plus"></i> Add project
+                </a>
+            </li>
+        </ul>
+        <li class="nav-title">Browse repositories</li>
+        <cache expires-after="@TimeSpan.FromMilliseconds(500)">
+            @await Component.InvokeAsync("RepositoryList")
+        </cache>
     </ul>
 </nav>
