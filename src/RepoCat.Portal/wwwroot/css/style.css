@@ -9691,19 +9691,19 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .btn-github {
-  color: #fff;
-  background-color: #4183c4;
-  border-color: #4183c4;
+    color: #fff;
+    background-color: #32373d;
+    border-color: #000000;
 }
 
 .btn-github:hover {
   color: #fff;
-  background-color: #3570aa;
-  border-color: #3269a0;
+  background-color: #383f46;
+  border-color: #58616a;
 }
 
 .btn-github:focus, .btn-github.focus {
-  box-shadow: 0 0 0 0.2rem rgba(65, 131, 196, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(54, 63, 72, 0.5);
 }
 
 .btn-github.disabled, .btn-github:disabled {
@@ -9712,17 +9712,17 @@ a.text-dark:hover, a.text-dark:focus {
   border-color: #4183c4;
 }
 
-.btn-github:not(:disabled):not(.disabled):active, .btn-github:not(:disabled):not(.disabled).active,
-.show > .btn-github.dropdown-toggle {
-  color: #fff;
-  background-color: #3269a0;
-  border-color: #2f6397;
-}
+    .btn-github:not(:disabled):not(.disabled):active, .btn-github:not(:disabled):not(.disabled).active,
+    .show > .btn-github.dropdown-toggle {
+        color: #fff;
+        background-color: #383f46;
+        border-color: #58616a;
+    }
 
-.btn-github:not(:disabled):not(.disabled):active:focus, .btn-github:not(:disabled):not(.disabled).active:focus,
-.show > .btn-github.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(65, 131, 196, 0.5);
-}
+        .btn-github:not(:disabled):not(.disabled):active:focus, .btn-github:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-github.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.2rem rgba(54, 63, 72, 0.5);
+        }
 
 .btn-html5 {
   color: #fff;
@@ -13537,7 +13537,7 @@ button.bg-xing:focus {
 }
 
 .bg-github {
-  background-color: #4183c4 !important;
+    background-color: #24292e !important;
 }
 
 a.bg-github:hover, a.bg-github:focus,
