@@ -1,40 +1,81 @@
 @using RepoCat.Portal.Areas.Catalog.Models
 @model ManifestQueryResultViewModel
 
-<div class="row">
-    <div class="col-md-12">
-        <div id="searchResultsCard">
-            <h2>Search results:</h2>
-            <p>
-                <span>Found @Model.Manifests.Count matches </span>
-                <span>
-                    @if (Model.IsRegex)
-                    {
-                        <span>for RegEx: </span>
-                        <span class="regex">@Model.QueryString</span>
-                    }
-                    else
-                    {
-                        @if (@Model.SearchTokens.Any())
+@if (Model.Manifests.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div id="searchResultsCard">
+                <h2>Search results:</h2>
+                <p>
+                    <span><strong>@Model.Repo</strong> - Found <strong>@Model.Manifests.Count</strong> matches</span>
+                    <span>
+                        @if (Model.IsRegex)
                         {
-                            <span>for </span>
-                            @foreach (var token in Model.SearchTokens)
+                            <span>for RegEx: </span>
+                            <span class="regex">@Model.QueryString</span>
+                        }
+                        else
+                        {
+                            @if (@Model.SearchTokens.Any())
                             {
-                                <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.Repo, token))"/>
+                                <span>for </span>
+                                @foreach (var token in Model.SearchTokens)
+                                {
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.Repo, token))"/>
 
+                                }
                             }
                         }
-                    }
-                </span>
+                    </span>
                 
-                <span>in @(Model.Elapsed.TotalMilliseconds)ms</span>
-            </p>
+                    <span>in <strong>@(Model.Elapsed.TotalMilliseconds.ToString("N2"))ms</strong></span>
+                </p>
+            </div>
         </div>
     </div>
-</div>
-<div class="row">
-    @foreach (ProjectManifestViewModel manifest in Model.Manifests)
-    {
-        <partial name="_ProjectViewPartial" for="@manifest" />
-    }
-</div>
+    <div class="row">
+        @foreach (ProjectManifestViewModel manifest in Model.Manifests)
+        {
+            <partial name="_ProjectViewPartial" for="@manifest" />
+        }
+    </div>
+
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <div class="text-center">
+
+                <h2 class="text-dark">Nothing found</h2>
+                <span class="text-dark">
+                    Spent <strong>@(Model.Elapsed.TotalMilliseconds.ToString("N2"))ms</strong> searching
+                    <span>
+                        @if (Model.IsRegex)
+                        {
+                            <span>for RegEx: </span>
+                            <span class="regex">@Model.QueryString</span>
+                        }
+                        else
+                        {
+                            @if (@Model.SearchTokens.Any())
+                            {
+                                <span>for </span>
+                                @foreach (var token in Model.SearchTokens)
+                                {
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.Repo, token))" />
+
+                                }
+                            }
+                        }
+                    </span>
+                    in <strong>@Model.Repo</strong> and found nothing...
+                </span>
+                <img src="~/images/cats/cat_hungry256.png" class="mx-auto d-block" alt="No results">
+                <br />
+                <span class="text-dark">Maybe try different search criteria?</span>
+            </div>
+        </div>
+    </div>
+}
