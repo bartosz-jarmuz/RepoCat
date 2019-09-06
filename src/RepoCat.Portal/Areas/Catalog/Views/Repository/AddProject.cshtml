@@ -1,4 +1,12 @@
-﻿@model RepoCat.Portal.Areas.Catalog.Models.AddProjectModel
+﻿@using System.Security.AccessControl
+@model RepoCat.Portal.Areas.Catalog.Models.AddProjectModel
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/vendors/codemirror/codemirror.min.css">
+    <link rel="stylesheet" href="~/vendors/codemirror/addon/hint/show-hint.css">
+   
+}
 
 @{
     ViewData["Title"] = "Add project";
@@ -23,11 +31,110 @@ else if (TempData["success"] != null)
     </div>
 }
 
-<div class="card">
-TO DO
-</div>
 
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Insert new project manifest</div>
+            <div class="card-body">
+                <div class="border">
+                    <textarea class="form-control-lg border" id="codeEditor"></textarea>
+                </div>
+            </div>
+            <div class="card-footer">
+                <btn class="btn btn-primary">Submit</btn>
+            </div>
+        </div>
+
+    </div>
+</div>
 @section Scripts
 {
-    <partial name="_ValidationScriptsPartial"/>    
+    <script src="~/vendors/codemirror/codemirror.js"></script>
+    <script src="~/vendors/codemirror/addon/hint/show-hint.js"></script>
+    <script src="~/vendors/codemirror/addon/hint/xml-hint.js"></script>
+    <script src="~/vendors/codemirror/mode/xml/xml.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            var dummy = {
+                attrs: {
+                    color: ["red", "green", "blue", "purple", "white", "black", "yellow"],
+                    size: ["large", "medium", "small"],
+                    description: null
+                },
+                children: []
+            };
+
+            var tags = {
+                "!top": ["top"],
+                "!attrs": {
+                    id: null,
+                    class: ["A", "B", "C"]
+                },
+                top: {
+                    attrs: {
+                        lang: ["en", "de", "fr", "nl"],
+                        freeform: null
+                    },
+                    children: ["animal", "plant"]
+                },
+                animal: {
+                    attrs: {
+                        name: null,
+                        isduck: ["yes", "no"]
+                    },
+                    children: ["wings", "feet", "body", "head", "tail"]
+                },
+                plant: {
+                    attrs: {name: null},
+                    children: ["leaves", "stem", "flowers"]
+                },
+                wings: dummy, feet: dummy, body: dummy, head: dummy, tail: dummy,
+                leaves: dummy, stem: dummy, flowers: dummy
+            };
+
+            function completeAfter(cm, pred) {
+                var cur = cm.getCursor();
+                if (!pred || pred()) setTimeout(function() {
+                    if (!cm.state.completionActive)
+                        cm.showHint({completeSingle: false});
+                }, 100);
+                return CodeMirror.Pass;
+            }
+
+            function completeIfAfterLt(cm) {
+                return completeAfter(cm, function() {
+                    var cur = cm.getCursor();
+                    return cm.getRange(CodeMirror.Pos(cur.line, cur.ch - 1), cur) == "<";
+                });
+            }
+
+            function completeIfInTag(cm) {
+                return completeAfter(cm, function() {
+                    var tok = cm.getTokenAt(cm.getCursor());
+                    if (tok.type == "string" && (!/['"]/.test(tok.string.charAt(tok.string.length - 1)) || tok.string.length == 1)) return false;
+                    var inner = CodeMirror.innerMode(cm.getMode(), tok.state).state;
+                    return inner.tagName;
+                });
+            }
+
+
+            var xml = '@Html.Raw(Model.ManifestXml)';
+            var myCodeMirror = CodeMirror(function (elt) {
+                var editor = document.getElementById("codeEditor");
+                editor.parentNode.replaceChild(elt, editor);
+            },
+                {
+                    value: xml,
+                    lineNumbers: true,
+                    mode: "xml",
+                    extraKeys: {"Ctrl-Space": "autocomplete"},
+                    hintOptions: {schemaInfo: tags}
+                });
+        });
+
+    </script>
 }

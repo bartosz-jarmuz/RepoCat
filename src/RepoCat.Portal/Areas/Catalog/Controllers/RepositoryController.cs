@@ -58,7 +58,10 @@ namespace RepoCat.Portal.Controllers
         public async Task<ViewResult> AddProject()
         {
             await Task.Delay(0);
-            return this.View(new AddProjectModel());
+            return this.View(new AddProjectModel()
+            {
+                ManifestXml = "<root>hello</root>"
+            });
         }
 
         [HttpPost]

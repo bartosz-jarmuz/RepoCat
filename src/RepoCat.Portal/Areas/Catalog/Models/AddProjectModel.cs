@@ -9,17 +9,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
 {
     public class AddProjectModel
     {
-        [Required(ErrorMessage = "Project name is required")]
-        public string ProjectName { get; set; }
-
-        public string RepositoryName { get; set; }
-
-        public string ProjectDescription { get; set; }
-
-        [Required(ErrorMessage = "Assembly name is required")]
-        public string AssemblyName { get; set; }
-
-        public List<ComponentManifestViewModel> Components { get; set; }
+       public string ManifestXml { get; set; }
 
     }
 }
