@@ -68,33 +68,34 @@ else if (TempData["success"] != null)
                 children: []
             };
 
-            var tags = {
-                "!top": ["top"],
-                "!attrs": {
-                    id: null,
-                    class: ["A", "B", "C"]
-                },
-                top: {
-                    attrs: {
-                        lang: ["en", "de", "fr", "nl"],
-                        freeform: null
+            var tags = 	{
+                    "!top": [
+                        "Project"
+                    ],
+                    "Project": {
+                        "children": [
+                            "Component"
+                        ]
                     },
-                    children: ["animal", "plant"]
-                },
-                animal: {
-                    attrs: {
-                        name: null,
-                        isduck: ["yes", "no"]
+                    "Component": {
+                        "children": [
+                            "Name",
+                            "ContactEmail",
+                            "Description",
+                            "DocumentationUri",
+                            "Tags"
+                        ]
                     },
-                    children: ["wings", "feet", "body", "head", "tail"]
-                },
-                plant: {
-                    attrs: {name: null},
-                    children: ["leaves", "stem", "flowers"]
-                },
-                wings: dummy, feet: dummy, body: dummy, head: dummy, tail: dummy,
-                leaves: dummy, stem: dummy, flowers: dummy
-            };
+                    "Name": {},
+                    "ContactEmail": {},
+                    "Description": {},
+                    "DocumentationUri": {},
+                    "Tags": {
+                        "attrs": {
+                            "Values": null
+                        }
+                    }
+                };
 
             function completeAfter(cm, pred) {
                 var cur = cm.getCursor();

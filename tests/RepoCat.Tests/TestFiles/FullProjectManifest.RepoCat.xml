@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project>
+  <Name>RepoCat.Sample.FeatureBox.csproj</Name>
+  <AssemblyName>FeaturesBox.dll</AssemblyName>
+  <ProjectUri>https://github.com/bartosz-jarmuz/repocat</ProjectUri>
+  <Component>
+    <Name>PneumaticPick</Name>
+    <ContactEmail>Jim Beam</ContactEmail>
+    <Description>You don't even know you need it</Description>
+    <DocumentationUri>http://google.com</DocumentationUri>
+    <Tags Values="Mining;Teeth;Hygiene"/>
+  </Component>
+  <Component>
+    <Name>SteamPick</Name>
+    <ContactEmail>Jack Black</ContactEmail>
+    <Description>You know you don't need it</Description>
+    <DocumentationUri>http://google.com</DocumentationUri>
+    <Tags Values="Coal;Steam;Injury"/>
+  </Component>
+</Project>

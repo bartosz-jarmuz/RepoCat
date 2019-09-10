@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using RepoCat.Models.Manifests;
 using RepoCat.Models.ProjectInfo;
 using RepoCat.Portal.Models;
-using RepoCat.Portal.Models.Domain;
+using RepoCat.Web.Persistence;
 
 namespace RepoCat.Portal
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace RepoCat.Portal.Models.Domain
+namespace RepoCat.Models.Manifests
 {
     [XmlRoot("Component")]
     public class ComponentManifest

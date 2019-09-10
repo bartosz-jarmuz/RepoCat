@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RepoCat.Portal.Data.RepoCatDb
+﻿namespace RepoCat.Web.Persistence
 {
     namespace BooksApi.Models
     {

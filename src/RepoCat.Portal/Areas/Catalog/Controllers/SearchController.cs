@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Portal.Models;
-using RepoCat.Portal.Models.Domain;
 using RepoCat.Portal.Services;
+using RepoCat.Web.Persistence;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
 {

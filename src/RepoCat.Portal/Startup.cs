@@ -15,8 +15,8 @@ using RepoCat.Portal.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using RepoCat.Portal.Data.RepoCatDb.BooksApi.Models;
 using RepoCat.Portal.Services;
+using RepoCat.Web.Persistence.BooksApi.Models;
 
 namespace RepoCat.Portal
 {

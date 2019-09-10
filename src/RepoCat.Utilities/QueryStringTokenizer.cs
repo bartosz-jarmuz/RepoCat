@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using RepoCat.Portal.Models;
-using RepoCat.Portal.Models.Domain;
 
-namespace RepoCat.Portal.Services
+namespace RepoCat.Utilities
 {
     public static class QueryStringTokenizer
     {

@@ -20,11 +20,15 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\RepoCat.Models.Manifests\RepoCat.Models.Manifests.csproj" />
     <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Models.ProjectInfo.csproj" />
+    <ProjectReference Include="..\RepoCat.Web.Persistence\RepoCat.Web.Persistence.csproj" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <Folder Include="Data\RepoCatDb\" />
+    <Folder Include="Models\Domain\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\comment\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\dialog\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\display\" />

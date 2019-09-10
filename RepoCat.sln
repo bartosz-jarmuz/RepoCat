@@ -11,7 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Tests", "tests\Repo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EDD18317-7871-4682-B214-DF2985656B6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Models.ProjectInfo", "src\RepoCat.Models.ProjectInfo\RepoCat.Models.ProjectInfo.csproj", "{894549A7-4337-4E81-9D54-4F7B5D9FA19A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Models.ProjectInfo", "src\RepoCat.Models.ProjectInfo\RepoCat.Models.ProjectInfo.csproj", "{894549A7-4337-4E81-9D54-4F7B5D9FA19A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Models.Xsd", "src\RepoCat.Models.Xsd\RepoCat.Models.Xsd.csproj", "{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Models.Manifests", "src\RepoCat.Models.Manifests\RepoCat.Models.Manifests.csproj", "{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Web.Persistence", "src\RepoCat.Web.Persistence\RepoCat.Web.Persistence.csproj", "{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Utilities", "src\RepoCat.Utilities\RepoCat.Utilities.csproj", "{8410B2AA-78D6-4EF3-9097-F1ED5377FCAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +43,22 @@ Global
 		{894549A7-4337-4E81-9D54-4F7B5D9FA19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{894549A7-4337-4E81-9D54-4F7B5D9FA19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{894549A7-4337-4E81-9D54-4F7B5D9FA19A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8410B2AA-78D6-4EF3-9097-F1ED5377FCAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8410B2AA-78D6-4EF3-9097-F1ED5377FCAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8410B2AA-78D6-4EF3-9097-F1ED5377FCAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8410B2AA-78D6-4EF3-9097-F1ED5377FCAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

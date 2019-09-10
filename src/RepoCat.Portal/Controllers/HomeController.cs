@@ -7,7 +7,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using RepoCat.Portal.Models;
-using RepoCat.Portal.Models.Domain;
 using RepoCat.Portal.Services;
 
 namespace RepoCat.Portal.Controllers

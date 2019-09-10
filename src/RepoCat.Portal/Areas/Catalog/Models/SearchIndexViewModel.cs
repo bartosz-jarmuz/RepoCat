@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RepoCat.Portal.Models.Domain;
 
 namespace RepoCat.Portal.Models
 {

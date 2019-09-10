@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using RepoCat.Models.Manifests;
 
-namespace RepoCat.Portal.Models.Domain
+namespace RepoCat.Web.Persistence
 {
     public class ManifestQueryResult
     {

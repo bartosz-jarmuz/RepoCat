@@ -12,7 +12,7 @@ namespace Tests
         [Test]
         public void SampleManifest_MultipleComponents_WorksOK()
         {
-            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\SampleManifest.RepoCat.xml");
+            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\TestFiles\\FullProjectManifest.RepoCat.xml");
 
             var components = ManifestDeserializer.LoadComponents(text);
 
