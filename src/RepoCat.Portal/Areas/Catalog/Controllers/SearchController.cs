@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using RepoCat.Persistence.Models;
+using RepoCat.Persistence.Service;
 using RepoCat.Portal.Models;
 using RepoCat.Portal.Services;
-using RepoCat.Web.Persistence;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
 {

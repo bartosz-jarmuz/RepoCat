@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using RepoCat.Persistence.Service;
 using RepoCat.Portal.Models;
 using RepoCat.Portal.Services;
 

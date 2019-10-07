@@ -7,8 +7,9 @@ using System.Xml.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using RepoCat.Models.Manifests;
 using RepoCat.Models.ProjectInfo;
+using RepoCat.Persistence.Models;
+using RepoCat.Persistence.Service;
 using RepoCat.Portal.Models;
 using RepoCat.Portal.Services;
 
@@ -31,7 +32,7 @@ namespace RepoCat.Portal.Controllers.api
         public IActionResult Post(ProjectInfo projectInfo)
         {
             ProjectManifest prjManifest = this.mapper.Map<ProjectManifest>(projectInfo);
-            prjManifest.Components = ManifestDeserializer.LoadComponents(projectInfo.RepoCatManifest);
+            prjManifest.Components = ManifestDeserializer.LoadComponents(projectInfo.ManifestContent);
 
             this.service.Create(prjManifest);
 

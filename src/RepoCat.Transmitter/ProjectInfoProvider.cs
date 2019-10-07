@@ -47,14 +47,14 @@ namespace RepoCat.Transmitter
                         AssemblyName = prj.Properties.FirstOrDefault(x => x.Name.Equals("AssemblyName", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
                         TargetExt = prj.Properties.FirstOrDefault(x => x.Name.Equals("TargetExt", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
                         OutputType = prj.Properties.FirstOrDefault(x => x.Name.Equals("OutputType", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
-                        ProjectPath = prj.FullPath,
+                        ProjectUri = prj.FullPath,
                         ProjectName = Path.GetFileNameWithoutExtension(prj.FullPath),
-                        Repo = repo,
-                        RepoStamp = repoStamp,
-                        RepoCatManifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault(),
+                        RepositoryName = repo,
+                        RepositoryStamp = repoStamp,
+                        ManifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault(),
                     };
 
-                    info.RepoCatManifest = File.ReadAllText(info.RepoCatManifestPath);
+                    info.ManifestContent = File.ReadAllText(info.ManifestPath);
 
                     Program.Log.Info($"Read OK from {uri}");
 

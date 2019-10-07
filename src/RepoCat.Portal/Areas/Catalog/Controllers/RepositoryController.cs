@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Models;
 using RepoCat.Portal.Services;

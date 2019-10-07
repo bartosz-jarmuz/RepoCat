@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Models.ProjectInfo"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Models.Xsd", "src\RepoCat.Models.Xsd\RepoCat.Models.Xsd.csproj", "{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Models.Manifests", "src\RepoCat.Models.Manifests\RepoCat.Models.Manifests.csproj", "{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Models", "src\RepoCat.Models.Manifests\RepoCat.Persistence.Models.csproj", "{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Web.Persistence", "src\RepoCat.Web.Persistence\RepoCat.Web.Persistence.csproj", "{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Service", "src\RepoCat.Web.Persistence\RepoCat.Persistence.Service.csproj", "{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Utilities", "src\RepoCat.Utilities\RepoCat.Utilities.csproj", "{8410B2AA-78D6-4EF3-9097-F1ED5377FCAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Utilities", "src\RepoCat.Utilities\RepoCat.Utilities.csproj", "{8410B2AA-78D6-4EF3-9097-F1ED5377FCAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transmitters", "Transmitters", "{6F7FE48C-2880-4EC9-A6F5-AA07081432FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{4455B3FB-565B-4020-A619-D6ED25E4F0DA} = {6F7FE48C-2880-4EC9-A6F5-AA07081432FE}
 		{2DDC3EA2-8817-4D5A-80EC-DAF60B01AB6A} = {EDD18317-7871-4682-B214-DF2985656B6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

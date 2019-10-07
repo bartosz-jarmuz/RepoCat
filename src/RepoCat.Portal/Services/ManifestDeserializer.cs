@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using RepoCat.Models.Manifests;
+using RepoCat.Persistence.Models;
 using RepoCat.Portal.Models;
 
 namespace RepoCat.Portal.Services

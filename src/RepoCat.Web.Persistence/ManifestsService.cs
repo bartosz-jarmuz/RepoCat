@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using RepoCat.Models.Manifests;
+using RepoCat.Persistence.Models;
 using RepoCat.Utilities;
-using RepoCat.Web.Persistence;
-using RepoCat.Web.Persistence.BooksApi.Models;
 
-namespace RepoCat.Portal.Services
+namespace RepoCat.Persistence.Service
 {
     public class ManifestsService
     {
@@ -44,18 +39,18 @@ namespace RepoCat.Portal.Services
 
         public async Task<List<string>> GetRepositories()
         {
-            IAsyncCursor<string> result = await this.manifests.DistinctAsync(x => x.Repo, FilterDefinition<ProjectManifest>.Empty);
+            IAsyncCursor<string> result = await this.manifests.DistinctAsync(x => x.RepositoryName, FilterDefinition<ProjectManifest>.Empty);
             return await result.ToListAsync();
         }
 
         public async Task<ManifestQueryResult> GetAllCurrentProjects(string repositoryName)
         {
             var stopwatch = Stopwatch.StartNew();
-            FilterDefinition<ProjectManifest> repoNameFilter = Builders<ProjectManifest>.Filter.Where(x => x.Repo.ToLower().Contains(repositoryName));
-            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepoStamp, repoNameFilter)).ToListAsync();
+            FilterDefinition<ProjectManifest> repoNameFilter = Builders<ProjectManifest>.Filter.Where(x => x.RepositoryName.ToLower().Contains(repositoryName));
+            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter)).ToListAsync();
             string newestStamp = StampSorter.GetNewestStamp(stamps);
 
-            FilterDefinition<ProjectManifest> filter = repoNameFilter & Builders<ProjectManifest>.Filter.Where(x => x.RepoStamp == newestStamp);
+            FilterDefinition<ProjectManifest> filter = repoNameFilter & Builders<ProjectManifest>.Filter.Where(x => x.RepositoryStamp == newestStamp);
             var list = await (await this.manifests.FindAsync(filter)).ToListAsync();
             stopwatch.Stop();
 
@@ -70,14 +65,14 @@ namespace RepoCat.Portal.Services
         public async Task<ManifestQueryResult> FindCurrentProjects(string repositoryName, string query, bool isRegex)
         {
             var stopwatch = Stopwatch.StartNew();
-            FilterDefinition<ProjectManifest> repoNameFilter = Builders<ProjectManifest>.Filter.Where(x => x.Repo.ToLower().Contains(repositoryName));
-            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepoStamp, repoNameFilter)).ToListAsync();
+            FilterDefinition<ProjectManifest> repoNameFilter = Builders<ProjectManifest>.Filter.Where(x => x.RepositoryName.ToLower().Contains(repositoryName));
+            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter)).ToListAsync();
             string newestStamp = StampSorter.GetNewestStamp(stamps);
 
-            FilterDefinition<ProjectManifest> filter = repoNameFilter & Builders<ProjectManifest>.Filter.Where(x => x.RepoStamp == newestStamp);
+            FilterDefinition<ProjectManifest> filter = repoNameFilter & Builders<ProjectManifest>.Filter.Where(x => x.RepositoryStamp == newestStamp);
             if (!string.IsNullOrEmpty(query))
             {
-                filter = filter & BuildTextQuery(query, isRegex);
+                filter = filter & this.BuildTextQuery(query, isRegex);
             }
 
             var list = await (await this.manifests.FindAsync(filter)).ToListAsync();
