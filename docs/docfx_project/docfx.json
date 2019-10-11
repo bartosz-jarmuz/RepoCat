@@ -6,7 +6,8 @@
           "files": [
             "src/**.csproj"
           ],
-          "cwd" : ".."
+          "src" : "../../"
+          
         }
       ],
       "dest": "api",
@@ -49,7 +50,7 @@
         ]
       }
     ],
-    "dest": ".",
+    "dest": "../",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
