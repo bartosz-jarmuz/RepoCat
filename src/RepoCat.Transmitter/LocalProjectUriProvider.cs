@@ -5,8 +5,17 @@ using System.Linq;
 
 namespace RepoCat.Transmitter
 {
+    /// <summary>
+    /// Class LocalProjectUriProvider.
+    /// </summary>
+    /// <seealso cref="RepoCat.Transmitter.IProjectUriProvider" />
     public class LocalProjectUriProvider : IProjectUriProvider
     {
+        /// <summary>
+        /// Finds the URIs of the projects in a local (file system) directory 
+        /// </summary>
+        /// <param name="rootUri">The root URI.</param>
+        /// <returns>IEnumerable&lt;System.String&gt;.</returns>
         public IEnumerable<string> GetUris(string rootUri)
         {
             var codeDirectory = new DirectoryInfo(rootUri);

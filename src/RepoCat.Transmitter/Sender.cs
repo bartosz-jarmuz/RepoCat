@@ -10,10 +10,20 @@ using RepoCat.Models.ProjectInfo;
 
 namespace RepoCat.Transmitter
 {
+    /// <summary>
+    /// Class that sends the project manifests to the RepoCat API over HTTP
+    /// </summary>
     public class Sender
     {
+        /// <summary>
+        /// The client
+        /// </summary>
         private readonly HttpClient client;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Sender"/> class.
+        /// </summary>
+        /// <param name="baseAddress">The base address.</param>
         public Sender(Uri baseAddress)
         {
             this.client = new HttpClient()
@@ -22,6 +32,11 @@ namespace RepoCat.Transmitter
             };
         }
 
+        /// <summary>
+        /// Sends the specified infos.
+        /// </summary>
+        /// <param name="infos">The infos.</param>
+        /// <returns>Task.</returns>
         public async Task Send(IEnumerable<ProjectInfo> infos)
         {
             var tasks = new List<Task>();
@@ -37,6 +52,11 @@ namespace RepoCat.Transmitter
             await Task.WhenAll(tasks);
         }
 
+        /// <summary>
+        /// Sends the specified information.
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <returns>Task.</returns>
         public async Task Send(ProjectInfo info)
         {
             Program.Log.Debug($"Sending {info.ProjectName} project info");
