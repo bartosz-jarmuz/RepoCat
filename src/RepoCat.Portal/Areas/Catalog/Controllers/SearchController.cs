@@ -1,11 +1,9 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Models;
-using RepoCat.Portal.Services;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
 {
@@ -28,6 +26,14 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             return this.View(model);
         }
 
+
+        /// <summary>
+        /// Search the repository for a specified query
+        /// </summary>
+        /// <param name="repositoryName"></param>
+        /// <param name="query"></param>
+        /// <param name="isRegex"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("Search/{repositoryName}")]
         public async Task<PartialViewResult> Search(string repositoryName, string query, bool isRegex)

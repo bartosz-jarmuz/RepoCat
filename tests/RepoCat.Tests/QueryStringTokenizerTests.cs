@@ -1,11 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using FluentAssertions;
 using NUnit.Framework;
-using RepoCat.Portal.Models;
-using RepoCat.Portal.Services;
 using RepoCat.Utilities;
 
 namespace Tests

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using RepoCat.Portal.Services;
 using RepoCat.Utilities;
 
 namespace RepoCat.Portal.Models

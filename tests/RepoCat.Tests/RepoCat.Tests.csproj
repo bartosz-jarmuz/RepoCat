@@ -14,16 +14,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\RepoCat.Models.Xsd\RepoCat.Models.Xsd.csproj" />
+    <ProjectReference Include="..\..\src\RepoCat.Models.Xsd\RepoCat.Schemas.csproj" />
     <ProjectReference Include="..\..\src\RepoCat.Portal\RepoCat.Portal.csproj" />
+    <ProjectReference Include="..\..\src\RepoCat.Transmitter\RepoCat.Transmitter.csproj" />
     <ProjectReference Include="..\..\src\RepoCat.Utilities\RepoCat.Utilities.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestFiles\FullProjectManifest.RepoCat.xml">
+    <None Update="TestFiles\FullGeneratedProjectInfoMessage.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\ComponentsOnlyManifest.RepoCat.xml">
+    <None Update="TestFiles\SampleManifest.RepoCat.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

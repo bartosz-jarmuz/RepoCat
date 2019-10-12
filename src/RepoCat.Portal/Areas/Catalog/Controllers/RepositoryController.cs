@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Models;
-using RepoCat.Portal.Services;
 
 namespace RepoCat.Portal.Controllers
 {
@@ -68,7 +66,7 @@ namespace RepoCat.Portal.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProject(AddProjectModel project)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 this.TempData["error"] = "Incorrect input.";
                 return this.View(project);

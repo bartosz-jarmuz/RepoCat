@@ -1,16 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using FluentAssertions;
 using NUnit.Framework;
-using RepoCat.Models.Xsd;
-using RepoCat.Portal.Models;
-using RepoCat.Portal.Services;
+using RepoCat.Schemas;
 
 namespace Tests
 {
@@ -28,7 +22,7 @@ namespace Tests
         [Test]
         public void TestSchema_SampleFile_IsValid()
         {
-            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\TestFiles\\ComponentsOnlyManifest.RepoCat.xml");
+            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\TestFiles\\SampleManifest.RepoCat.xml");
             var xDoc = XDocument.Parse(text);
 
             var schemas = XsdProvider.GetSchemaSet(SchemaNames.ProjectManifestSchema );

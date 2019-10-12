@@ -1,20 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- This is a sample of how the full message sent to the API will look like for each project. 
+The info about a project is generated automatically by the transmitter, whereas the Component elements are defined by the humans. 
+The component elements *might* get enriched by a transmitter plugin-->
 <Project>
   <Name>RepoCat.Sample.FeatureBox.csproj</Name>
   <AssemblyName>FeaturesBox.dll</AssemblyName>
+  <RepositoryName>Repo Cat</RepositoryName>
+  <RepositoryStamp>12.3.5.12312</RepositoryStamp>
   <ProjectUri>https://github.com/bartosz-jarmuz/repocat</ProjectUri>
   <Component>
     <Name>PneumaticPick</Name>
-    <ContactEmail>Jim Beam</ContactEmail>
     <Description>You don't even know you need it</Description>
     <DocumentationUri>http://google.com</DocumentationUri>
     <Tags Values="Mining;Teeth;Hygiene"/>
+    <Properties>
+      <Add Key="Author" Value="JimBeam"/>
+      <Add Key="Weight" Value="25kg"/>
+    </Properties>
   </Component>
   <Component>
     <Name>SteamPick</Name>
-    <ContactEmail>Jack Black</ContactEmail>
     <Description>You know you don't need it</Description>
     <DocumentationUri>http://google.com</DocumentationUri>
     <Tags Values="Coal;Steam;Injury"/>
+    <Properties>
+      <Add Key="Author" Value="Jack Black"/>
+      <Add Key="Fuel" Value="Coal"/>
+    </Properties>
   </Component>
 </Project>

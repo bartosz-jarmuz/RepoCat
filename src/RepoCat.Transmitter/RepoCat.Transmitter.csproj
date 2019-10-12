@@ -61,6 +61,7 @@
     <Compile Include="IProjectInfoProvider.cs" />
     <Compile Include="IProjectUriProvider.cs" />
     <Compile Include="LocalProjectUriProvider.cs" />
+    <Compile Include="ManifestDeserializer.cs" />
     <Compile Include="Program.cs" />
     <None Include="Start.bat" />
     <Compile Include="ProjectInfoProvider.cs" />
@@ -80,9 +81,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Models.ProjectInfo.csproj">
+    <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmitter.Models.csproj">
       <Project>{894549A7-4337-4E81-9D54-4F7B5D9FA19A}</Project>
-      <Name>RepoCat.Models.ProjectInfo</Name>
+      <Name>RepoCat.Transmitter.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

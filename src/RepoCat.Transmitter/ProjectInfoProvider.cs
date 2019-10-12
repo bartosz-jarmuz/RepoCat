@@ -4,7 +4,7 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using Microsoft.Build.Evaluation;
-using RepoCat.Models.ProjectInfo;
+using RepoCat.Transmitter.Models;
 
 namespace RepoCat.Transmitter
 {
@@ -45,16 +45,14 @@ namespace RepoCat.Transmitter
                     var info = new ProjectInfo()
                     {
                         AssemblyName = prj.Properties.FirstOrDefault(x => x.Name.Equals("AssemblyName", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
-                        TargetExt = prj.Properties.FirstOrDefault(x => x.Name.Equals("TargetExt", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
-                        OutputType = prj.Properties.FirstOrDefault(x => x.Name.Equals("OutputType", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
                         ProjectUri = prj.FullPath,
                         ProjectName = Path.GetFileNameWithoutExtension(prj.FullPath),
                         RepositoryName = repo,
                         RepositoryStamp = repoStamp,
-                        ManifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault(),
                     };
 
-                    info.ManifestContent = File.ReadAllText(info.ManifestPath);
+                    string manifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault();
+                    info.ManifestContent = File.ReadAllText(manifestPath);
 
                     Program.Log.Info($"Read OK from {uri}");
 

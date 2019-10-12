@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--This is a file that needs to be filled in and added to a project by a human 
+It should contain a declaration of one or more components that are in this project -->
+<!--This data might be enriched by a transmitter automatically, 
+although the primary assumption is that this is a from-human-to-human information -->
+<Project>
+  <Component>
+    <Name>PneumaticPick</Name>
+    <Description>You don't even know you need it</Description>
+    <DocumentationUri>http://google.com</DocumentationUri>
+    <Tags Values="Mining;Teeth;Hygiene"/>
+    <Properties>
+      <Add Key="Author" Value="JimBeam"/>
+      <Add Key="Weight" Value="25kg"/>
+    </Properties>
+  </Component>
+  <Component>
+    <Name>SteamPick</Name>
+    <Description>You know you don't need it</Description>
+    <DocumentationUri>http://google.com</DocumentationUri>
+    <Tags Values="Coal;Steam;Injury"/>
+    <Properties>
+      <Add Key="Author" Value="Jack Black"/>
+      <Add Key="Fuel" Value="Coal"/>
+    </Properties>
+  </Component>
+</Project>

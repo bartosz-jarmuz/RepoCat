@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RepoCat.Portal.Areas.Catalog.Models
+﻿namespace RepoCat.Portal.Areas.Catalog.Models
 {
     public class TagBadgeViewModel
     {

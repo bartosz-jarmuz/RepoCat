@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace RepoCat.Persistence.Models
 {
-    public class ProjectManifest
+    public class ProjectInfo
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

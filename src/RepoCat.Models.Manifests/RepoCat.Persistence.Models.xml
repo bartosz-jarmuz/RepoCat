@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RepoCat.Persistence.Models</name>
+    </assembly>
+    <members>
+        <member name="T:RepoCat.Persistence.Models.ComponentManifest">
+            <summary>
+            Component manifests contains a human-created short metadata about a top-level functional component in an assembly.
+            <para>A component is 'something of interest for a user' a tool, an app (or significant part of it), a plugin etc. </para>
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.Name">
+            <summary>
+            Gets or sets the name of the component
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.Description">
+            <summary>
+            Gets or sets the short description of the component.
+            </summary>
+            <value>The description.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.DocumentationUri">
+            <summary>
+            Gets or sets the component documentation URI.
+            </summary>
+            <value>The documentation URI.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.Tags">
+            <summary>
+            Gets or sets the tags that should allow for a component to be found in a repository catalog.
+            </summary>
+            <value>The tags.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.Properties">
+            <summary>
+            Gets or sets the additional key-value properties associated with a component.
+            These properties might be enriched by a transmitter plugin automatically
+            (e.g. if a transmitter plugin uses reflection to scan through code for some extra info)
+            </summary>
+            <value>The properties.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.RepositoryStamp">
+            <summary>
+            A datetime or version stamp of the repository as of when the project info was read and transmitted
+            </summary>
+        </member>
+    </members>
+</doc>

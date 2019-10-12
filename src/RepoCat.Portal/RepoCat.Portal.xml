@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RepoCat.Portal</name>
+    </assembly>
+    <members>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search(System.String,System.String,System.Boolean)">
+            <summary>
+            Search the repository for a specified query
+            </summary>
+            <param name="repositoryName"></param>
+            <param name="query"></param>
+            <param name="isRegex"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

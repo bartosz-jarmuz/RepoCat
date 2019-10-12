@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using RepoCat.Models.ProjectInfo;
-using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
-using RepoCat.Portal.Models;
-using RepoCat.Portal.Services;
+using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
 
 namespace RepoCat.Portal.Controllers.api
 {
@@ -29,18 +19,17 @@ namespace RepoCat.Portal.Controllers.api
         }
 
         [HttpPost]
-        public IActionResult Post(ProjectInfo projectInfo)
+        public IActionResult Post(Transmitter.Models.ProjectInfo projectInfo)
         {
-            ProjectManifest prjManifest = this.mapper.Map<ProjectManifest>(projectInfo);
-            prjManifest.Components = ManifestDeserializer.LoadComponents(projectInfo.ManifestContent);
+            ProjectInfo prjInfo = this.mapper.Map<ProjectInfo>(projectInfo);
 
-            this.service.Create(prjManifest);
+            this.service.Create(prjInfo);
 
-            return this.CreatedAtAction("Get", prjManifest.Id);
+            return this.CreatedAtAction("Get", prjInfo.Id);
         }
 
         [HttpGet]
-        public ProjectManifest Get(string id)
+        public ProjectInfo Get(string id)
         {
             return this.service.Get(id);
         }

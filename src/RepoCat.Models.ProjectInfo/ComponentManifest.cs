@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace RepoCat.Persistence.Models
+namespace RepoCat.Transmitter.Models
 {
     /// <summary>
     /// Component manifests contains a human-created short metadata about a top-level functional component in an assembly.
     /// <para>A component is 'something of interest for a user' a tool, an app (or significant part of it), a plugin etc. </para>
     /// </summary>
+    [XmlRoot("Component")]
     public class ComponentManifest
     {
         /// <summary>
@@ -28,6 +29,7 @@ namespace RepoCat.Persistence.Models
         /// Gets or sets the tags that should allow for a component to be found in a repository catalog.
         /// </summary>
         /// <value>The tags.</value>
+        [XmlIgnore]
         public List<string> Tags { get; set; } = new List<string>();
         /// <summary>
         /// Gets or sets the additional key-value properties associated with a component.
@@ -35,6 +37,7 @@ namespace RepoCat.Persistence.Models
         /// (e.g. if a transmitter plugin uses reflection to scan through code for some extra info)
         /// </summary>
         /// <value>The properties.</value>
+        [XmlIgnore]
         public Dictionary<string, string> Properties { get; set; } = new Dictionary<string, string>();
     }
 }

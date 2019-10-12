@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 
-namespace RepoCat.Models.Xsd
+namespace RepoCat.Schemas
 {
     public static class XsdProvider
     {

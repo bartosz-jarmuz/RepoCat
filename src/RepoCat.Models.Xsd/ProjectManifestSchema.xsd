@@ -6,29 +6,44 @@
     xmlns="http://tempuri.org/ProjectManifestSchema.xsd"
     xmlns:mstns="http://tempuri.org/ProjectManifestSchema.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="Project">
-      <xs:complexType>
-        <xs:sequence>
-          <xs:element name="Component" maxOccurs="unbounded" minOccurs="0">
-            <xs:complexType>
-              <xs:sequence>
-                <xs:element type="xs:string" name="Name"/>
-                <xs:element type="xs:string" name="ContactEmail"/>
-                <xs:element type="xs:string" name="Description"/>
-                <xs:element type="xs:anyURI" name="DocumentationUri"/>
-                <xs:element name="Tags">
-                  <xs:complexType>
-                    <xs:simpleContent>
-                      <xs:extension base="xs:string">
-                        <xs:attribute type="xs:string" name="Values" use="optional"/>
-                      </xs:extension>
-                    </xs:simpleContent>
-                  </xs:complexType>
-                </xs:element>
-              </xs:sequence>
-            </xs:complexType>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
-    </xs:element>
+  <xs:element name="Project">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Component" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:all>
+              <xs:element type="xs:string" name="Name"/>
+              <xs:element type="xs:string" name="Description"/>
+              <xs:element type="xs:anyURI" name="DocumentationUri"/>
+              <xs:element name="Tags">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="Values" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Properties">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Add" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:string" name="Key" use="optional"/>
+                            <xs:attribute type="xs:string" name="Value" use="optional"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   </xs:schema>

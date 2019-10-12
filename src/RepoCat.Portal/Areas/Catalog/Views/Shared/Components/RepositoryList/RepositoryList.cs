@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Models;
-using RepoCat.Portal.Services;
 
 namespace RepoCat.Portal.ViewComponents
 {
@@ -23,7 +19,7 @@ namespace RepoCat.Portal.ViewComponents
 
             var names = await this.service.GetRepositories();
             var model = new RepositoriesListViewModel {Repositories = names};
-            return View("~/Areas/Catalog/Views/Shared/Components/RepositoryList/Default.cshtml", model);
+            return this.View("~/Areas/Catalog/Views/Shared/Components/RepositoryList/Default.cshtml", model);
         }
     }
 }

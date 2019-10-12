@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29209.62
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Portal", "src\RepoCat.Portal\RepoCat.Portal.csproj", "{DBD512A0-F5AA-4F60-8759-0BB842C44B35}"
 EndProject
@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Tests", "tests\Repo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EDD18317-7871-4682-B214-DF2985656B6A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Models.ProjectInfo", "src\RepoCat.Models.ProjectInfo\RepoCat.Models.ProjectInfo.csproj", "{894549A7-4337-4E81-9D54-4F7B5D9FA19A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Transmitter.Models", "src\RepoCat.Models.ProjectInfo\RepoCat.Transmitter.Models.csproj", "{894549A7-4337-4E81-9D54-4F7B5D9FA19A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Models.Xsd", "src\RepoCat.Models.Xsd\RepoCat.Models.Xsd.csproj", "{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Schemas", "src\RepoCat.Models.Xsd\RepoCat.Schemas.csproj", "{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Models", "src\RepoCat.Models.Manifests\RepoCat.Persistence.Models.csproj", "{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}"
 EndProject
@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Utilities", "src\RepoCat.Utilities\RepoCat.Utilities.csproj", "{8410B2AA-78D6-4EF3-9097-F1ED5377FCAB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transmitters", "Transmitters", "{6F7FE48C-2880-4EC9-A6F5-AA07081432FE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transmission", "Transmission", "{6F7FE48C-2880-4EC9-A6F5-AA07081432FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +68,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{4455B3FB-565B-4020-A619-D6ED25E4F0DA} = {6F7FE48C-2880-4EC9-A6F5-AA07081432FE}
 		{2DDC3EA2-8817-4D5A-80EC-DAF60B01AB6A} = {EDD18317-7871-4682-B214-DF2985656B6A}
+		{894549A7-4337-4E81-9D54-4F7B5D9FA19A} = {6F7FE48C-2880-4EC9-A6F5-AA07081432FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {397FD6B5-7959-4985-8025-0D125CD07D21}

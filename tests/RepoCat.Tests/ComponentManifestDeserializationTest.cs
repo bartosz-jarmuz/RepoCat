@@ -1,8 +1,7 @@
 using System.IO;
 using FluentAssertions;
 using NUnit.Framework;
-using RepoCat.Portal.Models;
-using RepoCat.Portal.Services;
+using RepoCat.Transmitter;
 
 namespace Tests
 {
@@ -12,7 +11,7 @@ namespace Tests
         [Test]
         public void SampleManifest_MultipleComponents_WorksOK()
         {
-            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\TestFiles\\FullProjectManifest.RepoCat.xml");
+            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\TestFiles\\SampleManifest.RepoCat.xml");
 
             var components = ManifestDeserializer.LoadComponents(text);
 
@@ -23,12 +22,13 @@ namespace Tests
 
             first.Name.Should().Be("PneumaticPick");
             first.Description.Should().Be("You don't even know you need it");
-            first.ContactEmail.Should().Be("Jim Beam");
+            first.Properties["Author"].Should().Be("JimBeam");
+            first.Properties["Weight"].Should().Be("25kg");
             first.DocumentationUri.Should().Be("http://google.com");
             first.Tags.Should().BeEquivalentTo(new []{ "Hygiene" ,"Teeth", "Mining"  });
 
             second.Name.Should().Be("SteamPick");
-            second.ContactEmail.Should().Be("Jack Black");
+            second.Properties["Author"].Should().Be("Jack Black");
 
             second.Tags.Should().BeEquivalentTo(new[] { "Coal", "Steam", "Injury" });
         }

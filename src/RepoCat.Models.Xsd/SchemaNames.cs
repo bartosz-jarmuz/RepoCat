@@ -1,4 +1,4 @@
-﻿namespace RepoCat.Models.Xsd
+﻿namespace RepoCat.Schemas
 {
     public enum SchemaNames
     {
