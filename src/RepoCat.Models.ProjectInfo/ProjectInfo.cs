@@ -37,11 +37,7 @@ namespace RepoCat.Transmitter.Models
         /// A datetime or version stamp of the repository as of when the project info was read and transmitted
         /// </summary>
         public string RepositoryStamp { get; set; }
-        /// <summary>
-        /// Gets or sets the content of the manifest file
-        /// </summary>
-        /// <value>The content of the manifest.</value>
-        public string ManifestContent { get; set; }
+
         /// <summary>
         /// Gets or sets the components manifests
         /// </summary>

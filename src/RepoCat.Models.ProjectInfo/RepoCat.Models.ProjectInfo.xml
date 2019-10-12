@@ -82,12 +82,6 @@
             A datetime or version stamp of the repository as of when the project info was read and transmitted
             </summary>
         </member>
-        <member name="P:RepoCat.Transmitter.Models.ProjectInfo.ManifestContent">
-            <summary>
-            Gets or sets the content of the manifest file
-            </summary>
-            <value>The content of the manifest.</value>
-        </member>
         <member name="P:RepoCat.Transmitter.Models.ProjectInfo.Components">
             <summary>
             Gets or sets the components manifests

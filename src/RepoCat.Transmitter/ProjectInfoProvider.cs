@@ -52,9 +52,17 @@ namespace RepoCat.Transmitter
                     };
 
                     string manifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault();
-                    info.ManifestContent = File.ReadAllText(manifestPath);
-
-                    Program.Log.Info($"Read OK from {uri}");
+                    if (string.IsNullOrEmpty(manifestPath))
+                    {
+                        Program.Log.Warn($"Manifest not found for project {uri}!");
+                    }
+                    else
+                    {
+                        string manifestContent = File.ReadAllText(manifestPath);
+                        info.Components = ManifestDeserializer.LoadComponents(manifestContent);
+                        Program.Log.Info($"Read OK from {uri}");
+                    }
+                 
 
                     return info;
                 }

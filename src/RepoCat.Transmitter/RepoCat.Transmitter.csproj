@@ -58,8 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IProjectInfoProvider.cs" />
-    <Compile Include="IProjectUriProvider.cs" />
+    <Compile Include="Interface\IProjectInfoProvider.cs" />
+    <Compile Include="Interface\IProjectUriProvider.cs" />
     <Compile Include="LocalProjectUriProvider.cs" />
     <Compile Include="ManifestDeserializer.cs" />
     <Compile Include="Program.cs" />
@@ -86,6 +86,7 @@
       <Name>RepoCat.Transmitter.Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\Fody.4.0.2\build\Fody.targets" Condition="Exists('..\..\packages\Fody.4.0.2\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
