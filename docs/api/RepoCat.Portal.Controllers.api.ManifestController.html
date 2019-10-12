@@ -73,7 +73,8 @@
   
   <h1 id="RepoCat_Portal_Controllers_api_ManifestController" data-uid="RepoCat.Portal.Controllers.api.ManifestController" class="text-break">Class ManifestController
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Handles requests related to project manifests</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -690,7 +691,8 @@ public class ManifestController : Controller, IActionFilter, IAsyncActionFilter,
   </span>
   <a id="RepoCat_Portal_Controllers_api_ManifestController__ctor_" data-uid="RepoCat.Portal.Controllers.api.ManifestController.#ctor*"></a>
   <h4 id="RepoCat_Portal_Controllers_api_ManifestController__ctor_RepoCat_Persistence_Service_ManifestsService_AutoMapper_IMapper_" data-uid="RepoCat.Portal.Controllers.api.ManifestController.#ctor(RepoCat.Persistence.Service.ManifestsService,AutoMapper.IMapper)">ManifestController(ManifestsService, IMapper)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="RepoCat.Portal.Controllers.api.ManifestController.html">ManifestController</a> class.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -709,12 +711,14 @@ public class ManifestController : Controller, IActionFilter, IAsyncActionFilter,
       <tr>
         <td><a class="xref" href="RepoCat.Persistence.Service.ManifestsService.html">ManifestsService</a></td>
         <td><span class="parametername">manifestsService</span></td>
-        <td></td>
+        <td><p>The manifests service.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">AutoMapper.IMapper</span></td>
         <td><span class="parametername">mapper</span></td>
-        <td></td>
+        <td><p>The mapper.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -725,16 +729,17 @@ public class ManifestController : Controller, IActionFilter, IAsyncActionFilter,
     <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Controllers_api_ManifestController_Get_System_String_.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Controllers.api.ManifestController.Get(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/api/ManifestController.cs/#L42">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/api/ManifestController.cs/#L65">View Source</a>
   </span>
   <a id="RepoCat_Portal_Controllers_api_ManifestController_Get_" data-uid="RepoCat.Portal.Controllers.api.ManifestController.Get*"></a>
   <h4 id="RepoCat_Portal_Controllers_api_ManifestController_Get_System_String_" data-uid="RepoCat.Portal.Controllers.api.ManifestController.Get(System.String)">Get(String)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the project info with specified identifier.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[HttpGet]
-public ProjectManifest Get(string id)</code></pre>
+public ProjectInfo Get(string id)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -749,7 +754,8 @@ public ProjectManifest Get(string id)</code></pre>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">id</span></td>
-        <td></td>
+        <td><p>The identifier.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -763,21 +769,23 @@ public ProjectManifest Get(string id)</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="RepoCat.Persistence.Models.ProjectManifest.html">ProjectManifest</a></td>
-        <td></td>
+        <td><a class="xref" href="RepoCat.Persistence.Models.ProjectInfo.html">ProjectInfo</a></td>
+        <td><p>ProjectInfo.</p>
+</td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Controllers_api_ManifestController_Post_RepoCat_Models_ProjectInfo_ProjectInfo_.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Controllers.api.ManifestController.Post(RepoCat.Models.ProjectInfo.ProjectInfo)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Controllers_api_ManifestController_Post_RepoCat_Transmitter_Models_ProjectInfo_.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Controllers.api.ManifestController.Post(RepoCat.Transmitter.Models.ProjectInfo)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/api/ManifestController.cs/#L31">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/api/ManifestController.cs/#L36">View Source</a>
   </span>
   <a id="RepoCat_Portal_Controllers_api_ManifestController_Post_" data-uid="RepoCat.Portal.Controllers.api.ManifestController.Post*"></a>
-  <h4 id="RepoCat_Portal_Controllers_api_ManifestController_Post_RepoCat_Models_ProjectInfo_ProjectInfo_" data-uid="RepoCat.Portal.Controllers.api.ManifestController.Post(RepoCat.Models.ProjectInfo.ProjectInfo)">Post(ProjectInfo)</h4>
-  <div class="markdown level1 summary"></div>
+  <h4 id="RepoCat_Portal_Controllers_api_ManifestController_Post_RepoCat_Transmitter_Models_ProjectInfo_" data-uid="RepoCat.Portal.Controllers.api.ManifestController.Post(RepoCat.Transmitter.Models.ProjectInfo)">Post(ProjectInfo)</h4>
+  <div class="markdown level1 summary"><p>Post the specified ProjectInfo to the database</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -795,9 +803,10 @@ public IActionResult Post(ProjectInfo projectInfo)</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="RepoCat.Models.ProjectInfo.ProjectInfo.html">ProjectInfo</a></td>
+        <td><a class="xref" href="RepoCat.Transmitter.Models.ProjectInfo.html">ProjectInfo</a></td>
         <td><span class="parametername">projectInfo</span></td>
-        <td></td>
+        <td><p>The project information.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -812,7 +821,8 @@ public IActionResult Post(ProjectInfo projectInfo)</code></pre>
     <tbody>
       <tr>
         <td><span class="xref">Microsoft.AspNetCore.Mvc.IActionResult</span></td>
-        <td></td>
+        <td><p>IActionResult.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -829,6 +839,10 @@ public IActionResult Post(ProjectInfo projectInfo)</code></pre>
   <div>
       <span class="xref">System.IDisposable</span>
   </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><span class="xref">Microsoft.AspNetCore.Mvc.Controller</span></div>
+  </div>
 </article>
           </div>
           
@@ -840,7 +854,7 @@ public IActionResult Post(ProjectInfo projectInfo)</code></pre>
                     <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Controllers_api_ManifestController.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Controllers.api.ManifestController%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/api/ManifestController.cs/#L18" class="contribution-link">View Source</a>
+                    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/api/ManifestController.cs/#L13" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

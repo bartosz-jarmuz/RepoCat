@@ -78,11 +78,22 @@
     <h3 id="classes">Classes
   </h3>
       <h4><a class="xref" href="RepoCat.Persistence.Models.ComponentManifest.html">ComponentManifest</a></h4>
-      <section></section>
+      <section><p>Component manifests contains a human-created short metadata about a top-level functional component in an assembly.</p>
+<p>A component is &apos;something of interest for a user&apos; a tool, an app (or significant part of it), a plugin etc. </p>
+</section>
       <h4><a class="xref" href="RepoCat.Persistence.Models.ManifestQueryResult.html">ManifestQueryResult</a></h4>
-      <section></section>
-      <h4><a class="xref" href="RepoCat.Persistence.Models.ProjectManifest.html">ProjectManifest</a></h4>
-      <section></section>
+      <section><p>Encapsulates the result of querying the database</p>
+</section>
+      <h4><a class="xref" href="RepoCat.Persistence.Models.ProjectInfo.html">ProjectInfo</a></h4>
+      <section><p>Project info contains data about a project, understood as a class library or an executable.</p>
+<p>Projects can contain zero or more components
+They can contain a set of plugins, tool or functionalities,
+however they can only be helper assemblies which do not contain any high-level components
+(in which case they are not interesting from the point of view of repository catalog).</p>
+<p>Project info is also different from a component manifest in that a project properties
+are automatically extracted from the project file (e.g. csproj),
+whereas component manifests are intended as a human-to-human communication</p>
+</section>
 </article>
           </div>
           

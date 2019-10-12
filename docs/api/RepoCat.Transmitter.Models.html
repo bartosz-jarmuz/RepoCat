@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Namespace RepoCat.Transmitter
+    <title>Namespace RepoCat.Transmitter.Models
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Namespace RepoCat.Transmitter
+    <meta name="title" content="Namespace RepoCat.Transmitter.Models
    ">
     <meta name="generator" content="docfx 2.45.1.0">
     
@@ -68,34 +68,28 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="RepoCat.Transmitter">
+            <article class="content wrap" id="_content" data-uid="RepoCat.Transmitter.Models">
   
-  <h1 id="RepoCat_Transmitter" data-uid="RepoCat.Transmitter" class="text-break">Namespace RepoCat.Transmitter
+  <h1 id="RepoCat_Transmitter_Models" data-uid="RepoCat.Transmitter.Models" class="text-break">Namespace RepoCat.Transmitter.Models
   </h1>
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
     <h3 id="classes">Classes
   </h3>
-      <h4><a class="xref" href="RepoCat.Transmitter.LocalProjectUriProvider.html">LocalProjectUriProvider</a></h4>
-      <section><p>Class LocalProjectUriProvider.</p>
+      <h4><a class="xref" href="RepoCat.Transmitter.Models.ComponentManifest.html">ComponentManifest</a></h4>
+      <section><p>Component manifests contains a human-created short metadata about a top-level functional component in an assembly.</p>
+<p>A component is &apos;something of interest for a user&apos; a tool, an app (or significant part of it), a plugin etc. </p>
 </section>
-      <h4><a class="xref" href="RepoCat.Transmitter.ManifestDeserializer.html">ManifestDeserializer</a></h4>
-      <section><p>Performs the deserialization of the component manifest</p>
-</section>
-      <h4><a class="xref" href="RepoCat.Transmitter.Sender.html">Sender</a></h4>
-      <section><p>Class that sends the project manifests to the RepoCat API over HTTP</p>
-</section>
-      <h4><a class="xref" href="RepoCat.Transmitter.TransmitterArguments.html">TransmitterArguments</a></h4>
-      <section><p>The set of parameters for the worker.</p>
-</section>
-      <h4><a class="xref" href="RepoCat.Transmitter.Worker.html">Worker</a></h4>
-      <section><p>Main worker class</p>
-</section>
-    <h3 id="interfaces">Interfaces
-  </h3>
-      <h4><a class="xref" href="RepoCat.Transmitter.IProjectUriProvider.html">IProjectUriProvider</a></h4>
-      <section><p>Provides the URIs of all projects available under the specified root URI</p>
+      <h4><a class="xref" href="RepoCat.Transmitter.Models.ProjectInfo.html">ProjectInfo</a></h4>
+      <section><p>Project info contains data about a project, understood as a class library or an executable.</p>
+<p>Projects can contain zero or more components
+They can contain a set of plugins, tool or functionalities,
+however they can only be helper assemblies which do not contain any high-level components
+(in which case they are not interesting from the point of view of repository catalog).</p>
+<p>Project info is also different from a component manifest in that a project properties
+are automatically extracted from the project file (e.g. csproj),
+whereas component manifests are intended as a human-to-human communication</p>
 </section>
 </article>
           </div>
