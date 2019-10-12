@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using RepoCat.Utilities;
 
-namespace RepoCat.Portal.Models
+namespace RepoCat.Portal.Areas.Catalog.Models
 {
     public class ManifestQueryResultViewModel
     {
@@ -37,7 +37,7 @@ namespace RepoCat.Portal.Models
             set => this.searchTokens = value;
         }
 
-        public List<ProjectManifestViewModel> Manifests { get; set; } = new List<ProjectManifestViewModel>();
+        public List<ProjectInfoViewModel> Manifests { get; set; } = new List<ProjectInfoViewModel>();
         public TimeSpan Elapsed { get; set; }
         public string RepoStamp { get; set; }
         public string Repo { get; set; }

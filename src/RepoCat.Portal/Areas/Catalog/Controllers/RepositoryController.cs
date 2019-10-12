@@ -36,11 +36,11 @@ namespace RepoCat.Portal.Controllers
             };
 
             var result = await this.service.GetAllCurrentProjects(repositoryName);
-            List<ProjectManifestViewModel> manifests = this.mapper.Map<List<ProjectManifestViewModel>>(result.Manifests);
+            List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.ProjectInfos);
             if (manifests.Any())
             {
                 model.ProjectManifestViewModels = manifests;
-                model.RepoStamp = result.RepoStamp;
+                model.RepoStamp = result.RepositoryStamp;
                 var orderedTimes = manifests.OrderByDescending(x => x.AddedDateTime).ToList();
                 model.ImportedDate = orderedTimes.First().AddedDateTime;
                 model.ImportDuration = model.ImportedDate - orderedTimes.Last().AddedDateTime;

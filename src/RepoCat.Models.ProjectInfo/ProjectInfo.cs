@@ -28,6 +28,18 @@ namespace RepoCat.Transmitter.Models
         /// </summary>
         /// <value>The name of the assembly.</value>
         public string AssemblyName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the project output (class library, windows app etc)
+        /// </summary>
+        /// <value>The type of the output.</value>
+        public string OutputType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the target extension.
+        /// </summary>
+        /// <value>The target extension.</value>
+        public string TargetExtension { get; set; }
         /// <summary>
         /// Gets or sets the name of the repository in which the project lives
         /// </summary>

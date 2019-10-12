@@ -1,4 +1,5 @@
-﻿@model BrowseRepositoryViewModel
+﻿@using RepoCat.Portal.Areas.Catalog.Models
+@model RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel
 
 @{
     ViewData["Title"] = "Repository overview";
@@ -93,7 +94,7 @@ else
         Projects list:
     </h2>
     <div class="row">
-        @foreach (ProjectManifestViewModel manifest in @Model.ProjectManifestViewModels)
+        @foreach (ProjectInfoViewModel manifest in @Model.ProjectManifestViewModels)
         {
             <partial name="_ProjectViewPartial" for="@manifest" />
         }

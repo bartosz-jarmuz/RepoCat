@@ -8,10 +8,17 @@ using RepoCat.Utilities;
 
 namespace RepoCat.Persistence.Service
 {
+    /// <summary>
+    /// Allows access to the stored Manifests data
+    /// </summary>
     public class ManifestsService
     {
-        public readonly IMongoCollection<ProjectInfo> manifests;
+        private readonly IMongoCollection<ProjectInfo> manifests;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManifestsService"/> class.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
         public ManifestsService(IRepoCatDbSettings settings)
         {
             MongoClient client = new MongoClient(settings.ConnectionString);
@@ -24,52 +31,78 @@ namespace RepoCat.Persistence.Service
         {
             var keys = Builders<ProjectInfo>.IndexKeys
                 .Text("Components.Tags");
-                //.Text(m=>m.Repo);
-            
+            //.Text(m=>m.Repo);
 
 
             var indexModel = new CreateIndexModel<ProjectInfo>(keys);
             this.manifests.Indexes.CreateOne(indexModel);
         }
 
+        /// <summary>
+        /// Gets all items
+        /// </summary>
+        /// <returns>List&lt;ProjectInfo&gt;.</returns>
         public List<ProjectInfo> Get()
         {
             return this.manifests.Find(manifest => true).ToList();
         }
 
+        /// <summary>
+        /// Gets all the repositories names
+        /// </summary>
+        /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         public async Task<List<string>> GetRepositories()
         {
-            IAsyncCursor<string> result = await this.manifests.DistinctAsync(x => x.RepositoryName, FilterDefinition<ProjectInfo>.Empty);
+            IAsyncCursor<string> result =
+                await this.manifests.DistinctAsync(x => x.RepositoryName, FilterDefinition<ProjectInfo>.Empty);
             return await result.ToListAsync();
         }
 
+        /// <summary>
+        /// Gets all projects for the latest version of a given repository.
+        /// </summary>
+        /// <param name="repositoryName">Name of the repository.</param>
+        /// <returns>Task&lt;ManifestQueryResult&gt;.</returns>
         public async Task<ManifestQueryResult> GetAllCurrentProjects(string repositoryName)
         {
             var stopwatch = Stopwatch.StartNew();
-            FilterDefinition<ProjectInfo> repoNameFilter = Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.ToLower().Contains(repositoryName));
-            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter)).ToListAsync();
+            FilterDefinition<ProjectInfo> repoNameFilter =
+                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.ToLower().Contains(repositoryName));
+            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter))
+                .ToListAsync();
             string newestStamp = StampSorter.GetNewestStamp(stamps);
 
-            FilterDefinition<ProjectInfo> filter = repoNameFilter & Builders<ProjectInfo>.Filter.Where(x => x.RepositoryStamp == newestStamp);
+            FilterDefinition<ProjectInfo> filter =
+                repoNameFilter & Builders<ProjectInfo>.Filter.Where(x => x.RepositoryStamp == newestStamp);
             var list = await (await this.manifests.FindAsync(filter)).ToListAsync();
             stopwatch.Stop();
 
             return new ManifestQueryResult()
             {
-                RepoStamp = newestStamp,
+                RepositoryStamp = newestStamp,
                 Elapsed = stopwatch.Elapsed,
-                Manifests = list
+                ProjectInfos = list
             };
         }
 
-        public async Task<ManifestQueryResult> FindCurrentProjects(string repositoryName, string query, bool isRegex)
+        /// <summary>
+        /// Gets all projects for the latest version of a given repository matching specified search parameters
+        /// </summary>
+        /// <param name="repositoryName">Name of the repository.</param>
+        /// <param name="query">The string to search by</param>
+        /// <param name="isRegex">Specify whether the search string is a Regex</param>
+        /// <returns>Task&lt;ManifestQueryResult&gt;.</returns>
+        public async Task<ManifestQueryResult> GetCurrentProjects(string repositoryName, string query, bool isRegex)
         {
             var stopwatch = Stopwatch.StartNew();
-            FilterDefinition<ProjectInfo> repoNameFilter = Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.ToLower().Contains(repositoryName));
-            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter)).ToListAsync();
+            FilterDefinition<ProjectInfo> repoNameFilter =
+                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.ToLower().Contains(repositoryName));
+            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter))
+                .ToListAsync();
             string newestStamp = StampSorter.GetNewestStamp(stamps);
 
-            FilterDefinition<ProjectInfo> filter = repoNameFilter & Builders<ProjectInfo>.Filter.Where(x => x.RepositoryStamp == newestStamp);
+            FilterDefinition<ProjectInfo> filter =
+                repoNameFilter & Builders<ProjectInfo>.Filter.Where(x => x.RepositoryStamp == newestStamp);
             if (!string.IsNullOrEmpty(query))
             {
                 filter = filter & this.BuildTextQuery(query, isRegex);
@@ -80,14 +113,62 @@ namespace RepoCat.Persistence.Service
             stopwatch.Stop();
             return new ManifestQueryResult()
             {
-                Repo = repositoryName,
-                RepoStamp = newestStamp,
+                RepositoryName = repositoryName,
+                RepositoryStamp = newestStamp,
                 Elapsed = stopwatch.Elapsed,
-                Manifests = list,
+                ProjectInfos = list,
                 IsRegex = isRegex,
                 QueryString = query
             };
-                
+        }
+
+        /// <summary>
+        /// Gets the item with specified ID.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>ProjectInfo.</returns>
+        public ProjectInfo Get(string id)
+        {
+            return this.manifests.Find<ProjectInfo>(manifest => manifest.Id == id).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Creates a new item.
+        /// </summary>
+        /// <param name="info">The information.</param>
+        /// <returns>ProjectInfo.</returns>
+        public ProjectInfo Create(ProjectInfo info)
+        {
+            this.manifests.InsertOne(info);
+            return info;
+        }
+
+        /// <summary>
+        /// Updates the specified item.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="info">The information.</param>
+        public void Update(string id, ProjectInfo info)
+        {
+            this.manifests.ReplaceOne(manifest => manifest.Id == id, info);
+        }
+
+        /// <summary>
+        /// Removes the specified item.
+        /// </summary>
+        /// <param name="info">The information.</param>
+        public void Remove(ProjectInfo info)
+        {
+            this.manifests.DeleteOne(manifest => manifest.Id == info.Id);
+        }
+
+        /// <summary>
+        /// Removes the item with specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public void Remove(string id)
+        {
+            this.manifests.DeleteOne(manifest => manifest.Id == id);
         }
 
         private FilterDefinition<ProjectInfo> BuildTextQuery(string query, bool isRegex)
@@ -98,12 +179,15 @@ namespace RepoCat.Persistence.Service
             }
             else
             {
-                var regex = new BsonRegularExpression(new System.Text.RegularExpressions.Regex(query, System.Text.RegularExpressions.RegexOptions.IgnoreCase));
-                return Builders<ProjectInfo>.Filter.Regex(this.GetComponentFieldName(nameof(ComponentManifest.Tags)), regex) 
-                    | Builders<ProjectInfo>.Filter.Regex(this.GetComponentFieldName(nameof(ComponentManifest.Name)), regex)
-                    | Builders<ProjectInfo>.Filter.Regex(x=>x.AssemblyName, regex)
-                    | Builders<ProjectInfo>.Filter.Regex(x=>x.ProjectName, regex)
-                    | Builders<ProjectInfo>.Filter.Regex(x=>x.TargetExt, regex)
+                var regex = new BsonRegularExpression(new System.Text.RegularExpressions.Regex(query,
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase));
+                return Builders<ProjectInfo>.Filter.Regex(this.GetComponentFieldName(nameof(ComponentManifest.Tags)),
+                           regex)
+                       | Builders<ProjectInfo>.Filter.Regex(this.GetComponentFieldName(nameof(ComponentManifest.Name)),
+                           regex)
+                       | Builders<ProjectInfo>.Filter.Regex(x => x.AssemblyName, regex)
+                       | Builders<ProjectInfo>.Filter.Regex(x => x.ProjectName, regex)
+                       | Builders<ProjectInfo>.Filter.Regex(x => x.TargetExtension, regex)
                     ;
             }
         }
@@ -113,32 +197,7 @@ namespace RepoCat.Persistence.Service
             return nameof(ProjectInfo.Components) + "." + field;
         }
 
-     
 
-        public ProjectInfo Get(string id)
-        {
-            return this.manifests.Find<ProjectInfo>(manifest => manifest.Id == id).FirstOrDefault();
-        }
-
-        public ProjectInfo Create(ProjectInfo info)
-        {
-            this.manifests.InsertOne(info);
-            return info;
-        }
-
-        public void Update(string id, ProjectInfo info)
-        {
-            this.manifests.ReplaceOne(manifest => manifest.Id == id, info);
-        }
-
-        public void Remove(ProjectInfo info)
-        {
-            this.manifests.DeleteOne(manifest => manifest.Id == info.Id);
-        }
-
-        public void Remove(string id)
-        {
-            this.manifests.DeleteOne(manifest => manifest.Id == id);
-        }
+       
     }
 }

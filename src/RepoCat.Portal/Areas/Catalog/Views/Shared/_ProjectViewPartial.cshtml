@@ -1,5 +1,5 @@
 @using RepoCat.Portal.Areas.Catalog.Models
-@model ProjectManifestViewModel
+@model ProjectInfoViewModel
 
 <div class="col-md-12">
     <div class="card">
@@ -25,7 +25,7 @@
                             <dt>Assembly name:</dt>
                             <dd>@Model.GetAssemblyName()</dd>
                             <dt>Project path:</dt>
-                            <dd class="project-path">@Model.ProjectPath</dd>
+                            <dd class="project-path">@Model.ProjectUri</dd>
                         </dl>
 
                     </div>
@@ -55,7 +55,7 @@
                                         <span class="component-label">Tags:&nbsp;</span>
                                         @foreach (var tag in @component.Tags)
                                         {
-                                            <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.Repo, tag))"/>
+                                            <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.RepositoryName, tag))"/>
                                         }
                                     </div>
                                 </li>

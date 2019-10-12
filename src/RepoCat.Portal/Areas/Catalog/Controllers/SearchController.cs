@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
+using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Models;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
@@ -62,7 +63,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
         private async Task<ManifestQueryResultViewModel> GetQueryResultViewModel(string repositoryName, string query, bool isRegex)
         {
-            ManifestQueryResult result = await this.manifestsService.FindCurrentProjects(repositoryName, query, isRegex);
+            ManifestQueryResult result = await this.manifestsService.GetCurrentProjects(repositoryName, query, isRegex);
             ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
             return queryResultViewModel;
         }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RepoCat.Portal.Models
+namespace RepoCat.Portal.Areas.Catalog.Models
 {
     public class SearchIndexViewModel
     {

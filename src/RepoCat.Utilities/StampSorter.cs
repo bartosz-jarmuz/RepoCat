@@ -5,8 +5,16 @@ using System.Linq;
 
 namespace RepoCat.Utilities
 {
+    /// <summary>
+    /// Sorts the repository stamps
+    /// </summary>
     public static class StampSorter
     {
+        /// <summary>
+        /// Gets the newest stamp.
+        /// </summary>
+        /// <param name="stamps">The stamps.</param>
+        /// <returns>System.String.</returns>
         public static string GetNewestStamp(ICollection<string> stamps)
         {
             if (!stamps.Any())

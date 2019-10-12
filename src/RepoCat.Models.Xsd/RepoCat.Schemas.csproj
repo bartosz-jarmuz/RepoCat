@@ -4,12 +4,18 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>C:\Users\bjarmuz\source\repos\RepoCat\src\RepoCat.Models.Xsd\RepoCat.Schemas.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="ProjectManifestSchema.xsd" />
+    <None Remove="ComponentManifestSchema.xsd" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="ProjectManifestSchema.xsd">
+    <EmbeddedResource Include="ComponentManifestSchema.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

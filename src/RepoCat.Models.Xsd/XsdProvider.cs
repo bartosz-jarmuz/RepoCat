@@ -6,9 +6,17 @@ using System.Xml.Schema;
 
 namespace RepoCat.Schemas
 {
+    /// <summary>
+    /// Provides schemas
+    /// </summary>
     public static class XsdProvider
     {
- 
+
+        /// <summary>
+        /// Gets the schema text.
+        /// </summary>
+        /// <param name="names">The names.</param>
+        /// <returns>System.String.</returns>
         public static string GetSchemaText(SchemaNames names)
         {
             string resourceName = GetFileName(names);
@@ -26,6 +34,12 @@ namespace RepoCat.Schemas
             }
         }
 
+
+        /// <summary>
+        /// Gets the schema set.
+        /// </summary>
+        /// <param name="names">The names.</param>
+        /// <returns>XmlSchemaSet.</returns>
         public static XmlSchemaSet GetSchemaSet(SchemaNames names)
         {
             string text = GetSchemaText(names);
@@ -41,7 +55,7 @@ namespace RepoCat.Schemas
         {
             switch (names)
             {
-                case SchemaNames.ProjectManifestSchema:
+                case SchemaNames.ComponentManifestSchema:
                     return "ProjectManifestSchema.xsd";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(names), names, null);

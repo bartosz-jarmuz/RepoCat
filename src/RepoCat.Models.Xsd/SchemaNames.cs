@@ -1,7 +1,13 @@
 ﻿namespace RepoCat.Schemas
 {
+    /// <summary>
+    /// Available schema names
+    /// </summary>
     public enum SchemaNames
     {
-        ProjectManifestSchema
+        /// <summary>
+        /// The Component manifest schema
+        /// </summary>
+        ComponentManifestSchema
     }
 }
