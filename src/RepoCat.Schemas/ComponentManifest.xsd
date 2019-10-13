@@ -8,7 +8,7 @@
       <xs:sequence>
         <xs:element name="Component" maxOccurs="unbounded" minOccurs="0">
           <xs:complexType>
-            <xs:all>
+            <xs:sequence>
               <xs:element type="xs:string" name="Name"/>
               <xs:element type="xs:string" name="Description"/>
               <xs:element type="xs:anyURI" name="DocumentationUri"/>
@@ -37,7 +37,7 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-            </xs:all>
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
