@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Schema;
 
 namespace RepoCat.Schemas
@@ -11,7 +13,6 @@ namespace RepoCat.Schemas
     /// </summary>
     public static class XsdProvider
     {
-
         /// <summary>
         /// Gets the schema text.
         /// </summary>
@@ -34,7 +35,6 @@ namespace RepoCat.Schemas
             }
         }
 
-
         /// <summary>
         /// Gets the schema set.
         /// </summary>
@@ -45,23 +45,20 @@ namespace RepoCat.Schemas
             string text = GetSchemaText(names);
             var schema = XmlReader.Create(new StringReader(text));
             XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add("", schema);
+            schemas.Add("https://github.com/bartosz-jarmuz/RepoCat", schema);
             return schemas;
         }
-
-
 
         private static string GetFileName(SchemaNames names)
         {
             switch (names)
             {
                 case SchemaNames.ComponentManifest:
-                    return "ProjectManifestSchema.xsd";
+                    return "ComponentManifest.xsd";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(names), names, null);
             }
         }
-
 
         private static string FormatResourceName(Assembly assembly, string resourceName)
         {

@@ -3,7 +3,7 @@
     targetNamespace="https://github.com/bartosz-jarmuz/RepoCat"
     xmlns="https://github.com/bartosz-jarmuz/RepoCat ComponentManifest.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="Project">
+  <xs:element name="Components">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="Component" maxOccurs="unbounded" minOccurs="0">

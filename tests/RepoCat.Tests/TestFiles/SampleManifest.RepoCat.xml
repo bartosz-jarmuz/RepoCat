@@ -3,7 +3,10 @@
 It should contain a declaration of one or more components that are in this project -->
 <!--This data might be enriched by a transmitter automatically, 
 although the primary assumption is that this is a from-human-to-human information -->
-<Project >
+<Components xmlns="https://github.com/bartosz-jarmuz/RepoCat"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://github.com/bartosz-jarmuz/RepoCat 
+                             https://raw.githubusercontent.com/bartosz-jarmuz/RepoCat/master/src/RepoCat.Schemas/ComponentManifest.xsd" >
   <Component>
     <Name>PneumaticPick</Name>
     <Description>You don't even know you need it</Description>
@@ -24,4 +27,4 @@ although the primary assumption is that this is a from-human-to-human informatio
       <Add Key="Fuel" Value="Coal"/>
     </Properties>
   </Component>
-</Project>
+</Components>

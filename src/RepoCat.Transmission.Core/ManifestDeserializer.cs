@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using RepoCat.Transmission.Models;
@@ -42,7 +43,7 @@ namespace RepoCat.Transmission.Core
         {
             var item = (ComponentManifest) xmlSerializer.Deserialize(xElement.CreateReader());
 
-            //do tags manually
+            //do tags manually, bear in mind namespaces
             LoadTags(xElement, item);
             LoadProperties(xElement, item);
             return item;
@@ -50,7 +51,7 @@ namespace RepoCat.Transmission.Core
 
         private static void LoadProperties(XElement xElement, ComponentManifest item)
         {
-            var parent = xElement.Element("Properties");
+            var parent = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == "Properties");
             item.Properties = new Dictionary<string, string>();
             if (parent != null)
             {
@@ -72,7 +73,7 @@ namespace RepoCat.Transmission.Core
 
         private static void LoadTags(XElement xElement, ComponentManifest item)
         {
-            var tags = xElement.Element("Tags")?.Attribute("Values")?.Value;
+            var tags = xElement.Elements().FirstOrDefault(x=>x.Name.LocalName == "Tags")?.Attribute("Values")?.Value;
             if (tags != null)
             {
                 var split = tags.Split(new[] {',', ';'}, StringSplitOptions.RemoveEmptyEntries);

@@ -14,7 +14,7 @@ namespace RepoCat.Tests
         [Test]
         public void TestProvider_Text_ProvidesEmbeddedSchema()
         {
-            var schemaText = XsdProvider.GetSchemaText(SchemaNames.ComponentManifest);
+            string schemaText = XsdProvider.GetSchemaText(SchemaNames.ComponentManifest);
 
             schemaText.Should().NotBeNullOrWhiteSpace();
         }
@@ -40,7 +40,7 @@ namespace RepoCat.Tests
         [Test]
         public void TestSchema_RandomXml_IsNotValid()
         {
-            string text = "<Project>hi</Project>";
+            string text = "<Project xmlns=\"https://github.com/bartosz-jarmuz/RepoCat\">hi</Project>";
             var xDoc = XDocument.Parse(text);
 
             var schemas = XsdProvider.GetSchemaSet(SchemaNames.ComponentManifest);
