@@ -26,7 +26,7 @@ namespace RepoCat.Transmission.Core.Implementation
                 this.log.Debug($"Checking project #{counter} for manifest file. {uri}");
 
                 counter++;
-                var info = this.GetInfo(uri,repo, repoStamp);
+                var info = this.GetInfo(uri, repo, repoStamp);
                 if (info != null)
                 {
                     yield return info;

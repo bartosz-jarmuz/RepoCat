@@ -11,11 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ComponentManifestSchema.xsd" />
+    <None Remove="ComponentManifest.xsd" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="ComponentManifestSchema.xsd">
+    <EmbeddedResource Include="ComponentManifest.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

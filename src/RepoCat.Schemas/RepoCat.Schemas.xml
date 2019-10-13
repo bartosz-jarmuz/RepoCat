@@ -9,7 +9,7 @@
             Available schema names
             </summary>
         </member>
-        <member name="F:RepoCat.Schemas.SchemaNames.ComponentManifest">
+        <member name="F:RepoCat.Schemas.SchemaNames.ComponentManifestSchema">
             <summary>
             The Component manifest schema
             </summary>

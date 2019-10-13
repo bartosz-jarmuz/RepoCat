@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EDD18317
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Transmission.Models", "src\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj", "{894549A7-4337-4E81-9D54-4F7B5D9FA19A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Schemas", "src\RepoCat.Models.Xsd\RepoCat.Schemas.csproj", "{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Schemas", "src\RepoCat.Schemas\RepoCat.Schemas.csproj", "{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Models", "src\RepoCat.Models.Manifests\RepoCat.Persistence.Models.csproj", "{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}"
 EndProject

@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--targetNamespace="http://tempuri.org/ProjectManifestSchema.xsd"-->
-<xs:schema id="ProjectManifestSchema"
-    
-    elementFormDefault="qualified"
-    xmlns="http://tempuri.org/ProjectManifestSchema.xsd"
-    xmlns:mstns="http://tempuri.org/ProjectManifestSchema.xsd"
+<xs:schema id="ComponentManifest" elementFormDefault="qualified"
+    targetNamespace="https://github.com/bartosz-jarmuz/RepoCat"
+    xmlns="https://github.com/bartosz-jarmuz/RepoCat ComponentManifest.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Project">
     <xs:complexType>

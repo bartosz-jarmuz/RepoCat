@@ -55,7 +55,7 @@ namespace RepoCat.Schemas
         {
             switch (names)
             {
-                case SchemaNames.ComponentManifestSchema:
+                case SchemaNames.ComponentManifest:
                     return "ProjectManifestSchema.xsd";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(names), names, null);
