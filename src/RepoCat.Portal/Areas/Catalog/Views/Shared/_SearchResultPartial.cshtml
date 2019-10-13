@@ -8,7 +8,7 @@
             <div id="searchResultsCard">
                 <h2>Search results:</h2>
                 <p>
-                    <span><strong>@Model.Repo</strong> - Found <strong>@Model.Manifests.Count</strong> matches</span>
+                    <span><strong>@Model.RepositoryName</strong> - Found <strong>@Model.Manifests.Count</strong> matches</span>
                     <span>
                         @if (Model.IsRegex)
                         {
@@ -22,7 +22,7 @@
                                 <span>for </span>
                                 @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.Repo, token))"/>
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.RepositoryName, token))"/>
 
                                 }
                             }
@@ -64,13 +64,13 @@ else
                                 <span>for </span>
                                 @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.Repo, token))" />
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.RepositoryName, token))" />
 
                                 }
                             }
                         }
                     </span>
-                    in <strong>@Model.Repo</strong> and found nothing...
+                    in <strong>@Model.RepositoryName</strong> and found nothing...
                 </span>
                 <img src="~/images/cats/cat_hungry256.png" class="mx-auto d-block" alt="No results">
                 <br />

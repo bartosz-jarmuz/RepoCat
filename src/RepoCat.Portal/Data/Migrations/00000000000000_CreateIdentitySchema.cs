@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+#pragma warning disable 1591
 
 namespace RepoCat.Portal.Data.Migrations
 {

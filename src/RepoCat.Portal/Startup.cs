@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RepoCat.Persistence.Service;
+#pragma warning disable 1591
 
 namespace RepoCat.Portal
 {

@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Xml.XMLGen;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
-using RepoCat.Portal.Models;
 using RepoCat.Portal.Utilities;
 
-namespace RepoCat.Portal.Controllers
+namespace RepoCat.Portal.Areas.Catalog.Controllers
 {
+    /// <summary>
+    /// Class RepositoryController.
+    /// </summary>
+    /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Area("Catalog")]
     [Route("Repository")]
     public class RepositoryController : Controller
@@ -20,23 +20,36 @@ namespace RepoCat.Portal.Controllers
         private readonly ManifestsService service;
         private readonly IMapper mapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RepositoryController"/> class.
+        /// </summary>
+        /// <param name="manifestsService">The manifests service.</param>
+        /// <param name="mapper">The mapper.</param>
         public RepositoryController(ManifestsService manifestsService, IMapper mapper)
         {
             this.service = manifestsService;
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<string>> GetRepositories()
+        /// <summary>
+        /// Gets the repositories names
+        /// </summary>
+        /// <returns>Task&lt;IEnumerable&lt;System.String&gt;&gt;.</returns>
+        public async Task<IEnumerable<string>> GetRepositoryNames()
         {
-            return await this.service.GetRepositories();
+            return await this.service.GetRepositoryNames();
         }
-
+        /// <summary>
+        /// Indexes the specified repository name.
+        /// </summary>
+        /// <param name="repositoryName">Name of the repository.</param>
+        /// <returns>Task&lt;ViewResult&gt;.</returns>
         [Route("{repositoryName}")]
         public async Task<ViewResult> Index(string repositoryName)
         {
             var model = new BrowseRepositoryViewModel()
             {
-                RepoName = repositoryName
+                RepositoryName = repositoryName
             };
 
             var result = await this.service.GetAllCurrentProjects(repositoryName);
@@ -44,7 +57,7 @@ namespace RepoCat.Portal.Controllers
             if (manifests.Any())
             {
                 model.ProjectManifestViewModels = manifests;
-                model.RepoStamp = result.RepositoryStamp;
+                model.RepositoryStamp = result.RepositoryStamp;
                 var orderedTimes = manifests.OrderByDescending(x => x.AddedDateTime).ToList();
                 model.ImportedDate = orderedTimes.First().AddedDateTime;
                 model.ImportDuration = model.ImportedDate - orderedTimes.Last().AddedDateTime;
@@ -57,6 +70,10 @@ namespace RepoCat.Portal.Controllers
 
         }
 
+        /// <summary>
+        /// Shows the add project view
+        /// </summary>
+        /// <returns>Task&lt;ViewResult&gt;.</returns>
         [HttpGet]
         public async Task<ViewResult> AddProject()
         {
@@ -69,8 +86,15 @@ namespace RepoCat.Portal.Controllers
             });
         }
 
+        /// <summary>
+        /// Adds the project.
+        /// </summary>
+        /// <param name="project">The project.</param>
+        /// <returns>Task&lt;IActionResult&gt;.</returns>
         [HttpPost]
+#pragma warning disable 1998
         public async Task<IActionResult> AddProject(AddProjectModel project)
+#pragma warning restore 1998
         {
             if (!this.ModelState.IsValid)
             {

@@ -51,7 +51,7 @@ namespace RepoCat.Persistence.Service
         /// Gets all the repositories names
         /// </summary>
         /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
-        public async Task<List<string>> GetRepositories()
+        public async Task<List<string>> GetRepositoryNames()
         {
             IAsyncCursor<string> result =
                 await this.manifests.DistinctAsync(x => x.RepositoryName, FilterDefinition<ProjectInfo>.Empty);

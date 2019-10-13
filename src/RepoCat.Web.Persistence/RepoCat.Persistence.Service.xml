@@ -44,7 +44,7 @@
             </summary>
             <returns>List&lt;ProjectInfo&gt;.</returns>
         </member>
-        <member name="M:RepoCat.Persistence.Service.ManifestsService.GetRepositories">
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.GetRepositoryNames">
             <summary>
             Gets all the repositories names
             </summary>

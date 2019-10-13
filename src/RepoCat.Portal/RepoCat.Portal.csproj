@@ -10,6 +10,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Users\bjarmuz\source\repos\RepoCat\src\RepoCat.Portal\RepoCat.Portal.xml</DocumentationFile>
+    <NoWarn>NU1701;1702</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

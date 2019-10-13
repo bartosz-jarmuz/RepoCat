@@ -4,6 +4,403 @@
         <name>RepoCat.Portal</name>
     </assembly>
     <members>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController">
+            <summary>
+            Class RepositoryController.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.#ctor(RepoCat.Persistence.Service.ManifestsService,AutoMapper.IMapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController"/> class.
+            </summary>
+            <param name="manifestsService">The manifests service.</param>
+            <param name="mapper">The mapper.</param>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.GetRepositoryNames">
+            <summary>
+            Gets the repositories names
+            </summary>
+            <returns>Task&lt;IEnumerable&lt;System.String&gt;&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.Index(System.String)">
+            <summary>
+            Indexes the specified repository name.
+            </summary>
+            <param name="repositoryName">Name of the repository.</param>
+            <returns>Task&lt;ViewResult&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.AddProject">
+            <summary>
+            Shows the add project view
+            </summary>
+            <returns>Task&lt;ViewResult&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.AddProject(RepoCat.Portal.Areas.Catalog.Models.AddProjectModel)">
+            <summary>
+            Adds the project.
+            </summary>
+            <param name="project">The project.</param>
+            <returns>Task&lt;IActionResult&gt;.</returns>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Controllers.SearchController">
+            <summary>
+            Handles search requests
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(RepoCat.Persistence.Service.ManifestsService,AutoMapper.IMapper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Controllers.SearchController"/> class.
+            </summary>
+            <param name="manifestsService">The manifests service.</param>
+            <param name="mapper">The mapper.</param>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Index">
+            <summary>
+            Indexes this instance.
+            </summary>
+            <returns>Task&lt;IActionResult&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search(System.String,System.String,System.Boolean)">
+            <summary>
+            Search the repository for a specified query
+            </summary>
+            <param name="repositoryName"></param>
+            <param name="query"></param>
+            <param name="isRegex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets the search result page (for URL sharing).
+            </summary>
+            <param name="repositoryName">Name of the repository.</param>
+            <param name="query">The query.</param>
+            <param name="isRegex">if set to <c>true</c> [is regex].</param>
+            <returns>Task&lt;IActionResult&gt;.</returns>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.AddProjectModel">
+            <summary>
+            Class AddProjectModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.AddProjectModel.ManifestXml">
+            <summary>
+            Gets or sets the manifest XML.
+            </summary>
+            <value>The manifest XML.</value>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel">
+            <summary>
+            Class BrowseRepositoryViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.RepositoryName">
+            <summary>
+            Gets or sets the name of the repository.
+            </summary>
+            <value>The name of the repository.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.RepositoryStamp">
+            <summary>
+            Gets or sets the repository stamp.
+            </summary>
+            <value>The repository stamp.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.NumberOfProjects">
+            <summary>
+            Gets or sets the number of projects.
+            </summary>
+            <value>The number of projects.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.ImportedDate">
+            <summary>
+            Gets or sets the imported date.
+            </summary>
+            <value>The imported date.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.ImportDuration">
+            <summary>
+            Gets or sets the duration of the import.
+            </summary>
+            <value>The duration of the import.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.ProjectManifestViewModels">
+            <summary>
+            Gets or sets the project manifest view models.
+            </summary>
+            <value>The project manifest view models.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.NumberOfComponents">
+            <summary>
+            Gets or sets the number of components.
+            </summary>
+            <value>The number of components.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.NumberOfTags">
+            <summary>
+            Gets or sets the number of tags.
+            </summary>
+            <value>The number of tags.</value>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel">
+            <summary>
+            Class ComponentManifestViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+            <value>The description.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel.DocumentationUri">
+            <summary>
+            Gets or sets the documentation URI.
+            </summary>
+            <value>The documentation URI.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel.Tags">
+            <summary>
+            Gets or sets the tags.
+            </summary>
+            <value>The tags.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel.Properties">
+            <summary>
+            Gets or sets the properties.
+            </summary>
+            <value>The properties.</value>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel">
+            <summary>
+            Contains the result of a query
+            </summary>
+        </member>
+        <member name="F:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.searchTokens">
+            <summary>
+            The search tokens
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.IsRegex">
+            <summary>
+            Gets or sets a value indicating whether this instance is regex.
+            </summary>
+            <value><c>true</c> if this instance is regex; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.QueryString">
+            <summary>
+            Gets or sets the query string.
+            </summary>
+            <value>The query string.</value>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.GetSearchTokens">
+            <summary>
+            Gets the search tokens.
+            </summary>
+            <returns>List&lt;System.String&gt;.</returns>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.SearchTokens">
+            <summary>
+            Gets or sets the search tokens.
+            </summary>
+            <value>The search tokens.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.Manifests">
+            <summary>
+            Gets or sets the manifests.
+            </summary>
+            <value>The manifests.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.Elapsed">
+            <summary>
+            Gets or sets the elapsed.
+            </summary>
+            <value>The elapsed.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.RepositoryStamp">
+            <summary>
+            Gets or sets the repo stamp.
+            </summary>
+            <value>The repo stamp.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.RepositoryName">
+            <summary>
+            Gets or sets the repo.
+            </summary>
+            <value>The repo.</value>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel">
+            <summary>
+            Class ProjectInfoViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.RepositoryName">
+            <summary>
+            Gets or sets the name of the repository.
+            </summary>
+            <value>The name of the repository.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.RepositoryStamp">
+            <summary>
+            Gets or sets the repository stamp.
+            </summary>
+            <value>The repository stamp.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.AddedDateTime">
+            <summary>
+            Gets or sets the added date time.
+            </summary>
+            <value>The added date time.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.AssemblyName">
+            <summary>
+            Gets or sets the name of the assembly.
+            </summary>
+            <value>The name of the assembly.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.ProjectUri">
+            <summary>
+            Gets or sets the project URI.
+            </summary>
+            <value>The project URI.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.ProjectName">
+            <summary>
+            Gets or sets the name of the project.
+            </summary>
+            <value>The name of the project.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.TargetExt">
+            <summary>
+            Gets or sets the target ext.
+            </summary>
+            <value>The target ext.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.OutputType">
+            <summary>
+            Gets or sets the type of the output.
+            </summary>
+            <value>The type of the output.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.Components">
+            <summary>
+            Gets or sets the components.
+            </summary>
+            <value>The components.</value>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.GetAssemblyName">
+            <summary>
+            Gets the name of the assembly.
+            </summary>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.GetIdentifier">
+            <summary>
+            Gets the identifier.
+            </summary>
+            <returns>System.String.</returns>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel">
+            <summary>
+            Class SearchIndexViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel.Repository">
+            <summary>
+            Gets or sets the repository.
+            </summary>
+            <value>The repository.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel.Repositories">
+            <summary>
+            Gets or sets the repositories.
+            </summary>
+            <value>The repositories.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel.Result">
+            <summary>
+            Gets or sets the result.
+            </summary>
+            <value>The result.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel.Query">
+            <summary>
+            Gets or sets the query.
+            </summary>
+            <value>The query.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel.IsRegex">
+            <summary>
+            Gets or sets a value indicating whether this instance is regex.
+            </summary>
+            <value><c>true</c> if this instance is regex; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel">
+            <summary>
+            Class TagBadgeViewModel.
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel"/> class.
+            </summary>
+            <param name="repositoryName">Name of the repo.</param>
+            <param name="tagText">The tag text.</param>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel.RepositoryName">
+            <summary>
+            Gets or sets the name of the repo.
+            </summary>
+            <value>The name of the repo.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel.TagText">
+            <summary>
+            Gets or sets the tag text.
+            </summary>
+            <value>The tag text.</value>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoriesListViewModel">
+            <summary>
+            Class RepositoriesListViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoriesListViewModel.Repositories">
+            <summary>
+            Gets or sets the repositories.
+            </summary>
+            <value>The repositories.</value>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList">
+            <summary>
+            Class RepositoryList.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+        </member>
+        <member name="F:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList.service">
+            <summary>
+            The service
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList.#ctor(RepoCat.Persistence.Service.ManifestsService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList"/> class.
+            </summary>
+            <param name="manifestsService">The manifests service.</param>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList.InvokeAsync">
+            <summary>
+            invoke as an asynchronous operation.
+            </summary>
+            <returns>Task&lt;IViewComponentResult&gt;.</returns>
+        </member>
         <member name="T:RepoCat.Portal.Controllers.api.ManifestController">
             <summary>
             Handles requests related to project manifests
@@ -31,14 +428,28 @@
             <param name="id">The identifier.</param>
             <returns>ProjectInfo.</returns>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search(System.String,System.String,System.Boolean)">
+        <member name="T:RepoCat.Portal.Controllers.HomeController">
             <summary>
-            Search the repository for a specified query
+            Class HomeController.
             </summary>
-            <param name="repositoryName"></param>
-            <param name="query"></param>
-            <param name="isRegex"></param>
-            <returns></returns>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.HomeController.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Controllers.HomeController"/> class.
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.HomeController.About">
+            <summary>
+            Abouts this instance.
+            </summary>
+            <returns>IActionResult.</returns>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.HomeController.Error">
+            <summary>
+            Errors this instance.
+            </summary>
+            <returns>IActionResult.</returns>
         </member>
         <member name="T:RepoCat.Portal.MappingProfile">
             <summary>
@@ -50,6 +461,23 @@
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.MappingProfile"/> class.
             </summary>
+        </member>
+        <member name="T:RepoCat.Portal.Models.ErrorViewModel">
+            <summary>
+            Class ErrorViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Models.ErrorViewModel.RequestId">
+            <summary>
+            Gets or sets the request identifier.
+            </summary>
+            <value>The request identifier.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Models.ErrorViewModel.ShowRequestId">
+            <summary>
+            Gets a value indicating whether [show request identifier].
+            </summary>
+            <value><c>true</c> if [show request identifier]; otherwise, <c>false</c>.</value>
         </member>
         <member name="T:RepoCat.Portal.Utilities.SampleManifestXmlProvider">
             <summary>
