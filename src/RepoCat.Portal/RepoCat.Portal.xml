@@ -51,5 +51,16 @@
             Initializes a new instance of the <see cref="T:RepoCat.Portal.MappingProfile"/> class.
             </summary>
         </member>
+        <member name="T:RepoCat.Portal.Utilities.SampleManifestXmlProvider">
+            <summary>
+            Generates a sample XML
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetComponentManifest">
+            <summary>
+             Gets a sample component manifest XML
+            </summary>
+            <returns>List&lt;System.String&gt;.</returns>
+        </member>
     </members>
 </doc>

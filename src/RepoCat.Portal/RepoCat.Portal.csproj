@@ -12,6 +12,13 @@
     <DocumentationFile>C:\Users\bjarmuz\source\repos\RepoCat\src\RepoCat.Portal\RepoCat.Portal.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\Domain\**" />
+    <Content Remove="Models\Domain\**" />
+    <EmbeddedResource Remove="Models\Domain\**" />
+    <None Remove="Models\Domain\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
@@ -19,6 +26,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Microsoft.Xml.XMLGen" Version="1.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
   </ItemGroup>
 
@@ -32,7 +40,6 @@
 
   <ItemGroup>
     <Folder Include="Data\RepoCatDb\" />
-    <Folder Include="Models\Domain\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\comment\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\dialog\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\display\" />

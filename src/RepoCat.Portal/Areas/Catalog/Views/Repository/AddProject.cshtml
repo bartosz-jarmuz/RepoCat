@@ -67,11 +67,11 @@ else if (TempData["success"] != null)
                 children: []
             };
 
-            var tags = 	{
+            var tags = {
                     "!top": [
-                        "Project"
+                        "Components"
                     ],
-                    "Project": {
+                    "Components": {
                         "children": [
                             "Component"
                         ]
@@ -79,19 +79,29 @@ else if (TempData["success"] != null)
                     "Component": {
                         "children": [
                             "Name",
-                            "ContactEmail",
                             "Description",
                             "DocumentationUri",
-                            "Tags"
+                            "Tags",
+                            "Properties"
                         ]
                     },
                     "Name": {},
-                    "ContactEmail": {},
                     "Description": {},
                     "DocumentationUri": {},
                     "Tags": {
                         "attrs": {
                             "Values": null
+                        }
+                    },
+                    "Properties": {
+                        "children": [
+                            "Add"
+                        ]
+                    },
+                    "Add": {
+                        "attrs": {
+                            "Key": null,
+                            "Value": null
                         }
                     }
                 };
@@ -122,7 +132,7 @@ else if (TempData["success"] != null)
             }
 
 
-            var xml = '@Html.Raw(Model.ManifestXml)';
+            var xml = '@Html.Raw(Model.ManifestXml.Replace(Environment.NewLine,"\\n"))';
             var myCodeMirror = CodeMirror(function (elt) {
                 var editor = document.getElementById("codeEditor");
                 editor.parentNode.replaceChild(elt, editor);

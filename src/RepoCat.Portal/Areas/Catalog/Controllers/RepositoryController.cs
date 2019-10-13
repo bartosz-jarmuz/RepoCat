@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Xml.XMLGen;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Models;
+using RepoCat.Portal.Utilities;
 
 namespace RepoCat.Portal.Controllers
 {
@@ -57,9 +61,11 @@ namespace RepoCat.Portal.Controllers
         public async Task<ViewResult> AddProject()
         {
             await Task.Delay(0);
+            var xzxcManifest = SampleManifestXmlProvider.GetComponentManifest();
+
             return this.View(new AddProjectModel()
             {
-                ManifestXml = "<root>hello</root>"
+                ManifestXml = xzxcManifest
             });
         }
 
