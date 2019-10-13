@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Persistence.Service.ManifestsService.html",
-          "hash": "3xdQo5nM2n4TqA2aPxA05A=="
+          "hash": "AfTMCmEPWibl3RG8wQcTNw=="
         }
       },
       "is_incremental": false,
@@ -101,11 +101,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.html",
+          "hash": "FKrxxVQyBYRVsK9kP66/nw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/RepoCat.Portal.Areas.Catalog.Controllers.SearchController.yml",
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Controllers.SearchController.html",
-          "hash": "AchsEi+NDDu2u77Qrv+66A=="
+          "hash": "q/ILgJsvaHDc+DMm+OvgmQ=="
         }
       },
       "is_incremental": false,
@@ -117,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Controllers.html",
-          "hash": "BbKu2/d8hWk8OtYdKQfNGw=="
+          "hash": "VnxyiOLhHVfKUSVjABeOMg=="
         }
       },
       "is_incremental": false,
@@ -129,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Models.AddProjectModel.html",
-          "hash": "VZFFDXGK4ZBC7WHZXGnFdA=="
+          "hash": "a7aCjBobKoT9vpJgSNCIDA=="
         }
       },
       "is_incremental": false,
@@ -141,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.html",
-          "hash": "TpyIvmqCdXmZmi0BSbyBHQ=="
+          "hash": "MPnvve4Pq8lD8bfOB5Xl5w=="
         }
       },
       "is_incremental": false,
@@ -153,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel.html",
-          "hash": "c8ZbliSA1s3AQstGHQApsQ=="
+          "hash": "o8zGS7/KLkQPnBIdHHOxtw=="
         }
       },
       "is_incremental": false,
@@ -165,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.html",
-          "hash": "7nsMCPwnchd74xEA6Rpdww=="
+          "hash": "P7Gwzk0YtjF2z5BZftCqLw=="
         }
       },
       "is_incremental": false,
@@ -177,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.html",
-          "hash": "Ym9knpAJk2VynzTD1ZRsjA=="
+          "hash": "EZ50xLy5giPpdJTonh/eBA=="
         }
       },
       "is_incremental": false,
@@ -189,7 +201,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel.html",
-          "hash": "lIFLfgQLEsMZR7yIuwZsQw=="
+          "hash": "C9ItlB8+FoTcLKaeUfDAKA=="
         }
       },
       "is_incremental": false,
@@ -201,7 +213,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel.html",
-          "hash": "ErVaKdqJP14RwUqL3h0g2Q=="
+          "hash": "HNiwf467wkF50/F1R4uL0w=="
         }
       },
       "is_incremental": false,
@@ -213,7 +225,43 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Areas.Catalog.Models.html",
-          "hash": "qMM/v8xv2XhWv/ddjyiqHA=="
+          "hash": "vsbVt5p45+r3VtvFo9acyA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoriesListViewModel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoriesListViewModel.html",
+          "hash": "DTj6FHtx3+uh1VHYpJffCg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList.html",
+          "hash": "Uf3jToVAhIITlrpiDeHbng=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.html",
+          "hash": "a19wBLL6D6kWzhXocBhQFA=="
         }
       },
       "is_incremental": false,
@@ -225,19 +273,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Controllers.HomeController.html",
-          "hash": "O0OGimjgNLwCUdceIIjDTw=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Portal.Controllers.RepositoryController.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RepoCat.Portal.Controllers.RepositoryController.html",
-          "hash": "/g8pu4nbfn89BEWtierq+w=="
+          "hash": "Jj4baP89g/DAfvRRCkd0Bw=="
         }
       },
       "is_incremental": false,
@@ -249,7 +285,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Controllers.api.ManifestController.html",
-          "hash": "YHFu2rZkctWIJ66GYzxBYw=="
+          "hash": "g0/Wy8ubHQU/pECeQu3LoQ=="
         }
       },
       "is_incremental": false,
@@ -273,7 +309,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Controllers.html",
-          "hash": "pgIhzTgGrbjZ35JOlh504g=="
+          "hash": "LM0os+u4G/Ccr5JXaJHuwg=="
         }
       },
       "is_incremental": false,
@@ -285,7 +321,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Data.ApplicationDbContext.html",
-          "hash": "hz68AoS6FZw4450aJ8ekMg=="
+          "hash": "+dqGmnNocaqAXmP2TD+mEA=="
         }
       },
       "is_incremental": false,
@@ -297,7 +333,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Data.Migrations.CreateIdentitySchema.html",
-          "hash": "plpZkfWndFf80Egw3tuF3A=="
+          "hash": "VJf+Rbv2oEnlRPWkLmvk7A=="
         }
       },
       "is_incremental": false,
@@ -345,19 +381,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Models.ErrorViewModel.html",
-          "hash": "nnbTxiacwmK+tsRHrBSB+w=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Portal.Models.RepositoriesListViewModel.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/RepoCat.Portal.Models.RepositoriesListViewModel.html",
-          "hash": "mlJf0wJ/IZjMfL19jbzknw=="
+          "hash": "Q5K1Ftm2Pnjq42gcSBhQIA=="
         }
       },
       "is_incremental": false,
@@ -369,7 +393,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Models.html",
-          "hash": "TIApRMEr4b4crX3vAjWL4A=="
+          "hash": "2p1+Sv++ADSr4Y5iSg1TNw=="
         }
       },
       "is_incremental": false,
@@ -381,7 +405,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Program.html",
-          "hash": "wjuHyGjzd5zlzqCMZP2iNw=="
+          "hash": "ObC4FJ0W07nQnUhASaO5ag=="
         }
       },
       "is_incremental": false,
@@ -393,7 +417,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Portal.Startup.html",
-          "hash": "ewvpTDV7HnAPqU60Rwvc2g=="
+          "hash": "/yCiHFl7D0p1bqKtsrhA3g=="
         }
       },
       "is_incremental": false,
@@ -401,11 +425,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Portal.ViewComponents.RepositoryList.yml",
+      "source_relative_path": "api/RepoCat.Portal.Utilities.SampleManifestXmlProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Portal.ViewComponents.RepositoryList.html",
-          "hash": "UecX4WyjcVE+1U/ZoR2iKQ=="
+          "relative_path": "api/RepoCat.Portal.Utilities.SampleManifestXmlProvider.html",
+          "hash": "3DgWASG4y6iBDLfzhL2+Rw=="
         }
       },
       "is_incremental": false,
@@ -413,11 +437,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Portal.ViewComponents.yml",
+      "source_relative_path": "api/RepoCat.Portal.Utilities.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Portal.ViewComponents.html",
-          "hash": "4E95n5Ommy4L1t4WU8Qm7g=="
+          "relative_path": "api/RepoCat.Portal.Utilities.html",
+          "hash": "/erdkmivbcMfsKtm2/yFsQ=="
         }
       },
       "is_incremental": false,
@@ -441,7 +465,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Schemas.SchemaNames.html",
-          "hash": "kxWYw/TOfBPy/MVMXRfzKw=="
+          "hash": "XxDTlyrOobyM7osW5/HTeQ=="
         }
       },
       "is_incremental": false,
@@ -453,7 +477,7 @@
       "output": {
         ".html": {
           "relative_path": "api/RepoCat.Schemas.XsdProvider.html",
-          "hash": "Cgmcb532qc+mhdysBo2w4w=="
+          "hash": "VvPmTPDJ6Yf1FxwrKzhsXg=="
         }
       },
       "is_incremental": false,
@@ -473,11 +497,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.IProjectUriProvider.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Implementation.HttpSender.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.IProjectUriProvider.html",
-          "hash": "SRYu//3gwPPDazz35PI46A=="
+          "relative_path": "api/RepoCat.Transmission.Core.Implementation.HttpSender.html",
+          "hash": "HHSEqVT6zMq3Ahi5d2oWMg=="
         }
       },
       "is_incremental": false,
@@ -485,11 +509,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.LocalProjectUriProvider.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Implementation.LocalProjectUriProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.LocalProjectUriProvider.html",
-          "hash": "igVKY0M86klkux1zldjjYQ=="
+          "relative_path": "api/RepoCat.Transmission.Core.Implementation.LocalProjectUriProvider.html",
+          "hash": "ydOur5cXyz/ObwxHWvZvHQ=="
         }
       },
       "is_incremental": false,
@@ -497,11 +521,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.ManifestDeserializer.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Implementation.TransmissionClient.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.ManifestDeserializer.html",
-          "hash": "0vUR/ruYIhlsppUIISq4bg=="
+          "relative_path": "api/RepoCat.Transmission.Core.Implementation.TransmissionClient.html",
+          "hash": "62rDwcbsvS1fAGBohJtpaw=="
         }
       },
       "is_incremental": false,
@@ -509,11 +533,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.Models.ComponentManifest.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Implementation.TransmitterArguments.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.Models.ComponentManifest.html",
-          "hash": "OEFe0uEQMrCSrkv2ixXQ6Q=="
+          "relative_path": "api/RepoCat.Transmission.Core.Implementation.TransmitterArguments.html",
+          "hash": "doj34moq8zjBs/Lwq5cliw=="
         }
       },
       "is_incremental": false,
@@ -521,11 +545,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.Models.ProjectInfo.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Implementation.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.Models.ProjectInfo.html",
-          "hash": "BW1JupEr+lbMOemZfeiKpQ=="
+          "relative_path": "api/RepoCat.Transmission.Core.Implementation.html",
+          "hash": "b/+hJ9zcVuhMHk/LtmiTVg=="
         }
       },
       "is_incremental": false,
@@ -533,11 +557,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.Models.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Interface.IProjectUriProvider.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.Models.html",
-          "hash": "tU1/gwYLWOUt0k/74LDlPA=="
+          "relative_path": "api/RepoCat.Transmission.Core.Interface.IProjectUriProvider.html",
+          "hash": "kOlDKA8/y5tqiRLZ3iUkqQ=="
         }
       },
       "is_incremental": false,
@@ -545,11 +569,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.Sender.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Interface.ISender.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.Sender.html",
-          "hash": "z0lj65u79WazdC8z0T+wbw=="
+          "relative_path": "api/RepoCat.Transmission.Core.Interface.ISender.html",
+          "hash": "MZVeWgPBGL8z9Y8kMggTiA=="
         }
       },
       "is_incremental": false,
@@ -557,11 +581,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.TransmitterArguments.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Interface.ITransmissionClient.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.TransmitterArguments.html",
-          "hash": "KrfVxcnvbQRCF7plqCSN3g=="
+          "relative_path": "api/RepoCat.Transmission.Core.Interface.ITransmissionClient.html",
+          "hash": "6ixmBREyNEz7QjGACLrFcA=="
         }
       },
       "is_incremental": false,
@@ -569,11 +593,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.Worker.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Interface.ITransmitterArguments.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.Worker.html",
-          "hash": "Qkch9KGePof+KAH8ppANsw=="
+          "relative_path": "api/RepoCat.Transmission.Core.Interface.ITransmitterArguments.html",
+          "hash": "ZiT33sMC3zRQ+Fi0GXNKXA=="
         }
       },
       "is_incremental": false,
@@ -581,11 +605,71 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/RepoCat.Transmitter.yml",
+      "source_relative_path": "api/RepoCat.Transmission.Core.Interface.yml",
       "output": {
         ".html": {
-          "relative_path": "api/RepoCat.Transmitter.html",
-          "hash": "SrGJCMVdxN4VqpWOBnibLQ=="
+          "relative_path": "api/RepoCat.Transmission.Core.Interface.html",
+          "hash": "7AoPxt6ii2mDX0SyDf/R8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RepoCat.Transmission.Core.ManifestDeserializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RepoCat.Transmission.Core.ManifestDeserializer.html",
+          "hash": "KutbrcmjDygVZgK3ITaCkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RepoCat.Transmission.Core.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RepoCat.Transmission.Core.html",
+          "hash": "RECT3noBu9MNWKes/xYNQA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RepoCat.Transmission.Models.ComponentManifest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RepoCat.Transmission.Models.ComponentManifest.html",
+          "hash": "QriqyT2x/+sNY7d0OCDebQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RepoCat.Transmission.Models.ProjectInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RepoCat.Transmission.Models.ProjectInfo.html",
+          "hash": "eZtGmUvReRjIJDBNkGNVYQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/RepoCat.Transmission.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/RepoCat.Transmission.Models.html",
+          "hash": "rbE3/r5L9nV6hl2u63jFCg=="
         }
       },
       "is_incremental": false,
@@ -645,7 +729,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "JWO8x3KURayybWGaM0Oo5w=="
+          "hash": "S1fOUpOlieSN+AbzzcG81g=="
         }
       },
       "is_incremental": false,
@@ -719,8 +803,8 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": true,
           "incrementalPhase": "build",
-          "total_file_count": 52,
-          "skipped_file_count": 8
+          "total_file_count": 59,
+          "skipped_file_count": 17
         },
         "ConceptualDocumentProcessor": {
           "can_incremental": true,

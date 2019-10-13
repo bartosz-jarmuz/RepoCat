@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class HomeController
+    <title>Class RepositoryController
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class HomeController
+    <meta name="title" content="Class RepositoryController
    ">
     <meta name="generator" content="docfx 2.45.1.0">
     
@@ -68,12 +68,12 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="RepoCat.Portal.Controllers.HomeController">
+            <article class="content wrap" id="_content" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController">
   
   
-  <h1 id="RepoCat_Portal_Controllers_HomeController" data-uid="RepoCat.Portal.Controllers.HomeController" class="text-break">Class HomeController
+  <h1 id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController" class="text-break">Class RepositoryController
   </h1>
-  <div class="markdown level0 summary"><p>Class HomeController.</p>
+  <div class="markdown level0 summary"><p>Class RepositoryController.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -81,7 +81,7 @@
     <div class="level0"><span class="xref">System.Object</span></div>
     <div class="level1"><span class="xref">Microsoft.AspNetCore.Mvc.ControllerBase</span></div>
     <div class="level2"><span class="xref">Microsoft.AspNetCore.Mvc.Controller</span></div>
-    <div class="level3"><span class="xref">HomeController</span></div>
+    <div class="level3"><span class="xref">RepositoryController</span></div>
   </div>
   <div classs="implements">
     <h5>Implements</h5>
@@ -672,47 +672,74 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="RepoCat.Portal.Controllers.html">RepoCat.Portal.Controllers</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="RepoCat.Portal.Areas.Catalog.Controllers.html">RepoCat.Portal.Areas.Catalog.Controllers</a></h6>
   <h6><strong>Assembly</strong>: RepoCat.Portal.dll</h6>
-  <h5 id="RepoCat_Portal_Controllers_HomeController_syntax">Syntax</h5>
+  <h5 id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class HomeController : Controller, IActionFilter, IAsyncActionFilter, IFilterMetadata, IDisposable</code></pre>
+    <pre><code class="lang-csharp hljs">[Area(&quot;Catalog&quot;)]
+[Route(&quot;Repository&quot;)]
+public class RepositoryController : Controller, IActionFilter, IAsyncActionFilter, IFilterMetadata, IDisposable</code></pre>
   </div>
   <h3 id="constructors">Constructors
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Controllers_HomeController__ctor.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Controllers.HomeController.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController__ctor_RepoCat_Persistence_Service_ManifestsService_AutoMapper_IMapper_.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.%23ctor(RepoCat.Persistence.Service.ManifestsService%2CAutoMapper.IMapper)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/HomeController.cs/#L17">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/RepositoryController.cs/#L28">View Source</a>
   </span>
-  <a id="RepoCat_Portal_Controllers_HomeController__ctor_" data-uid="RepoCat.Portal.Controllers.HomeController.#ctor*"></a>
-  <h4 id="RepoCat_Portal_Controllers_HomeController__ctor" data-uid="RepoCat.Portal.Controllers.HomeController.#ctor">HomeController()</h4>
-  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="RepoCat.Portal.Controllers.HomeController.html">HomeController</a> class.</p>
+  <a id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController__ctor_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.#ctor*"></a>
+  <h4 id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController__ctor_RepoCat_Persistence_Service_ManifestsService_AutoMapper_IMapper_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.#ctor(RepoCat.Persistence.Service.ManifestsService,AutoMapper.IMapper)">RepositoryController(ManifestsService, IMapper)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.html">RepositoryController</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public HomeController()</code></pre>
+    <pre><code class="lang-csharp hljs">public RepositoryController(ManifestsService manifestsService, IMapper mapper)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="RepoCat.Persistence.Service.ManifestsService.html">ManifestsService</a></td>
+        <td><span class="parametername">manifestsService</span></td>
+        <td><p>The manifests service.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">AutoMapper.IMapper</span></td>
+        <td><span class="parametername">mapper</span></td>
+        <td><p>The mapper.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Controllers_HomeController_About.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Controllers.HomeController.About%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_AddProject.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.AddProject%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/HomeController.cs/#L25">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/RepositoryController.cs/#L77">View Source</a>
   </span>
-  <a id="RepoCat_Portal_Controllers_HomeController_About_" data-uid="RepoCat.Portal.Controllers.HomeController.About*"></a>
-  <h4 id="RepoCat_Portal_Controllers_HomeController_About" data-uid="RepoCat.Portal.Controllers.HomeController.About">About()</h4>
-  <div class="markdown level1 summary"><p>Abouts this instance.</p>
+  <a id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_AddProject_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.AddProject*"></a>
+  <h4 id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_AddProject" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.AddProject">AddProject()</h4>
+  <div class="markdown level1 summary"><p>Shows the add project view</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IActionResult About()</code></pre>
+    <pre><code class="lang-csharp hljs">[HttpGet]
+public Task&lt;ViewResult&gt; AddProject()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -724,28 +751,78 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Microsoft.AspNetCore.Mvc.IActionResult</span></td>
-        <td><p>IActionResult.</p>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">Microsoft.AspNetCore.Mvc.ViewResult</span>&gt;</td>
+        <td><p>Task&lt;ViewResult&gt;.</p>
 </td>
       </tr>
     </tbody>
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Controllers_HomeController_Error.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Controllers.HomeController.Error%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_AddProject_RepoCat_Portal_Areas_Catalog_Models_AddProjectModel_.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.AddProject(RepoCat.Portal.Areas.Catalog.Models.AddProjectModel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/HomeController.cs/#L35">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/RepositoryController.cs/#L94">View Source</a>
   </span>
-  <a id="RepoCat_Portal_Controllers_HomeController_Error_" data-uid="RepoCat.Portal.Controllers.HomeController.Error*"></a>
-  <h4 id="RepoCat_Portal_Controllers_HomeController_Error" data-uid="RepoCat.Portal.Controllers.HomeController.Error">Error()</h4>
-  <div class="markdown level1 summary"><p>Errors this instance.</p>
+  <a id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_AddProject_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.AddProject*"></a>
+  <h4 id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_AddProject_RepoCat_Portal_Areas_Catalog_Models_AddProjectModel_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.AddProject(RepoCat.Portal.Areas.Catalog.Models.AddProjectModel)">AddProject(AddProjectModel)</h4>
+  <div class="markdown level1 summary"><p>Adds the project.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-public IActionResult Error()</code></pre>
+    <pre><code class="lang-csharp hljs">[HttpPost]
+public Task&lt;IActionResult&gt; AddProject(AddProjectModel project)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="RepoCat.Portal.Areas.Catalog.Models.AddProjectModel.html">AddProjectModel</a></td>
+        <td><span class="parametername">project</span></td>
+        <td><p>The project.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">Microsoft.AspNetCore.Mvc.IActionResult</span>&gt;</td>
+        <td><p>Task&lt;IActionResult&gt;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_GetRepositoryNames.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.GetRepositoryNames%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/RepositoryController.cs/#L38">View Source</a>
+  </span>
+  <a id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_GetRepositoryNames_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.GetRepositoryNames*"></a>
+  <h4 id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_GetRepositoryNames" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.GetRepositoryNames">GetRepositoryNames()</h4>
+  <div class="markdown level1 summary"><p>Gets the repositories names</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;IEnumerable&lt;string&gt;&gt; GetRepositoryNames()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -757,8 +834,59 @@ public IActionResult Error()</code></pre>
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">Microsoft.AspNetCore.Mvc.IActionResult</span></td>
-        <td><p>IActionResult.</p>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<span class="xref">System.String</span>&gt;&gt;</td>
+        <td><p>Task&lt;IEnumerable&lt;System.String&gt;&gt;.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_Index_System_String_.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.Index(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/RepositoryController.cs/#L47">View Source</a>
+  </span>
+  <a id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_Index_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.Index*"></a>
+  <h4 id="RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController_Index_System_String_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.Index(System.String)">Index(String)</h4>
+  <div class="markdown level1 summary"><p>Indexes the specified repository name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Route(&quot;{repositoryName}&quot;)]
+public Task&lt;ViewResult&gt; Index(string repositoryName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">repositoryName</span></td>
+        <td><p>Name of the repository.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">Microsoft.AspNetCore.Mvc.ViewResult</span>&gt;</td>
+        <td><p>Task&lt;ViewResult&gt;.</p>
 </td>
       </tr>
     </tbody>
@@ -788,10 +916,10 @@ public IActionResult Error()</code></pre>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Controllers_HomeController.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Controllers.HomeController%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_RepositoryController.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Controllers/HomeController.cs/#L11" class="contribution-link">View Source</a>
+                    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/RepositoryController.cs/#L16" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

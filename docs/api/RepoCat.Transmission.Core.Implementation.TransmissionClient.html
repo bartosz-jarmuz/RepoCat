@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class XsdProvider
+    <title>Class TransmissionClient
    </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class XsdProvider
+    <meta name="title" content="Class TransmissionClient
    ">
     <meta name="generator" content="docfx 2.45.1.0">
     
@@ -68,18 +68,22 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="RepoCat.Schemas.XsdProvider">
+            <article class="content wrap" id="_content" data-uid="RepoCat.Transmission.Core.Implementation.TransmissionClient">
   
   
-  <h1 id="RepoCat_Schemas_XsdProvider" data-uid="RepoCat.Schemas.XsdProvider" class="text-break">Class XsdProvider
+  <h1 id="RepoCat_Transmission_Core_Implementation_TransmissionClient" data-uid="RepoCat.Transmission.Core.Implementation.TransmissionClient" class="text-break">Class TransmissionClient
   </h1>
-  <div class="markdown level0 summary"><p>Provides schemas</p>
+  <div class="markdown level0 summary"><p>Main worker class</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><span class="xref">System.Object</span></div>
-    <div class="level1"><span class="xref">XsdProvider</span></div>
+    <div class="level1"><span class="xref">TransmissionClient</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="RepoCat.Transmission.Core.Interface.ITransmissionClient.html">ITransmissionClient</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -105,29 +109,64 @@
       <span class="xref">System.Object.ToString()</span>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="RepoCat.Schemas.html">RepoCat.Schemas</a></h6>
-  <h6><strong>Assembly</strong>: RepoCat.Schemas.dll</h6>
-  <h5 id="RepoCat_Schemas_XsdProvider_syntax">Syntax</h5>
+  <h6><strong>Namespace</strong>: <a class="xref" href="RepoCat.Transmission.Core.Implementation.html">RepoCat.Transmission.Core.Implementation</a></h6>
+  <h6><strong>Assembly</strong>: RepoCat.Transmission.Core.dll</h6>
+  <h5 id="RepoCat_Transmission_Core_Implementation_TransmissionClient_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class XsdProvider</code></pre>
+    <pre><code class="lang-csharp hljs">public class TransmissionClient : ITransmissionClient</code></pre>
   </div>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Transmission_Core_Implementation_TransmissionClient__ctor_log4net_ILog_.md&amp;value=---%0Auid%3A%20RepoCat.Transmission.Core.Implementation.TransmissionClient.%23ctor(log4net.ILog)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Transmission.Core/Implementation/TransmissionClient.cs/#L19">View Source</a>
+  </span>
+  <a id="RepoCat_Transmission_Core_Implementation_TransmissionClient__ctor_" data-uid="RepoCat.Transmission.Core.Implementation.TransmissionClient.#ctor*"></a>
+  <h4 id="RepoCat_Transmission_Core_Implementation_TransmissionClient__ctor_log4net_ILog_" data-uid="RepoCat.Transmission.Core.Implementation.TransmissionClient.#ctor(log4net.ILog)">TransmissionClient(ILog)</h4>
+  <div class="markdown level1 summary"><p>Creates new instance</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransmissionClient(ILog log)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">log4net.ILog</span></td>
+        <td><span class="parametername">log</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Schemas_XsdProvider_GetSchemaSet_RepoCat_Schemas_SchemaNames_.md&amp;value=---%0Auid%3A%20RepoCat.Schemas.XsdProvider.GetSchemaSet(RepoCat.Schemas.SchemaNames)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Transmission_Core_Implementation_TransmissionClient_Work_RepoCat_Transmission_Core_Interface_ITransmitterArguments_.md&amp;value=---%0Auid%3A%20RepoCat.Transmission.Core.Implementation.TransmissionClient.Work(RepoCat.Transmission.Core.Interface.ITransmitterArguments)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Schemas/XsdProvider.cs/#L43">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Transmission.Core/Implementation/TransmissionClient.cs/#L29">View Source</a>
   </span>
-  <a id="RepoCat_Schemas_XsdProvider_GetSchemaSet_" data-uid="RepoCat.Schemas.XsdProvider.GetSchemaSet*"></a>
-  <h4 id="RepoCat_Schemas_XsdProvider_GetSchemaSet_RepoCat_Schemas_SchemaNames_" data-uid="RepoCat.Schemas.XsdProvider.GetSchemaSet(RepoCat.Schemas.SchemaNames)">GetSchemaSet(SchemaNames)</h4>
-  <div class="markdown level1 summary"><p>Gets the schema set.</p>
+  <a id="RepoCat_Transmission_Core_Implementation_TransmissionClient_Work_" data-uid="RepoCat.Transmission.Core.Implementation.TransmissionClient.Work*"></a>
+  <h4 id="RepoCat_Transmission_Core_Implementation_TransmissionClient_Work_RepoCat_Transmission_Core_Interface_ITransmitterArguments_" data-uid="RepoCat.Transmission.Core.Implementation.TransmissionClient.Work(RepoCat.Transmission.Core.Interface.ITransmitterArguments)">Work(ITransmitterArguments)</h4>
+  <div class="markdown level1 summary"><p>Entry point for the transmission</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static XmlSchemaSet GetSchemaSet(SchemaNames names)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task Work(ITransmitterArguments args)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-striped table-condensed">
@@ -140,9 +179,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="RepoCat.Schemas.SchemaNames.html">SchemaNames</a></td>
-        <td><span class="parametername">names</span></td>
-        <td><p>The names.</p>
+        <td><a class="xref" href="RepoCat.Transmission.Core.Interface.ITransmitterArguments.html">ITransmitterArguments</a></td>
+        <td><span class="parametername">args</span></td>
+        <td><p>The arguments.</p>
 </td>
       </tr>
     </tbody>
@@ -157,62 +196,16 @@
     </thead>
     <tbody>
       <tr>
-        <td><span class="xref">System.Xml.Schema.XmlSchemaSet</span></td>
-        <td><p>XmlSchemaSet.</p>
+        <td><span class="xref">System.Threading.Tasks.Task</span></td>
+        <td><p>Task.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Schemas_XsdProvider_GetSchemaText_RepoCat_Schemas_SchemaNames_.md&amp;value=---%0Auid%3A%20RepoCat.Schemas.XsdProvider.GetSchemaText(RepoCat.Schemas.SchemaNames)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Schemas/XsdProvider.cs/#L21">View Source</a>
-  </span>
-  <a id="RepoCat_Schemas_XsdProvider_GetSchemaText_" data-uid="RepoCat.Schemas.XsdProvider.GetSchemaText*"></a>
-  <h4 id="RepoCat_Schemas_XsdProvider_GetSchemaText_RepoCat_Schemas_SchemaNames_" data-uid="RepoCat.Schemas.XsdProvider.GetSchemaText(RepoCat.Schemas.SchemaNames)">GetSchemaText(SchemaNames)</h4>
-  <div class="markdown level1 summary"><p>Gets the schema text.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="decalaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static string GetSchemaText(SchemaNames names)</code></pre>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="RepoCat.Transmission.Core.Interface.ITransmissionClient.html">ITransmissionClient</a>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="RepoCat.Schemas.SchemaNames.html">SchemaNames</a></td>
-        <td><span class="parametername">names</span></td>
-        <td><p>The names.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-striped table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">System.String</span></td>
-        <td><p>System.String.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
 </article>
           </div>
           
@@ -221,10 +214,10 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Schemas_XsdProvider.md&amp;value=---%0Auid%3A%20RepoCat.Schemas.XsdProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Transmission_Core_Implementation_TransmissionClient.md&amp;value=---%0Auid%3A%20RepoCat.Transmission.Core.Implementation.TransmissionClient%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Schemas/XsdProvider.cs/#L14" class="contribution-link">View Source</a>
+                    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Transmission.Core/Implementation/TransmissionClient.cs/#L11" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

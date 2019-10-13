@@ -73,7 +73,8 @@
   
   <h1 id="RepoCat_Portal_Areas_Catalog_Controllers_SearchController" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.SearchController" class="text-break">Class SearchController
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Handles search requests</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -685,11 +686,12 @@ public class SearchController : Controller, IActionFilter, IAsyncActionFilter, I
     <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_SearchController__ctor_RepoCat_Persistence_Service_ManifestsService_AutoMapper_IMapper_.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.SearchController.%23ctor(RepoCat.Persistence.Service.ManifestsService%2CAutoMapper.IMapper)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L17">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L26">View Source</a>
   </span>
   <a id="RepoCat_Portal_Areas_Catalog_Controllers_SearchController__ctor_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor*"></a>
   <h4 id="RepoCat_Portal_Areas_Catalog_Controllers_SearchController__ctor_RepoCat_Persistence_Service_ManifestsService_AutoMapper_IMapper_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(RepoCat.Persistence.Service.ManifestsService,AutoMapper.IMapper)">SearchController(ManifestsService, IMapper)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="RepoCat.Portal.Areas.Catalog.Controllers.SearchController.html">SearchController</a> class.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -708,12 +710,14 @@ public class SearchController : Controller, IActionFilter, IAsyncActionFilter, I
       <tr>
         <td><a class="xref" href="RepoCat.Persistence.Service.ManifestsService.html">ManifestsService</a></td>
         <td><span class="parametername">manifestsService</span></td>
-        <td></td>
+        <td><p>The manifests service.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">AutoMapper.IMapper</span></td>
         <td><span class="parametername">mapper</span></td>
-        <td></td>
+        <td><p>The mapper.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -724,11 +728,12 @@ public class SearchController : Controller, IActionFilter, IAsyncActionFilter, I
     <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_SearchController_GetSearchResultPage_System_String_System_String_System_Boolean_.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String%2CSystem.String%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L47">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L67">View Source</a>
   </span>
   <a id="RepoCat_Portal_Areas_Catalog_Controllers_SearchController_GetSearchResultPage_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage*"></a>
   <h4 id="RepoCat_Portal_Areas_Catalog_Controllers_SearchController_GetSearchResultPage_System_String_System_String_System_Boolean_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String,System.String,System.Boolean)">GetSearchResultPage(String, String, Boolean)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Gets the search result page (for URL sharing).</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -749,17 +754,20 @@ public Task&lt;IActionResult&gt; GetSearchResultPage(string repositoryName, stri
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">repositoryName</span></td>
-        <td></td>
+        <td><p>Name of the repository.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">query</span></td>
-        <td></td>
+        <td><p>The query.</p>
+</td>
       </tr>
       <tr>
         <td><span class="xref">System.Boolean</span></td>
         <td><span class="parametername">isRegex</span></td>
-        <td></td>
+        <td><p>if set to <code>true</code> [is regex].</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -774,7 +782,8 @@ public Task&lt;IActionResult&gt; GetSearchResultPage(string repositoryName, stri
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">Microsoft.AspNetCore.Mvc.IActionResult</span>&gt;</td>
-        <td></td>
+        <td><p>Task&lt;IActionResult&gt;.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -783,11 +792,12 @@ public Task&lt;IActionResult&gt; GetSearchResultPage(string repositoryName, stri
     <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_SearchController_Index.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Index%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L23">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L36">View Source</a>
   </span>
   <a id="RepoCat_Portal_Areas_Catalog_Controllers_SearchController_Index_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Index*"></a>
   <h4 id="RepoCat_Portal_Areas_Catalog_Controllers_SearchController_Index" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Index">Index()</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indexes this instance.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
@@ -804,7 +814,8 @@ public Task&lt;IActionResult&gt; GetSearchResultPage(string repositoryName, stri
     <tbody>
       <tr>
         <td><span class="xref">System.Threading.Tasks.Task</span>&lt;<span class="xref">Microsoft.AspNetCore.Mvc.IActionResult</span>&gt;</td>
-        <td></td>
+        <td><p>Task&lt;IActionResult&gt;.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -813,7 +824,7 @@ public Task&lt;IActionResult&gt; GetSearchResultPage(string repositoryName, stri
     <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_SearchController_Search_System_String_System_String_System_Boolean_.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search(System.String%2CSystem.String%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L38">View Source</a>
+    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L51">View Source</a>
   </span>
   <a id="RepoCat_Portal_Areas_Catalog_Controllers_SearchController_Search_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search*"></a>
   <h4 id="RepoCat_Portal_Areas_Catalog_Controllers_SearchController_Search_System_String_System_String_System_Boolean_" data-uid="RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search(System.String,System.String,System.Boolean)">Search(String, String, Boolean)</h4>
@@ -881,6 +892,10 @@ public Task&lt;PartialViewResult&gt; Search(string repositoryName, string query,
   <div>
       <span class="xref">System.IDisposable</span>
   </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><span class="xref">Microsoft.AspNetCore.Mvc.Controller</span></div>
+  </div>
 </article>
           </div>
           
@@ -892,7 +907,7 @@ public Task&lt;PartialViewResult&gt; Search(string repositoryName, string query,
                     <a href="https://github.com/bartosz-jarmuz/RepoCat/new/master/apiSpec/new?filename=RepoCat_Portal_Areas_Catalog_Controllers_SearchController.md&amp;value=---%0Auid%3A%20RepoCat.Portal.Areas.Catalog.Controllers.SearchController%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
                   </li>
                   <li>
-                    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L11" class="contribution-link">View Source</a>
+                    <a href="https://github.com/bartosz-jarmuz/RepoCat/blob/master/src/RepoCat.Portal/Areas/Catalog/Controllers/SearchController.cs/#L15" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>
