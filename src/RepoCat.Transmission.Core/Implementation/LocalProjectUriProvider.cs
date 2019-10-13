@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using RepoCat.Transmission.Core.Interface;
 
-namespace RepoCat.Transmitter
+namespace RepoCat.Transmission.Core.Implementation
 {
     /// <summary>
     /// Class LocalProjectUriProvider.
     /// </summary>
-    /// <seealso cref="RepoCat.Transmitter.IProjectUriProvider" />
+    /// <seealso cref="IProjectUriProvider" />
     public class LocalProjectUriProvider : IProjectUriProvider
     {
         /// <summary>

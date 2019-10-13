@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RepoCat.Persistence.Service</name>
+    </assembly>
+    <members>
+        <member name="T:RepoCat.Persistence.Service.IRepoCatDbSettings">
+            <summary>
+            Interface IRepoCatDbSettings
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.ManifestsCollectionName">
+            <summary>
+            Gets or sets the name of the manifests collection.
+            </summary>
+            <value>The name of the manifests collection.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.DatabaseName">
+            <summary>
+            Gets or sets the name of the database.
+            </summary>
+            <value>The name of the database.</value>
+        </member>
+        <member name="T:RepoCat.Persistence.Service.ManifestsService">
+            <summary>
+            Allows access to the stored Manifests data
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.#ctor(RepoCat.Persistence.Service.IRepoCatDbSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Persistence.Service.ManifestsService"/> class.
+            </summary>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.Get">
+            <summary>
+            Gets all items
+            </summary>
+            <returns>List&lt;ProjectInfo&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.GetRepositories">
+            <summary>
+            Gets all the repositories names
+            </summary>
+            <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.GetAllCurrentProjects(System.String)">
+            <summary>
+            Gets all projects for the latest version of a given repository.
+            </summary>
+            <param name="repositoryName">Name of the repository.</param>
+            <returns>Task&lt;ManifestQueryResult&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.GetCurrentProjects(System.String,System.String,System.Boolean)">
+            <summary>
+            Gets all projects for the latest version of a given repository matching specified search parameters
+            </summary>
+            <param name="repositoryName">Name of the repository.</param>
+            <param name="query">The string to search by</param>
+            <param name="isRegex">Specify whether the search string is a Regex</param>
+            <returns>Task&lt;ManifestQueryResult&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.Get(System.String)">
+            <summary>
+            Gets the item with specified ID.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>ProjectInfo.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.Create(RepoCat.Persistence.Models.ProjectInfo)">
+            <summary>
+            Creates a new item.
+            </summary>
+            <param name="info">The information.</param>
+            <returns>ProjectInfo.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.Update(System.String,RepoCat.Persistence.Models.ProjectInfo)">
+            <summary>
+            Updates the specified item.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="info">The information.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.Remove(RepoCat.Persistence.Models.ProjectInfo)">
+            <summary>
+            Removes the specified item.
+            </summary>
+            <param name="info">The information.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.ManifestsService.Remove(System.String)">
+            <summary>
+            Removes the item with specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+        </member>
+        <member name="T:RepoCat.Persistence.Service.RepoCatDbSettings">
+            <inheritdoc />
+        </member>
+        <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.ManifestsCollectionName">
+            <inheritdoc />
+        </member>
+        <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.ConnectionString">
+            <inheritdoc />
+        </member>
+        <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.DatabaseName">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

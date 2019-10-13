@@ -6,7 +6,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using RepoCat.Schemas;
 
-namespace Tests
+namespace RepoCat.Tests
 {
     public class SchemaProviderTests
     {

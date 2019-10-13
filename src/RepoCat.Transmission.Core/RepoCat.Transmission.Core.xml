@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RepoCat.Transmission.Core</name>
+    </assembly>
+    <members>
+        <member name="T:RepoCat.Transmission.Core.Implementation.HttpSender">
+            <summary>
+            Class that sends the project manifests to the RepoCat API over HTTP
+            </summary>
+        </member>
+        <member name="F:RepoCat.Transmission.Core.Implementation.HttpSender.client">
+            <summary>
+            The client
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Implementation.HttpSender.#ctor(System.Uri,log4net.ILog)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Transmission.Core.Implementation.HttpSender"/> class.
+            </summary>
+            <param name="baseAddress">The base address.</param>
+            <param name="log"></param>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Implementation.HttpSender.Send(System.Collections.Generic.IEnumerable{RepoCat.Transmission.Models.ProjectInfo})">
+            <summary>
+            Sends the specified infos.
+            </summary>
+            <param name="infos">The infos.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Implementation.HttpSender.Send(RepoCat.Transmission.Models.ProjectInfo)">
+            <summary>
+            Sends the specified information.
+            </summary>
+            <param name="info">The information.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="T:RepoCat.Transmission.Core.Implementation.LocalProjectUriProvider">
+            <summary>
+            Class LocalProjectUriProvider.
+            </summary>
+            <seealso cref="T:RepoCat.Transmission.Core.Interface.IProjectUriProvider" />
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Implementation.LocalProjectUriProvider.GetUris(System.String)">
+            <summary>
+            Finds the URIs of the projects in a local (file system) directory 
+            </summary>
+            <param name="rootUri">The root URI.</param>
+            <returns>IEnumerable&lt;System.String&gt;.</returns>
+        </member>
+        <member name="T:RepoCat.Transmission.Core.Implementation.TransmissionClient">
+            <summary>
+            Main worker class
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Implementation.TransmissionClient.#ctor(log4net.ILog)">
+            <summary>
+            Creates new instance
+            </summary>
+            <param name="log"></param>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Implementation.TransmissionClient.Work(RepoCat.Transmission.Core.Interface.ITransmitterArguments)">
+            <summary>
+            Entry point for the transmission
+            </summary>
+            <param name="args">The arguments.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="T:RepoCat.Transmission.Core.Implementation.TransmitterArguments">
+            <summary>
+            The set of parameters for the worker.
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Implementation.TransmitterArguments.#ctor(log4net.ILog,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Transmission.Core.Implementation.TransmitterArguments"/> class.
+            </summary>
+            <param name="log"></param>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="P:RepoCat.Transmission.Core.Implementation.TransmitterArguments.CodeRootFolder">
+            <summary>
+            Gets or sets the code root folder.
+            </summary>
+            <value>The code root folder.</value>
+        </member>
+        <member name="P:RepoCat.Transmission.Core.Implementation.TransmitterArguments.RepositoryName">
+            <summary>
+            Gets or sets the repository name.
+            </summary>
+            <value>The repo.</value>
+        </member>
+        <member name="P:RepoCat.Transmission.Core.Implementation.TransmitterArguments.RepositoryStamp">
+            <summary>
+            Gets or sets the repo stamp (a datetime or version of the code base).
+            </summary>
+            <value>The repo stamp.</value>
+        </member>
+        <member name="P:RepoCat.Transmission.Core.Implementation.TransmitterArguments.ApiBaseUri">
+            <summary>
+            Gets or sets the API base URI of the RepoCat instance that the transmitter is supposed to talk to.
+            </summary>
+            <value>The API base URI.</value>
+        </member>
+        <member name="T:RepoCat.Transmission.Core.Interface.IProjectUriProvider">
+            <summary>
+            Provides the URIs of all projects available under the specified root URI
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Interface.IProjectUriProvider.GetUris(System.String)">
+            <summary>
+            Provides the URIs of all projects available under the specified root URI
+            </summary>
+            <param name="rootUri">The root URI.</param>
+            <returns>IEnumerable&lt;System.String&gt;.</returns>
+        </member>
+        <member name="T:RepoCat.Transmission.Core.Interface.ISender">
+            <summary>
+            Responsible for sending messages to the API
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Interface.ISender.Send(System.Collections.Generic.IEnumerable{RepoCat.Transmission.Models.ProjectInfo})">
+            <summary>
+            Sends the specified infos.
+            </summary>
+            <param name="infos">The infos.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Interface.ISender.Send(RepoCat.Transmission.Models.ProjectInfo)">
+            <summary>
+            Sends the specified information.
+            </summary>
+            <param name="info">The information.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="T:RepoCat.Transmission.Core.Interface.ITransmissionClient">
+            <summary>
+            Controls end-to-end transmission of manifests to API
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.Interface.ITransmissionClient.Work(RepoCat.Transmission.Core.Interface.ITransmitterArguments)">
+            <summary>
+            Entry point for the transmission
+            </summary>
+            <param name="args">The arguments.</param>
+            <returns>Task.</returns>
+        </member>
+        <member name="T:RepoCat.Transmission.Core.Interface.ITransmitterArguments">
+            <summary>
+            Arguments needed to launch the transmitter
+            </summary>
+        </member>
+        <member name="P:RepoCat.Transmission.Core.Interface.ITransmitterArguments.CodeRootFolder">
+            <summary>
+            Gets or sets the code root folder.
+            </summary>
+            <value>The code root folder.</value>
+        </member>
+        <member name="P:RepoCat.Transmission.Core.Interface.ITransmitterArguments.RepositoryName">
+            <summary>
+            Gets or sets the repository name.
+            </summary>
+            <value>The repo.</value>
+        </member>
+        <member name="P:RepoCat.Transmission.Core.Interface.ITransmitterArguments.RepositoryStamp">
+            <summary>
+            Gets or sets the repo stamp (a datetime or version of the code base).
+            </summary>
+            <value>The repo stamp.</value>
+        </member>
+        <member name="P:RepoCat.Transmission.Core.Interface.ITransmitterArguments.ApiBaseUri">
+            <summary>
+            Gets or sets the API base URI of the RepoCat instance that the transmitter is supposed to talk to.
+            </summary>
+            <value>The API base URI.</value>
+        </member>
+        <member name="T:RepoCat.Transmission.Core.ManifestDeserializer">
+            <summary>
+            Performs the deserialization of the component manifest
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.ManifestDeserializer.LoadComponents(System.String)">
+            <summary>
+            Loads the components from the specified manifest string
+            </summary>
+            <param name="manifest">The manifest.</param>
+            <returns>List&lt;ComponentManifest&gt;.</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RepoCat.Utilities</name>
+    </assembly>
+    <members>
+        <member name="T:RepoCat.Utilities.QueryStringTokenizer">
+            <summary>
+            Gets tokens (words, phrases or exclusions) from a search string
+            </summary>
+        </member>
+        <member name="M:RepoCat.Utilities.QueryStringTokenizer.GetTokens(System.String)">
+            <summary>
+             Gets tokens (words, phrases or exclusions) from a search string
+            </summary>
+            <param name="queryString">The query string.</param>
+            <returns>List&lt;System.String&gt;.</returns>
+        </member>
+        <member name="T:RepoCat.Utilities.StampSorter">
+            <summary>
+            Sorts the repository stamps
+            </summary>
+        </member>
+        <member name="M:RepoCat.Utilities.StampSorter.GetNewestStamp(System.Collections.Generic.ICollection{System.String})">
+            <summary>
+            Gets the newest stamp.
+            </summary>
+            <param name="stamps">The stamps.</param>
+            <returns>System.String.</returns>
+        </member>
+    </members>
+</doc>

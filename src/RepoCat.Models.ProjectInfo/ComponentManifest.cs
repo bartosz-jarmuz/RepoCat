@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace RepoCat.Transmitter.Models
+namespace RepoCat.Transmission.Models
 {
     /// <summary>
     /// Component manifests contains a human-created short metadata about a top-level functional component in an assembly.

@@ -34,7 +34,7 @@ namespace RepoCat.Portal.Controllers.api
         /// <param name="projectInfo">The project information.</param>
         /// <returns>IActionResult.</returns>
         [HttpPost]
-        public IActionResult Post(Transmitter.Models.ProjectInfo projectInfo)
+        public IActionResult Post(Transmission.Models.ProjectInfo projectInfo)
         {
             ProjectInfo prjInfo;
             try

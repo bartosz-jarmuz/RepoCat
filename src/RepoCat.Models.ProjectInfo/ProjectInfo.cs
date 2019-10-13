@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RepoCat.Transmitter.Models
+namespace RepoCat.Transmission.Models
 {
     /// <summary>
     /// Project info contains data about a project, understood as a class library or an executable.

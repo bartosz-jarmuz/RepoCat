@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using RepoCat.Transmitter.Models;
+using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmitter
+namespace RepoCat.Transmission.Core
 {
     /// <summary>
     /// Performs the deserialization of the component manifest

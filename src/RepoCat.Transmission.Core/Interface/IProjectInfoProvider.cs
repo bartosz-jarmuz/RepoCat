@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using RepoCat.Transmitter.Models;
+using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmitter
+namespace RepoCat.Transmission.Core.Interface
 {
     internal interface IProjectInfoProvider
     {

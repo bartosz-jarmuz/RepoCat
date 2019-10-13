@@ -1,9 +1,9 @@
 using System.IO;
 using FluentAssertions;
 using NUnit.Framework;
-using RepoCat.Transmitter;
+using RepoCat.Transmission.Core;
 
-namespace Tests
+namespace RepoCat.Tests
 {
     public class ComponentManifestDeserializationTest
     {

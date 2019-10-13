@@ -32,8 +32,8 @@ namespace RepoCat.Portal
 
         private void MapTransmitterModels()
         {
-            this.CreateMap<Transmitter.Models.ProjectInfo, ProjectInfo>();
-            this.CreateMap<Transmitter.Models.ComponentManifest, ComponentManifest>();
+            this.CreateMap<Transmission.Models.ProjectInfo, ProjectInfo>();
+            this.CreateMap<Transmission.Models.ComponentManifest, ComponentManifest>();
 
         }
     }

@@ -1,17 +1,20 @@
 ﻿using System;
+using log4net;
+using RepoCat.Transmission.Core.Interface;
 
-namespace RepoCat.Transmitter
+namespace RepoCat.Transmission.Core.Implementation
 {
     /// <summary>
     /// The set of parameters for the worker.
     /// </summary>
-    public class TransmitterArguments
+    public class TransmitterArguments : ITransmitterArguments
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TransmitterArguments"/> class.
         /// </summary>
+        /// <param name="log"></param>
         /// <param name="args">The arguments.</param>
-        public TransmitterArguments (string[] args)
+        public TransmitterArguments (ILog log, string[] args)
         {
             try
             {
@@ -30,12 +33,12 @@ namespace RepoCat.Transmitter
             }
             catch (Exception ex)
             {
-                Program.Log.Fatal($"Error while reading arguments. Found following {args.Length} args:");
+                log.Fatal($"Error while reading arguments. Found following {args.Length} args:");
                 foreach (string s in args)
                 {
-                    Program.Log.Fatal(s);
+                    log.Fatal(s);
                 }
-                Program.Log.Fatal(ex);
+                log.Fatal(ex);
                 throw;
             }
         }

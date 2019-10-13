@@ -16,7 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\RepoCat.Models.Xsd\RepoCat.Schemas.csproj" />
     <ProjectReference Include="..\..\src\RepoCat.Portal\RepoCat.Portal.csproj" />
-    <ProjectReference Include="..\..\src\RepoCat.Transmitter\RepoCat.Transmitter.csproj" />
+    <ProjectReference Include="..\..\src\RepoCat.Transmission.Core\RepoCat.Transmission.Core.csproj" />
     <ProjectReference Include="..\..\src\RepoCat.Utilities\RepoCat.Utilities.csproj" />
   </ItemGroup>
 

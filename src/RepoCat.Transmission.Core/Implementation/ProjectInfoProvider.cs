@@ -1,21 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.IsolatedStorage;
 using System.Linq;
+using log4net;
 using Microsoft.Build.Evaluation;
-using RepoCat.Transmitter.Models;
+using RepoCat.Transmission.Core.Interface;
+using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmitter
+namespace RepoCat.Transmission.Core.Implementation
 {
     class ProjectInfoProvider : IProjectInfoProvider
     {
+        private readonly ILog log;
+
+        public ProjectInfoProvider(ILog log)
+        {
+            this.log = log;
+        }
+
         public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, string repo, string repoStamp)
         {
             var counter = 0;
             foreach (string uri in uris)
             {
-                Program.Log.Debug($"Checking project #{counter} for manifest file. {uri}");
+                this.log.Debug($"Checking project #{counter} for manifest file. {uri}");
 
                 counter++;
                 var info = this.GetInfo(uri,repo, repoStamp);
@@ -23,10 +31,10 @@ namespace RepoCat.Transmitter
                 {
                     yield return info;
                 }
-                Program.Log.Debug($"Project #{counter} does not contain a manifest file. {uri}");
+                this.log.Debug($"Project #{counter} does not contain a manifest file. {uri}");
 
             }
-            Program.Log.Info($"Loaded project infos for {counter} projects.");
+            this.log.Info($"Loaded project infos for {counter} projects.");
 
         }
 
@@ -40,7 +48,7 @@ namespace RepoCat.Transmitter
                     x.EvaluatedInclude.EndsWith("RepoCat.xml", StringComparison.CurrentCultureIgnoreCase));
                 if (manifestInclude != null)
                 {
-                     Program.Log.Debug($"Reading manifest info from {uri}");
+                     this.log.Debug($"Reading manifest info from {uri}");
 
                     var info = new ProjectInfo()
                     {
@@ -56,13 +64,13 @@ namespace RepoCat.Transmitter
                     string manifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault();
                     if (string.IsNullOrEmpty(manifestPath))
                     {
-                        Program.Log.Warn($"Manifest not found for project {uri}!");
+                        this.log.Warn($"Manifest not found for project {uri}!");
                     }
                     else
                     {
                         string manifestContent = File.ReadAllText(manifestPath);
                         info.Components = ManifestDeserializer.LoadComponents(manifestContent);
-                        Program.Log.Info($"Read OK from {uri}");
+                        this.log.Info($"Read OK from {uri}");
                     }
                  
 
@@ -71,7 +79,7 @@ namespace RepoCat.Transmitter
             }
             catch (Exception ex)
             {
-                Program.Log.Warn("Error while loading project info " +  ex.Message);
+                this.log.Warn("Error while loading project info " +  ex.Message);
             }
             return null;
         }

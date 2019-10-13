@@ -1,31 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 using Newtonsoft.Json;
-using RepoCat.Transmitter.Models;
+using RepoCat.Transmission.Core.Interface;
+using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmitter
+namespace RepoCat.Transmission.Core.Implementation
 {
     /// <summary>
     /// Class that sends the project manifests to the RepoCat API over HTTP
     /// </summary>
-    public class Sender
+    public class HttpSender : ISender
     {
         /// <summary>
         /// The client
         /// </summary>
         private readonly HttpClient client;
 
+        private readonly ILog log;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="Sender"/> class.
+        /// Initializes a new instance of the <see cref="HttpSender"/> class.
         /// </summary>
         /// <param name="baseAddress">The base address.</param>
-        public Sender(Uri baseAddress)
+        /// <param name="log"></param>
+        public HttpSender(Uri baseAddress, ILog log)
         {
+            this.log = log;
             this.client = new HttpClient()
             {
                 BaseAddress = baseAddress
@@ -47,7 +51,7 @@ namespace RepoCat.Transmitter
                 infoCounter++;
                 tasks.Add(this.Send(projectInfo));
             }
-            Program.Log.Info($"Waiting for all {infoCounter} project infos to be sent.");
+            this.log.Info($"Waiting for all {infoCounter} project infos to be sent.");
 
             await Task.WhenAll(tasks);
         }
@@ -59,7 +63,7 @@ namespace RepoCat.Transmitter
         /// <returns>Task.</returns>
         public async Task Send(ProjectInfo info)
         {
-            Program.Log.Debug($"Sending {info.ProjectName} project info");
+            this.log.Debug($"Sending {info.ProjectName} project info");
 
             string serialized;
             try
@@ -68,7 +72,7 @@ namespace RepoCat.Transmitter
             }   
             catch (Exception ex)
             {
-                Program.Log.Error($"Error while serializing project info: {info.ProjectName}", ex);
+                this.log.Error($"Error while serializing project info: {info.ProjectName}", ex);
                 return;
             }
 
@@ -78,16 +82,16 @@ namespace RepoCat.Transmitter
                 HttpResponseMessage result = await this.client.PostAsync("api/manifest", content);
                 if (result.IsSuccessStatusCode)
                 {
-                    Program.Log.Info($"Sent {info.ProjectName} project info OK.");
+                    this.log.Info($"Sent {info.ProjectName} project info OK.");
                 }
                 else
                 {
-                    Program.Log.Error($"Error - {result.StatusCode} - {result.ReasonPhrase} - while sending {info.ProjectName}.");
+                    this.log.Error($"Error - {result.StatusCode} - {result.ReasonPhrase} - while sending {info.ProjectName}.");
                 }
             }
             catch (Exception ex)
             {
-                Program.Log.Error($"Error while sending project info: {info.ProjectName}. {serialized}", ex);
+                this.log.Error($"Error while sending project info: {info.ProjectName}. {serialized}", ex);
             }
 
         }

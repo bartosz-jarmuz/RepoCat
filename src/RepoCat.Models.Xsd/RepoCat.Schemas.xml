@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RepoCat.Schemas</name>
+    </assembly>
+    <members>
+        <member name="T:RepoCat.Schemas.SchemaNames">
+            <summary>
+            Available schema names
+            </summary>
+        </member>
+        <member name="F:RepoCat.Schemas.SchemaNames.ComponentManifestSchema">
+            <summary>
+            The Component manifest schema
+            </summary>
+        </member>
+        <member name="T:RepoCat.Schemas.XsdProvider">
+            <summary>
+            Provides schemas
+            </summary>
+        </member>
+        <member name="M:RepoCat.Schemas.XsdProvider.GetSchemaText(RepoCat.Schemas.SchemaNames)">
+            <summary>
+            Gets the schema text.
+            </summary>
+            <param name="names">The names.</param>
+            <returns>System.String.</returns>
+        </member>
+        <member name="M:RepoCat.Schemas.XsdProvider.GetSchemaSet(RepoCat.Schemas.SchemaNames)">
+            <summary>
+            Gets the schema set.
+            </summary>
+            <param name="names">The names.</param>
+            <returns>XmlSchemaSet.</returns>
+        </member>
+    </members>
+</doc>

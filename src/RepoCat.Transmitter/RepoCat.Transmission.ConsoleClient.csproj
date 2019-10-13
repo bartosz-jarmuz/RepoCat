@@ -7,14 +7,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4455B3FB-565B-4020-A619-D6ED25E4F0DA}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>RepoCat.Transmitter</RootNamespace>
+    <RootNamespace>RepoCat.Transmission.ConsoleClient</RootNamespace>
     <AssemblyName>RepoCat.Transmitter</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,7 +45,6 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Build" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -58,17 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\IProjectInfoProvider.cs" />
-    <Compile Include="Interface\IProjectUriProvider.cs" />
-    <Compile Include="LocalProjectUriProvider.cs" />
-    <Compile Include="ManifestDeserializer.cs" />
     <Compile Include="Program.cs" />
     <None Include="Start.bat" />
-    <Compile Include="ProjectInfoProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sender.cs" />
-    <Compile Include="TransmitterArguments.cs" />
-    <Compile Include="Worker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -81,9 +73,13 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmitter.Models.csproj">
+    <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj">
       <Project>{894549A7-4337-4E81-9D54-4F7B5D9FA19A}</Project>
-      <Name>RepoCat.Transmitter.Models</Name>
+      <Name>RepoCat.Transmission.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RepoCat.Transmission.Core\RepoCat.Transmission.Core.csproj">
+      <Project>{C7E98209-BA9B-42D3-AEEB-A2823C1A1BBE}</Project>
+      <Name>RepoCat.Transmission.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

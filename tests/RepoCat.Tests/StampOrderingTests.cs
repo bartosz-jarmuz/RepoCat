@@ -4,7 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using RepoCat.Utilities;
 
-namespace Tests
+namespace RepoCat.Tests
 {
     public class StampOrderingTests
     {
