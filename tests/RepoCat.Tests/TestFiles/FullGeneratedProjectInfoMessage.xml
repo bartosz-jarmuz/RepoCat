@@ -14,7 +14,7 @@ The component elements *might* get enriched by a transmitter plugin-->
       <Name>PneumaticPick</Name>
       <Description>You don't even know you need it</Description>
       <DocumentationUri>http://google.com</DocumentationUri>
-      <Tags Values="Mining;Teeth;Hygiene"/>
+      <Tags Value="Mining;Teeth;Hygiene"/>
       <Properties>
         <Add Key="Author" Value="JimBeam"/>
         <Add Key="Weight" Value="25kg"/>
@@ -24,7 +24,7 @@ The component elements *might* get enriched by a transmitter plugin-->
       <Name>SteamPick</Name>
       <Description>You know you don't need it</Description>
       <DocumentationUri>http://google.com</DocumentationUri>
-      <Tags Values="Coal;Steam;Injury"/>
+      <Tags Value="Coal;Steam;Injury"/>
       <Properties>
         <Add Key="Author" Value="Jack Black"/>
         <Add Key="Fuel" Value="Coal"/>

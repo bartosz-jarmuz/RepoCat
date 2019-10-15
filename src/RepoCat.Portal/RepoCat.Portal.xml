@@ -490,5 +490,11 @@
             </summary>
             <returns>List&lt;System.String&gt;.</returns>
         </member>
+        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetProjectInfo">
+            <summary>
+            Gets a sample pre-filled project info
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

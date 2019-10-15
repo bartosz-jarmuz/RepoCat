@@ -65,7 +65,8 @@ namespace RepoCat.Schemas
 
         private static string FormatResourceName(Assembly assembly, string resourceName)
         {
-            return assembly.GetName().Name + "." + resourceName.Replace(" ", "_")
+            //the name must include folder/subfolder paths!
+            return assembly.GetName().Name + ".XSD." + resourceName.Replace(" ", "_")
                        .Replace("\\", ".")
                        .Replace("/", ".");
         }
