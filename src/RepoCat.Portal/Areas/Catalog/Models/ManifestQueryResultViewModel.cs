@@ -63,7 +63,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets or sets the manifests.
         /// </summary>
         /// <value>The manifests.</value>
-        public List<ProjectInfoViewModel> Manifests { get; set; } = new List<ProjectInfoViewModel>();
+        public List<ProjectInfoViewModel> ProjectInfos { get; set; } = new List<ProjectInfoViewModel>();
         /// <summary>
         /// Gets or sets the elapsed.
         /// </summary>

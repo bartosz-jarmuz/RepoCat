@@ -6,9 +6,9 @@ using RepoCat.Utilities;
 
 namespace RepoCat.Tests
 {
+    [TestFixture]
     public class StampOrderingTests
     {
-
         [Test]
         public void TestSorting_EmptyCollection_ShouldBeNull()
         {

@@ -43,7 +43,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets or sets the target ext.
         /// </summary>
         /// <value>The target ext.</value>
-        public string TargetExt { get; set; }
+        public string TargetExtension { get; set; }
         /// <summary>
         /// Gets or sets the type of the output.
         /// </summary>
@@ -63,7 +63,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         {
             if (!string.IsNullOrEmpty(this.AssemblyName))
             {
-                return this.AssemblyName + "." + this.TargetExt?.Trim('.');
+                return this.AssemblyName + "." + this.TargetExtension?.Trim('.');
             }
 
             return "";
@@ -77,7 +77,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         {
             if (!string.IsNullOrEmpty(this.AssemblyName))
             {
-                return (this.ProjectName + this.AssemblyName + this.TargetExt).Replace(".", "");
+                return (this.ProjectName + this.AssemblyName + this.TargetExtension).Replace(".", "");
             }
 
             return "";

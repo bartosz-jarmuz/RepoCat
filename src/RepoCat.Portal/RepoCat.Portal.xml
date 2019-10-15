@@ -213,7 +213,7 @@
             </summary>
             <value>The search tokens.</value>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.Manifests">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.ProjectInfos">
             <summary>
             Gets or sets the manifests.
             </summary>
@@ -278,7 +278,7 @@
             </summary>
             <value>The name of the project.</value>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.TargetExt">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.TargetExtension">
             <summary>
             Gets or sets the target ext.
             </summary>
@@ -451,15 +451,26 @@
             </summary>
             <returns>IActionResult.</returns>
         </member>
-        <member name="T:RepoCat.Portal.MappingProfile">
+        <member name="T:RepoCat.Portal.Mapping.MappingConfigurationFactory">
+            <summary>
+            Generates the AutoMapper configurations
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Mapping.MappingConfigurationFactory.Create">
+            <summary>
+            Create all the needed configs
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:RepoCat.Portal.Mapping.MappingProfile">
             <summary>
             Class MappingProfile.
             </summary>
             <seealso cref="T:AutoMapper.Profile" />
         </member>
-        <member name="M:RepoCat.Portal.MappingProfile.#ctor">
+        <member name="M:RepoCat.Portal.Mapping.MappingProfile.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:RepoCat.Portal.MappingProfile"/> class.
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Mapping.MappingProfile"/> class.
             </summary>
         </member>
         <member name="T:RepoCat.Portal.Models.ErrorViewModel">

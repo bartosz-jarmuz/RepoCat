@@ -1,11 +1,9 @@
-﻿using System.IO;
-using AutoMapper;
+﻿using AutoMapper;
 using RepoCat.Persistence.Models;
 using RepoCat.Portal.Areas.Catalog.Models;
-using RepoCat.Portal.Models;
 using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
 
-namespace RepoCat.Portal
+namespace RepoCat.Portal.Mapping
 {
     /// <summary>
     /// Class MappingProfile.
@@ -26,13 +24,17 @@ namespace RepoCat.Portal
         {
             this.CreateMap<ProjectInfo, ProjectInfoViewModel>();
             this.CreateMap<RepoCat.Persistence.Models.ComponentManifest, ComponentManifestViewModel>();
-            this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>();
+            this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>()
+                .ForMember(x => x.SearchTokens, o=>o.Ignore());
+
 
         }
 
         private void MapTransmitterModels()
         {
-            this.CreateMap<Transmission.Models.ProjectInfo, ProjectInfo>();
+            this.CreateMap<Transmission.Models.ProjectInfo, ProjectInfo>()
+                .ForMember(x=>x.Id, o=>o.Ignore())
+                .ForMember(x=>x.AddedDateTime, o=>o.Ignore());
             this.CreateMap<Transmission.Models.ComponentManifest, ComponentManifest>();
 
         }

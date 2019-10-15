@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RepoCat.Persistence.Service;
+using RepoCat.Portal.Mapping;
+
 #pragma warning disable 1591
 
 namespace RepoCat.Portal
@@ -56,7 +58,7 @@ namespace RepoCat.Portal
 
         private static void ConfigureAutoMapper(IServiceCollection services)
         {
-            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
+            var mappingConfig = MappingConfigurationFactory.Create();
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
         }
