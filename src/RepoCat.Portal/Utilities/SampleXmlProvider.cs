@@ -25,7 +25,10 @@ namespace RepoCat.Portal.Utilities
             return ManifestSerializer.SerializeProjectInfo(info).ToString();
         }
 
-
+        /// <summary>
+        /// Gets a sample pre-filled project info
+        /// </summary>
+        /// <returns></returns>
         public static ProjectInfo GetProjectInfo()
         {
             ProjectInfo info = new ProjectInfo()
