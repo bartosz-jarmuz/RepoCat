@@ -8,8 +8,8 @@ The component elements *might* get enriched by a transmitter plugin-->
   <ProjectUri>https://github.com/bartosz-jarmuz/repocat</ProjectUri>
   <RepositoryName>Repo Cat</RepositoryName>
   <RepositoryStamp>12.3.5.12312</RepositoryStamp>
-  <Components xmlns="https://github.com/bartosz-jarmuz/RepoCat" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/bartosz-jarmuz/RepoCat 
-                             https://raw.githubusercontent.com/bartosz-jarmuz/RepoCat/master/src/RepoCat.Schemas/ComponentManifest.xsd" >
+  <Components xmlns="https://git.io/RepoCat-Component" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://git.io/RepoCat-Component 
+                             https://git.io/RepoCat-Component.xsd" >
     <Component>
       <Name>PneumaticPick</Name>
       <Description>You don't even know you need it</Description>

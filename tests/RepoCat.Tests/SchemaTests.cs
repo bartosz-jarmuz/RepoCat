@@ -33,7 +33,7 @@ namespace RepoCat.Tests
         [Test]
         public void TestSchema_RandomXml_IsNotValid()
         {
-            string text = "<Project xmlns=\"https://github.com/bartosz-jarmuz/RepoCat-ComponentManifest\">hi</Project>";
+            string text = "<Project xmlns=\"https://git.io/RepoCat-Component\">hi</Project>";
             var xDoc = XDocument.Parse(text);
            
             var validator = new SchemaValidator();

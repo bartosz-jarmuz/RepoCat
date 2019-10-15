@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema id="ProjectInfoMessage" elementFormDefault="qualified"
-    targetNamespace="https://github.com/bartosz-jarmuz/RepoCat-ProjectInfoMessage"
-    xmlns="https://github.com/bartosz-jarmuz/RepoCat ComponentManifest.xsd"
-    xmlns:cmp="https://github.com/bartosz-jarmuz/RepoCat-ComponentManifest"
+    targetNamespace="todoo"
+    xmlns="https://git.io/RepoCat ComponentManifest.xsd"
+    xmlns:cmp="https://git.io/RepoCat-Component"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="https://raw.githubusercontent.com/bartosz-jarmuz/RepoCat/master/src/RepoCat.Schemas/ComponentManifest.xsd"
-             namespace="https://github.com/bartosz-jarmuz/RepoCat-ComponentManifest" />
+  <xs:import schemaLocation="https://git.io/RepoCat-Component.xsd"
+             namespace="https://git.io/RepoCat-Component" />
   <xs:element name="Project">
     <xs:complexType>
       <xs:sequence>
