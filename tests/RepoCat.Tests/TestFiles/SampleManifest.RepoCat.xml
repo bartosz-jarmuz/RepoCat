@@ -3,10 +3,10 @@
 It should contain a declaration of one or more components that are in this project -->
 <!--This data might be enriched by a transmitter automatically, 
 although the primary assumption is that this is a from-human-to-human information -->
-<Components xmlns="https://git.io/RepoCat-Component"
+<Components xmlns="https://git.io/RepoCat-Components"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://git.io/RepoCat-Component 
-                             https://git.io/RepoCat-Component.xsd" >
+         xsi:schemaLocation="https://git.io/RepoCat-Components 
+                             https://git.io/RepoCat-Components.xsd" >
   <Component>
     <Name>PneumaticPick</Name>
     <Description>You don't even know you need it</Description>

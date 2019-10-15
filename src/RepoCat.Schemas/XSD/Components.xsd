@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="ComponentManifest" elementFormDefault="qualified"
-    targetNamespace="https://git.io/RepoCat-Component"
-    xmlns="https://git.io/RepoCat ComponentManifest.xsd"
+<xs:schema id="Components" elementFormDefault="qualified"
+    targetNamespace="https://git.io/RepoCat-Components"
+    xmlns="https://git.io/RepoCat Components.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Components">
     <xs:complexType>

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="ComponentManifest" elementFormDefault="qualified"
-    targetNamespace="https://git.io/RepoCat-Component"
-    xmlns="https://git.io/RepoCat ComponentManifest.xsd"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema id="Components" elementFormDefault="qualified"
+           targetNamespace="https://git.io/RepoCat-Components"
+           xmlns="https://git.io/RepoCat Components.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Components">
     <xs:complexType>
       <xs:sequence>
@@ -26,8 +26,8 @@
                   <xs:sequence>
                     <xs:element name="Add" maxOccurs="unbounded" minOccurs="0">
                       <xs:complexType>
-                          <xs:attribute type="xs:string" name="Key" use="optional"/>
-                          <xs:attribute type="xs:string" name="Value" use="optional"/>
+                        <xs:attribute type="xs:string" name="Key" use="optional"/>
+                        <xs:attribute type="xs:string" name="Value" use="optional"/>
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
@@ -39,4 +39,4 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  </xs:schema>
+</xs:schema>

@@ -56,8 +56,8 @@ namespace RepoCat.Schemas
         {
             switch (names)
             {
-                case SchemaNames.ComponentManifest:
-                    return "ComponentManifest.xsd";
+                case SchemaNames.Components:
+                    return "Components.xsd";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(names), names, null);
             }

@@ -20,7 +20,7 @@ namespace RepoCat.Transmission.Models
         /// <summary>
         /// The namespace of the component manifests
         /// </summary>
-        public const string ComponentManifestNamespace = "https://git.io/RepoCat-Component";
+        public const string ComponentManifestNamespace = "https://git.io/RepoCat-Components";
 
         /// <summary>
         /// Tags of a component

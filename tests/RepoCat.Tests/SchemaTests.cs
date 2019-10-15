@@ -14,7 +14,7 @@ namespace RepoCat.Tests
         [Test]
         public void TestProvider_Text_ProvidesEmbeddedSchema()
         {
-            string schemaText = XsdProvider.GetSchemaText(SchemaNames.ComponentManifest);
+            string schemaText = XsdProvider.GetSchemaText(SchemaNames.Components);
 
             schemaText.Should().NotBeNullOrWhiteSpace();
         }

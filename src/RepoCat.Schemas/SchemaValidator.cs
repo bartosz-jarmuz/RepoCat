@@ -11,7 +11,7 @@ namespace RepoCat.Schemas
     /// </summary>
     public class SchemaValidator
     {
-        private Lazy<XmlSchemaSet> ComponentManifestSchemas { get; } = new Lazy<XmlSchemaSet>(()=> XsdProvider.GetSchemaSet(SchemaNames.ComponentManifest));
+        private Lazy<XmlSchemaSet> ComponentManifestSchemas { get; } = new Lazy<XmlSchemaSet>(()=> XsdProvider.GetSchemaSet(SchemaNames.Components));
 
         /// <summary>
         /// Validates against ComponentManifest schema

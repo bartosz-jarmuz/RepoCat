@@ -8,6 +8,6 @@
         /// <summary>
         /// The Component manifest schema
         /// </summary>
-        ComponentManifest
+        Components
     }
 }
