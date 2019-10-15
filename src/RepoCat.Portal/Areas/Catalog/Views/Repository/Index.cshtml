@@ -7,13 +7,24 @@
 
 @if (!@Model.ProjectManifestViewModels.Any())
 {
-    <h3>Sorry, nothing to show</h3>
+
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <div class="text-center">
+
+                <h2 class="text-dark">Sorry, nothing to show in '@Model.RepositoryName'</h2>
+                <img src="~/images/cats/cat_hungry256.png" class="mx-auto d-block" alt="No results">
+                <br />
+                <span class="text-dark">The repository looks empty</span>
+            </div>
+        </div>
+    </div>
 }
 else
 {
-<h2>
-    @Model.RepositoryName - Repository overview
-</h2>
+    <h2>
+        @Model.RepositoryName - Repository overview
+    </h2>
     <div class="row">
         <div class="col-sm-6 col-md-2">
             <div class="card">
@@ -89,7 +100,7 @@ else
 
     </div>
 
-   
+
     <h2>
         Projects list:
     </h2>

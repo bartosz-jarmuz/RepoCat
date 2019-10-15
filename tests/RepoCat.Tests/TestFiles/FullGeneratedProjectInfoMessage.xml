@@ -5,27 +5,30 @@ The component elements *might* get enriched by a transmitter plugin-->
 <Project>
   <Name>RepoCat.Sample.FeatureBox.csproj</Name>
   <AssemblyName>FeaturesBox.dll</AssemblyName>
+  <ProjectUri>https://github.com/bartosz-jarmuz/repocat</ProjectUri>
   <RepositoryName>Repo Cat</RepositoryName>
   <RepositoryStamp>12.3.5.12312</RepositoryStamp>
-  <ProjectUri>https://github.com/bartosz-jarmuz/repocat</ProjectUri>
-  <Component>
-    <Name>PneumaticPick</Name>
-    <Description>You don't even know you need it</Description>
-    <DocumentationUri>http://google.com</DocumentationUri>
-    <Tags Values="Mining;Teeth;Hygiene"/>
-    <Properties>
-      <Add Key="Author" Value="JimBeam"/>
-      <Add Key="Weight" Value="25kg"/>
-    </Properties>
-  </Component>
-  <Component>
-    <Name>SteamPick</Name>
-    <Description>You know you don't need it</Description>
-    <DocumentationUri>http://google.com</DocumentationUri>
-    <Tags Values="Coal;Steam;Injury"/>
-    <Properties>
-      <Add Key="Author" Value="Jack Black"/>
-      <Add Key="Fuel" Value="Coal"/>
-    </Properties>
-  </Component>
+  <Components xmlns="https://github.com/bartosz-jarmuz/RepoCat" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/bartosz-jarmuz/RepoCat 
+                             https://raw.githubusercontent.com/bartosz-jarmuz/RepoCat/master/src/RepoCat.Schemas/ComponentManifest.xsd" >
+    <Component>
+      <Name>PneumaticPick</Name>
+      <Description>You don't even know you need it</Description>
+      <DocumentationUri>http://google.com</DocumentationUri>
+      <Tags Values="Mining;Teeth;Hygiene"/>
+      <Properties>
+        <Add Key="Author" Value="JimBeam"/>
+        <Add Key="Weight" Value="25kg"/>
+      </Properties>
+    </Component>
+    <Component>
+      <Name>SteamPick</Name>
+      <Description>You know you don't need it</Description>
+      <DocumentationUri>http://google.com</DocumentationUri>
+      <Tags Values="Coal;Steam;Injury"/>
+      <Properties>
+        <Add Key="Author" Value="Jack Black"/>
+        <Add Key="Fuel" Value="Coal"/>
+      </Properties>
+    </Component>
+  </Components>
 </Project>

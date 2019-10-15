@@ -20,7 +20,7 @@
         </button>
     </div>
 }
-else if (TempData["success"] != null)
+else if (TempData["error"] != null)
 {
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Error!</strong> @TempData["error"].
@@ -41,7 +41,7 @@ else if (TempData["success"] != null)
                 </div>
             </div>
             <div class="card-footer">
-                <btn class="btn btn-primary">Submit</btn>
+                <btn class="btn btn-primary" id="submitManifest">Submit</btn>
             </div>
         </div>
 
@@ -55,7 +55,7 @@ else if (TempData["success"] != null)
     <script src="~/vendors/codemirror/mode/xml/xml.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function() {
 
 
             var dummy = {
@@ -68,84 +68,101 @@ else if (TempData["success"] != null)
             };
 
             var tags = {
-                    "!top": [
-                        "Components"
-                    ],
-                    "Components": {
-                        "children": [
-                            "Component"
-                        ]
-                    },
-                    "Component": {
-                        "children": [
-                            "Name",
-                            "Description",
-                            "DocumentationUri",
-                            "Tags",
-                            "Properties"
-                        ]
-                    },
-                    "Name": {},
-                    "Description": {},
-                    "DocumentationUri": {},
-                    "Tags": {
-                        "attrs": {
-                            "Values": null
-                        }
-                    },
-                    "Properties": {
-                        "children": [
-                            "Add"
-                        ]
-                    },
-                    "Add": {
-                        "attrs": {
-                            "Key": null,
-                            "Value": null
-                        }
+                "!top": [
+                    "Components"
+                ],
+                "Components": {
+                    "children": [
+                        "Component"
+                    ]
+                },
+                "Component": {
+                    "children": [
+                        "Name",
+                        "Description",
+                        "DocumentationUri",
+                        "Tags",
+                        "Properties"
+                    ]
+                },
+                "Name": {},
+                "Description": {},
+                "DocumentationUri": {},
+                "Tags": {
+                    "attrs": {
+                        "Values": null
                     }
-                };
+                },
+                "Properties": {
+                    "children": [
+                        "Add"
+                    ]
+                },
+                "Add": {
+                    "attrs": {
+                        "Key": null,
+                        "Value": null
+                    }
+                }
+            };
 
             function completeAfter(cm, pred) {
                 var cur = cm.getCursor();
-                if (!pred || pred()) setTimeout(function() {
-                    if (!cm.state.completionActive)
-                        cm.showHint({completeSingle: false});
-                }, 100);
+                if (!pred || pred())
+                    setTimeout(function() {
+                            if (!cm.state.completionActive)
+                                cm.showHint({ completeSingle: false });
+                        },
+                        100);
                 return CodeMirror.Pass;
             }
 
             function completeIfAfterLt(cm) {
-                return completeAfter(cm, function() {
-                    var cur = cm.getCursor();
-                    return cm.getRange(CodeMirror.Pos(cur.line, cur.ch - 1), cur) == "<";
-                });
+                return completeAfter(cm,
+                    function() {
+                        var cur = cm.getCursor();
+                        return cm.getRange(CodeMirror.Pos(cur.line, cur.ch - 1), cur) == "<";
+                    });
             }
 
             function completeIfInTag(cm) {
-                return completeAfter(cm, function() {
-                    var tok = cm.getTokenAt(cm.getCursor());
-                    if (tok.type == "string" && (!/['"]/.test(tok.string.charAt(tok.string.length - 1)) || tok.string.length == 1)) return false;
-                    var inner = CodeMirror.innerMode(cm.getMode(), tok.state).state;
-                    return inner.tagName;
-                });
+                return completeAfter(cm,
+                    function() {
+                        var tok = cm.getTokenAt(cm.getCursor());
+                        if (tok.type == "string" &&
+                            (!/['"]/.test(tok.string.charAt(tok.string.length - 1)) || tok.string.length == 1))
+                            return false;
+                        var inner = CodeMirror.innerMode(cm.getMode(), tok.state).state;
+                        return inner.tagName;
+                    });
             }
 
 
-            var xml = '@Html.Raw(Model.ManifestXml.Replace(Environment.NewLine,"\\n"))';
-            var myCodeMirror = CodeMirror(function (elt) {
-                var editor = document.getElementById("codeEditor");
-                editor.parentNode.replaceChild(elt, editor);
-            },
+            var xml = '@Html.Raw(Model.ManifestXml.Replace(Environment.NewLine, "\\n"))';
+            var myCodeMirror = CodeMirror(function(elt) {
+                    var editor = document.getElementById("codeEditor");
+                    editor.parentNode.replaceChild(elt, editor);
+                },
                 {
                     value: xml,
                     lineNumbers: true,
                     mode: "xml",
-                    extraKeys: {"Ctrl-Space": "autocomplete"},
-                    hintOptions: {schemaInfo: tags}
+                    extraKeys: { "Ctrl-Space": "autocomplete" },
+                    hintOptions: { schemaInfo: tags }
                 });
 
-            $
+            $('#submitManifest').click(function () {
+                $.ajax({
+                    method: 'POST',
+                    contentType : 'application/json',
+                    url: '@Url.Action("AddProject", "RepositoryController")',
+                    data: JSON.stringify(
+                        { ManifestXml: myCodeMirror.getValue() }
+                    )
+                }).done(function(response) {
+                    window.location = response;
+                });
+            });
         });
 
     </script>

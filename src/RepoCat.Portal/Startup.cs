@@ -49,7 +49,8 @@ namespace RepoCat.Portal
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddRazorPagesOptions(o=>o.AllowAreas = true);
+                .AddRazorPagesOptions(o => o.AllowAreas = true)
+                ;
 
         }
 

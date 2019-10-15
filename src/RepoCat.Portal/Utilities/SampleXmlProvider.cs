@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Xml.XMLGen;
 
 namespace RepoCat.Portal.Utilities
@@ -39,7 +40,13 @@ namespace RepoCat.Portal.Utilities
                         element.Remove();
                     }
                 }
+
+                var component = manifest.Root.Elements().FirstOrDefault();
+                component?.Element("Tags")?.Attribute("Values")?.SetValue("Multiple;Tags;Allowed");
+                
             }
+
+
 
             return manifest;
         }

@@ -43,9 +43,12 @@ namespace RepoCat.Schemas
         public static XmlSchemaSet GetSchemaSet(SchemaNames names)
         {
             string text = GetSchemaText(names);
+            var xml = XDocument.Parse(text);
+            string nameSpace = xml?.Root?.Attribute("targetNamespace")?.Value;
+
             var schema = XmlReader.Create(new StringReader(text));
             XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add("https://github.com/bartosz-jarmuz/RepoCat", schema);
+            schemas.Add(nameSpace, schema);
             return schemas;
         }
 

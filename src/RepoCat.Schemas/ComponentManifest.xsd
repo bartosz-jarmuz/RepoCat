@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema id="ComponentManifest" elementFormDefault="qualified"
-    targetNamespace="https://github.com/bartosz-jarmuz/RepoCat"
+    targetNamespace="https://github.com/bartosz-jarmuz/RepoCat-ComponentManifest"
     xmlns="https://github.com/bartosz-jarmuz/RepoCat ComponentManifest.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Components">
@@ -16,7 +16,7 @@
                 <xs:complexType>
                   <xs:simpleContent>
                     <xs:extension base="xs:string">
-                      <xs:attribute type="xs:string" name="Values" use="optional"/>
+                      <xs:attribute type="xs:string" name="Value" use="optional"/>
                     </xs:extension>
                   </xs:simpleContent>
                 </xs:complexType>

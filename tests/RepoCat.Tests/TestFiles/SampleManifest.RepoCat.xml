@@ -3,15 +3,15 @@
 It should contain a declaration of one or more components that are in this project -->
 <!--This data might be enriched by a transmitter automatically, 
 although the primary assumption is that this is a from-human-to-human information -->
-<Components xmlns="https://github.com/bartosz-jarmuz/RepoCat"
+<Components xmlns="https://github.com/bartosz-jarmuz/RepoCat-ComponentManifest"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://github.com/bartosz-jarmuz/RepoCat 
+         xsi:schemaLocation="https://github.com/bartosz-jarmuz/RepoCat-ComponentManifest 
                              https://raw.githubusercontent.com/bartosz-jarmuz/RepoCat/master/src/RepoCat.Schemas/ComponentManifest.xsd" >
   <Component>
     <Name>PneumaticPick</Name>
     <Description>You don't even know you need it</Description>
     <DocumentationUri>http://google.com</DocumentationUri>
-    <Tags Values="Mining;Teeth;Hygiene"/>
+    <Tags Value="Mining;Teeth;Hygiene"/>
     <Properties>
       <Add Key="Author" Value="JimBeam"/>
       <Add Key="Weight" Value="25kg"/>
@@ -21,7 +21,7 @@ although the primary assumption is that this is a from-human-to-human informatio
     <Name>SteamPick</Name>
     <Description>You know you don't need it</Description>
     <DocumentationUri>http://google.com</DocumentationUri>
-    <Tags Values="Coal;Steam;Injury"/>
+    <Tags Value="Coal;Steam;Injury"/>
     <Properties>
       <Add Key="Author" Value="Jack Black"/>
       <Add Key="Fuel" Value="Coal"/>

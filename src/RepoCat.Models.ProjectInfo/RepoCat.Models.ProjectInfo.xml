@@ -100,5 +100,45 @@
             </summary>
             <value>The components.</value>
         </member>
+        <member name="T:RepoCat.Transmission.Models.XmlNames">
+            <summary>
+            Strong typing for serialization
+            </summary>
+        </member>
+        <member name="F:RepoCat.Transmission.Models.XmlNames.ComponentManifestNamespace">
+            <summary>
+            The namespace of the component manifests
+            </summary>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.XmlNames.Tags">
+            <summary>
+            Tags of a component
+            </summary>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.XmlNames.Properties">
+            <summary>
+            Properties of a component
+            </summary>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.XmlNames.Add">
+            <summary>
+            Component property element name
+            </summary>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.XmlNames.Value">
+            <summary>
+            Value element
+            </summary>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.XmlNames.Key">
+            <summary>
+            Property key 
+            </summary>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.XmlNames.Components">
+            <summary>
+            Components collection
+            </summary>
+        </member>
     </members>
 </doc>

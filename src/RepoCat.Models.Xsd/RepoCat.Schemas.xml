@@ -14,6 +14,26 @@
             The Component manifest schema
             </summary>
         </member>
+        <member name="T:RepoCat.Schemas.SchemaValidator">
+            <summary>
+            Handles validations of XML files against schemas
+            </summary>
+        </member>
+        <member name="M:RepoCat.Schemas.SchemaValidator.ValidateComponentManifest(System.Xml.Linq.XDocument)">
+            <summary>
+            Validates against ComponentManifest schema
+            </summary>
+            <param name="xDoc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Schemas.SchemaValidator.ValidateComponentManifest(System.String,System.Xml.Linq.XDocument@)">
+            <summary>
+            Validates against ComponentManifest schema
+            </summary>
+            <param name="xmlString"></param>
+            <param name="document"></param>
+            <returns></returns>
+        </member>
         <member name="T:RepoCat.Schemas.XsdProvider">
             <summary>
             Provides schemas

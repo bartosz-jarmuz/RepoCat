@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace RepoCat.Transmission.Models
 {
@@ -54,6 +55,7 @@ namespace RepoCat.Transmission.Models
         /// Gets or sets the components manifests
         /// </summary>
         /// <value>The components.</value>
+        [XmlIgnore]
         public List<ComponentManifest> Components { get; set; } = new List<ComponentManifest>();
 
     }

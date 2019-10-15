@@ -28,5 +28,95 @@
             <param name="stamps">The stamps.</param>
             <returns>System.String.</returns>
         </member>
+        <member name="T:RepoCat.Utilities.VersionStringComparer">
+            <summary>
+            Compares version strings
+            </summary>
+        </member>
+        <member name="M:RepoCat.Utilities.VersionStringComparer.#ctor(System.Boolean)">
+            <summary>
+            Creates new instance.
+            <para>The 'substituteForMissingParts' parameter determines whether string 1.0 should be treated as equivalent to 1.0.0.0</para>
+            <para>Default Version class parse returns -1 for each missing component (essentially 1.0 is like 1.0.-1.-1)</para>
+            <para>So, consequently, 1.0.0 is larger than 1.0, which is nonsense</para>
+            </summary>
+            <param name="substituteForMissingParts"></param>
+        </member>
+        <member name="M:RepoCat.Utilities.VersionStringComparer.Compare(System.String,System.String)">
+            <summary>
+            Returns 1 if first version is larger, -1 if version is smaller and 0 if they are equal.
+            </summary>
+            <param name="firstOne"></param>
+            <param name="secondOne"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RepoCat.Utilities.VersionStringExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Utilities.VersionStringExtensions.GetAssemblyFileVersion(System.Type)">
+            <summary>
+            Return the file version of the assembly based on the type and location
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Utilities.VersionStringExtensions.IsNewerVersionThan(System.String,System.String,System.Boolean)">
+            <summary>
+                Checks whether a version string is larger than a comparison one.
+                Expects a version in format "1.0.0.0", between 2 and 4 segments
+                <para>
+                    The 'substituteForMissingParts' parameter determines whether string 1.0 should be treated as equivalent to
+                    1.0.0.0
+                </para>
+                <para>Default Version class parse returns -1 for each missing component (essentially 1.0 is like 1.0.-1.-1)</para>
+                <para>So, consequently, 1.0.0 is larger than 1.0, which would be nonsense</para>
+            </summary>
+            <param name="currentVersionString"></param>
+            <param name="comparisonVersionString"></param>
+            <param name="substituteForMissingParts">Replaces -1 with 0 in the parsed version objects</param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Utilities.VersionStringExtensions.IsNewerOrEqualVersion(System.String,System.String,System.Boolean)">
+            <summary>
+                Checks whether a version string is larger than or equal to the comparison one.
+                Expects a version in format "1.0.0.0", between 2 and 4 segments
+                <para>
+                    The 'substituteForMissingParts' parameter determines whether string 1.0 should be treated as equivalent to
+                    1.0.0.0
+                </para>
+                <para>Default Version class parse returns -1 for each missing component (essentially 1.0 is like 1.0.-1.-1)</para>
+                <para>So, consequently, 1.0.0 is larger than 1.0, which would be nonsense</para>
+            </summary>
+            <param name="currentVersionString"></param>
+            <param name="comparisonVersionString"></param>
+            <param name="substituteForMissingParts">Replaces -1 with 0 in the parsed version objects</param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Utilities.VersionStringExtensions.NormalizeVersionString(System.String)">
+            <summary>
+            Converts a shortened version string such as '1.2' or '1.0.23' into fully-fielded string, e.g. '1.2.0.0' or '1.0.23.0'.
+            <para>Standard .NET version comparison will consider 1.0 to be a LOWER version than 1.0.0.0, because missing fields (build, revision) are set to -1 when parsing.</para>
+            </summary>
+            <param name="versionString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Utilities.VersionStringExtensions.CompareVersionStrings(System.String,System.String,System.Boolean)">
+            <summary>
+                Returns 1 if first version is larger, -1 if version is smaller and 0 if they are equal.
+                Expects a version in format "1.0.0.0", between 2 and 4 segments
+                <para>
+                    The 'substituteForMissingParts' parameter determines whether string 1.0 should be treated as equivalent to
+                    1.0.0.0
+                </para>
+                <para>Default Version class parse returns -1 for each missing component (essentially 1.0 is like 1.0.-1.-1)</para>
+                <para>So, consequently, 1.0.0 is larger than 1.0, which would be nonsense</para>
+            </summary>
+            <param name="currentVersionString"></param>
+            <param name="comparisonVersionString"></param>
+            <param name="substituteForMissingParts">Replaces -1 with 0 in the parsed version objects</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

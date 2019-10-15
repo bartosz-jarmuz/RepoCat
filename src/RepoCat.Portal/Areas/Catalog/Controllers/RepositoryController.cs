@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Utilities;
+using RepoCat.Schemas;
+using RepoCat.Persistence.Models;
+using RepoCat.Transmission.Core;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
 {
@@ -75,14 +79,11 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// </summary>
         /// <returns>Task&lt;ViewResult&gt;.</returns>
         [HttpGet]
-        public async Task<ViewResult> AddProject()
+        public ViewResult AddProject()
         {
-            await Task.Delay(0);
-            var xzxcManifest = SampleManifestXmlProvider.GetComponentManifest();
-
             return this.View(new AddProjectModel()
             {
-                ManifestXml = xzxcManifest
+                ManifestXml = SampleManifestXmlProvider.GetComponentManifest()
             });
         }
 
@@ -93,18 +94,43 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <returns>Task&lt;IActionResult&gt;.</returns>
         [HttpPost]
 #pragma warning disable 1998
-        public async Task<IActionResult> AddProject(AddProjectModel project)
+        public async Task<IActionResult> AddProject([FromBody] AddProjectModel project)
 #pragma warning restore 1998
         {
             if (!this.ModelState.IsValid)
             {
                 this.TempData["error"] = "Incorrect input.";
-                return this.View(project);
+                return Json(Url.Action("AddProject"));
             }
 
-            this.TempData["success"] = "Added project to catalog";
-            return this.View(new AddProjectModel());
+            var validator = new SchemaValidator();
+            
+            var errors = validator.ValidateComponentManifest(project.ManifestXml, out XDocument _);
 
+            if (errors.Count > 0)
+            {
+                this.TempData["error"] = "Schema validation errors:\r\n"+ string.Join("\r\n", errors);
+                return Json(Url.Action("AddProject"));
+            }
+            else
+            {
+                List<RepoCat.Transmission.Models.ComponentManifest> components = ManifestSerializer.DeserializeComponents(project.ManifestXml);
+
+                List<ComponentManifest> mapped = this.mapper.Map<List<ComponentManifest>>(components);
+
+                var projectInfo = new ProjectInfo()
+                {
+                    Components = mapped,
+                    RepositoryName = "MISC",
+                    RepositoryStamp = "1.0.0.0"
+                };
+
+                this.service.Create(projectInfo);
+
+                this.TempData["success"] = $"Added project to catalog. Internal ID: {projectInfo.Id}";
+
+                return Json(Url.Action("AddProject"));
+            }
 
         }
     }

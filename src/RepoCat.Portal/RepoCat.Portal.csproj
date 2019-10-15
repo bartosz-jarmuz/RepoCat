@@ -25,6 +25,7 @@
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Microsoft.Xml.XMLGen" Version="1.0.0" />
@@ -35,6 +36,8 @@
   <ItemGroup>
     <ProjectReference Include="..\RepoCat.Models.Manifests\RepoCat.Persistence.Models.csproj" />
     <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj" />
+    <ProjectReference Include="..\RepoCat.Schemas\RepoCat.Schemas.csproj" />
+    <ProjectReference Include="..\RepoCat.Transmission.Core\RepoCat.Transmission.Core.csproj" />
     <ProjectReference Include="..\RepoCat.Web.Persistence\RepoCat.Persistence.Service.csproj" />
   </ItemGroup>
 

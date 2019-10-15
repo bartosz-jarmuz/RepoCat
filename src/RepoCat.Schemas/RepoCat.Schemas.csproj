@@ -12,9 +12,13 @@
 
   <ItemGroup>
     <None Remove="ComponentManifest.xsd" />
+    <None Remove="ProjectInfoMessage.xsd" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="ProjectInfoMessage.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="ComponentManifest.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

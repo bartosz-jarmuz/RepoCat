@@ -21,6 +21,10 @@ namespace RepoCat.Utilities
             {
                 return null;
             }
+            //else if (stamps.Count == 1)
+            //{
+            //    return stamps.First();
+            //}
             try
             {
                 if (stamps.Any(s => DateTime.TryParseExact(s, "O", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out _)))
@@ -36,6 +40,10 @@ namespace RepoCat.Utilities
 
                     var ordered = dict.OrderByDescending(x => x.Key).First();
                     return ordered.Value;
+                }
+                else if (stamps.Any(s=>Version.TryParse(s, out _)))
+                {
+                    return stamps.OrderByDescending(s => s, new VersionStringComparer()).FirstOrDefault();
                 }
             }
             catch (Exception)

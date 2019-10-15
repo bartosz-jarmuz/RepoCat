@@ -174,12 +174,12 @@
             </summary>
             <value>The API base URI.</value>
         </member>
-        <member name="T:RepoCat.Transmission.Core.ManifestDeserializer">
+        <member name="T:RepoCat.Transmission.Core.ManifestSerializer">
             <summary>
             Performs the deserialization of the component manifest
             </summary>
         </member>
-        <member name="M:RepoCat.Transmission.Core.ManifestDeserializer.LoadComponents(System.String)">
+        <member name="M:RepoCat.Transmission.Core.ManifestSerializer.DeserializeComponents(System.String)">
             <summary>
             Loads the components from the specified manifest string
             </summary>

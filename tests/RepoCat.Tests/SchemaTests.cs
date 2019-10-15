@@ -24,15 +24,8 @@ namespace RepoCat.Tests
         {
             string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\TestFiles\\SampleManifest.RepoCat.xml");
             var xDoc = XDocument.Parse(text);
-
-            var schemas = XsdProvider.GetSchemaSet(SchemaNames.ComponentManifest );
-            
-
-            var errors = new List<string>();
-            xDoc.Validate(schemas, (sender, args) =>
-            {
-                errors.Add(args.Message);
-            });
+            var validator = new SchemaValidator();
+            var errors = validator.ValidateComponentManifest(xDoc);
 
             errors.Should().BeEmpty("There should be no errors in this file");
         }
@@ -40,17 +33,11 @@ namespace RepoCat.Tests
         [Test]
         public void TestSchema_RandomXml_IsNotValid()
         {
-            string text = "<Project xmlns=\"https://github.com/bartosz-jarmuz/RepoCat\">hi</Project>";
+            string text = "<Project xmlns=\"https://github.com/bartosz-jarmuz/RepoCat-ComponentManifest\">hi</Project>";
             var xDoc = XDocument.Parse(text);
-
-            var schemas = XsdProvider.GetSchemaSet(SchemaNames.ComponentManifest);
-
-
-            var errors = new List<string>();
-            xDoc.Validate(schemas, (sender, args) =>
-            {
-                errors.Add(args.Message);
-            });
+           
+            var validator = new SchemaValidator();
+            var errors = validator.ValidateComponentManifest(xDoc);
 
             errors.Should().NotBeNullOrEmpty("There should be errors in this file");
         }

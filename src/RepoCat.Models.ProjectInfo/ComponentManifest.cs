@@ -7,7 +7,7 @@ namespace RepoCat.Transmission.Models
     /// Component manifests contains a human-created short metadata about a top-level functional component in an assembly.
     /// <para>A component is 'something of interest for a user' a tool, an app (or significant part of it), a plugin etc. </para>
     /// </summary>
-    [XmlRoot("Component", Namespace = "https://github.com/bartosz-jarmuz/RepoCat")]
+    [XmlRoot("Component")]
     public class ComponentManifest
     {
         /// <summary>
