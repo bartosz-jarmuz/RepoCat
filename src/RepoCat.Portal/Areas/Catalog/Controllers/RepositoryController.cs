@@ -83,7 +83,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         {
             return this.View(new AddProjectModel()
             {
-                ManifestXml = SampleManifestXmlProvider.GetComponentManifest()
+                ManifestXml = SampleManifestXmlProvider.GetProjectInfoSerialized()
             });
         }
 
@@ -114,20 +114,13 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             }
             else
             {
-                List<RepoCat.Transmission.Models.ComponentManifest> components = ManifestSerializer.DeserializeComponents(project.ManifestXml);
+                var projectInfo = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(project.ManifestXml));
 
-                List<ComponentManifest> mapped = this.mapper.Map<List<ComponentManifest>>(components);
+                ProjectInfo mappedProjectInfo = this.mapper.Map<ProjectInfo>(projectInfo);
 
-                var projectInfo = new ProjectInfo()
-                {
-                    Components = mapped,
-                    RepositoryName = "MISC",
-                    RepositoryStamp = "1.0.0.0"
-                };
+                this.service.Create(mappedProjectInfo);
 
-                this.service.Create(projectInfo);
-
-                this.TempData["success"] = $"Added project to catalog. Internal ID: {projectInfo.Id}";
+                this.TempData["success"] = $"Added project to catalog. Internal ID: {mappedProjectInfo.Id}";
 
                 return Json(Url.Action("AddProject"));
             }

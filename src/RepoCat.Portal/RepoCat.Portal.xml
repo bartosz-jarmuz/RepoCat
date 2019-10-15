@@ -484,7 +484,7 @@
             Generates a sample XML
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetComponentManifest">
+        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetProjectInfoSerialized">
             <summary>
              Gets a sample component manifest XML
             </summary>

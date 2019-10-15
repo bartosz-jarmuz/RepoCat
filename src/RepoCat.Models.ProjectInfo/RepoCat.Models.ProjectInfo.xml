@@ -105,6 +105,13 @@
             Strong typing for serialization
             </summary>
         </member>
+        <member name="M:RepoCat.Transmission.Models.XmlNames.GetComponentXName(System.String)">
+            <summary>
+            Gets the XName, appending the namespace
+            </summary>
+            <param name="localName"></param>
+            <returns></returns>
+        </member>
         <member name="F:RepoCat.Transmission.Models.XmlNames.ComponentManifestNamespace">
             <summary>
             The namespace of the component manifests

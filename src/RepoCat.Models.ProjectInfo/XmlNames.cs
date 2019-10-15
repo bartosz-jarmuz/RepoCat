@@ -8,6 +8,16 @@ namespace RepoCat.Transmission.Models
     public static class XmlNames
     {
         /// <summary>
+        /// Gets the XName, appending the namespace
+        /// </summary>
+        /// <param name="localName"></param>
+        /// <returns></returns>
+        public static XName GetComponentXName(string localName)
+        {
+            return XName.Get(localName, ComponentManifestNamespace);
+        }
+
+        /// <summary>
         /// The namespace of the component manifests
         /// </summary>
         public const string ComponentManifestNamespace = "https://github.com/bartosz-jarmuz/RepoCat-ComponentManifest";

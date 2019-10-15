@@ -4,7 +4,12 @@
 {
     <link rel="stylesheet" href="~/vendors/codemirror/codemirror.min.css">
     <link rel="stylesheet" href="~/vendors/codemirror/addon/hint/show-hint.css">
-   
+    <style>
+        .CodeMirror {
+            border: 1px solid #eee;
+            height: auto;
+        }
+    </style>
 }
 
 @{
@@ -147,6 +152,7 @@ else if (TempData["error"] != null)
                     value: xml,
                     lineNumbers: true,
                     mode: "xml",
+                    lineWrapping: true,
                     extraKeys: { "Ctrl-Space": "autocomplete" },
                     hintOptions: { schemaInfo: tags }
                 });

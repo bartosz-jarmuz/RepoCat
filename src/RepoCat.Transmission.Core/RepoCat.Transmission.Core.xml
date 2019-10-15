@@ -174,17 +174,50 @@
             </summary>
             <value>The API base URI.</value>
         </member>
-        <member name="T:RepoCat.Transmission.Core.ManifestSerializer">
+        <member name="T:RepoCat.Transmission.Core.ManifestDeserializer">
             <summary>
             Performs the deserialization of the component manifest
             </summary>
         </member>
-        <member name="M:RepoCat.Transmission.Core.ManifestSerializer.DeserializeComponents(System.String)">
+        <member name="M:RepoCat.Transmission.Core.ManifestDeserializer.DeserializeProjectInfo(System.Xml.Linq.XElement)">
+            <summary>
+            Serializes ProjectInfo as XML
+            </summary>
+            <param name="infoElement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.ManifestDeserializer.DeserializeComponents(System.Xml.Linq.XElement)">
+            <summary>
+            Loads the components from the specified manifest string
+            </summary>
+            <param name="componentsElement">The manifest.</param>
+            <returns>List&lt;ComponentManifest&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.ManifestDeserializer.DeserializeComponents(System.String)">
             <summary>
             Loads the components from the specified manifest string
             </summary>
             <param name="manifest">The manifest.</param>
             <returns>List&lt;ComponentManifest&gt;.</returns>
+        </member>
+        <member name="T:RepoCat.Transmission.Core.ManifestSerializer">
+            <summary>
+            Performs the deserialization of the component manifest
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.ManifestSerializer.SerializeProjectInfo(RepoCat.Transmission.Models.ProjectInfo)">
+            <summary>
+            Serializes ProjectInfo as XML
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Transmission.Core.ManifestSerializer.SerializeComponents(System.Collections.Generic.IEnumerable{RepoCat.Transmission.Models.ComponentManifest})">
+            <summary>
+            Stores the list of component manifests as an XML element
+            </summary>
+            <param name="manifests"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

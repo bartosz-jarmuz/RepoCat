@@ -69,7 +69,7 @@ namespace RepoCat.Transmission.Core.Implementation
                     else
                     {
                         string manifestContent = File.ReadAllText(manifestPath);
-                        info.Components = ManifestSerializer.DeserializeComponents(manifestContent);
+                        info.Components = ManifestDeserializer.DeserializeComponents(manifestContent);
                         this.log.Info($"Read OK from {uri}");
                     }
                  
