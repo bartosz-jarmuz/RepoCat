@@ -4,6 +4,23 @@
     "inputFiles": [
       "wwwroot/css/site.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/vendors/select2/css/select2.min.css",
+    "inputFiles": [
+      "wwwroot/vendors/select2/css/select2.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/vendors/select2/themes/select2-bootstrap4.min.css",
+    "inputFiles": [
+      "wwwroot/vendors/select2/themes/select2-bootstrap4.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/vendors/select2/js/select2.min.js",
+    "inputFiles": [
+      "wwwroot/vendors/select2/js/select2.js"
+    ]
   }
-  
 ]
