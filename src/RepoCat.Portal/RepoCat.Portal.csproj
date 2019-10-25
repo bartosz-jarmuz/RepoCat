@@ -20,6 +20,10 @@
     <None Remove="Models\Domain\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
@@ -186,6 +190,11 @@
     <Folder Include="wwwroot\vendors\select2\css\" />
     <Folder Include="wwwroot\vendors\select2\js\i18n\" />
     <Folder Include="wwwroot\vendors\select2\themes\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
   </ItemGroup>
 
 </Project>
