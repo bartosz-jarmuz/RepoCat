@@ -22,5 +22,11 @@
     "inputFiles": [
       "wwwroot/vendors/select2/js/select2.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ]
   }
 ]
