@@ -36,7 +36,9 @@ namespace RepoCat.Portal
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
