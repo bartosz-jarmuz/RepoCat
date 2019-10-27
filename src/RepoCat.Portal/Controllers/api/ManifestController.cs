@@ -49,7 +49,7 @@ namespace RepoCat.Portal.Controllers.api
             try
             {
                 this.service.Create(prjInfo);
-                return this.CreatedAtAction("Get", new {id= prjInfo.Id});
+                return this.CreatedAtAction("Get", new {id= prjInfo.Id}, prjInfo);
             }
             catch (Exception)
             {
