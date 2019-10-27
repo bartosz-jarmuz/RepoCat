@@ -82,8 +82,10 @@ namespace RepoCat.Transmission.Core.Implementation
                 HttpResponseMessage result = await this.client.PostAsync("api/manifest", content);
                 if (result.IsSuccessStatusCode)
                 {
+                    this.log.Info($"Sent [{info.ProjectName}]. StatusCode: [{result.StatusCode}]. Location: [{result.Headers?.Location}]");
                     string response = await result.Content.ReadAsStringAsync();
-                    this.log.Info($"Sent [{info.ProjectName}]. StatusCode: [{result.StatusCode}]. Response [{response}]. Location: [{result.Headers?.Location}]");
+                    this.log.Debug($"Response [{response}].");
+
                 }
                 else
                 {
