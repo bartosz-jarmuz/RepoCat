@@ -46,7 +46,7 @@ namespace RepoCat.Transmission.Core.Implementation
             {
                 foreach (KeyValuePair<string, string> parameter in args.OriginalParameterCollection)
                 {
-                    this.log.Info($"{parameter}: [{parameter.Value}]");
+                    this.log.Info($"{parameter.Key}: [{parameter.Value}]");
                 }
 
                 LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
