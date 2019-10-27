@@ -13,6 +13,6 @@ namespace RepoCat.Transmission.Core.Interface
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Task.</returns>
-        Task Work(ITransmitterArguments args);
+        Task Work(TransmitterArguments args);
     }
 }

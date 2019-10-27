@@ -1,46 +1,25 @@
 ﻿using System;
+using System.ComponentModel;
+using DotNetLittleHelpers;
 using log4net;
 using RepoCat.Transmission.Core.Interface;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Core.Implementation
 {
     /// <summary>
     /// The set of parameters for the worker.
     /// </summary>
-    public class TransmitterArguments : ITransmitterArguments
+    public class TransmitterArguments : ParameterSet
     {
+        public TransmitterArguments() :base() { }
         /// <summary>
         /// Initializes a new instance of the <see cref="TransmitterArguments"/> class.
         /// </summary>
-        /// <param name="log"></param>
         /// <param name="args">The arguments.</param>
-        public TransmitterArguments (ILog log, string[] args)
+        public TransmitterArguments (string[] args) : base(args)
         {
-            try
-            {
-                this.CodeRootFolder = args[0];
-                this.ApiBaseUri = new Uri(args[1]);
-                this.RepositoryName = args[2];
-
-                if (args.Length == 4)
-                {
-                    this.RepositoryStamp = args[3];
-                }
-                else
-                {
-                    this.RepositoryStamp = DateTimeOffset.UtcNow.ToString("O");
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Fatal($"Error while reading arguments. Found following {args.Length} args:");
-                foreach (string s in args)
-                {
-                    log.Fatal(s);
-                }
-                log.Fatal(ex);
-                throw;
-            }
+         
         }
 
         /// <summary>
@@ -64,7 +43,10 @@ namespace RepoCat.Transmission.Core.Implementation
         /// <value>The API base URI.</value>
         public Uri ApiBaseUri { get; set; }
 
-
+        /// <summary>
+        /// Gets or sets the mode of project info transmission
+        /// </summary>
+        public RepositoryMode RepositoryMode { get; set; }
 
     }
 }

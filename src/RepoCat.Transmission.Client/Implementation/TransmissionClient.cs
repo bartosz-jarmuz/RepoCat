@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using log4net;
 using RepoCat.Transmission.Core.Interface;
@@ -26,14 +27,27 @@ namespace RepoCat.Transmission.Core.Implementation
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Task.</returns>
-        public async Task Work(ITransmitterArguments args)
+        public Task Work(string[] args)
+        {
+            TransmitterArguments arguments= new TransmitterArguments(args);
+            this.log.Debug($"Arguments: {arguments.OriginalParameterInputString}");
+            return this.Work(arguments);
+        }
+    
+
+        /// <summary>
+        /// Entry point for the transmission
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Task.</returns>
+        public async Task Work(TransmitterArguments args)
         {
             try
             {
-                this.log.Info($"Code folder path: [{args.CodeRootFolder}]");
-                this.log.Info($"Api base URL: [{args.ApiBaseUri}]");
-                this.log.Info($"Repo: [{args.RepositoryName}]");
-                this.log.Info($"Repo stamp: [{args.RepositoryStamp}]");
+                foreach (KeyValuePair<string, string> parameter in args.OriginalParameterCollection)
+                {
+                    this.log.Info($"{parameter}: [{parameter.Value}]");
+                }
 
                 LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
                 var uris = uriProvider.GetUris(args.CodeRootFolder);

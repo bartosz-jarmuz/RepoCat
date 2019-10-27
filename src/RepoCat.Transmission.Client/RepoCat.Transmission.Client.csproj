@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetLittleHelpers, Version=1.0.101.0, Culture=neutral, PublicKeyToken=339dc7d237f083dc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetLittleHelpers.1.0.101\lib\net45\DotNetLittleHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -58,7 +61,6 @@
     <Compile Include="Interface\IProjectUriProvider.cs" />
     <Compile Include="Interface\ISender.cs" />
     <Compile Include="Interface\ITransmissionClient.cs" />
-    <Compile Include="Interface\ITransmitterArguments.cs" />
     <Compile Include="ManifestDeserializer.cs" />
     <Compile Include="ManifestSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

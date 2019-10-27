@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
@@ -14,8 +15,17 @@ namespace RepoCat.Transmitter
         static void Main(string[] args)
         {
             var log = LogManager.GetLogger(typeof(Program));
-            var transmissionClient = new TransmissionClient(log);
-            transmissionClient.Work(new TransmitterArguments(log, args) ).GetAwaiter().GetResult();
+
+            try
+            {
+                TransmissionClient client = new TransmissionClient(log);
+                client.Work(args).GetAwaiter().GetResult();
+                log.Info($"{typeof(Program).Assembly.GetName().Name} - Finished");
+            }
+            catch (Exception ex)
+            {
+                log.Fatal("Something went wrong", ex);
+            }
         }
     }
 }
