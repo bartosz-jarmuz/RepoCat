@@ -26,6 +26,7 @@ namespace RepoCat.Transmitter
             catch (Exception ex)
             {
                 log.Fatal("Something went wrong", ex);
+                throw;
             }
         }
         public static string GetAssemblyFileVersion()
