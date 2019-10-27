@@ -83,11 +83,11 @@ namespace RepoCat.Transmission.Core.Implementation
                 if (result.IsSuccessStatusCode)
                 {
                     string response = await result.Content.ReadAsStringAsync();
-                    this.log.Info($"Sent [{info.ProjectName}] project info OK. StatusCode: {result.StatusCode} Response [{response}]");
+                    this.log.Info($"Sent [{info.ProjectName}]. StatusCode: [{result.StatusCode}]. Response [{response}]. Location: [{result.Headers?.Location}]");
                 }
                 else
                 {
-                    this.log.Error($"Error - {result.StatusCode} - [{result.ReasonPhrase}] - while sending [{info.ProjectName}].");
+                    this.log.Error($"Error - [{result.StatusCode}] - [{result.ReasonPhrase}] - while sending [{info.ProjectName}].");
                 }
             }
             catch (Exception ex)
