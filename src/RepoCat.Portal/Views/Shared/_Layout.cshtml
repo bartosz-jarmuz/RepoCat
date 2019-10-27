@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using RepoCat.Utilities
+<!DOCTYPE html>
 <!--
 * CoreUI - Free Bootstrap Admin Template
 * @@version v2.0.0
@@ -100,12 +101,15 @@
     <footer class="app-footer">
         <div>
             <a href="https://github.com/bartosz-jarmuz/RepoCat">RepoCat</a>
-            <span>&copy; 2019 Bartosz Jarmuż.</span>
+            <span>Version: </span>
+            <span>@this.GetType().GetAssemblyFileVersion()</span>
+
+            <small>&copy; 2019 Bartosz Jarmuż.</small>
         </div>
-        <div class="ml-auto">
+        <small class="ml-auto">
             <span>UI powered by</span>
             <a href="https://coreui.io">CoreUI</a>
-        </div>
+        </small>
     </footer>
 
     <environment include="Development">

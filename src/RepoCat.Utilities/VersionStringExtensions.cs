@@ -16,7 +16,14 @@ namespace RepoCat.Utilities
         /// <returns></returns>
         public static string GetAssemblyFileVersion(this Type type)
         {
-            return FileVersionInfo.GetVersionInfo(type.Assembly.Location).FileVersion;
+            try
+            {
+                return FileVersionInfo.GetVersionInfo(type.Assembly.Location).FileVersion;
+            }
+            catch
+            {
+                return "0.0.0.1";
+            }
         }
 
         /// <summary>

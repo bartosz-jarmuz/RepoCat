@@ -18,6 +18,7 @@ namespace RepoCat.Transmitter
 
             try
             {
+                log.Info($"Console transmitter [{GetAssemblyFileVersion()}] starting...");
                 TransmissionClient client = new TransmissionClient(log);
                 client.Work(args).GetAwaiter().GetResult();
                 log.Info($"{typeof(Program).Assembly.GetName().Name} - Finished");
@@ -25,6 +26,17 @@ namespace RepoCat.Transmitter
             catch (Exception ex)
             {
                 log.Fatal("Something went wrong", ex);
+            }
+        }
+        public static string GetAssemblyFileVersion()
+        {
+            try
+            {
+                return FileVersionInfo.GetVersionInfo(typeof(Program).Assembly.Location).FileVersion;
+            }
+            catch
+            {
+                return "0.0.0.1";
             }
         }
     }
