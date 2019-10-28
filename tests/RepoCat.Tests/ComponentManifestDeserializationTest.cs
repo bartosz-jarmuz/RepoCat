@@ -16,7 +16,7 @@ namespace RepoCat.Tests
         [Test]
         public void Serialization_BackAndForth()
         {
-            ProjectInfo info = SampleManifestXmlProvider.GetProjectInfo();
+            ProjectInfo info = SampleManifestXmlProvider.GetSampleProjectInfo();
 
             XElement projectInfoSerialized = ManifestSerializer.SerializeProjectInfo(info);
 

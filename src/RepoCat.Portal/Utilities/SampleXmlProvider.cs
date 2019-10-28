@@ -19,9 +19,19 @@ namespace RepoCat.Portal.Utilities
         ///  Gets a sample component manifest XML
         /// </summary>
         /// <returns>List&lt;System.String&gt;.</returns>
-        public static string GetProjectInfoSerialized()
+        public static string GetSampleProjectInfoSerialized()
         {
-            var info = GetProjectInfo();
+            var info = GetSampleProjectInfo();
+            return ManifestSerializer.SerializeProjectInfo(info).ToString();
+        }
+
+        /// <summary>
+        ///  Gets an empty component manifest XML
+        /// </summary>
+        /// <returns>List&lt;System.String&gt;.</returns>
+        public static string GetEmptyProjectInfoSerialized()
+        {
+            var info = GetEmptyProjectInfo();
             return ManifestSerializer.SerializeProjectInfo(info).ToString();
         }
 
@@ -29,7 +39,43 @@ namespace RepoCat.Portal.Utilities
         /// Gets a sample pre-filled project info
         /// </summary>
         /// <returns></returns>
-        public static ProjectInfo GetProjectInfo()
+        public static ProjectInfo GetEmptyProjectInfo()
+        {
+            ProjectInfo info = new ProjectInfo()
+            {
+                ProjectName = " ",
+                AssemblyName = " ",
+                TargetExtension = " ",
+                OutputType = " ",
+                ProjectUri = " ",
+                RepositoryName = " ",
+                RepositoryStamp = " "
+            };
+            info.Components = new List<ComponentManifest>()
+            {
+                new ComponentManifest()
+                {
+                    Name = " ",
+                    Description = " ",
+                    DocumentationUri = " ",
+                    Tags = new List<string>()
+                    {
+                        "",
+                    },
+                    Properties = new Dictionary<string, string>()
+                    {
+                        {"", "" }
+                    }
+                },
+            };
+            return info;
+        }
+
+        /// <summary>
+        /// Gets a sample pre-filled project info
+        /// </summary>
+        /// <returns></returns>
+        public static ProjectInfo GetSampleProjectInfo()
         {
             ProjectInfo info = new ProjectInfo()
             {

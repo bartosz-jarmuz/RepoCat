@@ -85,7 +85,13 @@
             Class AddProjectModel.
             </summary>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.AddProjectModel.ManifestXml">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.AddProjectModel.EmptyManifestXml">
+            <summary>
+            Gets or sets the manifest XML.
+            </summary>
+            <value>The manifest XML.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.AddProjectModel.SampleManifestXml">
             <summary>
             Gets or sets the manifest XML.
             </summary>
@@ -495,13 +501,25 @@
             Generates a sample XML
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetProjectInfoSerialized">
+        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetSampleProjectInfoSerialized">
             <summary>
              Gets a sample component manifest XML
             </summary>
             <returns>List&lt;System.String&gt;.</returns>
         </member>
-        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetProjectInfo">
+        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetEmptyProjectInfoSerialized">
+            <summary>
+             Gets an empty component manifest XML
+            </summary>
+            <returns>List&lt;System.String&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetEmptyProjectInfo">
+            <summary>
+            Gets a sample pre-filled project info
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Portal.Utilities.SampleManifestXmlProvider.GetSampleProjectInfo">
             <summary>
             Gets a sample pre-filled project info
             </summary>

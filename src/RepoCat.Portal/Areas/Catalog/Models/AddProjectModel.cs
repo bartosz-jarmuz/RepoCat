@@ -9,7 +9,14 @@
         /// Gets or sets the manifest XML.
         /// </summary>
         /// <value>The manifest XML.</value>
-        public string ManifestXml { get; set; }
+        public string EmptyManifestXml { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the manifest XML.
+        /// </summary>
+        /// <value>The manifest XML.</value>
+        public string SampleManifestXml { get; set; }
 
     }
 }

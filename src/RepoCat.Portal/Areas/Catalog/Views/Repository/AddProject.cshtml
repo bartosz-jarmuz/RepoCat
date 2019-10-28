@@ -9,6 +9,12 @@
             border: 1px solid #eee;
             height: auto;
         }
+        .CodeMirror-readOnly {
+            background-color: #f5f5f5 !important;
+        }
+        .CodeMirror-readOnly .CodeMirror-lines {
+            cursor: copy;
+        }
     </style>
 }
 
@@ -49,7 +55,18 @@ else if (TempData["error"] != null)
                 <btn class="btn btn-primary" id="submitManifest">Submit</btn>
             </div>
         </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Sample manifest</div>
+            <div class="card-body">
+                <p>See below sample of what kind of data is needed in each of the fields.</p>
 
+                <div class="border">
+                    <textarea class="form-control-lg border" id="sampleCodeEditor"></textarea>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @section Scripts
@@ -143,13 +160,13 @@ else if (TempData["error"] != null)
             }
 
 
-            var xml = '@Html.Raw(Model.ManifestXml.Replace(Environment.NewLine, "\\n"))';
-            var myCodeMirror = CodeMirror(function(elt) {
+            var emptyXml = '@Html.Raw(Model.EmptyManifestXml.Replace(Environment.NewLine, "\\n"))';
+            var manifestEditor = CodeMirror(function(elt) {
                     var editor = document.getElementById("codeEditor");
                     editor.parentNode.replaceChild(elt, editor);
                 },
                 {
-                    value: xml,
+                    value: emptyXml,
                     lineNumbers: true,
                     mode: "xml",
                     lineWrapping: true,
@@ -157,13 +174,32 @@ else if (TempData["error"] != null)
                     hintOptions: { schemaInfo: tags }
                 });
 
+
+            var sampleXml = '@Html.Raw(Model.SampleManifestXml.Replace(Environment.NewLine, "\\n"))';
+            var manifestSample = CodeMirror(function (elt) {
+                    var editor = document.getElementById("sampleCodeEditor");
+                    editor.parentNode.replaceChild(elt, editor);
+                },
+                {
+                    value: sampleXml,
+                    lineNumbers: true,
+                    readOnly: true,
+                    mode: "xml",
+                    lineWrapping: true,
+                    extraKeys: { "Ctrl-Space": "autocomplete" },
+                    hintOptions: { schemaInfo: tags }
+                });
+
+            var $wrapper = $(manifestSample.getWrapperElement());
+            $wrapper.addClass('CodeMirror-readOnly');
+
             $('#submitManifest').click(function () {
                 $.ajax({
                     method: 'POST',
                     contentType : 'application/json',
                     url: '@Url.Action("AddProject", "RepositoryController")',
                     data: JSON.stringify(
-                        { ManifestXml: myCodeMirror.getValue() }
+                        { ManifestXml: manifestEditor.getValue() }
                     )
                 }).done(function(response) {
                     window.location = response;

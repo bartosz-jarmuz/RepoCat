@@ -83,7 +83,8 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         {
             return this.View(new AddProjectModel()
             {
-                ManifestXml = SampleManifestXmlProvider.GetProjectInfoSerialized()
+                SampleManifestXml = SampleManifestXmlProvider.GetSampleProjectInfoSerialized()
+                ,EmptyManifestXml = SampleManifestXmlProvider.GetEmptyProjectInfoSerialized()
             });
         }
 
@@ -105,7 +106,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
             var validator = new SchemaValidator();
             
-            var errors = validator.ValidateComponentManifest(project.ManifestXml, out XDocument _);
+            var errors = validator.ValidateComponentManifest(project.SampleManifestXml, out XDocument _);
 
             if (errors.Count > 0)
             {
@@ -114,7 +115,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             }
             else
             {
-                var projectInfo = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(project.ManifestXml));
+                var projectInfo = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(project.SampleManifestXml));
 
                 ProjectInfo mappedProjectInfo = this.mapper.Map<ProjectInfo>(projectInfo);
 
