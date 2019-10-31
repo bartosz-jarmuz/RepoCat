@@ -49,11 +49,12 @@ namespace RepoCat.Transmission.Client.Implementation
             try
             {
                 Project prj = new Project(uri);
+                this.log.Debug($"Project loaded from [{uri}]");
                 var manifestInclude = prj.Items.FirstOrDefault(x =>
                     x.EvaluatedInclude.EndsWith("RepoCat.xml", StringComparison.CurrentCultureIgnoreCase));
                 if (manifestInclude != null)
                 {
-                     this.log.Debug($"Reading manifest info from {uri}");
+                     this.log.Debug($"Reading Project Info - {uri}");
 
                     var info = new ProjectInfo()
                     {
@@ -65,6 +66,8 @@ namespace RepoCat.Transmission.Client.Implementation
                         OutputType = prj.Properties.FirstOrDefault(x => x.Name.Equals("OutputType", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
                         TargetExtension = prj.Properties.FirstOrDefault(x => x.Name.Equals("TargetExt", StringComparison.CurrentCultureIgnoreCase))?.EvaluatedValue,
                     };
+
+                    this.log.Debug($"Reading manifest info from {uri}");
 
                     string manifestPath = Directory.GetFiles(prj.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories).FirstOrDefault();
                     if (string.IsNullOrEmpty(manifestPath))
@@ -84,7 +87,7 @@ namespace RepoCat.Transmission.Client.Implementation
             }
             catch (Exception ex)
             {
-                this.log.Warn($"Error while loading project info for [{uri}] " +  ex.Message);
+                this.log.Warn($"Error while loading project info for [{uri}] " +  ex);
             }
             return null;
         }
