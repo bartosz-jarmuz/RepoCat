@@ -25,7 +25,7 @@ namespace RepoCat.ProjectParsers.Tests
                 .FirstOrDefault(x => x.Name == name);
             if (projectFile == null)
             {
-                throw new FileNotFoundException($"Failed to find [{name}] anywhere under [{samplesFolder.FullName}]");
+                throw new FileNotFoundException($"Failed to find [{name}] anywhere under [{samplesFolder.f}]");
             }
             ThrowIfNotExists(projectFile);
 

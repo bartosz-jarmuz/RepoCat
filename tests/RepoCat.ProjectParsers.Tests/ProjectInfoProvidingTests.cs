@@ -1,17 +1,17 @@
 ﻿using System.Linq;
 using FluentAssertions;
 using log4net;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RepoCat.Transmission.Client.Implementation;
 using System.Xml.Linq;
+using NUnit.Framework;
 
 namespace RepoCat.ProjectParsers.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class ProjectInfoProvidingTests
     {
-        [TestMethod]
+        [Test]
         public void NetFrameworkProject_Load()
         {
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetFramework.csproj");
@@ -25,7 +25,7 @@ namespace RepoCat.ProjectParsers.Tests
             info.Components.Single().Tags.Count.Should().Be(3);
         }
 
-        [TestMethod]
+        [Test]
         public void NetCoreProject_Load()
         {
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetCore.csproj");
