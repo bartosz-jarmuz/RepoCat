@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using log4net;
-using RepoCat.Transmission.Core.Interface;
+using RepoCat.Transmission.Client.Interface;
 
-namespace RepoCat.Transmission.Core.Implementation
+namespace RepoCat.Transmission.Client.Implementation
 {
     /// <summary>
     /// Main worker class

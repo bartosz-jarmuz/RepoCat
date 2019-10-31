@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 using Newtonsoft.Json;
-using RepoCat.Transmission.Core.Interface;
+using RepoCat.Transmission.Client.Interface;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Core.Implementation
+namespace RepoCat.Transmission.Client.Implementation
 {
     /// <summary>
     /// Class that sends the project manifests to the RepoCat API over HTTP

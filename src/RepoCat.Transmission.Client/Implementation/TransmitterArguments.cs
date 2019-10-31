@@ -1,11 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using DotNetLittleHelpers;
-using log4net;
-using RepoCat.Transmission.Core.Interface;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Core.Implementation
+namespace RepoCat.Transmission.Client.Implementation
 {
     /// <summary>
     /// The set of parameters for the worker.

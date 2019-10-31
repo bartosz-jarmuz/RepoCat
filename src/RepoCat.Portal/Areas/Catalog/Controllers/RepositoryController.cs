@@ -9,7 +9,7 @@ using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Utilities;
 using RepoCat.Schemas;
 using RepoCat.Persistence.Models;
-using RepoCat.Transmission.Core;
+using RepoCat.Transmission.Client;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
 {

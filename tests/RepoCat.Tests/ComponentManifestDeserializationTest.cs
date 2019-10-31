@@ -6,7 +6,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using NUnit.Framework;
 using RepoCat.Portal.Utilities;
-using RepoCat.Transmission.Core;
+using RepoCat.Transmission.Client;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Tests

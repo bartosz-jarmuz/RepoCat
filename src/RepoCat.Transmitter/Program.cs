@@ -5,8 +5,7 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using log4net;
-using RepoCat.Transmission.Core;
-using RepoCat.Transmission.Core.Implementation;
+using RepoCat.Transmission.Client.Implementation;
 
 namespace RepoCat.Transmitter
 {

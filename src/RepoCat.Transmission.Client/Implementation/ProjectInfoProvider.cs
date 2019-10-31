@@ -4,18 +4,20 @@ using System.IO;
 using System.Linq;
 using log4net;
 using Microsoft.Build.Evaluation;
-using RepoCat.Transmission.Core.Interface;
+using Microsoft.Build.Locator;
+using RepoCat.Transmission.Client.Interface;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Core.Implementation
+namespace RepoCat.Transmission.Client.Implementation
 {
-    class ProjectInfoProvider : IProjectInfoProvider
+    public class ProjectInfoProvider : IProjectInfoProvider
     {
         private readonly ILog log;
 
         public ProjectInfoProvider(ILog log)
         {
             this.log = log;
+            MSBuildLocator.RegisterDefaults();
         }
 
         public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, string repo, string repoStamp)

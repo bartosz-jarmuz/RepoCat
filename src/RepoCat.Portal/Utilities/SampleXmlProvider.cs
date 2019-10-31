@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore.Internal;
-using RepoCat.Transmission.Core;
+using RepoCat.Transmission.Client;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Portal.Utilities

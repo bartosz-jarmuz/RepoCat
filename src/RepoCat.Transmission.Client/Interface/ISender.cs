@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Core.Interface
+namespace RepoCat.Transmission.Client.Interface
 {
     /// <summary>
     /// Responsible for sending messages to the API
