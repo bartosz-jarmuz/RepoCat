@@ -17,7 +17,10 @@ namespace RepoCat.Transmission.Client.Implementation
         public ProjectInfoProvider(ILog log)
         {
             this.log = log;
-            MSBuildLocator.RegisterDefaults();
+            if (MSBuildLocator.CanRegister)
+            {
+                MSBuildLocator.RegisterDefaults();
+            }
         }
 
         public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, string repo, string repoStamp)
