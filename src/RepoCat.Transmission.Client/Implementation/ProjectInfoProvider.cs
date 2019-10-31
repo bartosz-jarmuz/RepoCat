@@ -84,7 +84,7 @@ namespace RepoCat.Transmission.Client.Implementation
             }
             catch (Exception ex)
             {
-                this.log.Warn("Error while loading project info " +  ex.Message);
+                this.log.Warn($"Error while loading project info for [{uri}] " +  ex.Message);
             }
             return null;
         }
