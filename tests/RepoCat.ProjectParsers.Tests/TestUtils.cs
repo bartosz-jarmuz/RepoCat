@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using NUnit.Framework;
 
 namespace RepoCat.ProjectParsers.Tests
 {
@@ -8,7 +9,7 @@ namespace RepoCat.ProjectParsers.Tests
     {
         public static DirectoryInfo GetSolutionDirectory()
         {
-            var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
+            var dir = new DirectoryInfo(TestContext.CurrentContext.TestDirectory);
             var slnDir = dir.Parent.Parent.Parent.Parent;
             ThrowIfNotExists(slnDir.FullName);
             return slnDir;
@@ -25,7 +26,7 @@ namespace RepoCat.ProjectParsers.Tests
                 .FirstOrDefault(x => x.Name == name);
             if (projectFile == null)
             {
-                throw new FileNotFoundException($"Failed to find [{name}] anywhere under [{samplesFolder.f}]");
+                throw new FileNotFoundException($"Failed to find [{name}] anywhere under [{samplesFolder.FullName}]");
             }
             ThrowIfNotExists(projectFile);
 
