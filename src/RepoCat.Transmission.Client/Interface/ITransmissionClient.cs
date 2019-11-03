@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using RepoCat.Transmission.Client.Implementation;
 
-namespace RepoCat.Transmission.Client.Interface
+namespace RepoCat.Transmission.Client.Interfaces
 {
     /// <summary>
     /// Controls end-to-end transmission of manifests to API

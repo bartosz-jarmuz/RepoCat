@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 using Newtonsoft.Json;
-using RepoCat.Transmission.Client.Interface;
+using RepoCat.Transmission.Client.Interfaces;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client.Implementation
@@ -13,7 +13,7 @@ namespace RepoCat.Transmission.Client.Implementation
     /// <summary>
     /// Class that sends the project manifests to the RepoCat API over HTTP
     /// </summary>
-    public class HttpSender : ISender
+    public class HttpSender : ISender, IDisposable
     {
         /// <summary>
         /// The client
@@ -43,9 +43,11 @@ namespace RepoCat.Transmission.Client.Implementation
         /// <returns>Task.</returns>
         public async Task Send(IEnumerable<ProjectInfo> infos)
         {
-            var tasks = new List<Task>();
+            if (infos == null) throw new ArgumentNullException(nameof(infos));
 
-            var infoCounter = 0;
+            List<Task> tasks = new List<Task>();
+
+            int infoCounter = 0;
             foreach (ProjectInfo projectInfo in infos)
             {
                 infoCounter++;
@@ -53,7 +55,7 @@ namespace RepoCat.Transmission.Client.Implementation
             }
             this.log.Info($"Waiting for all {infoCounter} project infos to be sent.");
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -63,6 +65,8 @@ namespace RepoCat.Transmission.Client.Implementation
         /// <returns>Task.</returns>
         public async Task Send(ProjectInfo info)
         {
+            if (info == null) throw new ArgumentNullException(nameof(info));
+
             this.log.Debug($"Sending {info.ProjectName} project info");
 
             string serialized;
@@ -78,18 +82,23 @@ namespace RepoCat.Transmission.Client.Implementation
 
             try
             {
-                StringContent content = new StringContent(serialized, Encoding.UTF8, "application/json");
-                HttpResponseMessage result = await this.client.PostAsync("api/manifest", content);
-                if (result.IsSuccessStatusCode)
+                using (StringContent content = new StringContent(serialized, Encoding.UTF8, "application/json"))
                 {
-                    this.log.Info($"Sent [{info.ProjectName}]. StatusCode: [{result.StatusCode}]. Location: [{result.Headers?.Location}]");
-                    string response = await result.Content.ReadAsStringAsync();
-                    this.log.Debug($"Response [{response}].");
+                    HttpResponseMessage result =
+                        await this.client.PostAsync(new Uri("api/manifest"), content).ConfigureAwait(false);
+                    if (result.IsSuccessStatusCode)
+                    {
+                        this.log.Info(
+                            $"Sent [{info.ProjectName}]. StatusCode: [{result.StatusCode}]. Location: [{result.Headers?.Location}]");
+                        string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        this.log.Debug($"Response [{response}].");
 
-                }
-                else
-                {
-                    this.log.Error($"Error - [{result.StatusCode}] - [{result.ReasonPhrase}] - while sending [{info.ProjectName}].");
+                    }
+                    else
+                    {
+                        this.log.Error(
+                            $"Error - [{result.StatusCode}] - [{result.ReasonPhrase}] - while sending [{info.ProjectName}].");
+                    }
                 }
             }
             catch (Exception ex)
@@ -97,6 +106,18 @@ namespace RepoCat.Transmission.Client.Implementation
                 this.log.Error($"Error while sending project info: {info.ProjectName}. {serialized}", ex);
             }
 
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+             this.client?.Dispose();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using log4net;
 using RepoCat.ProjectFileReaders;
 using RepoCat.ProjectFileReaders.ProjectModel;
-using RepoCat.Transmission.Client.Interface;
+using RepoCat.Transmission.Client.Interfaces;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client.Implementation
@@ -23,13 +23,15 @@ namespace RepoCat.Transmission.Client.Implementation
 
         public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, string repo, string repoStamp)
         {
-            var counter = 0;
+            if (uris == null) throw new ArgumentNullException(nameof(uris));
+
+            int counter = 0;
             foreach (string uri in uris)
             {
                 this.log.Debug($"Checking project #{counter} for manifest file. {uri}");
 
                 counter++;
-                var info = this.GetInfo(uri, repo, repoStamp);
+                ProjectInfo info = this.GetInfo(uri, repo, repoStamp);
                 if (info != null)
                 {
                     yield return info;
@@ -59,7 +61,7 @@ namespace RepoCat.Transmission.Client.Implementation
                     if (info != null)
                     {
                         this.log.Debug($"Loaded project info. Reading manifest info from {uri}.");
-                        this.LoadComponentManifest(uri, project, manifestInclude, info);
+                        this.LoadComponentManifest(uri, manifestInclude, info);
                         return info;
                     }
 
@@ -77,11 +79,11 @@ namespace RepoCat.Transmission.Client.Implementation
             return null;
         }
 
-        private void LoadComponentManifest(string uri, Project project, ProjectItem manifestInclude, ProjectInfo info)
+        private void LoadComponentManifest(string uri, ProjectItem manifestInclude, ProjectInfo info)
         {
             try
             {
-                var file = new FileInfo(manifestInclude.ResolvedIncludePath);
+                FileInfo file = new FileInfo(manifestInclude.ResolvedIncludePath);
                 if (!file.Exists)
                 {
                     this.log.Error($"Manifest not found at [{manifestInclude.ResolvedIncludePath}] for project {uri}!");
@@ -104,7 +106,7 @@ namespace RepoCat.Transmission.Client.Implementation
         {
             try
             {
-                var info = new ProjectInfo()
+                ProjectInfo info = new ProjectInfo()
                 {
                     AssemblyName = prj.AssemblyName,
                     ProjectUri = prj.FullPath,
@@ -131,7 +133,7 @@ namespace RepoCat.Transmission.Client.Implementation
             Project prj;
             try
             {
-                var factory = new ProjectFileFactory();
+                ProjectFileFactory factory = new ProjectFileFactory();
                 prj = factory.GetProject(new FileInfo(uri));
                 this.log.Debug($"Project loaded from [{uri}]");
             }

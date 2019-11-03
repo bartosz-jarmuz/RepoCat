@@ -19,6 +19,8 @@ namespace RepoCat.Transmission.Client
         /// <returns></returns>
         public static ProjectInfo DeserializeProjectInfo(XElement infoElement)
         {
+            if (infoElement == null) throw new ArgumentNullException(nameof(infoElement));
+
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProjectInfo));
             var info = (ProjectInfo)xmlSerializer.Deserialize(infoElement.CreateReader());
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using log4net;
-using RepoCat.Transmission.Client.Interface;
+using RepoCat.Transmission.Client.Interfaces;
 
 namespace RepoCat.Transmission.Client.Implementation
 {
@@ -42,6 +42,8 @@ namespace RepoCat.Transmission.Client.Implementation
         /// <returns>Task.</returns>
         public async Task Work(TransmitterArguments args)
         {
+            if (args == null) throw new ArgumentNullException(nameof(args));
+
             try
             {
                 foreach (KeyValuePair<string, string> parameter in args.OriginalParameterCollection)
@@ -55,8 +57,10 @@ namespace RepoCat.Transmission.Client.Implementation
                 ProjectInfoProvider infoProvider = new ProjectInfoProvider(this.log);
                 var infos = infoProvider.GetInfos(uris, args.RepositoryName, args.RepositoryStamp);
 
-                var sender = new HttpSender(args.ApiBaseUri, this.log);
-                await sender.Send(infos);
+                using (var sender = new HttpSender(args.ApiBaseUri, this.log))
+                {
+                    await sender.Send(infos).ConfigureAwait(false);
+                }
 
                 this.log.Info("All done");
             }

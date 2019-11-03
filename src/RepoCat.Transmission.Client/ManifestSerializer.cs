@@ -19,6 +19,8 @@ namespace RepoCat.Transmission.Client
         /// <returns></returns>
         public static XElement SerializeProjectInfo(ProjectInfo info)
         {
+            if (info == null) throw new ArgumentNullException(nameof(info));
+
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProjectInfo));
             using (StringWriter sw = new StringWriter())
             {
@@ -40,6 +42,8 @@ namespace RepoCat.Transmission.Client
         /// <returns></returns>
         public static XElement SerializeComponents(IEnumerable<ComponentManifest> manifests)
         {
+            if (manifests == null) throw new ArgumentNullException(nameof(manifests));
+
             List<XElement> list = new List<XElement>();
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(ComponentManifest), XmlNames.ComponentManifestNamespace);
 
