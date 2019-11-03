@@ -31,19 +31,27 @@ namespace RepoCat.ProjectFileReaders
         private IXmlProjectFileReader GetXmlReader(XDocument projectDocument)
         {
             var toolsVersionAttribute = projectDocument.Root?.Attributes().FirstOrDefault(x => x.Name.LocalName == "ToolsVersion");
-            var skdAttribute = projectDocument.Root?.Attributes().FirstOrDefault(x => x.Name.LocalName == "Sdk");
+            var namespaceAttribute = projectDocument.Root?.Attributes().FirstOrDefault(x => x.Name.LocalName == "xmlns");
+            
+            bool probablyFramework = (toolsVersionAttribute != null || 
+                                      (namespaceAttribute != null && namespaceAttribute.Value.Equals("http://schemas.microsoft.com/developer/msbuild/2003", StringComparison.OrdinalIgnoreCase)));
 
-            if (toolsVersionAttribute != null && skdAttribute == null)
+
+            var skdAttribute = projectDocument.Root?.Attributes().FirstOrDefault(x => x.Name.LocalName == "Sdk");
+            bool probablyCore = skdAttribute != null;
+
+
+            if (probablyFramework  && !probablyCore)
             {
                 return new NetFrameworkProjectReader();
             }
-            else if (toolsVersionAttribute == null && skdAttribute != null)
+            else if (!probablyFramework && probablyCore)
             {
                 return new NetCoreProjectReader();
             }
             else
             {
-                throw new InvalidOperationException("Cannot determine the project framework type");
+                throw new ProjectParserException("Cannot determine the project framework type");
             }
         }
 

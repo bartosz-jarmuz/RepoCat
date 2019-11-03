@@ -1,2 +1,2 @@
-".\bin\Debug\RepoCat.Transmitter.exe" c:\code\PS\Current\ https://localhost:44392 "PS Tfs Current"
+".\bin\Debug\RepoCat.Transmitter.exe" --CodeRootFolder=c:\code\PS\Current\ --ApiBaseUri=http://psrepocat01.development.sheffield.sdl.corp/ --RepositoryName="PS TFS Current"
 pause
