@@ -5,3 +5,6 @@ dotnet_diagnostic.CA1054.severity = suggestion
 
 # CA1031: Do not catch general exception types
 dotnet_diagnostic.CA1031.severity = suggestion
+
+# CA2234: Pass system uri objects instead of strings
+dotnet_diagnostic.CA2234.severity = suggestion

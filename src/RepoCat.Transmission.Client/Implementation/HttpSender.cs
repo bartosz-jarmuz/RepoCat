@@ -85,7 +85,7 @@ namespace RepoCat.Transmission.Client.Implementation
                 using (StringContent content = new StringContent(serialized, Encoding.UTF8, "application/json"))
                 {
                     HttpResponseMessage result =
-                        await this.client.PostAsync(new Uri("api/manifest"), content).ConfigureAwait(false);
+                        await this.client.PostAsync("api/manifest", content).ConfigureAwait(false);
                     if (result.IsSuccessStatusCode)
                     {
                         this.log.Info(
