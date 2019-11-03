@@ -14,8 +14,10 @@ namespace RepoCat.Utilities
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Doesn't matter what happens, just don't throw.")]
         public static string GetAssemblyFileVersion(this Type type)
         {
+            if (type == null) throw new ArgumentNullException(nameof(type));
             try
             {
                 return FileVersionInfo.GetVersionInfo(type.Assembly.Location).FileVersion;

@@ -51,23 +51,25 @@ namespace RepoCat.Portal.Utilities
                 RepositoryName = " ",
                 RepositoryStamp = " "
             };
-            info.Components = new List<ComponentManifest>()
+
+
+            info.Components.AddRange(new List<ComponentManifest>()
             {
-                new ComponentManifest()
+                new ComponentManifest(new List<string>()
+                    {
+                        "",
+                    },
+                    new Dictionary<string, string>()
+                    {
+                        {"", ""}
+                    }
+                )
                 {
                     Name = " ",
                     Description = " ",
                     DocumentationUri = " ",
-                    Tags = new List<string>()
-                    {
-                        "",
-                    },
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"", "" }
-                    }
                 },
-            };
+            });
             return info;
         }
 
@@ -87,49 +89,44 @@ namespace RepoCat.Portal.Utilities
                 RepositoryName = "My Cool Projects",
                 RepositoryStamp = "1.0.2929"
             };
-            info.Components = new List<ComponentManifest>()
+            info.Components.AddRange(new List<ComponentManifest>()
             {
-                new ComponentManifest()
-                {
-                    Name = "Name of the component",
-                    Description = "Short description of what this component does (e.g. validates XML)",
-                    DocumentationUri = "//local/or/remote/path/to/documentation",
-                    Tags = new List<string>()
+                new ComponentManifest(new List<string>()
                     {
                         "One",
                         "Or",
                         "More",
                         "Keywords"
-                    },
-                    Properties = new Dictionary<string, string>()
+                    }, new Dictionary<string, string>()
                     {
-                        {"OtherProjectMetadata", "As key and value pairs" }
+                        {"OtherProjectMetadata", "As key and value pairs"}
                     }
+                )
+                {
+                    Name = "Name of the component",
+                    Description = "Short description of what this component does (e.g. validates XML)",
+                    DocumentationUri = "//local/or/remote/path/to/documentation",
                 },
-                new ComponentManifest()
+                new ComponentManifest(new List<string>()
+                {
+                    "Xml",
+                    "Validation",
+                    "Schema"
+                },
+                    new Dictionary<string, string>()
+                    {
+                        {"ComponentType", "Plugin"},
+                        {"HostApplication", "Notepad++"},
+                        {"AgeRestriction", "18+"},
+                    }
+                    )
                 {
                     Name = "XmlValidator",
                     Description = "Validates XML files against a custom XSD",
                     DocumentationUri = "http://mycoresoft.com/XmlValidator",
-                    Tags = new List<string>()
-                    {
-                        "Xml",
-                        "Validation",
-                        "Schema"
-                    },
-                    Properties = new Dictionary<string, string>()
-                    {
-                        {"ComponentType", "Plugin" },
-                        {"HostApplication", "Notepad++" },
-                        {"AgeRestriction", "18+" },
-                    }
                 }
-            };
+            });
             return info;
         }
-
-
-
-
     }
 }

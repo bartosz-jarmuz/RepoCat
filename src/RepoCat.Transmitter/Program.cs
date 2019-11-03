@@ -28,7 +28,9 @@ namespace RepoCat.Transmitter
                 throw;
             }
         }
-        public static string GetAssemblyFileVersion()
+        
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Doesn't matter what happens, just don't throw.")]
+        private static string GetAssemblyFileVersion()
         {
             try
             {

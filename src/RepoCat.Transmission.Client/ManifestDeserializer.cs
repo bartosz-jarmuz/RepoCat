@@ -24,7 +24,7 @@ namespace RepoCat.Transmission.Client
 
             var components = DeserializeComponents(infoElement.Element(XmlNames.GetComponentXName(XmlNames.Components)));
 
-            info.Components = components;
+            info.Components.AddRange(components);
             return info;
         }
 
@@ -74,7 +74,6 @@ namespace RepoCat.Transmission.Client
         private static void LoadProperties(XElement xElement, ComponentManifest item)
         {
             var parent = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.Properties);
-            item.Properties = new Dictionary<string, string>();
             if (parent != null)
             {
                 var properties = parent.Elements();
@@ -99,7 +98,7 @@ namespace RepoCat.Transmission.Client
             if (tags != null)
             {
                 var split = tags.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                item.Tags = new List<string>(split);
+                item.Tags.AddRange(new List<string>(split));
             }
         }
     }

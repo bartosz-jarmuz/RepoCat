@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using log4net;
-using Microsoft.Build.Evaluation;
-using Microsoft.Build.Locator;
+using RepoCat.ProjectFileReaders;
 using RepoCat.Transmission.Client.Interface;
 using RepoCat.Transmission.Models;
 
@@ -19,10 +18,6 @@ namespace RepoCat.Transmission.Client.Implementation
         public ProjectInfoProvider(ILog log)
         {
             this.log = log;
-            if (MSBuildLocator.CanRegister)
-            {
-                MSBuildLocator.RegisterDefaults();
-            }
         }
 
         public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, string repo, string repoStamp)
@@ -55,18 +50,18 @@ namespace RepoCat.Transmission.Client.Implementation
 
             try
             {
-                var manifestInclude = project.Items.FirstOrDefault(x => x.EvaluatedInclude.EndsWith(this.ManifestSuffix, StringComparison.CurrentCultureIgnoreCase));
-                if (manifestInclude != null)
+                ProjectItem manifestInclude = project.Items.FirstOrDefault(x => x.EvaluatedInclude.EndsWith(this.ManifestSuffix, StringComparison.CurrentCultureIgnoreCase));
+                if (manifestInclude?.EvaluatedInclude != null)
                 {
                     this.log.Debug($"Reading Project Info - {uri}");
-                    ProjectInfo info = ConstructInfo(uri,repo, repoStamp, project);
+                    ProjectInfo info = ConstructInfo(uri, repo, repoStamp, project);
                     if (info != null)
                     {
                         this.log.Debug($"Loaded project info. Reading manifest info from {uri}.");
                         this.LoadComponentManifest(uri, project, manifestInclude, info);
                         return info;
                     }
-                    
+
                 }
                 else
                 {
@@ -96,7 +91,7 @@ namespace RepoCat.Transmission.Client.Implementation
                 else
                 {
                     string manifestContent = File.ReadAllText(manifestPath);
-                    info.Components = ManifestDeserializer.DeserializeComponents(manifestContent);
+                    info.Components.AddRange( ManifestDeserializer.DeserializeComponents(manifestContent));
                     this.log.Info($"Manifest Read OK from {uri}");
                 }
             }
@@ -113,19 +108,13 @@ namespace RepoCat.Transmission.Client.Implementation
             {
                 var info = new ProjectInfo()
                 {
-                    AssemblyName = prj.Properties
-                        .FirstOrDefault(x => x.Name.Equals("AssemblyName", StringComparison.CurrentCultureIgnoreCase))
-                        ?.EvaluatedValue,
+                    AssemblyName = prj.AssemblyName,
                     ProjectUri = prj.FullPath,
-                    ProjectName = Path.GetFileNameWithoutExtension(prj.FullPath),
+                    ProjectName = Path.GetFileNameWithoutExtension(prj.Name),
                     RepositoryName = repo,
                     RepositoryStamp = repoStamp,
-                    OutputType = prj.Properties
-                        .FirstOrDefault(x => x.Name.Equals("OutputType", StringComparison.CurrentCultureIgnoreCase))
-                        ?.EvaluatedValue,
-                    TargetExtension = prj.Properties
-                        .FirstOrDefault(x => x.Name.Equals("TargetExt", StringComparison.CurrentCultureIgnoreCase))
-                        ?.EvaluatedValue,
+                    OutputType = prj.OutputType,
+                    TargetExtension = prj.OutputType
                 };
                 return info;
 
@@ -144,7 +133,8 @@ namespace RepoCat.Transmission.Client.Implementation
             Project prj;
             try
             {
-                prj = new Project(uri);
+                var factory = new ProjectFileFactory();
+                prj = factory.GetProject(new FileInfo(uri));
                 this.log.Debug($"Project loaded from [{uri}]");
             }
 
@@ -158,4 +148,7 @@ namespace RepoCat.Transmission.Client.Implementation
             return prj;
         }
     }
+
+    
+
 }

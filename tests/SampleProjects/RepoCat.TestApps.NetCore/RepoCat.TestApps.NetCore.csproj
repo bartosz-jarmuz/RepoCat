@@ -3,7 +3,17 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>RepoCat.TestApps.NetCoreASs</AssemblyName>
+    <RootNamespace>RepoCat.TestApps.NetCoreNms</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="OtherClass.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="OtherClass.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Update="Manifest.RepoCat.xml">

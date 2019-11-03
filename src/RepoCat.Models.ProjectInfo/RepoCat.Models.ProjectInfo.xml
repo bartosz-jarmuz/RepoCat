@@ -10,6 +10,18 @@
             <para>A component is 'something of interest for a user' a tool, an app (or significant part of it), a plugin etc. </para>
             </summary>
         </member>
+        <member name="M:RepoCat.Transmission.Models.ComponentManifest.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Models.ComponentManifest.#ctor(System.Collections.Generic.List{System.String},System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            
+            </summary>
+            <param name="tags"></param>
+            <param name="properties"></param>
+        </member>
         <member name="P:RepoCat.Transmission.Models.ComponentManifest.Name">
             <summary>
             Gets or sets the name of the component
