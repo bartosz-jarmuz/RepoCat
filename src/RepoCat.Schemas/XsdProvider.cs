@@ -16,11 +16,11 @@ namespace RepoCat.Schemas
         /// <summary>
         /// Gets the schema text.
         /// </summary>
-        /// <param name="names">The names.</param>
+        /// <param name="name">The names.</param>
         /// <returns>System.String.</returns>
-        public static string GetSchemaText(SchemaNames names)
+        public static string GetSchemaText(SchemaName name)
         {
-            string resourceName = GetFileName(names);
+            string resourceName = GetFileName(name);
             string formattedResourceName = FormatResourceName(typeof(XsdProvider).Assembly, resourceName);
             using (Stream resourceStream =
                 typeof(XsdProvider).Assembly.GetManifestResourceStream(formattedResourceName))
@@ -38,28 +38,31 @@ namespace RepoCat.Schemas
         /// <summary>
         /// Gets the schema set.
         /// </summary>
-        /// <param name="names">The names.</param>
+        /// <param name="name">The names.</param>
         /// <returns>XmlSchemaSet.</returns>
-        public static XmlSchemaSet GetSchemaSet(SchemaNames names)
+        public static XmlSchemaSet GetSchemaSet(SchemaName name)
         {
-            string text = GetSchemaText(names);
+            string text = GetSchemaText(name);
             var xml = XDocument.Parse(text);
             string nameSpace = xml?.Root?.Attribute("targetNamespace")?.Value;
 
-            var schema = XmlReader.Create(new StringReader(text));
-            XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add(nameSpace, schema);
-            return schemas;
+            using (XmlReader schema = XmlReader.Create(new StringReader(text)))
+            {
+                XmlSchemaSet schemas = new XmlSchemaSet();
+                schemas.Add(nameSpace, schema);
+                return schemas;
+            }
+            
         }
 
-        private static string GetFileName(SchemaNames names)
+        private static string GetFileName(SchemaName name)
         {
-            switch (names)
+            switch (name)
             {
-                case SchemaNames.Components:
+                case SchemaName.Components:
                     return "Components.xsd";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(names), names, null);
+                    throw new ArgumentOutOfRangeException(nameof(name), name, null);
             }
         }
 

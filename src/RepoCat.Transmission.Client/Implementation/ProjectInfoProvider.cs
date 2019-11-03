@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using log4net;
 using RepoCat.ProjectFileReaders;
+using RepoCat.ProjectFileReaders.ProjectModel;
 using RepoCat.Transmission.Client.Interface;
 using RepoCat.Transmission.Models;
 
@@ -50,8 +51,8 @@ namespace RepoCat.Transmission.Client.Implementation
 
             try
             {
-                ProjectItem manifestInclude = project.Items.FirstOrDefault(x => x.EvaluatedInclude.EndsWith(this.ManifestSuffix, StringComparison.CurrentCultureIgnoreCase));
-                if (manifestInclude?.EvaluatedInclude != null)
+                ProjectItem manifestInclude = project.Items.FirstOrDefault(x => x.ResolvedIncludePath.EndsWith(this.ManifestSuffix, StringComparison.CurrentCultureIgnoreCase));
+                if (manifestInclude?.ResolvedIncludePath != null)
                 {
                     this.log.Debug($"Reading Project Info - {uri}");
                     ProjectInfo info = ConstructInfo(uri, repo, repoStamp, project);
@@ -80,17 +81,14 @@ namespace RepoCat.Transmission.Client.Implementation
         {
             try
             {
-
-                string manifestPath = Directory
-                    .GetFiles(project.DirectoryPath, manifestInclude.EvaluatedInclude, SearchOption.AllDirectories)
-                    .FirstOrDefault();
-                if (string.IsNullOrEmpty(manifestPath))
+                var file = new FileInfo(manifestInclude.ResolvedIncludePath);
+                if (!file.Exists)
                 {
-                    this.log.Error($"Manifest not found at [{manifestInclude.EvaluatedInclude}] for project {uri}!");
+                    this.log.Error($"Manifest not found at [{manifestInclude.ResolvedIncludePath}] for project {uri}!");
                 }
                 else
                 {
-                    string manifestContent = File.ReadAllText(manifestPath);
+                    string manifestContent = File.ReadAllText(file.FullName);
                     info.Components.AddRange( ManifestDeserializer.DeserializeComponents(manifestContent));
                     this.log.Info($"Manifest Read OK from {uri}");
                 }

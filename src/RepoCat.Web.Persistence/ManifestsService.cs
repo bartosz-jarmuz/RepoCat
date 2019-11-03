@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -21,6 +23,8 @@ namespace RepoCat.Persistence.Service
         /// <param name="settings">The settings.</param>
         public ManifestsService(IRepoCatDbSettings settings)
         {
+            if (settings == null) throw new ArgumentNullException(nameof(settings));
+
             MongoClient client = new MongoClient(settings.ConnectionString);
             IMongoDatabase database = client.GetDatabase(settings.DatabaseName);
             this.manifests = database.GetCollection<ProjectInfo>(settings.ManifestsCollectionName);
@@ -54,8 +58,8 @@ namespace RepoCat.Persistence.Service
         public async Task<List<string>> GetRepositoryNames()
         {
             IAsyncCursor<string> result =
-                await this.manifests.DistinctAsync(x => x.RepositoryName, FilterDefinition<ProjectInfo>.Empty);
-            return await result.ToListAsync();
+                await this.manifests.DistinctAsync(x => x.RepositoryName, FilterDefinition<ProjectInfo>.Empty).ConfigureAwait(false);
+            return await result.ToListAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -67,14 +71,14 @@ namespace RepoCat.Persistence.Service
         {
             var stopwatch = Stopwatch.StartNew();
             FilterDefinition<ProjectInfo> repoNameFilter =
-                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.ToLower().Contains(repositoryName));
-            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter))
-                .ToListAsync();
+                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.Contains(repositoryName, StringComparison.OrdinalIgnoreCase));
+            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter).ConfigureAwait(false))
+                .ToListAsync().ConfigureAwait(false);
             string newestStamp = StampSorter.GetNewestStamp(stamps);
 
             FilterDefinition<ProjectInfo> filter =
                 repoNameFilter & Builders<ProjectInfo>.Filter.Where(x => x.RepositoryStamp == newestStamp);
-            var list = await (await this.manifests.FindAsync(filter)).ToListAsync();
+            var list = await (await this.manifests.FindAsync(filter).ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
             stopwatch.Stop();
 
             return new ManifestQueryResult()
@@ -96,19 +100,19 @@ namespace RepoCat.Persistence.Service
         {
             var stopwatch = Stopwatch.StartNew();
             FilterDefinition<ProjectInfo> repoNameFilter =
-                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.ToLower().Contains(repositoryName));
-            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter))
-                .ToListAsync();
+                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.Contains(repositoryName, StringComparison.OrdinalIgnoreCase));
+            List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter).ConfigureAwait(false))
+                .ToListAsync().ConfigureAwait(false);
             string newestStamp = StampSorter.GetNewestStamp(stamps);
 
             FilterDefinition<ProjectInfo> filter =
                 repoNameFilter & Builders<ProjectInfo>.Filter.Where(x => x.RepositoryStamp == newestStamp);
             if (!string.IsNullOrEmpty(query))
             {
-                filter = filter & this.BuildTextQuery(query, isRegex);
+                filter = filter & BuildTextQuery(query, isRegex);
             }
 
-            var list = await (await this.manifests.FindAsync(filter)).ToListAsync();
+            var list = await (await this.manifests.FindAsync(filter).ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
 
             stopwatch.Stop();
             return new ManifestQueryResult()
@@ -171,7 +175,7 @@ namespace RepoCat.Persistence.Service
             this.manifests.DeleteOne(manifest => manifest.Id == id);
         }
 
-        private FilterDefinition<ProjectInfo> BuildTextQuery(string query, bool isRegex)
+        private static FilterDefinition<ProjectInfo> BuildTextQuery(string query, bool isRegex)
         {
             if (!isRegex)
             {
@@ -181,18 +185,17 @@ namespace RepoCat.Persistence.Service
             {
                 var regex = new BsonRegularExpression(new System.Text.RegularExpressions.Regex(query,
                     System.Text.RegularExpressions.RegexOptions.IgnoreCase));
-                return Builders<ProjectInfo>.Filter.Regex(this.GetComponentFieldName(nameof(ComponentManifest.Tags)),
+                return Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Tags)),
                            regex)
-                       | Builders<ProjectInfo>.Filter.Regex(this.GetComponentFieldName(nameof(ComponentManifest.Name)),
+                       | Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Name)),
                            regex)
                        | Builders<ProjectInfo>.Filter.Regex(x => x.AssemblyName, regex)
                        | Builders<ProjectInfo>.Filter.Regex(x => x.ProjectName, regex)
-                       | Builders<ProjectInfo>.Filter.Regex(x => x.TargetExtension, regex)
-                    ;
+                       | Builders<ProjectInfo>.Filter.Regex(x => x.TargetExtension, regex);
             }
         }
 
-        private string GetComponentFieldName(string field)
+        private static string GetComponentFieldName(string field)
         {
             return nameof(ProjectInfo.Components) + "." + field;
         }

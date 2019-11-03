@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using RepoCat.ProjectFileReaders.ProjectModel;
 
 namespace RepoCat.ProjectFileReaders.Readers
 {
@@ -16,21 +17,11 @@ namespace RepoCat.ProjectFileReaders.Readers
             public static string AssemblyName { get; }= "AssemblyName";
             public static string TargetFrameworkVersion { get; }= "TargetFrameworkVersion";
             public static string ItemGroup { get; }= "ItemGroup";
-            public static string Compile { get; }= "Compile";
-            public static string None { get; }= "None";
             public static string Include { get; }= "Include";
             public static string CopyToOutputDirectory { get; }= "CopyToOutputDirectory";
         }
 
       
-        public Project ReadFile(FileInfo projectFile) 
-        {
-            if (projectFile == null) throw new ArgumentNullException(nameof(projectFile));
-
-            XDocument projectXml = ProjectFileFactory.LoadDocument(projectFile);
-            return this.ReadFile(projectFile, projectXml);
-        }
-
         public Project ReadFile(FileInfo projectFile, XDocument projectXml)
         {
             if (projectFile == null) throw new ArgumentNullException(nameof(projectFile));
@@ -49,6 +40,7 @@ namespace RepoCat.ProjectFileReaders.Readers
             project.Name = projectFile.Name;
             project.FullPath = projectFile.FullName;
             project.DirectoryPath = projectFile.Directory?.FullName;
+            project.ProjectXml = xml;
 
 
             XElement propertiesSection = xml.Root.Elements().FirstOrDefault(x =>
@@ -84,13 +76,16 @@ namespace RepoCat.ProjectFileReaders.Readers
             {
                 foreach (XElement xElement in itemsSection.Elements())
                 {
-                    ProjectItem item = new ProjectItem();
-                    item.ItemType = xElement.Name.LocalName;
-                    item.Include = xElement.Attributes().FirstOrDefault(x => x.Name.LocalName == XmlNames.Include)
-                        ?.Value;
+                    ProjectItem item = new ProjectItem
+                    {
+                        Project = project,
+                        ItemType = xElement.Name.LocalName,
+                        Include = xElement.Attributes().FirstOrDefault(x => x.Name.LocalName == XmlNames.Include)
+                            ?.Value
+                    };
                     if (item.Include != null)
                     {
-                        item.EvaluatedInclude = Path.Combine(project.DirectoryPath, item.Include);
+                        item.ResolvedIncludePath = Path.Combine(project.DirectoryPath, item.Include);
                     }
 
                     item.CopyToOutputDirectory = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.CopyToOutputDirectory)?.Value;
@@ -98,10 +93,5 @@ namespace RepoCat.ProjectFileReaders.Readers
                 }
             }
         }
-
-      
-
-
-       
     }
 }

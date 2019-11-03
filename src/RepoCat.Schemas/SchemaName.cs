@@ -3,7 +3,7 @@
     /// <summary>
     /// Available schema names
     /// </summary>
-    public enum SchemaNames
+    public enum SchemaName
     {
         /// <summary>
         /// The Component manifest schema

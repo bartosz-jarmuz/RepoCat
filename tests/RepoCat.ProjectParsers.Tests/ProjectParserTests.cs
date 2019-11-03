@@ -7,6 +7,7 @@ using RepoCat.Transmission.Client.Implementation;
 using System.Xml.Linq;
 using NUnit.Framework;
 using RepoCat.ProjectFileReaders;
+using RepoCat.ProjectFileReaders.ProjectModel;
 
 namespace RepoCat.ProjectParsers.Tests
 {
@@ -22,6 +23,7 @@ namespace RepoCat.ProjectParsers.Tests
             var project = fileFactory.GetProject(fileInfo);
 
             project.Should().NotBeNull();
+            project.ProjectXml.Should().NotBeNull();
             project.Name.Should().Be("RepoCat.TestApps.NetFramework.csproj");
             project.FullPath.Should().Be(fileInfo.FullName);
             project.DirectoryPath.Should().Be(fileInfo.Directory.FullName);
@@ -33,32 +35,51 @@ namespace RepoCat.ProjectParsers.Tests
             project.Items.Should().ContainEquivalentOf(new ProjectItem()
             {
                 Include = "Program.cs",
-                EvaluatedInclude = Path.Combine(fileInfo.Directory.FullName, "Program.cs"),
+                ResolvedIncludePath = Path.Combine(fileInfo.Directory.FullName, "Program.cs"),
                 ItemType = "Compile",
-                CopyToOutputDirectory = null
+                CopyToOutputDirectory = null,
+                Project = project
             });
             project.Items.Should().ContainEquivalentOf(new ProjectItem()
             {
                 Include = @"Properties\Manifest.RepoCat.xml",
-                EvaluatedInclude = Path.Combine(fileInfo.Directory.FullName, "Properties", "Manifest.RepoCat.xml"),
+                ResolvedIncludePath = Path.Combine(fileInfo.Directory.FullName, "Properties", "Manifest.RepoCat.xml"),
                 ItemType = "None",
-                CopyToOutputDirectory = "Always"
+                CopyToOutputDirectory = "Always",
+                Project = project
 
             });
+
         }
 
         [Test]
         public void NetCoreProject_Load()
         {
-            var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetCore.csproj");
+            var fileInfo = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetCore.csproj");
 
-            var provider = new ProjectInfoProvider(new Mock<ILog>().Object);
+            var fileFactory = new ProjectFileFactory();
+            var project = fileFactory.GetProject(fileInfo);
 
-            var info = provider.GetInfo(path.FullName, "Test", "");
-            info.Should().NotBeNull();
-            info.AssemblyName.Should().Be("RepoCat.TestApps.NetCore");
-            info.Components.Single().Name.Should().Be("SampleNetCoreConsoleApp");
-            info.Components.Single().Tags.Count.Should().Be(3);
+            project.Should().NotBeNull();
+            project.ProjectXml.Should().NotBeNull();
+            project.Name.Should().Be("RepoCat.TestApps.NetCore.csproj");
+            project.FullPath.Should().Be(fileInfo.FullName);
+            project.DirectoryPath.Should().Be(fileInfo.Directory.FullName);
+            project.AssemblyName.Should().Be("RepoCat.TestApps.NetCore");
+            project.OutputType.Should().Be("Exe");
+            project.TargetExtension.Should().Be(".exe");
+            project.TargetFramework.Should().Be("netcoreapp3.0");
+
+           
+            project.Items.Should().ContainEquivalentOf(new ProjectItem()
+            {
+                Include = @"Manifest.RepoCat.xml",
+                ResolvedIncludePath = Path.Combine(fileInfo.Directory.FullName, "Manifest.RepoCat.xml"),
+                ItemType = "None",
+                CopyToOutputDirectory = "Always",
+                Project = project
+
+            });
         }
     }
 }

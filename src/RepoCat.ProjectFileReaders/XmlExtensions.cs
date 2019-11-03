@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace RepoCat.ProjectFileReaders
 {
-    public static class XmlExtensions
+    internal static class XmlExtensions
     {
         public static XElement GetByLocalName(this XElement element, string localName)
         {

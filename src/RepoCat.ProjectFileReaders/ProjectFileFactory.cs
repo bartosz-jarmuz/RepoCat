@@ -2,12 +2,21 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using RepoCat.ProjectFileReaders.ProjectModel;
 using RepoCat.ProjectFileReaders.Readers;
 
 namespace RepoCat.ProjectFileReaders
 {
+    /// <summary>
+    /// Creates an instance of project object regardless of the framework
+    /// </summary>
     public class ProjectFileFactory : IProjectFileFactory
     {
+        /// <summary>
+        /// Gets an instance 
+        /// </summary>
+        /// <param name="projectFile"></param>
+        /// <returns></returns>
         public Project GetProject(FileInfo projectFile)
         {
             if (projectFile == null) throw new ArgumentNullException(nameof(projectFile));

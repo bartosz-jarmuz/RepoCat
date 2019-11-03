@@ -17,6 +17,8 @@ namespace RepoCat.Utilities
         /// <returns>System.String.</returns>
         public static string GetNewestStamp(ICollection<string> stamps)
         {
+            if (stamps == null) throw new ArgumentNullException(nameof(stamps));
+
             if (!stamps.Any())
             {
                 return null;
@@ -46,7 +48,9 @@ namespace RepoCat.Utilities
                     return stamps.OrderByDescending(s => s, new VersionStringComparer()).FirstOrDefault();
                 }
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 //todo
                 return stamps.FirstOrDefault();
