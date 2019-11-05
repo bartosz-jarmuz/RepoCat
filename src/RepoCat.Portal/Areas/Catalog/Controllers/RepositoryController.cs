@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -104,28 +105,37 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
                 return Json(Url.Action("AddProject"));
             }
 
-            var validator = new SchemaValidator();
-            
-            var errors = validator.ValidateComponentManifest(project.SampleManifestXml, out XDocument _);
-
-            if (errors.Count > 0)
+            try
             {
-                this.TempData["error"] = "Schema validation errors:\r\n"+ string.Join("\r\n", errors);
+
+                var validator = new SchemaValidator();
+
+                var errors = validator.ValidateComponentManifest(project.EmptyManifestXml, out XDocument _);
+
+                if (errors.Count > 0)
+                {
+                    this.TempData["error"] = "Schema validation errors:\r\n" + string.Join("\r\n", errors);
+                    return Json(Url.Action("AddProject"));
+                }
+                else
+                {
+                    var projectInfo =
+                        ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(project.EmptyManifestXml));
+
+                    ProjectInfo mappedProjectInfo = this.mapper.Map<ProjectInfo>(projectInfo);
+
+                    this.service.Create(mappedProjectInfo);
+
+                    this.TempData["success"] = $"Added project to catalog. Internal ID: {mappedProjectInfo.Id}";
+
+                    return Json(Url.Action("AddProject"));
+                }
+            }
+            catch (Exception ex)
+            {
+                this.TempData["error"] = $"Error: {ex.Message}";
                 return Json(Url.Action("AddProject"));
             }
-            else
-            {
-                var projectInfo = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(project.SampleManifestXml));
-
-                ProjectInfo mappedProjectInfo = this.mapper.Map<ProjectInfo>(projectInfo);
-
-                this.service.Create(mappedProjectInfo);
-
-                this.TempData["success"] = $"Added project to catalog. Internal ID: {mappedProjectInfo.Id}";
-
-                return Json(Url.Action("AddProject"));
-            }
-
         }
     }
 }

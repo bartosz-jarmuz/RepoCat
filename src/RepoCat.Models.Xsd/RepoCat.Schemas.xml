@@ -4,12 +4,12 @@
         <name>RepoCat.Schemas</name>
     </assembly>
     <members>
-        <member name="T:RepoCat.Schemas.SchemaNames">
+        <member name="T:RepoCat.Schemas.SchemaName">
             <summary>
             Available schema names
             </summary>
         </member>
-        <member name="F:RepoCat.Schemas.SchemaNames.Components">
+        <member name="F:RepoCat.Schemas.SchemaName.Components">
             <summary>
             The Component manifest schema
             </summary>
@@ -39,18 +39,18 @@
             Provides schemas
             </summary>
         </member>
-        <member name="M:RepoCat.Schemas.XsdProvider.GetSchemaText(RepoCat.Schemas.SchemaNames)">
+        <member name="M:RepoCat.Schemas.XsdProvider.GetSchemaText(RepoCat.Schemas.SchemaName)">
             <summary>
             Gets the schema text.
             </summary>
-            <param name="names">The names.</param>
+            <param name="name">The names.</param>
             <returns>System.String.</returns>
         </member>
-        <member name="M:RepoCat.Schemas.XsdProvider.GetSchemaSet(RepoCat.Schemas.SchemaNames)">
+        <member name="M:RepoCat.Schemas.XsdProvider.GetSchemaSet(RepoCat.Schemas.SchemaName)">
             <summary>
             Gets the schema set.
             </summary>
-            <param name="names">The names.</param>
+            <param name="name">The names.</param>
             <returns>XmlSchemaSet.</returns>
         </member>
     </members>

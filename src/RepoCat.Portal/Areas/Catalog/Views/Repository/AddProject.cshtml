@@ -199,7 +199,7 @@ else if (TempData["error"] != null)
                     contentType : 'application/json',
                     url: '@Url.Action("AddProject", "RepositoryController")',
                     data: JSON.stringify(
-                        { ManifestXml: manifestEditor.getValue() }
+                        { EmptyManifestXml: manifestEditor.getValue() }
                     )
                 }).done(function(response) {
                     window.location = response;

@@ -62,16 +62,18 @@ namespace RepoCat.Persistence.Service
             return await result.ToListAsync().ConfigureAwait(false);
         }
 
+
         /// <summary>
         /// Gets all projects for the latest version of a given repository.
         /// </summary>
         /// <param name="repositoryName">Name of the repository.</param>
         /// <returns>Task&lt;ManifestQueryResult&gt;.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Predicates do not support StringComparison enum")]
         public async Task<ManifestQueryResult> GetAllCurrentProjects(string repositoryName)
         {
             var stopwatch = Stopwatch.StartNew();
             FilterDefinition<ProjectInfo> repoNameFilter =
-                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.Contains(repositoryName, StringComparison.OrdinalIgnoreCase));
+                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.ToUpperInvariant().Contains(repositoryName.ToUpperInvariant()));
             List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter).ConfigureAwait(false))
                 .ToListAsync().ConfigureAwait(false);
             string newestStamp = StampSorter.GetNewestStamp(stamps);
@@ -89,6 +91,7 @@ namespace RepoCat.Persistence.Service
             };
         }
 
+
         /// <summary>
         /// Gets all projects for the latest version of a given repository matching specified search parameters
         /// </summary>
@@ -96,11 +99,12 @@ namespace RepoCat.Persistence.Service
         /// <param name="query">The string to search by</param>
         /// <param name="isRegex">Specify whether the search string is a Regex</param>
         /// <returns>Task&lt;ManifestQueryResult&gt;.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Predicate building does not support StringComparison enum")]
         public async Task<ManifestQueryResult> GetCurrentProjects(string repositoryName, string query, bool isRegex)
         {
             var stopwatch = Stopwatch.StartNew();
             FilterDefinition<ProjectInfo> repoNameFilter =
-                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.Contains(repositoryName, StringComparison.OrdinalIgnoreCase));
+                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryName.ToUpperInvariant().Contains(repositoryName.ToUpperInvariant()));
             List<string> stamps = await (await this.manifests.DistinctAsync(x => x.RepositoryStamp, repoNameFilter).ConfigureAwait(false))
                 .ToListAsync().ConfigureAwait(false);
             string newestStamp = StampSorter.GetNewestStamp(stamps);
