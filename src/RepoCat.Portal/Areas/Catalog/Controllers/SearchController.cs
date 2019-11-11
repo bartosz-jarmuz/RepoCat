@@ -35,7 +35,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <returns>Task&lt;IActionResult&gt;.</returns>
         public async Task<IActionResult> Index()
         {
-            SearchIndexViewModel model = new SearchIndexViewModel {Repositories = await this.manifestsService.GetRepositoryNames()};
+            SearchIndexViewModel model = new SearchIndexViewModel {Repositories = await manifestsService.GetRepositoryNames().ConfigureAwait(false) };
 
             return this.View(model);
         }
@@ -52,7 +52,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         [Route("Search/{repositoryName}")]
         public async Task<PartialViewResult> Search(string repositoryName, string query, bool isRegex)
         {
-            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(repositoryName, query, isRegex);
+            ManifestQueryResultViewModel queryResultViewModel = await GetQueryResultViewModel(repositoryName, query, isRegex).ConfigureAwait(false);
 
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
@@ -70,20 +70,20 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         {
             SearchIndexViewModel model = new SearchIndexViewModel
             {
-                Repositories = await this.manifestsService.GetRepositoryNames(),
+                Repositories = await manifestsService.GetRepositoryNames().ConfigureAwait(false),
                 Repository = repositoryName,
                 Query = query,
                 IsRegex = isRegex
             };
 
-            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(repositoryName, query, isRegex);
+            ManifestQueryResultViewModel queryResultViewModel = await GetQueryResultViewModel(repositoryName, query, isRegex).ConfigureAwait(false);
             model.Result = queryResultViewModel;
             return this.View("Index", model);
         }
 
         private async Task<ManifestQueryResultViewModel> GetQueryResultViewModel(string repositoryName, string query, bool isRegex)
         {
-            ManifestQueryResult result = await this.manifestsService.GetCurrentProjects(repositoryName, query, isRegex);
+            ManifestQueryResult result = await manifestsService.GetCurrentProjects(repositoryName, query, isRegex).ConfigureAwait(false);
             ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
             return queryResultViewModel;
         }

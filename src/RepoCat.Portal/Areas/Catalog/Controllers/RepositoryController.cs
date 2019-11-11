@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -42,7 +43,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <returns>Task&lt;IEnumerable&lt;System.String&gt;&gt;.</returns>
         public async Task<IEnumerable<string>> GetRepositoryNames()
         {
-            return await this.service.GetRepositoryNames();
+            return await service.GetRepositoryNames().ConfigureAwait(false);
         }
         /// <summary>
         /// Indexes the specified repository name.
@@ -57,7 +58,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
                 RepositoryName = repositoryName
             };
 
-            var result = await this.service.GetAllCurrentProjects(repositoryName);
+            var result = await service.GetAllCurrentProjects(repositoryName).ConfigureAwait(false);
             List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.ProjectInfos);
             if (manifests.Any())
             {
@@ -95,11 +96,12 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <param name="project">The project.</param>
         /// <returns>Task&lt;IActionResult&gt;.</returns>
         [HttpPost]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Whatever is wrong, just display the error")]
 #pragma warning disable 1998
         public async Task<IActionResult> AddProject([FromBody] AddProjectModel project)
 #pragma warning restore 1998
         {
-            if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid || project == null) 
             {
                 this.TempData["error"] = "Incorrect input.";
                 return Json(Url.Action("AddProject"));

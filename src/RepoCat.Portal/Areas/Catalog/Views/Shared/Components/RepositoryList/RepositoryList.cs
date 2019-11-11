@@ -31,7 +31,7 @@ namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
         public async Task<IViewComponentResult> InvokeAsync()
         {
 
-            var names = await this.service.GetRepositoryNames();
+            var names = await service.GetRepositoryNames().ConfigureAwait(false);
             var model = new RepositoriesListViewModel {Repositories = names};
             return this.View("~/Areas/Catalog/Views/Shared/Components/RepositoryList/Default.cshtml", model);
         }
