@@ -54,6 +54,7 @@ namespace RepoCat.Portal
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(o => o.AllowAreas = true)
                 ;
+            services.AddApplicationInsightsTelemetry();
 
         }
 

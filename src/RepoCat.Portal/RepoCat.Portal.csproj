@@ -11,6 +11,7 @@
   <PropertyGroup>
     <Version Condition=" '$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</Version>
     <Version Condition=" '$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
+    <ApplicationInsightsResourceId>/subscriptions/4e05ea48-70e3-4f69-8ac2-afe102b1dd0a/resourcegroups/RepoCat/providers/microsoft.insights/components/RepoCat01</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,6 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.8.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
@@ -56,6 +58,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Connected Services\Application Insights\" />
     <Folder Include="Data\RepoCatDb\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\comment\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\dialog\" />
@@ -204,6 +207,11 @@
 
   <ItemGroup>
     <None Include="bundleconfig.json" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
