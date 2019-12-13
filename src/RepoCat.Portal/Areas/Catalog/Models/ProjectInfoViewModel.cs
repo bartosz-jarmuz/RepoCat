@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
 {
@@ -14,6 +15,11 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The name of the repository.</value>
         public string RepositoryName { get; set; }
+
+        /// <summary>
+        /// Name of the organization in which repo is
+        /// </summary>
+        public string OrganizationName { get; set; }
         /// <summary>
         /// Gets or sets the repository stamp.
         /// </summary>
@@ -59,11 +65,11 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets the name of the assembly.
         /// </summary>
         /// <returns>System.String.</returns>
-        public string GetAssemblyName()
+        public string GetOutputFileName()
         {
             if (!string.IsNullOrEmpty(this.AssemblyName))
             {
-                return this.AssemblyName + "." + this.TargetExtension?.Trim('.');
+                return this.AssemblyName + "." + this.TargetExtension?.Trim('.').ToLower(CultureInfo.CurrentUICulture);
             }
 
             return "";
@@ -77,7 +83,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         {
             if (!string.IsNullOrEmpty(this.AssemblyName))
             {
-                return (this.ProjectName + this.AssemblyName + this.TargetExtension).Replace(".", "");
+                return (this.ProjectName + this.AssemblyName + this.TargetExtension).Replace(".", "", StringComparison.InvariantCulture);
             }
 
             return "";

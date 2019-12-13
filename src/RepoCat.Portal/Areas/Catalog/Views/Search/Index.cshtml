@@ -30,9 +30,9 @@
                 if(key === 13)  // the enter key code
                 {
                     $('#searchBtn').click();
-                    return false;  
+                    return false;
                 }
-            });  
+            });
             //RegexColorizer.addStyleSheet();
             RegexColorizer.colorizeAll();
 
@@ -41,8 +41,9 @@
                 $(overlay).fadeIn();
 
                 var queryString ='?query=' + encodeURIComponent($('#searchQuery').val()) + '&isRegex=' + $('#isRegex').is(':checked');
-                var url = '@Url.Action("Search", new {repositoryName = "___repoName___"})' + queryString;
-                url = url.replace("___repoName___", $('#selectedRepo').val());
+                var url = '@Url.Action("Search", new {organizationName = "___orgName___", repositoryName = "___repoName___"})' + queryString;
+                url = url.replace("___repoName___", getRepositoryFromKey($('#selectedRepo').val()));
+                url = url.replace("___orgName___", getOrganizationFromKey($('#selectedRepo').val()));
                 $.get(url,
                     function (data) {
                         $(overlay).fadeOut();
@@ -51,8 +52,9 @@
                         RegexColorizer.colorizeAll();
 
                     });
-                var historyUrl = '@Url.Action("GetSearchResultPage",new {repositoryName = "___repoName___"})' + queryString;
-                historyUrl = historyUrl.replace("___repoName___", $('#selectedRepo').val());
+                var historyUrl = '@Url.Action("GetSearchResultPage",new {organizationName = "___orgName___", repositoryName = "___repoName___"})' + queryString;
+                historyUrl = historyUrl.replace("___repoName___", getRepositoryFromKey($('#selectedRepo').val()));
+                historyUrl = historyUrl.replace("___orgName___", getOrganizationFromKey($('#selectedRepo').val()));
 
                 history.pushState(null, null,historyUrl);
             });

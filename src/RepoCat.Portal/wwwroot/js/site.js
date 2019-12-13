@@ -15,3 +15,10 @@
         containerCss: css
     });
 });
+
+function getOrganizationFromKey(key) {
+    return key.split(":")[0];
+}
+function getRepositoryFromKey(key) {
+    return key.split(":")[1];
+}

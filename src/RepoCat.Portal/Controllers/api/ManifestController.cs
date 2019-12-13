@@ -1,7 +1,9 @@
 ﻿using System;
-using AutoMapper;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
+using RepoCat.RepositoryManagement.Service;
 using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
 
 namespace RepoCat.Portal.Controllers.api
@@ -14,18 +16,15 @@ namespace RepoCat.Portal.Controllers.api
     [ApiController]
     public class ManifestController : Controller
     {
-        private readonly ManifestsService service;
-        private readonly IMapper mapper;
+        private readonly IRepositoryManagementService service;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManifestController"/> class.
         /// </summary>
-        /// <param name="manifestsService">The manifests service.</param>
-        /// <param name="mapper">The mapper.</param>
-        public ManifestController(ManifestsService manifestsService, IMapper mapper)
+        /// <param name="repositoryManagementService"></param>
+        public ManifestController(IRepositoryManagementService repositoryManagementService)
         {
-            this.service = manifestsService;
-            this.mapper = mapper;
+            this.service = repositoryManagementService;
         }
 
         /// <summary>
@@ -34,26 +33,21 @@ namespace RepoCat.Portal.Controllers.api
         /// <param name="projectInfo">The project information.</param>
         /// <returns>IActionResult.</returns>
         [HttpPost]
-        public IActionResult Post(Transmission.Models.ProjectInfo projectInfo)
+        public async Task<IActionResult> Post(Transmission.Models.ProjectInfo projectInfo)
         {
-            ProjectInfo prjInfo;
-            try
+            if (projectInfo == null)
             {
-                prjInfo = this.mapper.Map<ProjectInfo>(projectInfo);
-            }
-            catch (Exception)
-            {
-                return this.BadRequest("Error while mapping posted data.");
+                return this.BadRequest("Project info is null");
             }
 
             try
             {
-                this.service.Create(prjInfo);
-                return this.CreatedAtAction("Get", new {id= prjInfo.Id}, prjInfo);
+                ProjectInfo result = await this.service.Upsert(projectInfo).ConfigureAwait(false);
+                return this.CreatedAtAction("Get", new { id = result.Id }, result);
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return this.StatusCode(500);
             }
         }
 
@@ -63,9 +57,9 @@ namespace RepoCat.Portal.Controllers.api
         /// <param name="id">The identifier.</param>
         /// <returns>ProjectInfo.</returns>
         [HttpGet]
-        public ProjectInfo Get(string id)
+        public Task<ProjectInfo> Get(string id)
         {
-            return this.service.Get(id);
+            return this.service.GetById(id);
         }
 
     }

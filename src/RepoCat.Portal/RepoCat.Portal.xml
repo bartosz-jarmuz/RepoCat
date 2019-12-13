@@ -10,12 +10,11 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.#ctor(RepoCat.Persistence.Service.ManifestsService,AutoMapper.IMapper)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,AutoMapper.IMapper)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController"/> class.
             </summary>
-            <param name="manifestsService">The manifests service.</param>
-            <param name="mapper">The mapper.</param>
+            <param name="service">The repository management service.</param>
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.GetRepositoryNames">
             <summary>
@@ -23,10 +22,11 @@
             </summary>
             <returns>Task&lt;IEnumerable&lt;System.String&gt;&gt;.</returns>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.Index(System.String)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.Index(System.String,System.String)">
             <summary>
             Indexes the specified repository name.
             </summary>
+            <param name="organizationName"></param>
             <param name="repositoryName">Name of the repository.</param>
             <returns>Task&lt;ViewResult&gt;.</returns>
         </member>
@@ -49,11 +49,11 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(RepoCat.Persistence.Service.ManifestsService,AutoMapper.IMapper)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(RepoCat.Persistence.Service.RepositoryDatabase,AutoMapper.IMapper)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Controllers.SearchController"/> class.
             </summary>
-            <param name="manifestsService">The manifests service.</param>
+            <param name="repositoryDatabase">The manifests service.</param>
             <param name="mapper">The mapper.</param>
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Index">
@@ -62,19 +62,21 @@
             </summary>
             <returns>Task&lt;IActionResult&gt;.</returns>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search(System.String,System.String,System.Boolean)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search(System.String,System.String,System.String,System.Boolean)">
             <summary>
             Search the repository for a specified query
             </summary>
+            <param name="organizationName"></param>
             <param name="repositoryName"></param>
             <param name="query"></param>
             <param name="isRegex"></param>
             <returns></returns>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String,System.String,System.Boolean)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String,System.String,System.String,System.Boolean)">
             <summary>
             Gets the search result page (for URL sharing).
             </summary>
+            <param name="organizationName">Name of the organization which holds the repository</param>
             <param name="repositoryName">Name of the repository.</param>
             <param name="query">The query.</param>
             <param name="isRegex">if set to <c>true</c> [is regex].</param>
@@ -219,7 +221,7 @@
             </summary>
             <value>The search tokens.</value>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.ProjectInfos">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.Projects">
             <summary>
             Gets or sets the manifests.
             </summary>
@@ -243,6 +245,11 @@
             </summary>
             <value>The repo.</value>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.OrganizationName">
+            <summary>
+            Name of the organization in which repo is
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel">
             <summary>
             Class ProjectInfoViewModel.
@@ -253,6 +260,11 @@
             Gets or sets the name of the repository.
             </summary>
             <value>The name of the repository.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.OrganizationName">
+            <summary>
+            Name of the organization in which repo is
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.RepositoryStamp">
             <summary>
@@ -302,7 +314,7 @@
             </summary>
             <value>The components.</value>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.GetAssemblyName">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.GetOutputFileName">
             <summary>
             Gets the name of the assembly.
             </summary>
@@ -354,12 +366,18 @@
             Class TagBadgeViewModel.
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel.#ctor(System.String,System.String)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel.#ctor(System.String,System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel"/> class.
             </summary>
+            <param name="organizationName">Name of the organization in which repo is</param>
             <param name="repositoryName">Name of the repo.</param>
             <param name="tagText">The tag text.</param>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel.OrganizationName">
+            <summary>
+            Name of the organization in which repo is
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel.RepositoryName">
             <summary>
@@ -372,6 +390,21 @@
             Gets or sets the tag text.
             </summary>
             <value>The tag text.</value>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.OrganizationRepositoryGroup">
+            <summary>
+            List of repositories within a given organization
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.OrganizationRepositoryGroup.OrganizationName">
+            <summary>
+            Name of the organization
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.OrganizationRepositoryGroup.Repositories">
+            <summary>
+            Repositories
+            </summary>
         </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoriesListViewModel">
             <summary>
@@ -395,11 +428,11 @@
             The service
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList.#ctor(RepoCat.Persistence.Service.ManifestsService)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList.#ctor(RepoCat.Persistence.Service.RepositoryDatabase)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList"/> class.
             </summary>
-            <param name="manifestsService">The manifests service.</param>
+            <param name="repositoryDatabase">The manifests service.</param>
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoryList.InvokeAsync">
             <summary>
@@ -413,12 +446,11 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Controllers.api.ManifestController.#ctor(RepoCat.Persistence.Service.ManifestsService,AutoMapper.IMapper)">
+        <member name="M:RepoCat.Portal.Controllers.api.ManifestController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Controllers.api.ManifestController"/> class.
             </summary>
-            <param name="manifestsService">The manifests service.</param>
-            <param name="mapper">The mapper.</param>
+            <param name="repositoryManagementService"></param>
         </member>
         <member name="M:RepoCat.Portal.Controllers.api.ManifestController.Post(RepoCat.Transmission.Models.ProjectInfo)">
             <summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using log4net;
 using RepoCat.Transmission.Client.Interfaces;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client.Implementation
 {
@@ -52,12 +53,12 @@ namespace RepoCat.Transmission.Client.Implementation
                 }
 
                 LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
-                var uris = uriProvider.GetUris(args.CodeRootFolder);
+                IEnumerable<string> uris = uriProvider.GetUris(args.CodeRootFolder);
 
                 ProjectInfoProvider infoProvider = new ProjectInfoProvider(this.log);
-                var infos = infoProvider.GetInfos(uris, args.RepositoryName, args.RepositoryStamp);
+                IEnumerable<ProjectInfo> infos = infoProvider.GetInfos(uris, args.OrganizationName, args.RepositoryName, args.RepositoryStamp);
 
-                using (var sender = new HttpSender(args.ApiBaseUri, this.log))
+                using (HttpSender sender = new HttpSender(args.ApiBaseUri, this.log))
                 {
                     await sender.Send(infos).ConfigureAwait(false);
                 }

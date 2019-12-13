@@ -46,6 +46,7 @@ namespace RepoCat.Transmission.Client.Implementation
             if (infos == null) throw new ArgumentNullException(nameof(infos));
 
             List<Task> tasks = new List<Task>();
+            this.log.Info($"Starting sending projects to {this.client.BaseAddress}...");
 
             int infoCounter = 0;
             foreach (ProjectInfo projectInfo in infos)
@@ -56,6 +57,8 @@ namespace RepoCat.Transmission.Client.Implementation
             this.log.Info($"Waiting for all {infoCounter} project infos to be sent.");
 
             await Task.WhenAll(tasks).ConfigureAwait(false);
+            this.log.Info($"Finished sending all {infoCounter} project infos.");
+
         }
 
         /// <summary>

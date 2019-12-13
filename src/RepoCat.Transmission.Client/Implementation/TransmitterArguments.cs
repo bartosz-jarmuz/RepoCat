@@ -29,6 +29,13 @@ namespace RepoCat.Transmission.Client.Implementation
         /// </summary>
         /// <value>The repo.</value>
         public string RepositoryName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the organization name.
+        /// </summary>
+        /// <value>The repo.</value>
+        public string OrganizationName { get; set; }
+
         /// <summary>
         /// Gets or sets the repo stamp (a datetime or version of the code base).
         /// </summary>
@@ -39,11 +46,6 @@ namespace RepoCat.Transmission.Client.Implementation
         /// </summary>
         /// <value>The API base URI.</value>
         public Uri ApiBaseUri { get; set; }
-
-        /// <summary>
-        /// Gets or sets the mode of project info transmission
-        /// </summary>
-        public RepositoryMode RepositoryMode { get; set; }
 
     }
 }

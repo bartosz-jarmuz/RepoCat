@@ -18,7 +18,7 @@ namespace RepoCat.ProjectParsers.Tests
 
             var provider = new ProjectInfoProvider(new Mock<ILog>().Object);
 
-            var info = provider.GetInfo(path.FullName, "Test", "");
+            var info = provider.GetInfo(path.FullName, "TestOrg", "Test", "");
             info.Should().NotBeNull();
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetFramework");
             info.Components.Single().Name.Should().Be("SampleNetFrameworkConsoleApp");
@@ -32,7 +32,7 @@ namespace RepoCat.ProjectParsers.Tests
 
             var provider = new ProjectInfoProvider(new Mock<ILog>().Object);
 
-            var info = provider.GetInfo(path.FullName, "Test", "");
+            var info = provider.GetInfo(path.FullName, "TestOrg", "Test", "");
             info.Should().NotBeNull();
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetCore");
             info.Components.Single().Name.Should().Be("SampleNetCoreConsoleApp");

@@ -4,7 +4,9 @@
     public class RepoCatDbSettings : IRepoCatDbSettings
     {
         /// <inheritdoc />
-        public string ManifestsCollectionName { get; set; }
+        public string RepositoriesCollectionName { get; set; }
+        /// <inheritdoc />
+        public string ProjectsCollectionName { get; set; }
         /// <inheritdoc />
         public string ConnectionString { get; set; }
         /// <inheritdoc />

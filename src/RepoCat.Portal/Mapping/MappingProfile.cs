@@ -22,7 +22,16 @@ namespace RepoCat.Portal.Mapping
 
         private void MapViewModels()
         {
-            this.CreateMap<ProjectInfo, ProjectInfoViewModel>();
+            this.CreateMap<Project, ProjectInfoViewModel>()
+                .IncludeMembers(p=>p.ProjectInfo)
+                .ForMember(x => x.RepositoryName, o=>o.MapFrom(p=>p.RepositoryInfo.RepositoryName))
+                .ForMember(x => x.OrganizationName, o=>o.MapFrom(p=>p.RepositoryInfo.OrganizationName))
+                
+                ;
+            this.CreateMap<ProjectInfo, ProjectInfoViewModel>()
+                .ForMember(x => x.RepositoryName, o => o.Ignore())
+                .ForMember(x=>x.OrganizationName, o=>o.Ignore())
+                ;
             this.CreateMap<RepoCat.Persistence.Models.ComponentManifest, ComponentManifestViewModel>();
             this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>()
                 .ForMember(x => x.SearchTokens, o=>o.Ignore());
@@ -34,6 +43,7 @@ namespace RepoCat.Portal.Mapping
         {
             this.CreateMap<Transmission.Models.ProjectInfo, ProjectInfo>()
                 .ForMember(x=>x.Id, o=>o.Ignore())
+                .ForMember(x=>x.RepositoryId, o=>o.Ignore())
                 .ForMember(x=>x.AddedDateTime, o=>o.Ignore());
             this.CreateMap<Transmission.Models.ComponentManifest, ComponentManifest>();
 

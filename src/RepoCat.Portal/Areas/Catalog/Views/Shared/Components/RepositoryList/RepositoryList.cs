@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 
 namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
@@ -13,15 +16,15 @@ namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
         /// <summary>
         /// The service
         /// </summary>
-        private readonly ManifestsService service;
+        private readonly RepositoryDatabase service;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RepositoryList"/> class.
         /// </summary>
-        /// <param name="manifestsService">The manifests service.</param>
-        public RepositoryList(ManifestsService manifestsService)
+        /// <param name="repositoryDatabase">The manifests service.</param>
+        public RepositoryList(RepositoryDatabase repositoryDatabase)
         {
-            this.service = manifestsService;
+            this.service = repositoryDatabase;
         }
 
         /// <summary>
@@ -30,9 +33,20 @@ namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
         /// <returns>Task&lt;IViewComponentResult&gt;.</returns>
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            var repositoryGroups = await this.service.GetAllRepositoriesGrouped().ConfigureAwait(false);
 
-            var names = await service.GetRepositoryNames().ConfigureAwait(false);
-            var model = new RepositoriesListViewModel {Repositories = names};
+            
+            var model = new RepositoriesListViewModel();
+            foreach (var repositoryGroup in repositoryGroups)
+            {
+                model.Repositories.Add(new OrganizationRepositoryGroup()
+                {
+                    OrganizationName =  repositoryGroup.OrganizationName,
+                    Repositories = repositoryGroup.Repositories.Select(x=>x.RepositoryName).ToList()
+                });
+            }
+
+
             return this.View("~/Areas/Catalog/Views/Shared/Components/RepositoryList/Default.cshtml", model);
         }
     }

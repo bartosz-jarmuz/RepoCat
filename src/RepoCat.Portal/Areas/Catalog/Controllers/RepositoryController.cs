@@ -11,6 +11,7 @@ using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Utilities;
 using RepoCat.Schemas;
 using RepoCat.Persistence.Models;
+using RepoCat.RepositoryManagement.Service;
 using RepoCat.Transmission.Client;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
@@ -23,17 +24,16 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
     [Route("Repository")]
     public class RepositoryController : Controller
     {
-        private readonly ManifestsService service;
+        private readonly IRepositoryManagementService service;
         private readonly IMapper mapper;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RepositoryController"/> class.
         /// </summary>
-        /// <param name="manifestsService">The manifests service.</param>
-        /// <param name="mapper">The mapper.</param>
-        public RepositoryController(ManifestsService manifestsService, IMapper mapper)
+        /// <param name="service">The repository management service.</param>
+        public RepositoryController(IRepositoryManagementService service, IMapper mapper)
         {
-            this.service = manifestsService;
+            this.service = service;
             this.mapper = mapper;
         }
 
@@ -41,25 +41,27 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// Gets the repositories names
         /// </summary>
         /// <returns>Task&lt;IEnumerable&lt;System.String&gt;&gt;.</returns>
-        public async Task<IEnumerable<string>> GetRepositoryNames()
+        public async Task<IEnumerable<RepositoryInfo>> GetRepositoryNames()
         {
-            return await service.GetRepositoryNames().ConfigureAwait(false);
+            return await this.service.GetAllRepositories().ConfigureAwait(false);
         }
+
         /// <summary>
         /// Indexes the specified repository name.
         /// </summary>
+        /// <param name="organizationName"></param>
         /// <param name="repositoryName">Name of the repository.</param>
         /// <returns>Task&lt;ViewResult&gt;.</returns>
-        [Route("{repositoryName}")]
-        public async Task<ViewResult> Index(string repositoryName)
+        [Route("{organizationName}/{repositoryName}")]
+        public async Task<ViewResult> Index(string organizationName, string repositoryName)
         {
             var model = new BrowseRepositoryViewModel()
             {
                 RepositoryName = repositoryName
             };
 
-            var result = await service.GetAllCurrentProjects(repositoryName).ConfigureAwait(false);
-            List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.ProjectInfos);
+            ManifestQueryResult result = await this.service.GetAllCurrentProjects(organizationName, repositoryName).ConfigureAwait(false);
+            List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects);
             if (manifests.Any())
             {
                 model.ProjectManifestViewModels = manifests;
@@ -104,7 +106,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             if (!this.ModelState.IsValid || project == null) 
             {
                 this.TempData["error"] = "Incorrect input.";
-                return Json(Url.Action("AddProject"));
+                return this.Json(this.Url.Action("AddProject"));
             }
 
             try
@@ -117,26 +119,23 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
                 if (errors.Count > 0)
                 {
                     this.TempData["error"] = "Schema validation errors:\r\n" + string.Join("\r\n", errors);
-                    return Json(Url.Action("AddProject"));
+                    return this.Json(this.Url.Action("AddProject"));
                 }
                 else
                 {
-                    var projectInfo =
-                        ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(project.EmptyManifestXml));
+                    Transmission.Models.ProjectInfo projectInfo = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(project.EmptyManifestXml));
 
-                    ProjectInfo mappedProjectInfo = this.mapper.Map<ProjectInfo>(projectInfo);
+                    var upsertedProject = await this.service.Upsert(projectInfo).ConfigureAwait(false);
 
-                    this.service.Create(mappedProjectInfo);
+                    this.TempData["success"] = $"Added project to catalog. Internal ID: {upsertedProject.Id}";
 
-                    this.TempData["success"] = $"Added project to catalog. Internal ID: {mappedProjectInfo.Id}";
-
-                    return Json(Url.Action("AddProject"));
+                    return this.Json(this.Url.Action("AddProject"));
                 }
             }
             catch (Exception ex)
             {
                 this.TempData["error"] = $"Error: {ex.Message}";
-                return Json(Url.Action("AddProject"));
+                return this.Json(this.Url.Action("AddProject"));
             }
         }
     }

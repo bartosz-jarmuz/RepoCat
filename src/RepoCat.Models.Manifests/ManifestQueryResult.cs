@@ -12,7 +12,7 @@ namespace RepoCat.Persistence.Models
         /// Gets or sets the project infos.
         /// </summary>
         /// <value>The manifests.</value>
-        public List<ProjectInfo> ProjectInfos { get; set; } = new List<ProjectInfo>();
+        public List<Project> Projects { get;  set; } = new List<Project>();
         /// <summary>
         /// How long it took to execute the query
         /// </summary>
@@ -36,5 +36,10 @@ namespace RepoCat.Persistence.Models
         /// </summary>
         /// <value>The query string.</value>
         public string QueryString { get; set; }
+
+        /// <summary>
+        /// Name of the organization in which repo is
+        /// </summary>
+        public string OrganizationName { get; set; }
     }
 }

@@ -21,9 +21,8 @@ namespace RepoCat.Persistence.Models
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        [BsonId,BsonRepresentation(BsonType.ObjectId), BsonIgnoreIfDefault]
+        public ObjectId Id { get; set; }
         /// <summary>
         /// Gets or sets the date time of when the info was added to the database
         /// </summary>
@@ -54,18 +53,39 @@ namespace RepoCat.Persistence.Models
         /// <value>The target extension.</value>
         public string TargetExtension { get; set; }
         /// <summary>
-        /// Gets or sets the name of the repository in which the project lives
+        /// Gets or sets the ID of the repository in which the project lives
         /// </summary>
         /// <value>The name of the repository.</value>
-        public string RepositoryName { get; set; }
+        public ObjectId RepositoryId { get; set; }
         /// <summary>
         /// A datetime or version stamp of the repository as of when the project info was read and transmitted
         /// </summary>
         public string RepositoryStamp { get; set; }
+
         /// <summary>
         /// Gets or sets the components manifests
         /// </summary>
         /// <value>The components.</value>
-        public List<ComponentManifest> Components { get; set; } = new List<ComponentManifest>();
+        public List<ComponentManifest> Components { get; internal set; } = new List<ComponentManifest>();
     }
+
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Project
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public ProjectInfo ProjectInfo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public RepositoryInfo RepositoryInfo { get; set; }
+    }
+    
+
+   
 }

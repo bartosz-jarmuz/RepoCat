@@ -1,9 +1,18 @@
-﻿@model  RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoriesListViewModel
-@foreach (var name in @Model.Repositories)
+﻿@using RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
+@model RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoriesListViewModel
+@foreach (OrganizationRepositoryGroup group in @Model.Repositories)
 {
-    <li class="nav-item" >
-        <a class="nav-link" asp-area="Catalog" asp-controller="Repository" asp-action="Index" asp-route-repositoryName="@name">
-            <i class="nav-icon fab fa-codepen"></i> @name
-        </a>
+    <li class="nav-item nav-dropdown">
+        <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon fab fa fa-sitemap"></i> @group.OrganizationName</a>
+        <ul class="nav-dropdown-items">
+            @foreach (string name in group.Repositories)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" style="padding-left: 30px; !important" asp-area="Catalog" asp-controller="Repository" asp-action="Index" asp-route-organizationName="@group.OrganizationName" asp-route-repositoryName="@name">
+                        <i class="nav-icon fab fa-codepen"></i> @name
+                    </a>
+                </li>
+            }
+        </ul>
     </li>
 }

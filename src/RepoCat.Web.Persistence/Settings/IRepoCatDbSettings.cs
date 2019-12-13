@@ -9,7 +9,12 @@
         /// Gets or sets the name of the manifests collection.
         /// </summary>
         /// <value>The name of the manifests collection.</value>
-        string ManifestsCollectionName { get; set; }
+        string ProjectsCollectionName { get; set; }
+        
+        /// <summary>
+        /// Name of the repositories collection
+        /// </summary>
+        string RepositoriesCollectionName { get; set; }
         /// <summary>
         /// Gets or sets the connection string.
         /// </summary>

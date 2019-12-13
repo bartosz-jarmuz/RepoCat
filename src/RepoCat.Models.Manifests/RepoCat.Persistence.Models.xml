@@ -47,7 +47,7 @@
             Encapsulates the result of querying the database
             </summary>
         </member>
-        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.ProjectInfos">
+        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.Projects">
             <summary>
             Gets or sets the project infos.
             </summary>
@@ -80,6 +80,11 @@
             Gets or sets the query string.
             </summary>
             <value>The query string.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.OrganizationName">
+            <summary>
+            Name of the organization in which repo is
+            </summary>
         </member>
         <member name="T:RepoCat.Persistence.Models.ProjectInfo">
             <summary>
@@ -134,9 +139,9 @@
             </summary>
             <value>The target extension.</value>
         </member>
-        <member name="P:RepoCat.Persistence.Models.ProjectInfo.RepositoryName">
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.RepositoryId">
             <summary>
-            Gets or sets the name of the repository in which the project lives
+            Gets or sets the ID of the repository in which the project lives
             </summary>
             <value>The name of the repository.</value>
         </member>
@@ -150,6 +155,94 @@
             Gets or sets the components manifests
             </summary>
             <value>The components.</value>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.Project">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.Project.ProjectInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.Project.RepositoryInfo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.RepositoryGrouping">
+            <summary>
+            Represents a collection of repositories from a single organization
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Models.RepositoryGrouping.#ctor(System.String,System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo})">
+            <summary>
+            Creates new instance
+            </summary>
+            <param name="organizationName"></param>
+            <param name="repositories"></param>
+        </member>
+        <member name="M:RepoCat.Persistence.Models.RepositoryGrouping.CreateGroupings(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo})">
+            <summary>
+            Creates the collection of groupings
+            </summary>
+            <param name="repositories"></param>
+            <returns></returns>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryGrouping.OrganizationName">
+            <summary>
+            Name of the organization that all repositories belong to
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryGrouping.Repositories">
+            <summary>
+            Collection of repositories
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.RepositoryInfo">
+            <summary>
+            Info about repository
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryInfo.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryInfo.RepositoryName">
+            <summary>
+            Name of the repository
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryInfo.OrganizationName">
+            <summary>
+            Name of the organization owning the repository
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryInfo.RepositoryMode">
+            <summary>
+            Mode of project storage in the repository
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.RepositoryMode">
+            <summary>
+            Specifies how the repository data should be collected.
+            </summary>
+        </member>
+        <member name="F:RepoCat.Persistence.Models.RepositoryMode.Default">
+            <summary>
+            In default mode, when a project info is transmitted to RepoCat, it will look for this project in the database <br/>
+            and update the existing entity - or create one if not found
+            </summary>
+        </member>
+        <member name="F:RepoCat.Persistence.Models.RepositoryMode.Snapshot">
+            <summary>
+            Snapshot mode is for when entire repository (multiple projects &amp; components) is built at the same time, having the same repository stamp.<br/>
+            In this mode, every time projects are transmitted, they are created as new entities under a given repository stamp<br/>
+            This way RepoCat can present a current and previous snapshots of a repository, rather than all projects that are currently or used to be in it.<br/>
+            </summary>
         </member>
     </members>
 </doc>

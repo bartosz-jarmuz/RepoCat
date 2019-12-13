@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Mapping;
+using RepoCat.RepositoryManagement.Service;
 
 #pragma warning disable 1591
 
@@ -46,7 +47,8 @@ namespace RepoCat.Portal
             services.Configure<RepoCatDbSettings>(this.Configuration.GetSection("RepoCatDbSettings"));
 
             services.AddSingleton<IRepoCatDbSettings>(sp => sp.GetRequiredService<IOptions<RepoCatDbSettings>>().Value);
-            services.AddSingleton<ManifestsService>();
+            services.AddSingleton<RepositoryDatabase>();
+            services.AddScoped<IRepositoryManagementService, RepositoryManagementService>();
 
             ConfigureAutoMapper(services);
 

@@ -56,14 +56,14 @@ namespace RepoCat.Portal.Areas.Catalog.Models
                 }
                 return this.searchTokens;
             }
-            set => this.searchTokens = value;
+            internal set => this.searchTokens = value;
         }
 
         /// <summary>
         /// Gets or sets the manifests.
         /// </summary>
         /// <value>The manifests.</value>
-        public List<ProjectInfoViewModel> ProjectInfos { get; set; } = new List<ProjectInfoViewModel>();
+        public List<ProjectInfoViewModel> Projects { get; internal set; } = new List<ProjectInfoViewModel>();
         /// <summary>
         /// Gets or sets the elapsed.
         /// </summary>
@@ -79,5 +79,10 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The repo.</value>
         public string RepositoryName { get; set; }
+
+        /// <summary>
+        /// Name of the organization in which repo is
+        /// </summary>
+        public string OrganizationName { get; set; }
     }
 }

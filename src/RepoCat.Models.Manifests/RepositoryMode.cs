@@ -1,4 +1,4 @@
-﻿namespace RepoCat.Transmission.Models
+﻿namespace RepoCat.Persistence.Models
 {
     /// <summary>
     /// Specifies how the repository data should be collected.

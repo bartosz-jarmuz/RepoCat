@@ -1,14 +1,14 @@
 @using RepoCat.Portal.Areas.Catalog.Models
 @model ManifestQueryResultViewModel
 
-@if (Model.ProjectInfos.Count > 0)
+@if (Model.Projects.Count > 0)
 {
     <div class="row">
         <div class="col-md-12">
             <div id="searchResultsCard">
                 <h2>Search results:</h2>
                 <p>
-                    <span><strong>@Model.RepositoryName</strong> - Found <strong>@Model.ProjectInfos.Count</strong> matches</span>
+                    <span><strong>@Model.RepositoryName</strong> - Found <strong>@Model.Projects.Count</strong> matches</span>
                     <span>
                         @if (Model.IsRegex)
                         {
@@ -22,7 +22,7 @@
                                 <span>for </span>
                                 @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.RepositoryName, token))"/>
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.OrganizationName, @Model.RepositoryName, token))"/>
 
                                 }
                             }
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="row">
-        @foreach (ProjectInfoViewModel manifest in Model.ProjectInfos)
+        @foreach (ProjectInfoViewModel manifest in Model.Projects)
         {
             <partial name="_ProjectViewPartial" for="@manifest" />
         }
@@ -64,7 +64,7 @@ else
                                 <span>for </span>
                                 @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.RepositoryName, token))" />
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.OrganizationName, @Model.RepositoryName, token))" />
 
                                 }
                             }

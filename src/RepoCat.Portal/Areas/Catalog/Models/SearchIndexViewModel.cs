@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
 {
@@ -16,7 +17,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets or sets the repositories.
         /// </summary>
         /// <value>The repositories.</value>
-        public List<string> Repositories { get; set; } = new List<string>();
+        public List<SelectListItem> Repositories { get; set; } 
         /// <summary>
         /// Gets or sets the result.
         /// </summary>

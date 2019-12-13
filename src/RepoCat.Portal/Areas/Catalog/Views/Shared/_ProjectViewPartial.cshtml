@@ -23,7 +23,7 @@
                             <dt>Project name:</dt>
                             <dd>@Model.ProjectName</dd>
                             <dt>Assembly name:</dt>
-                            <dd>@Model.GetAssemblyName()</dd>
+                            <dd>@Model.GetOutputFileName()</dd>
                             <dt>Project path:</dt>
                             <dd class="project-path">@Model.ProjectUri</dd>
                         </dl>
@@ -55,7 +55,7 @@
                                         <span class="component-label">Tags:&nbsp;</span>
                                         @foreach (var tag in @component.Tags)
                                         {
-                                            <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.RepositoryName, tag))"/>
+                                            <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.OrganizationName, @Model.RepositoryName, tag))"/>
                                         }
                                     </div>
                                 </li>
