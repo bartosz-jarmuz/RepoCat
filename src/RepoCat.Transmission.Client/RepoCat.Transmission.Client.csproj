@@ -43,6 +43,9 @@
     <Reference Include="DotNetLittleHelpers, Version=1.0.104.0, Culture=neutral, PublicKeyToken=339dc7d237f083dc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DotNetLittleHelpers.1.0.104\lib\net45\DotNetLittleHelpers.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetProjectParser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=09f7f7425fffd169, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetProjectParser.1.0.0\lib\netstandard2.0\DotNetProjectParser.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -98,10 +101,6 @@
     <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj">
       <Project>{894549a7-4337-4e81-9d54-4f7b5d9fa19a}</Project>
       <Name>RepoCat.Transmission.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RepoCat.ProjectFileReaders\RepoCat.ProjectFileReaders.csproj">
-      <Project>{4193D1CD-DD8E-4550-ADEE-72303C190D0E}</Project>
-      <Name>RepoCat.ProjectFileReaders</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

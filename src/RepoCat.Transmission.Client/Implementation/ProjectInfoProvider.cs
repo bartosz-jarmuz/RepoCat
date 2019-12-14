@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using DotNetProjectParser;
 using log4net;
-using RepoCat.ProjectFileReaders;
-using RepoCat.ProjectFileReaders.ProjectModel;
 using RepoCat.Transmission.Client.Interfaces;
 using RepoCat.Transmission.Models;
 
@@ -134,8 +133,8 @@ namespace RepoCat.Transmission.Client.Implementation
             Project prj;
             try
             {
-                ProjectFileFactory factory = new ProjectFileFactory();
-                prj = factory.GetProject(new FileInfo(uri));
+                
+                prj = ProjectFactory.GetProject(new FileInfo(uri));
                 this.log.Debug($"Project loaded from [{uri}]");
             }
 
