@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 
-namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
+namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components
 {
     /// <summary>
     /// Class RepositoryList.

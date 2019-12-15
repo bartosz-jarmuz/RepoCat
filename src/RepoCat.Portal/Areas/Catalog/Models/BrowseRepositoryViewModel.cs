@@ -37,7 +37,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets or sets the project manifest view models.
         /// </summary>
         /// <value>The project manifest view models.</value>
-        public List<ProjectInfoViewModel> ProjectManifestViewModels { get; set; } = new List<ProjectInfoViewModel>();
+        public List<ProjectInfoViewModel> ProjectManifestViewModels { get; internal set; } = new List<ProjectInfoViewModel>();
         /// <summary>
         /// Gets or sets the number of components.
         /// </summary>

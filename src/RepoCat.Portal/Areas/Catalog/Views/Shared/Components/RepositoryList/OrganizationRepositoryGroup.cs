@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
+namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components
 {
     /// <summary>
     /// List of repositories within a given organization
@@ -15,7 +15,7 @@ namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
         /// <summary>
         /// Repositories
         /// </summary>
-        public List<string> Repositories { get; set; } = new List<string>();
+        public List<string> Repositories { get; internal set; } = new List<string>();
 
     }
 }

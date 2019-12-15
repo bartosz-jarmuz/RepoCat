@@ -26,11 +26,11 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets or sets the tags.
         /// </summary>
         /// <value>The tags.</value>
-        public List<string> Tags { get; set; } = new List<string>();
+        public List<string> Tags { get; internal set; } = new List<string>();
         /// <summary>
         /// Gets or sets the properties.
         /// </summary>
         /// <value>The properties.</value>
-        public Dictionary<string, string> Properties { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Properties { get; internal set; } = new Dictionary<string, string>();
     }
 }

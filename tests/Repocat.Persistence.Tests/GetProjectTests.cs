@@ -178,7 +178,10 @@ namespace Repocat.Persistence.Tests
 
             result = await GetResult(service, "AcmeCorp");
             AssertProjectFoundBy("ProjectName", result, insertedProject);
-          
+
+            result = await GetResult(service, "Valid");
+            AssertProjectFoundBy("Name Part", result, insertedProject);
+
             result = await GetResult(service, "Workers");
             AssertProjectFoundBy("AssemblyName", result, insertedProject);
 
@@ -203,7 +206,7 @@ namespace Repocat.Persistence.Tests
             result = await GetResult(service, "Checker");
             AssertProjectFoundBy("PropertiesValue", result, insertedProject);
 
-           
+
 
         }
 

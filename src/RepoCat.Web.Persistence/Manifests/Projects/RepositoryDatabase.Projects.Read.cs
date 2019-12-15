@@ -71,13 +71,12 @@ namespace RepoCat.Persistence.Service
 
             stopwatch.Stop();
 
-            return new ManifestQueryResult()
+            return new ManifestQueryResult(list)
             {
                 OrganizationName = repo.OrganizationName,
                 RepositoryName = repo.RepositoryName,
                 RepositoryStamp = filter.newestStamp,
                 Elapsed = stopwatch.Elapsed,
-                Projects = list
             };
         }
 
@@ -111,13 +110,12 @@ namespace RepoCat.Persistence.Service
             List<Project> list = (await this.GetProjects(projectFilter).ConfigureAwait(false)).ToList();
 
             stopwatch.Stop();
-            return new ManifestQueryResult()
+            return new ManifestQueryResult(list)
             {
                 OrganizationName = repo.OrganizationName,
                 RepositoryName = repo.RepositoryName,
                 RepositoryStamp = filter.newestStamp,
                 Elapsed = stopwatch.Elapsed,
-                Projects = list,
                 IsRegex = isRegex,
                 QueryString = query
             };

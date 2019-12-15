@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
+namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components
 {
     /// <summary>
     /// Class RepositoriesListViewModel.

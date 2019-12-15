@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RepoCat.Persistence.Models
 {
@@ -9,10 +10,19 @@ namespace RepoCat.Persistence.Models
     public class ManifestQueryResult
     {
         /// <summary>
+        /// New instance
+        /// </summary>
+        /// <param name="projects"></param>
+        public ManifestQueryResult(IEnumerable<Project> projects)
+        {
+            this.Projects = projects.ToList();
+        }
+
+        /// <summary>
         /// Gets or sets the project infos.
         /// </summary>
         /// <value>The manifests.</value>
-        public List<Project> Projects { get;  set; } = new List<Project>();
+        public IReadOnlyList<Project> Projects { get; internal set; } 
         /// <summary>
         /// How long it took to execute the query
         /// </summary>

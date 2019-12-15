@@ -47,12 +47,6 @@
             Encapsulates the result of querying the database
             </summary>
         </member>
-        <member name="M:RepoCat.Persistence.Models.ManifestQueryResult.#ctor(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.Project})">
-            <summary>
-            New instance
-            </summary>
-            <param name="projects"></param>
-        </member>
         <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.Projects">
             <summary>
             Gets or sets the project infos.

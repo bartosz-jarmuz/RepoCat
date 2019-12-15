@@ -28,13 +28,13 @@ namespace RepoCat.Persistence.Models
         /// Gets or sets the tags that should allow for a component to be found in a repository catalog.
         /// </summary>
         /// <value>The tags.</value>
-        public List<string> Tags { get; set; } = new List<string>();
+        public List<string> Tags { get; internal set; } = new List<string>();
         /// <summary>
         /// Gets or sets the additional key-value properties associated with a component.
         /// These properties might be enriched by a transmitter plugin automatically
         /// (e.g. if a transmitter plugin uses reflection to scan through code for some extra info)
         /// </summary>
         /// <value>The properties.</value>
-        public Dictionary<string, string> Properties { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Properties { get; internal set; } = new Dictionary<string, string>();
     }
 }

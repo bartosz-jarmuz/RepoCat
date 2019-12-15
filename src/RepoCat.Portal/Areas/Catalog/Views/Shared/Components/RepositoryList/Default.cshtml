@@ -1,5 +1,5 @@
-﻿@using RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList
-@model RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.RepositoriesListViewModel
+﻿@using RepoCat.Portal.Areas.Catalog.Views.Shared.Components
+@model RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoriesListViewModel
 @foreach (OrganizationRepositoryGroup group in @Model.Repositories)
 {
     <li class="nav-item nav-dropdown">
@@ -8,7 +8,7 @@
             @foreach (string name in group.Repositories)
             {
                 <li class="nav-item">
-                    <a class="nav-link" style="padding-left: 30px; !important" asp-area="Catalog" asp-controller="Repository" asp-action="Index" asp-route-organizationName="@group.OrganizationName" asp-route-repositoryName="@name">
+                    <a class="nav-link" style="padding-left: 30px !important" asp-area="Catalog" asp-controller="Repository" asp-action="Index" asp-route-organizationName="@group.OrganizationName" asp-route-repositoryName="@name">
                         <i class="nav-icon fab fa-codepen"></i> @name
                     </a>
                 </li>

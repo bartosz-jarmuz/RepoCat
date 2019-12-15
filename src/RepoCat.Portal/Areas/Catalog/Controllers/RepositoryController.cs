@@ -31,6 +31,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// Initializes a new instance of the <see cref="RepositoryController"/> class.
         /// </summary>
         /// <param name="service">The repository management service.</param>
+        /// <param name="mapper"></param>
         public RepositoryController(IRepositoryManagementService service, IMapper mapper)
         {
             this.service = service;

@@ -59,7 +59,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets or sets the components.
         /// </summary>
         /// <value>The components.</value>
-        public List<ComponentManifestViewModel> Components { get; set; } = new List<ComponentManifestViewModel>();
+        public List<ComponentManifestViewModel> Components { get; internal set; } = new List<ComponentManifestViewModel>();
 
         /// <summary>
         /// Gets the name of the assembly.

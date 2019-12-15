@@ -45,7 +45,9 @@ namespace RepoCat.Portal.Controllers.api
                 ProjectInfo result = await this.service.Upsert(projectInfo).ConfigureAwait(false);
                 return this.CreatedAtAction("Get", new { id = result.Id }, result);
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 return this.StatusCode(500);
             }

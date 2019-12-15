@@ -17,7 +17,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets or sets the repositories.
         /// </summary>
         /// <value>The repositories.</value>
-        public List<SelectListItem> Repositories { get; set; } 
+        public List<SelectListItem> Repositories { get; internal set; } 
         /// <summary>
         /// Gets or sets the result.
         /// </summary>
