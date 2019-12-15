@@ -56,5 +56,11 @@ namespace RepoCat.RepositoryManagement.Service
             return (await this.database.GetAllRepositories().ConfigureAwait(false)).ToList();
         }
 
+
+        public Task<ManifestQueryResult> GetCurrentProjects(string organizationName, string repositoryName,
+            string query, bool isRegex)
+        {
+            return this.database.GetCurrentProjects(organizationName, repositoryName, query, isRegex);
+        }
     }
 }

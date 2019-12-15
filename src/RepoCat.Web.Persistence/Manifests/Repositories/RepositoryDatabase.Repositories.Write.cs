@@ -35,7 +35,7 @@ namespace RepoCat.Persistence.Service
         /// <returns></returns>
         public Task<ReplaceOneResult> Replace(RepositoryInfo info)
         {
-            Task<ReplaceOneResult> result = this.repositories.ReplaceOneAsync(x => x.Id == info.Id, info, new UpdateOptions(){ IsUpsert = true});
+            Task<ReplaceOneResult> result = this.repositories.ReplaceOneAsync(x => x.Id == info.Id, info, new ReplaceOptions(){ IsUpsert = true});
             return result;
         }
 

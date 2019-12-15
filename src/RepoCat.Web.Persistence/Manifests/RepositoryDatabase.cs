@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -38,10 +39,11 @@ namespace RepoCat.Persistence.Service
         private void ConfigureIndexes()
         {
             IndexKeysDefinition<ProjectInfo> keys = Builders<ProjectInfo>.IndexKeys
-                .Text("Components.Tags");
-            //.Text(m=>m.Repo);
+                    .Text($"$**")
+                ;
 
             CreateIndexModel<ProjectInfo> indexModel = new CreateIndexModel<ProjectInfo>(keys);
+            
             this.projects.Indexes.CreateOne(indexModel);
         }
 

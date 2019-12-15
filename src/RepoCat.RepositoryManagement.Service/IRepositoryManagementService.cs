@@ -16,5 +16,8 @@ namespace RepoCat.RepositoryManagement.Service
         Task<ProjectInfo> GetById(string id);
         Task<ManifestQueryResult> GetAllCurrentProjects(string organizationName, string repositoryName);
         Task<IEnumerable<RepositoryInfo>> GetAllRepositories();
+
+        Task<ManifestQueryResult> GetCurrentProjects(string organizationName, string repositoryName,
+            string query, bool isRegex);
     }
 }

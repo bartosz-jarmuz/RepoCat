@@ -3,7 +3,6 @@ using System.IO;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using FluentAssertions;
-using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using NUnit.Framework;
 using RepoCat.Portal.Utilities;
 using RepoCat.Transmission.Client;

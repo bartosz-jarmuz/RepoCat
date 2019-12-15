@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.TestApps.NetCore", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.RepositoryManagement.Service", "src\RepoCat.RepositoryManagement.Service\RepoCat.RepositoryManagement.Service.csproj", "{08CF4A3E-CC7A-4F59-9975-A73CB8BEE708}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repocat.Persistence.Tests", "tests\Repocat.Persistence.Tests\Repocat.Persistence.Tests.csproj", "{7B2C7EDD-87F5-4748-BB93-E496F58C0582}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{08CF4A3E-CC7A-4F59-9975-A73CB8BEE708}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08CF4A3E-CC7A-4F59-9975-A73CB8BEE708}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08CF4A3E-CC7A-4F59-9975-A73CB8BEE708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B2C7EDD-87F5-4748-BB93-E496F58C0582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B2C7EDD-87F5-4748-BB93-E496F58C0582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B2C7EDD-87F5-4748-BB93-E496F58C0582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B2C7EDD-87F5-4748-BB93-E496F58C0582}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +112,7 @@ Global
 		{8E349C64-F992-4280-84FD-FB66615DCAD5} = {EDD18317-7871-4682-B214-DF2985656B6A}
 		{D8880BD4-E861-4279-91E2-B92A1749215D} = {8E349C64-F992-4280-84FD-FB66615DCAD5}
 		{AB6F8115-51C8-464B-8ECF-1FA0BB2D4A63} = {8E349C64-F992-4280-84FD-FB66615DCAD5}
+		{7B2C7EDD-87F5-4748-BB93-E496F58C0582} = {EDD18317-7871-4682-B214-DF2985656B6A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {397FD6B5-7959-4985-8025-0D125CD07D21}
