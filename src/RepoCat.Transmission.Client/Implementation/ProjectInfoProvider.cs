@@ -114,7 +114,7 @@ namespace RepoCat.Transmission.Client.Implementation
                     OrganizationName = organization,
                     RepositoryStamp = repoStamp,
                     OutputType = prj.OutputType,
-                    TargetExtension = prj.OutputType
+                    TargetExtension = prj.TargetExtension
                 };
                 return info;
 
