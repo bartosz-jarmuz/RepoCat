@@ -29,23 +29,26 @@ namespace RepoCat.Persistence.Service
         }
 
         /// <summary>
-        /// Creates a new repository
+        /// Updates a repository if it exists (replace entire document). Otherwise, creates new.
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        public Task<ReplaceOneResult> Replace(RepositoryInfo info)
+        public Task<ReplaceOneResult> UpsertReplace(RepositoryInfo info)
         {
-            Task<ReplaceOneResult> result = this.repositories.ReplaceOneAsync(x => x.Id == info.Id, info, new ReplaceOptions(){ IsUpsert = true});
+            Task<ReplaceOneResult> result = this.repositories.ReplaceOneAsync(x => x.Id == info.Id, info, new ReplaceOptions()
+            {
+                IsUpsert = true
+            });
             return result;
         }
 
 
         /// <summary>
-        /// Gets a repository by name
+        /// Adds a repository if it did not exist. 
         /// </summary>
         /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Do not use StringComparison in these filter expressions")]
-        public async Task<RepositoryInfo> Upsert(string organizationName, string repositoryName)
+        public async Task<RepositoryInfo> UpsertUpdate(string organizationName, string repositoryName)
         {
             FilterDefinition<RepositoryInfo> repoNameFilter =
                 Builders<RepositoryInfo>.Filter.Where(x => 
@@ -59,8 +62,9 @@ namespace RepoCat.Persistence.Service
                 ReturnDocument = ReturnDocument.After
             };
             UpdateDefinition<RepositoryInfo> updateDef = new UpdateDefinitionBuilder<RepositoryInfo>()
-                .Set(x=>x.OrganizationName, organizationName)
-                .Set(x=>x.RepositoryName, repositoryName)
+                .SetOnInsert(x=>x.OrganizationName, organizationName)
+                .SetOnInsert(x=>x.RepositoryName, repositoryName)
+                .SetOnInsert(x=>x.RepositoryMode, RepositoryMode.Default)
                 ;
 
             return await this.repositories.FindOneAndUpdateAsync(repoNameFilter, updateDef, options).ConfigureAwait(false);

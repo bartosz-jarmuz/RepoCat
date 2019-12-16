@@ -139,16 +139,16 @@
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Replace(RepoCat.Persistence.Models.RepositoryInfo)">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.UpsertReplace(RepoCat.Persistence.Models.RepositoryInfo)">
             <summary>
-            Creates a new repository
+            Updates a repository if it exists (replace entire document). Otherwise, creates new.
             </summary>
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Upsert(System.String,System.String)">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.UpsertUpdate(System.String,System.String)">
             <summary>
-            Gets a repository by name
+            Adds a repository if it did not exist. 
             </summary>
             <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         </member>

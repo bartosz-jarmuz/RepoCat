@@ -21,7 +21,7 @@ namespace RepoCat.RepositoryManagement.Service
 
         public async Task<ProjectInfo> Upsert(Transmission.Models.ProjectInfo projectInfo)
         {
-            RepositoryInfo repo = await this.database.Upsert(projectInfo.OrganizationName, projectInfo.RepositoryName).ConfigureAwait(false);
+            RepositoryInfo repo = await this.database.UpsertUpdate(projectInfo.OrganizationName, projectInfo.RepositoryName).ConfigureAwait(false);
 
             ProjectInfo result = this.mapper.Map<ProjectInfo>(projectInfo);
             result.RepositoryId = repo.Id;

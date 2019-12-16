@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
@@ -74,13 +75,43 @@ namespace Repocat.Persistence.Tests
             string repoOne = Guid.NewGuid().ToString();
 
             //first add a new repository to a new organization
-            RepositoryInfo repo = await service.Upsert(organizationOne, repoOne).ConfigureAwait(false);
+            RepositoryInfo repo = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
             repo.Id.Should().NotBe(ObjectId.Empty);
 
             //then add it again
-            RepositoryInfo repo2 = await service.Upsert(organizationOne, repoOne).ConfigureAwait(false);
+            RepositoryInfo repo2 = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
 
             repo2.Id.Should().Be(repo2.Id, "because the same repository already exists");
+        }
+
+        [Test]
+        public async Task TestUpsertRepo_ShouldReturnProperMode()
+        {
+            RepositoryDatabase service = new RepositoryDatabase(Settings);
+            string organizationOne = MethodBase.GetCurrentMethod().Name;
+            string repoOne = Guid.NewGuid().ToString();
+
+            //first add a new repository to a new organization
+            RepositoryInfo repo = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
+            repo.RepositoryMode.Should().Be(RepositoryMode.Default);
+
+            //then add it again
+            RepositoryInfo repo2 = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
+            repo2.RepositoryMode.Should().Be(RepositoryMode.Default);
+
+            //then change the repo mode (ensure that change worked OK)
+            repo.RepositoryMode = RepositoryMode.Snapshot;
+            await service.UpsertReplace(repo).ConfigureAwait(false);
+            repo = await service.GetRepository(organizationOne, repoOne);
+            repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
+
+            //now perform upsert again and ensure that mode is not overwritten
+            repo = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
+            repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
+            
+            //even if added multiple times
+            repo = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
+            repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
         }
 
         [Test]
@@ -251,7 +282,7 @@ namespace Repocat.Persistence.Tests
         {
             repository.RepositoryMode = RepositoryMode.Snapshot;
 
-            await database.Replace(repository).ConfigureAwait(false);
+            await database.UpsertReplace(repository).ConfigureAwait(false);
 
             var repo = await database.GetRepositoryById(repository.Id).ConfigureAwait(false);
             repo.Should().BeEquivalentTo(repository);
