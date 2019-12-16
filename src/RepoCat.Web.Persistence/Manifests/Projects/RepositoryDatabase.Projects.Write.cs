@@ -24,8 +24,20 @@ namespace RepoCat.Persistence.Service
         /// <returns>ProjectInfo.</returns>
         public async Task<ProjectInfo> Create(ProjectInfo info)
         {
+            if (info == null) throw new ArgumentNullException(nameof(info));
+
+            EnsureRepoStampIsSet(info);
+
             await this.projects.InsertOneAsync(info).ConfigureAwait(false);
             return info;
+        }
+
+        private static void EnsureRepoStampIsSet(ProjectInfo info)
+        {
+            if (string.IsNullOrEmpty(info.RepositoryStamp))
+            {
+                info.RepositoryStamp = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture);
+            }
         }
 
         /// <summary>
@@ -36,6 +48,8 @@ namespace RepoCat.Persistence.Service
         public async Task<ProjectInfo> Upsert(ProjectInfo prjInfo)
         {
             if (prjInfo == null) throw new ArgumentNullException(nameof(prjInfo));
+
+            EnsureRepoStampIsSet(prjInfo);
 
             FilterDefinition<ProjectInfo> repoNameFilter =
                 Builders<ProjectInfo>.Filter.Where(x =>

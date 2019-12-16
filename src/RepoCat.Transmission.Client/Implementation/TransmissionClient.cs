@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using log4net;
 using RepoCat.Transmission.Client.Interfaces;
@@ -52,6 +53,8 @@ namespace RepoCat.Transmission.Client.Implementation
                     this.log.Info($"{parameter.Key}: [{parameter.Value}]");
                 }
 
+                ValidateParameters(args);
+
                 LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
                 IEnumerable<string> uris = uriProvider.GetUris(args.CodeRootFolder);
 
@@ -68,6 +71,15 @@ namespace RepoCat.Transmission.Client.Implementation
             catch (Exception ex)
             {
                 this.log.Fatal(ex);
+            }
+        }
+
+        private void ValidateParameters(TransmitterArguments args)
+        {
+            if (string.IsNullOrEmpty(args.RepositoryStamp))
+            {
+                args.RepositoryStamp = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture);
+                this.log.Info($"Repository stamp was null or empty - updated to current execution time (UTC) - [{args.RepositoryStamp}]");
             }
         }
     }
