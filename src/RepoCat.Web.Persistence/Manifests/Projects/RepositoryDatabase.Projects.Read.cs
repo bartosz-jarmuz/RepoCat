@@ -80,9 +80,6 @@ namespace RepoCat.Persistence.Service
             };
         }
 
-      
-
-
         /// <summary>
         /// Gets all projects for the latest version of a given repository matching specified search parameters
         /// </summary>
@@ -120,7 +117,6 @@ namespace RepoCat.Persistence.Service
                 QueryString = query
             };
         }
-
         private async Task<(string newestStamp, FilterDefinition<ProjectInfo> filter)> GetNewestStampFilter(
             FilterDefinition<ProjectInfo> projectFilter, RepositoryMode repositoryMode)
         {
@@ -137,7 +133,6 @@ namespace RepoCat.Persistence.Service
 
             return (newestStamp, projectFilter);
         }
-
 
         /// <summary>
         /// Gets projects matching the query from all repositories in all organizations

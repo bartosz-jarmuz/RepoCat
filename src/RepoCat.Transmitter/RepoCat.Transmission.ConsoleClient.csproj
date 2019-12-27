@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Log4NetAdapter.cs" />
     <Compile Include="Program.cs" />
     <None Include="Start.bat" />
     <Compile Include="Properties\AssemblyInfo.cs" />

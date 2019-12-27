@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Service;
 
-namespace RepoCat.Portal.Areas.Catalog.Views.Shared.Components
+namespace RepoCat.Portal.Areas.Catalog.Views.Components
 {
     /// <summary>
     /// Class RepositoryList.

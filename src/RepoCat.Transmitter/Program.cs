@@ -5,7 +5,7 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using log4net;
-using RepoCat.Transmission.Client.Implementation;
+using RepoCat.Transmission.Client;
 
 namespace RepoCat.Transmitter
 {
@@ -18,7 +18,7 @@ namespace RepoCat.Transmitter
             try
             {
                 log.Info($"Console transmitter [{GetAssemblyFileVersion()}] starting...");
-                TransmissionClient client = new TransmissionClient(log);
+                TransmissionClient client = new TransmissionClient(new Log4NetAdapter(log));
                 client.Work(args).GetAwaiter().GetResult();
                 log.Info($"{typeof(Program).Assembly.GetName().Name} - Finished");
             }

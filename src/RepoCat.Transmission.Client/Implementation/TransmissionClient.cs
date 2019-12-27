@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
-using log4net;
-using RepoCat.Transmission.Client.Interfaces;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client.Implementation
+namespace RepoCat.Transmission.Client
 {
     /// <summary>
     /// Main worker class
     /// </summary>
     public class TransmissionClient : ITransmissionClient
     {
-        private readonly ILog log;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Creates new instance
         /// </summary>
-        /// <param name="log"></param>
-        public TransmissionClient(ILog log)
+        /// <param name="logger"></param>
+        public TransmissionClient(ILogger logger)
         {
-            this.log = log;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -32,7 +31,7 @@ namespace RepoCat.Transmission.Client.Implementation
         public Task Work(string[] args)
         {
             TransmitterArguments arguments= new TransmitterArguments(args);
-            this.log.Debug($"Arguments: {arguments.OriginalParameterInputString}");
+            this.logger.Debug($"Arguments: {arguments.OriginalParameterInputString}");
             return this.Work(arguments);
         }
     
@@ -50,28 +49,43 @@ namespace RepoCat.Transmission.Client.Implementation
             {
                 foreach (KeyValuePair<string, string> parameter in args.OriginalParameterCollection)
                 {
-                    this.log.Info($"{parameter.Key}: [{parameter.Value}]");
+                    this.logger.Info($"{parameter.Key}: [{parameter.Value}]");
                 }
 
-                ValidateParameters(args);
+                this.ValidateParameters(args);
 
-                LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
-                IEnumerable<string> uris = uriProvider.GetUris(args.CodeRootFolder);
+                IEnumerable<string> uris = GetPaths(args);
 
-                ProjectInfoProvider infoProvider = new ProjectInfoProvider(this.log);
+                ProjectInfoProvider infoProvider = new ProjectInfoProvider(this.logger);
                 IEnumerable<ProjectInfo> infos = infoProvider.GetInfos(uris, args.OrganizationName, args.RepositoryName, args.RepositoryStamp);
 
-                using (HttpSender sender = new HttpSender(args.ApiBaseUri, this.log))
+                using (HttpSender sender = new HttpSender(args.ApiBaseUri, this.logger))
                 {
                     await sender.Send(infos).ConfigureAwait(false);
                 }
 
-                this.log.Info("All done");
+                this.logger.Info("All done");
             }
             catch (Exception ex)
             {
-                this.log.Fatal(ex);
+                this.logger.Fatal(ex);
             }
+        }
+
+        private static IEnumerable<string> GetPaths(TransmitterArguments args)
+        {
+            IEnumerable<string> uris;
+            if (args.ProjectPaths == null || !args.ProjectPaths.Any())
+            {
+                LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
+                uris = uriProvider.GetUris(args.CodeRootFolder);
+            }
+            else
+            {
+                uris = args.ProjectPaths;
+            }
+
+            return uris;
         }
 
         private void ValidateParameters(TransmitterArguments args)
@@ -79,7 +93,7 @@ namespace RepoCat.Transmission.Client.Implementation
             if (string.IsNullOrEmpty(args.RepositoryStamp))
             {
                 args.RepositoryStamp = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture);
-                this.log.Info($"Repository stamp was null or empty - updated to current execution time (UTC) - [{args.RepositoryStamp}]");
+                this.logger.Info($"Repository stamp was null or empty - updated to current execution time (UTC) - [{args.RepositoryStamp}]");
             }
         }
     }

@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using log4net;
 using Newtonsoft.Json;
-using RepoCat.Transmission.Client.Interfaces;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client.Implementation
+namespace RepoCat.Transmission.Client
 {
     /// <summary>
     /// Class that sends the project manifests to the RepoCat API over HTTP
@@ -20,16 +18,16 @@ namespace RepoCat.Transmission.Client.Implementation
         /// </summary>
         private readonly HttpClient client;
 
-        private readonly ILog log;
+        private readonly ILogger logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpSender"/> class.
         /// </summary>
         /// <param name="baseAddress">The base address.</param>
-        /// <param name="log"></param>
-        public HttpSender(Uri baseAddress, ILog log)
+        /// <param name="logger"></param>
+        public HttpSender(Uri baseAddress, ILogger logger)
         {
-            this.log = log;
+            this.logger = logger;
             this.client = new HttpClient()
             {
                 BaseAddress = baseAddress
@@ -46,7 +44,7 @@ namespace RepoCat.Transmission.Client.Implementation
             if (infos == null) throw new ArgumentNullException(nameof(infos));
 
             List<Task> tasks = new List<Task>();
-            this.log.Info($"Starting sending projects to {this.client.BaseAddress}...");
+            this.logger.Info($"Starting sending projects to {this.client.BaseAddress}...");
 
             int infoCounter = 0;
             foreach (ProjectInfo projectInfo in infos)
@@ -54,10 +52,10 @@ namespace RepoCat.Transmission.Client.Implementation
                 infoCounter++;
                 tasks.Add(this.Send(projectInfo));
             }
-            this.log.Info($"Waiting for all {infoCounter} project infos to be sent.");
+            this.logger.Info($"Waiting for all {infoCounter} project infos to be sent.");
 
             await Task.WhenAll(tasks).ConfigureAwait(false);
-            this.log.Info($"Finished sending all {infoCounter} project infos.");
+            this.logger.Info($"Finished sending all {infoCounter} project infos.");
 
         }
 
@@ -70,7 +68,7 @@ namespace RepoCat.Transmission.Client.Implementation
         {
             if (info == null) throw new ArgumentNullException(nameof(info));
 
-            this.log.Debug($"Sending {info.ProjectName} project info");
+            this.logger.Debug($"Sending {info.ProjectName} project info");
 
             string serialized;
             try
@@ -79,7 +77,7 @@ namespace RepoCat.Transmission.Client.Implementation
             }   
             catch (Exception ex)
             {
-                this.log.Error($"Error while serializing project info: {info.ProjectName}", ex);
+                this.logger.Error($"Error while serializing project info: {info.ProjectName}", ex);
                 return;
             }
 
@@ -91,22 +89,22 @@ namespace RepoCat.Transmission.Client.Implementation
                         await this.client.PostAsync("api/manifest", content).ConfigureAwait(false);
                     if (result.IsSuccessStatusCode)
                     {
-                        this.log.Info(
+                        this.logger.Info(
                             $"Sent [{info.ProjectName}]. StatusCode: [{result.StatusCode}]. Location: [{result.Headers?.Location}]");
                         string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        this.log.Debug($"Response [{response}].");
+                        this.logger.Debug($"Response [{response}].");
 
                     }
                     else
                     {
-                        this.log.Error(
+                        this.logger.Error(
                             $"Error - [{result.StatusCode}] - [{result.ReasonPhrase}] - while sending [{info.ProjectName}].");
                     }
                 }
             }
             catch (Exception ex)
             {
-                this.log.Error($"Error while sending project info: {info.ProjectName}. {serialized}", ex);
+                this.logger.Error($"Error while sending project info: {info.ProjectName}. {serialized}", ex);
             }
 
         }

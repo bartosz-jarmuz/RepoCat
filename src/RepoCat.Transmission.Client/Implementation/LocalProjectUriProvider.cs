@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using RepoCat.Transmission.Client.Interfaces;
 
-namespace RepoCat.Transmission.Client.Implementation
+namespace RepoCat.Transmission.Client
 {
     /// <summary>
     /// Class LocalProjectUriProvider.

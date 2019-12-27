@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DotNetProjectParser;
-using log4net;
-using RepoCat.Transmission.Client.Interfaces;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client.Implementation
+namespace RepoCat.Transmission.Client
 {
     public class ProjectInfoProvider : IProjectInfoProvider
     {
-        private readonly ILog log;
+        private readonly ILogger logger;
 
         private readonly string ManifestSuffix = "RepoCat.xml";
 
-        public ProjectInfoProvider(ILog log)
+        public ProjectInfoProvider(ILogger logger)
         {
-            this.log = log;
+            this.logger = logger;
         }
 
         public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, string organization, string repo, string repoStamp)
@@ -27,7 +25,7 @@ namespace RepoCat.Transmission.Client.Implementation
             int counter = 0;
             foreach (string uri in uris)
             {
-                this.log.Debug($"Checking project #{counter} for manifest file. {uri}");
+                this.logger.Debug($"Checking project #{counter} for manifest file. {uri}");
 
                 counter++;
                 ProjectInfo info = this.GetInfo(uri, organization, repo, repoStamp);
@@ -35,10 +33,10 @@ namespace RepoCat.Transmission.Client.Implementation
                 {
                     yield return info;
                 }
-                this.log.Debug($"Project #{counter} does not contain a manifest file. {uri}");
+                this.logger.Debug($"Project #{counter} does not contain a manifest file. {uri}");
 
             }
-            this.log.Info($"Loaded project infos for {counter} projects.");
+            this.logger.Info($"Loaded project infos for {counter} projects.");
 
         }
 
@@ -55,11 +53,11 @@ namespace RepoCat.Transmission.Client.Implementation
                 ProjectItem manifestInclude = project.Items.FirstOrDefault(x => x.ResolvedIncludePath.EndsWith(this.ManifestSuffix, StringComparison.CurrentCultureIgnoreCase));
                 if (manifestInclude?.ResolvedIncludePath != null)
                 {
-                    this.log.Debug($"Reading Project Info - {uri}");
-                    ProjectInfo info = ConstructInfo(uri, organization, repo, repoStamp, project);
+                    this.logger.Debug($"Reading Project Info - {uri}");
+                    ProjectInfo info = this.ConstructInfo(uri, organization, repo, repoStamp, project);
                     if (info != null)
                     {
-                        this.log.Debug($"Loaded project info. Reading manifest info from {uri}.");
+                        this.logger.Debug($"Loaded project info. Reading manifest info from {uri}.");
                         this.LoadComponentManifest(uri, manifestInclude, info);
                         return info;
                     }
@@ -67,13 +65,13 @@ namespace RepoCat.Transmission.Client.Implementation
                 }
                 else
                 {
-                    this.log.Debug($"Project does not include manifest file (expected file name ending with [{this.ManifestSuffix}]). Will be ignored by RepoCat. {uri}");
+                    this.logger.Debug($"Project does not include manifest file (expected file name ending with [{this.ManifestSuffix}]). Will be ignored by RepoCat. {uri}");
                 }
             }
             catch (Exception ex)
             {
-                this.log.Error($"Unexpected error while loading project info for [{uri}] {ex.Message}. Details in DEBUG mode.");
-                this.log.Debug($"Error details: {ex}.");
+                this.logger.Error($"Unexpected error while loading project info for [{uri}] {ex.Message}. Details in DEBUG mode.");
+                this.logger.Debug($"Error details: {ex}.");
             }
             return null;
         }
@@ -85,19 +83,19 @@ namespace RepoCat.Transmission.Client.Implementation
                 FileInfo file = new FileInfo(manifestInclude.ResolvedIncludePath);
                 if (!file.Exists)
                 {
-                    this.log.Error($"Manifest not found at [{manifestInclude.ResolvedIncludePath}] for project {uri}!");
+                    this.logger.Error($"Manifest not found at [{manifestInclude.ResolvedIncludePath}] for project {uri}!");
                 }
                 else
                 {
                     string manifestContent = File.ReadAllText(file.FullName);
                     info.Components.AddRange( ManifestDeserializer.DeserializeComponents(manifestContent));
-                    this.log.Info($"Manifest Read OK from {uri}");
+                    this.logger.Info($"Manifest Read OK from {uri}");
                 }
             }
             catch (Exception ex)
             {
-                this.log.Warn($"Error while loading ComponentManifest [{uri}] {ex.Message}. Details in DEBUG mode.");
-                this.log.Debug($"Error details:" + ex);
+                this.logger.Warn($"Error while loading ComponentManifest [{uri}] {ex.Message}. Details in DEBUG mode.");
+                this.logger.Debug($"Error details:" + ex);
             }
         }
 
@@ -121,8 +119,8 @@ namespace RepoCat.Transmission.Client.Implementation
             }
             catch (Exception ex)
             {
-                this.log.Warn($"Error while constructing project info based on project object [{uri}] {ex.Message}. Details in DEBUG mode.");
-                this.log.Debug($"Error details:" + ex);
+                this.logger.Warn($"Error while constructing project info based on project object [{uri}] {ex.Message}. Details in DEBUG mode.");
+                this.logger.Debug($"Error details:" + ex);
                 return null;
             }
 
@@ -135,13 +133,13 @@ namespace RepoCat.Transmission.Client.Implementation
             {
                 
                 prj = ProjectFactory.GetProject(new FileInfo(uri));
-                this.log.Debug($"Project loaded from [{uri}]");
+                this.logger.Debug($"Project loaded from [{uri}]");
             }
 
             catch (Exception ex)
             {
-                this.log.Warn($"Error while loading project [{uri}] {ex.Message}. Details in DEBUG mode.");
-                this.log.Debug($"Error details:" + ex);
+                this.logger.Warn($"Error while loading project [{uri}] {ex.Message}. Details in DEBUG mode.");
+                this.logger.Debug($"Error details:" + ex);
                 return null;
             }
 

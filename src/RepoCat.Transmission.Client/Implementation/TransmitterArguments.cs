@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using DotNetLittleHelpers;
-using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client.Implementation
+namespace RepoCat.Transmission.Client
 {
     /// <summary>
     /// The set of parameters for the worker.
@@ -18,6 +18,10 @@ namespace RepoCat.Transmission.Client.Implementation
         {
          
         }
+
+#pragma warning disable CA2227 // Collection properties should be read only
+        public ICollection<string> ProjectPaths { get; set; }
+#pragma warning restore CA2227 // Collection properties should be read only
 
         /// <summary>
         /// Gets or sets the code root folder.

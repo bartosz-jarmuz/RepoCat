@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RepoCat.Transmission.Client.Interfaces
+namespace RepoCat.Transmission.Client
 {
     /// <summary>
     /// Provides the URIs of all projects available under the specified root URI

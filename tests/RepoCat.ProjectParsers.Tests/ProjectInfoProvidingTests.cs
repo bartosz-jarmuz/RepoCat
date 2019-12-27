@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using FluentAssertions;
-using log4net;
 using Moq;
-using RepoCat.Transmission.Client.Implementation;
 using System.Xml.Linq;
 using NUnit.Framework;
+using RepoCat.Transmission.Client;
 
 namespace RepoCat.ProjectParsers.Tests
 {
@@ -16,7 +15,7 @@ namespace RepoCat.ProjectParsers.Tests
         {
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetFramework.csproj");
 
-            var provider = new ProjectInfoProvider(new Mock<ILog>().Object);
+            var provider = new ProjectInfoProvider(new Mock<ILogger>().Object);
 
             var info = provider.GetInfo(path.FullName, "TestOrg", "Test", "");
             info.Should().NotBeNull();
@@ -30,7 +29,7 @@ namespace RepoCat.ProjectParsers.Tests
         {
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetCore.csproj");
 
-            var provider = new ProjectInfoProvider(new Mock<ILog>().Object);
+            var provider = new ProjectInfoProvider(new Mock<ILogger>().Object);
 
             var info = provider.GetInfo(path.FullName, "TestOrg", "Test", "");
             info.Should().NotBeNull();
