@@ -392,50 +392,50 @@
             </summary>
             <value>The tag text.</value>
         </member>
-        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.OrganizationRepositoryGroup">
+        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Components.OrganizationRepositoryGroup">
             <summary>
             List of repositories within a given organization
             </summary>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.OrganizationRepositoryGroup.OrganizationName">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Components.OrganizationRepositoryGroup.OrganizationName">
             <summary>
             Name of the organization
             </summary>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.OrganizationRepositoryGroup.Repositories">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Components.OrganizationRepositoryGroup.Repositories">
             <summary>
             Repositories
             </summary>
         </member>
-        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoriesListViewModel">
+        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Components.RepositoriesListViewModel">
             <summary>
             Class RepositoriesListViewModel.
             </summary>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoriesListViewModel.Repositories">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Components.RepositoriesListViewModel.Repositories">
             <summary>
             Gets or sets the repositories.
             </summary>
             <value>The repositories.</value>
         </member>
-        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList">
+        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Components.RepositoryList">
             <summary>
             Class RepositoryList.
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
         </member>
-        <member name="F:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.service">
+        <member name="F:RepoCat.Portal.Areas.Catalog.Views.Components.RepositoryList.service">
             <summary>
             The service
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.#ctor(RepoCat.Persistence.Service.RepositoryDatabase)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Components.RepositoryList.#ctor(RepoCat.Persistence.Service.RepositoryDatabase)">
             <summary>
-            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList"/> class.
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Views.Components.RepositoryList"/> class.
             </summary>
             <param name="repositoryDatabase">The manifests service.</param>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Shared.Components.RepositoryList.InvokeAsync">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Components.RepositoryList.InvokeAsync">
             <summary>
             invoke as an asynchronous operation.
             </summary>
