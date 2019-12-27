@@ -38,10 +38,9 @@ namespace RepoCat.Portal
             services.AddSingleton<IRepoCatDbSettings>(sp => sp.GetRequiredService<IOptions<RepoCatDbSettings>>().Value);
             services.AddSingleton<RepositoryDatabase>();
             services.AddScoped<IRepositoryManagementService, RepositoryManagementService>();
-
             ConfigureAutoMapper(services);
-
-            services.AddControllersWithViews();
+    
+            services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddApplicationInsightsTelemetry();
 
         }
