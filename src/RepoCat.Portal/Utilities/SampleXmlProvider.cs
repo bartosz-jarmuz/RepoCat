@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
-using Microsoft.EntityFrameworkCore.Internal;
 using RepoCat.Transmission.Client;
 using RepoCat.Transmission.Models;
 
