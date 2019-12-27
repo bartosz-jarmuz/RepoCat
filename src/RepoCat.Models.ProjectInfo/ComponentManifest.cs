@@ -17,6 +17,10 @@ namespace RepoCat.Transmission.Models
         {
         }
 
+
+
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -50,7 +54,7 @@ namespace RepoCat.Transmission.Models
                               /// </summary>
                               /// <value>The tags.</value>
         [XmlIgnore]
-        public List<string> Tags { get; internal set; } = new List<string>();
+        public List<string> Tags { get;  } = new List<string>();
         /// <summary>
         /// Gets or sets the additional key-value properties associated with a component.
         /// These properties might be enriched by a transmitter plugin automatically
@@ -58,6 +62,6 @@ namespace RepoCat.Transmission.Models
         /// </summary>
         /// <value>The properties.</value>
         [XmlIgnore]
-        public Dictionary<string, string> Properties { get; internal set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> Properties { get;  } = new Dictionary<string, string>();
     }
 }

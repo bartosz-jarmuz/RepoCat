@@ -186,7 +186,7 @@ namespace RepoCat.Transmission.Client
             {
                 if (String.IsNullOrEmpty(input))
                 {
-                    return new string[] { };
+                    return Array.Empty<string>();
                 }
                 bool inQuotes = false;
                 return Split(input, c =>

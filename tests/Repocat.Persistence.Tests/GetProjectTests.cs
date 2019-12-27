@@ -148,18 +148,19 @@ namespace Repocat.Persistence.Tests
                 TargetExtension = "exe",
                 Components =
                 {
-                    new RepoCat.Transmission.Models.ComponentManifest()
+                    new RepoCat.Transmission.Models.ComponentManifest(
+                        new List<string>() {"XML", "Schema", "Validity"},
+                        new Dictionary<string, string>()
+                        {
+                            {"ComponentType", "Checker"},
+                            {"Author", "Bjarmuz"}
+                        })
                     {
                         Name = "XmlValidator",
                         Description = "A thing that validates strings",
                         DocumentationUri = "http://google.com",
-                        Tags = new List<string>() {"XML", "Schema", "Validity"},
-                        Properties = new Dictionary<string, string>()
-                        {
-                            { "ComponentType", "Checker" },
-                            { "Author", "Bjarmuz" }
-                        }
-                        
+
+
                     }
                 },
                 RepositoryName = this.testRepoOne.RepositoryName,
