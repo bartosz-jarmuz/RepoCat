@@ -52,7 +52,7 @@ namespace RepoCat.Transmission.Client
         /// <summary>
         /// The collection of parameters recognized from the input string (not including default values that the parameter set class might contain)
         /// </summary>
-        public IReadOnlyCollection<KeyValuePair<string, string>> OriginalParameterCollection { get; private set; }
+        public IReadOnlyCollection<KeyValuePair<string, string>> OriginalParameterCollection { get; private set; } = new List<KeyValuePair<string, string>>();
 
         /// <summary>
         /// Loads parameter values to the public instance properties of this class

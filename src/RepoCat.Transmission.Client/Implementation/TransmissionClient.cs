@@ -47,10 +47,7 @@ namespace RepoCat.Transmission.Client
 
             try
             {
-                foreach (KeyValuePair<string, string> parameter in args.OriginalParameterCollection)
-                {
-                    this.logger.Info($"{parameter.Key}: [{parameter.Value}]");
-                }
+                this.DisplayParameters(args);
 
                 this.ValidateParameters(args);
 
@@ -69,6 +66,17 @@ namespace RepoCat.Transmission.Client
             catch (Exception ex)
             {
                 this.logger.Fatal(ex);
+            }
+        }
+
+        private void DisplayParameters(TransmitterArguments args)
+        {
+            this.logger.Info($"Command line string: [{args.OriginalParameterInputString}]");
+            this.logger.Info($"Resolved parameters:");
+
+            foreach (KeyValuePair<string, string> parameter in args.GetParameterCollection())
+            {
+                this.logger.Info($"{parameter.Key}: [{parameter.Value}]");
             }
         }
 

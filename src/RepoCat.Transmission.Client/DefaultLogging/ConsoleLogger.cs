@@ -2,47 +2,54 @@
 
 namespace RepoCat.Transmission.Client
 {
-    public class ConsoleLogger : ILogger
+    public class ConsoleLogger : LoggerDecorator
     {
-        public void Debug(string message)
+        public ConsoleLogger(ILogger logger) : base(logger)
         {
-            Console.WriteLine($"Debug - {message}");
         }
 
-        public void Info(string message)
+        public override void Debug(string message)
         {
-            Console.WriteLine($"DEBUG - {message}");
-
+            base.Debug(message);
+            Console.WriteLine("Debug - " + message);
         }
 
-        public void Error(string message, Exception exception)
+        public override void Info(string message)
         {
-            Console.WriteLine($"Error - {message}");
-
+            base.Info(message);
+            Console.WriteLine("Info - " + message);
         }
 
-        public void Error(string message)
+        public override void Error(string message, Exception exception)
         {
-            Console.WriteLine($"Error - {message}");
-
+            base.Error(message, exception);
+            Console.WriteLine("Error - " + message + exception);
         }
 
-        public void Warn(string message)
+        public override void Error(string message)
         {
-            Console.WriteLine($"Warn - {message}");
-
+            base.Error(message);
+            Console.WriteLine("Error - " + message);
         }
 
-        public void Fatal(Exception exception)
+        public override void Warn(string message)
         {
-            Console.WriteLine($"Fatal - {exception}");
-
+            base.Warn(message);
+            Console.WriteLine("Warn - " + message);
         }
 
-        public void Fatal(string message, Exception exception)
+        public override void Fatal(Exception exception)
         {
-            Console.WriteLine($"Fatal - {message}");
-
+            base.Fatal(exception);
+            Console.WriteLine("Fatal - " + exception);
         }
+
+        public override void Fatal(string message, Exception exception)
+        {
+            base.Fatal(message, exception);
+            Console.WriteLine("Fatal - " + message + exception);
+        }
+
+       
     }
 }

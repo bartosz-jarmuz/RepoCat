@@ -92,6 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultLogging\ConsoleLogger.cs" />
+    <Compile Include="DefaultLogging\LogLevel.cs" />
+    <Compile Include="DefaultLogging\TraceLogger.cs" />
+    <Compile Include="DefaultLogging\LoggerDecorator.cs" />
     <Compile Include="Implementation\HttpSender.cs" />
     <Compile Include="Implementation\LocalProjectUriProvider.cs" />
     <Compile Include="Implementation\ProjectInfoProvider.cs" />
