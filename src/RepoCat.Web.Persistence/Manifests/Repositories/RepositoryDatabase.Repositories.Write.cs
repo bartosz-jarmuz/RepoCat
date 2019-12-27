@@ -48,12 +48,14 @@ namespace RepoCat.Persistence.Service
         /// </summary>
         /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Do not use StringComparison in these filter expressions")]
-        public async Task<RepositoryInfo> UpsertUpdate(string organizationName, string repositoryName)
+        public async Task<RepositoryInfo> UpsertUpdate(RepositoryInfo repositoryInfo)
         {
+            if (repositoryInfo == null) throw new ArgumentNullException(nameof(repositoryInfo));
+
             FilterDefinition<RepositoryInfo> repoNameFilter =
                 Builders<RepositoryInfo>.Filter.Where(x => 
-                    x.RepositoryName.ToUpperInvariant() == repositoryName.ToUpperInvariant()
-                    && x.OrganizationName.ToUpperInvariant() == organizationName.ToUpperInvariant()
+                    x.RepositoryName.ToUpperInvariant() == repositoryInfo.RepositoryName.ToUpperInvariant()
+                    && x.OrganizationName.ToUpperInvariant() == repositoryInfo.OrganizationName.ToUpperInvariant()
                     );
 
             FindOneAndUpdateOptions<RepositoryInfo, RepositoryInfo> options = new FindOneAndUpdateOptions<RepositoryInfo, RepositoryInfo>()
@@ -62,9 +64,9 @@ namespace RepoCat.Persistence.Service
                 ReturnDocument = ReturnDocument.After
             };
             UpdateDefinition<RepositoryInfo> updateDef = new UpdateDefinitionBuilder<RepositoryInfo>()
-                .SetOnInsert(x=>x.OrganizationName, organizationName)
-                .SetOnInsert(x=>x.RepositoryName, repositoryName)
-                .SetOnInsert(x=>x.RepositoryMode, RepositoryMode.Default)
+                .SetOnInsert(x=>x.OrganizationName, repositoryInfo.OrganizationName)
+                .SetOnInsert(x=>x.RepositoryName, repositoryInfo.RepositoryName)
+                .SetOnInsert(x=>x.RepositoryMode, repositoryInfo.RepositoryMode)
                 ;
 
             return await this.repositories.FindOneAndUpdateAsync(repoNameFilter, updateDef, options).ConfigureAwait(false);

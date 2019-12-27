@@ -14,5 +14,10 @@
         /// Name of the organization owning the repository
         /// </summary>
         public string OrganizationName { get; set; }
+
+        /// <summary>
+        /// The mode
+        /// </summary>
+        public RepositoryMode RepositoryMode { get; set; }
     }
 }

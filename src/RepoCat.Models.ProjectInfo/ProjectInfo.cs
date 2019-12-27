@@ -43,17 +43,11 @@ namespace RepoCat.Transmission.Models
         /// </summary>
         /// <value>The target extension.</value>
         public string TargetExtension { get; set; }
+        
         /// <summary>
-        /// Gets or sets the name of the repository in which the project lives
+        /// Info about the repository
         /// </summary>
-        /// <value>The name of the repository.</value>
-        public string RepositoryName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the repository in which the project lives
-        /// </summary>
-        /// <value>The name of the repository.</value>
-        public string OrganizationName { get; set; }
+        public RepositoryInfo RepositoryInfo { get; set; }
 
         /// <summary>
         /// A datetime or version stamp of the repository as of when the project info was read and transmitted

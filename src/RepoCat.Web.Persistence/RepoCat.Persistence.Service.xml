@@ -146,7 +146,7 @@
             <param name="info"></param>
             <returns></returns>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.UpsertUpdate(System.String,System.String)">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.UpsertUpdate(RepoCat.Persistence.Models.RepositoryInfo)">
             <summary>
             Adds a repository if it did not exist. 
             </summary>

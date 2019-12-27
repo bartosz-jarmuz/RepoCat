@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client
 {
@@ -38,6 +39,12 @@ namespace RepoCat.Transmission.Client
         /// </summary>
         /// <value>The repo.</value>
         public string OrganizationName { get; set; }
+
+
+        /// <summary>
+        /// Repository mode
+        /// </summary>
+        public RepositoryMode RepositoryMode { get; set; }
 
         /// <summary>
         /// Gets or sets the repo stamp (a datetime or version of the code base).

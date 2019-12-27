@@ -47,9 +47,12 @@ namespace RepoCat.Portal.Utilities
                 TargetExtension = " ",
                 OutputType = " ",
                 ProjectUri = " ",
-                RepositoryName = " ",
-                OrganizationName = " ",
-                RepositoryStamp = " "
+                RepositoryStamp = " ",
+                RepositoryInfo = new RepositoryInfo()
+                {
+                    RepositoryName = " ",
+                    OrganizationName = " "
+                }
             };
 
 
@@ -86,8 +89,11 @@ namespace RepoCat.Portal.Utilities
                 TargetExtension = ".dll",
                 OutputType = "Library",
                 ProjectUri = "//local/or/remote/path/to/project.csproj",
-                RepositoryName = "CoolProjects",
-                OrganizationName = "DreamTeam",
+                RepositoryInfo = new RepositoryInfo()
+                {
+                    RepositoryName = "CoolProjects",
+                    OrganizationName = "DreamTeam",
+                },
                 RepositoryStamp = "1.0.2929"
             };
             info.Components.AddRange(new List<ComponentManifest>()

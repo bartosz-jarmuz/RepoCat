@@ -4,6 +4,7 @@ using Moq;
 using System.Xml.Linq;
 using NUnit.Framework;
 using RepoCat.Transmission.Client;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.ProjectParsers.Tests
 {
@@ -16,8 +17,12 @@ namespace RepoCat.ProjectParsers.Tests
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetFramework.csproj");
 
             var provider = new ProjectInfoProvider(new Mock<ILogger>().Object);
-
-            var info = provider.GetInfo(path.FullName, "TestOrg", "Test", "");
+            var repo = new RepositoryInfo()
+            {
+                RepositoryName = "Test",
+                OrganizationName = "TestOrg"
+            };
+            var info = provider.GetInfo(path.FullName, repo, "");
             info.Should().NotBeNull();
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetFramework");
             info.Components.Single().Name.Should().Be("SampleNetFrameworkConsoleApp");
@@ -30,8 +35,12 @@ namespace RepoCat.ProjectParsers.Tests
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetCore.csproj");
 
             var provider = new ProjectInfoProvider(new Mock<ILogger>().Object);
-
-            var info = provider.GetInfo(path.FullName, "TestOrg", "Test", "");
+            var repo = new RepositoryInfo()
+            {
+                RepositoryName = "Test",
+                OrganizationName = "TestOrg"
+            };
+            var info = provider.GetInfo(path.FullName, repo, "");
             info.Should().NotBeNull();
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetCore");
             info.Components.Single().Name.Should().Be("SampleNetCoreConsoleApp");

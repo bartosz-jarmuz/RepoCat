@@ -5,7 +5,7 @@ namespace RepoCat.Transmission.Client
 {
     internal interface IProjectInfoProvider
     {
-        ProjectInfo GetInfo(string uri, string organization, string repo, string repoStamp);
-        IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, string organization, string repo, string repoStamp);
+        ProjectInfo GetInfo(string uri, RepositoryInfo repositoryInfo, string repoStamp);
+        IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, RepositoryInfo repositoryInfo, string repoStamp);
     }
 }

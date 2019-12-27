@@ -21,18 +21,20 @@ namespace RepoCat.RepositoryManagement.Service
 
         public async Task<ProjectInfo> Upsert(Transmission.Models.ProjectInfo projectInfo)
         {
-            RepositoryInfo repo = await this.database.UpsertUpdate(projectInfo.OrganizationName, projectInfo.RepositoryName).ConfigureAwait(false);
+            RepositoryInfo mappedRepo = this.mapper.Map<RepositoryInfo>(projectInfo.RepositoryInfo);
 
-            ProjectInfo result = this.mapper.Map<ProjectInfo>(projectInfo);
-            result.RepositoryId = repo.Id;
+            RepositoryInfo repo = await this.database.UpsertUpdate(mappedRepo).ConfigureAwait(false);
+
+            ProjectInfo mappedProject = this.mapper.Map<ProjectInfo>(projectInfo);
+            mappedProject.RepositoryId = repo.Id;
             
             if (repo.RepositoryMode == RepositoryMode.Snapshot)
             {
-                return await this.database.Create(result).ConfigureAwait(false);
+                return await this.database.Create(mappedProject).ConfigureAwait(false);
             }
             else
             {
-                return await this.database.Upsert(result).ConfigureAwait(false);
+                return await this.database.Upsert(mappedProject).ConfigureAwait(false);
             }
         }
 

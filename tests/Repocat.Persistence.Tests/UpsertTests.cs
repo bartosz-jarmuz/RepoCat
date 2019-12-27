@@ -75,13 +75,41 @@ namespace Repocat.Persistence.Tests
             string repoOne = Guid.NewGuid().ToString();
 
             //first add a new repository to a new organization
-            RepositoryInfo repo = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
+            RepositoryInfo repo = await service.UpsertUpdate(new RepositoryInfo()
+            {
+                OrganizationName = organizationOne, 
+                RepositoryName = repoOne}
+            ).ConfigureAwait(false);
+
             repo.Id.Should().NotBe(ObjectId.Empty);
 
             //then add it again
-            RepositoryInfo repo2 = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
-
+            RepositoryInfo repo2 = await service.UpsertUpdate(new RepositoryInfo()
+                {
+                    OrganizationName = organizationOne,
+                    RepositoryName = repoOne
+                }
+            ).ConfigureAwait(false);
             repo2.Id.Should().Be(repo2.Id, "because the same repository already exists");
+        }
+
+        [Test]
+        public async Task TestUpsertRepo_SnapshotModeSetFromStart()
+        {
+            RepositoryDatabase service = new RepositoryDatabase(Settings);
+            string organizationOne = MethodBase.GetCurrentMethod().Name;
+            string repoOne = Guid.NewGuid().ToString();
+
+            //add a new repository with snapshot mode
+            RepositoryInfo repo = await service.UpsertUpdate(
+                new RepositoryInfo()
+                {
+                    OrganizationName = organizationOne,
+                    RepositoryName = repoOne,
+                    RepositoryMode = RepositoryMode.Snapshot
+                }).ConfigureAwait(false);
+            repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
+
         }
 
         [Test]
@@ -92,11 +120,20 @@ namespace Repocat.Persistence.Tests
             string repoOne = Guid.NewGuid().ToString();
 
             //first add a new repository to a new organization
-            RepositoryInfo repo = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
+            RepositoryInfo repo = await service.UpsertUpdate(
+                new RepositoryInfo()
+                {
+                    OrganizationName = organizationOne,
+                    RepositoryName = repoOne
+                }).ConfigureAwait(false);
             repo.RepositoryMode.Should().Be(RepositoryMode.Default);
 
             //then add it again
-            RepositoryInfo repo2 = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
+            RepositoryInfo repo2 = await service.UpsertUpdate(new RepositoryInfo()
+            {
+                OrganizationName = organizationOne,
+                RepositoryName = repoOne
+            }).ConfigureAwait(false);
             repo2.RepositoryMode.Should().Be(RepositoryMode.Default);
 
             //then change the repo mode (ensure that change worked OK)
@@ -106,11 +143,19 @@ namespace Repocat.Persistence.Tests
             repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
 
             //now perform upsert again and ensure that mode is not overwritten
-            repo = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
+            repo = await service.UpsertUpdate(new RepositoryInfo()
+            {
+                OrganizationName = organizationOne,
+                RepositoryName = repoOne
+            }).ConfigureAwait(false);
             repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
             
             //even if added multiple times
-            repo = await service.UpsertUpdate(organizationOne, repoOne).ConfigureAwait(false);
+            repo = await service.UpsertUpdate(new RepositoryInfo()
+            {
+                OrganizationName = organizationOne,
+                RepositoryName = repoOne
+            }).ConfigureAwait(false);
             repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
         }
 
@@ -131,8 +176,12 @@ namespace Repocat.Persistence.Tests
             {
                 ProjectName = "Project2",
                 ProjectUri = "SomeLocation",
-                RepositoryName = this.testRepoOne.RepositoryName,
-                OrganizationName = this.testRepoOne.OrganizationName,
+                RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
+                {
+                    RepositoryName = this.testRepoOne.RepositoryName,
+                    OrganizationName = this.testRepoOne.OrganizationName,
+                },
+                
                 TargetExtension = "exe",
                 RepositoryStamp = "2.0",
                 AssemblyName = "Project2AssName_NEW",
@@ -219,8 +268,12 @@ namespace Repocat.Persistence.Tests
             {
                 ProjectName = "Project2",
                 ProjectUri = "SomeLocation",
-                RepositoryName = this.testRepoOne.RepositoryName,
-                OrganizationName = this.testRepoOne.OrganizationName,
+                RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
+                {
+                    RepositoryName = this.testRepoOne.RepositoryName,
+                    OrganizationName = this.testRepoOne.OrganizationName,
+                },
+                
                 TargetExtension = "exe",
                 RepositoryStamp = "2.0"
             };
@@ -245,8 +298,12 @@ namespace Repocat.Persistence.Tests
             {
                 ProjectName = "Project1",
                 ProjectUri = "SomeLocation",
-                RepositoryName = this.testRepoOne.RepositoryName,
-                OrganizationName = this.testRepoOne.OrganizationName,
+                RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
+                {
+                    RepositoryName = this.testRepoOne.RepositoryName,
+                    OrganizationName = this.testRepoOne.OrganizationName,
+                },
+                
                 TargetExtension = "exe",
                 RepositoryStamp = "1.0"
             };
@@ -255,8 +312,12 @@ namespace Repocat.Persistence.Tests
             {
                 ProjectName = "Project2",
                 ProjectUri = "SomeLocation",
-                RepositoryName = this.testRepoOne.RepositoryName,
-                OrganizationName = this.testRepoOne.OrganizationName,
+                RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
+                {
+                    RepositoryName = this.testRepoOne.RepositoryName,
+                    OrganizationName = this.testRepoOne.OrganizationName,
+                },
+                
                 TargetExtension = "exe",
                 RepositoryStamp = "1.0",
                 AssemblyName = "Project2AssName",

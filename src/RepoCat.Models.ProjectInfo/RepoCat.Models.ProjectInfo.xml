@@ -95,17 +95,10 @@
             </summary>
             <value>The target extension.</value>
         </member>
-        <member name="P:RepoCat.Transmission.Models.ProjectInfo.RepositoryName">
+        <member name="P:RepoCat.Transmission.Models.ProjectInfo.RepositoryInfo">
             <summary>
-            Gets or sets the name of the repository in which the project lives
+            Info about the repository
             </summary>
-            <value>The name of the repository.</value>
-        </member>
-        <member name="P:RepoCat.Transmission.Models.ProjectInfo.OrganizationName">
-            <summary>
-            Gets or sets the name of the repository in which the project lives
-            </summary>
-            <value>The name of the repository.</value>
         </member>
         <member name="P:RepoCat.Transmission.Models.ProjectInfo.RepositoryStamp">
             <summary>
@@ -131,6 +124,29 @@
         <member name="P:RepoCat.Transmission.Models.RepositoryInfo.OrganizationName">
             <summary>
             Name of the organization owning the repository
+            </summary>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.RepositoryInfo.RepositoryMode">
+            <summary>
+            The mode
+            </summary>
+        </member>
+        <member name="T:RepoCat.Transmission.Models.RepositoryMode">
+            <summary>
+            Specifies how the repository data should be collected.
+            </summary>
+        </member>
+        <member name="F:RepoCat.Transmission.Models.RepositoryMode.Default">
+            <summary>
+            In default mode, when a project info is transmitted to RepoCat, it will look for this project in the database <br/>
+            and update the existing entity - or create one if not found
+            </summary>
+        </member>
+        <member name="F:RepoCat.Transmission.Models.RepositoryMode.Snapshot">
+            <summary>
+            Snapshot mode is for when entire repository (multiple projects &amp; components) is built at the same time, having the same repository stamp.<br/>
+            In this mode, every time projects are transmitted, they are created as new entities under a given repository stamp<br/>
+            This way RepoCat can present a current and previous snapshots of a repository, rather than all projects that are currently or used to be in it.<br/>
             </summary>
         </member>
         <member name="T:RepoCat.Transmission.Models.XmlNames">

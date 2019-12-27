@@ -54,7 +54,15 @@ namespace RepoCat.Transmission.Client
                 IEnumerable<string> uris = GetPaths(args);
 
                 ProjectInfoProvider infoProvider = new ProjectInfoProvider(this.logger);
-                IEnumerable<ProjectInfo> infos = infoProvider.GetInfos(uris, args.OrganizationName, args.RepositoryName, args.RepositoryStamp);
+
+                var repoInfo = new RepositoryInfo()
+                {
+                    RepositoryName = args.RepositoryName,
+                    OrganizationName = args.OrganizationName,
+                    RepositoryMode = args.RepositoryMode
+                };
+
+                IEnumerable<ProjectInfo> infos = infoProvider.GetInfos(uris, repoInfo, args.RepositoryStamp);
 
                 using (HttpSender sender = new HttpSender(args.ApiBaseUri, this.logger))
                 {

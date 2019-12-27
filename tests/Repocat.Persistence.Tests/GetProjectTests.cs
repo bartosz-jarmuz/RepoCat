@@ -163,13 +163,17 @@ namespace Repocat.Persistence.Tests
 
                     }
                 },
-                RepositoryName = this.testRepoOne.RepositoryName,
-                OrganizationName = this.testRepoOne.OrganizationName
+                RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
+                {
+                    RepositoryName = this.testRepoOne.RepositoryName,
+                    OrganizationName = this.testRepoOne.OrganizationName
+                }
+                
             };
 
-            var insertedProject = await service.Upsert(prj).ConfigureAwait(false);
-            prj.RepositoryName = this.testRepoTwo.RepositoryName;
-            prj.OrganizationName = this.testRepoTwo.OrganizationName;
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            prj.RepositoryInfo.RepositoryName = this.testRepoTwo.RepositoryName;
+            prj.RepositoryInfo.OrganizationName = this.testRepoTwo.OrganizationName;
             var insertedProject2 = await service.Upsert(prj).ConfigureAwait(false);
             insertedProject.Id.Should().NotBe(insertedProject2.Id);
 

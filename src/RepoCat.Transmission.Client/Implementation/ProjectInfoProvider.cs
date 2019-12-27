@@ -18,7 +18,7 @@ namespace RepoCat.Transmission.Client
             this.logger = logger;
         }
 
-        public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, string organization, string repo, string repoStamp)
+        public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, RepositoryInfo repositoryInfo, string repoStamp)
         {
             if (uris == null) throw new ArgumentNullException(nameof(uris));
 
@@ -28,7 +28,7 @@ namespace RepoCat.Transmission.Client
                 this.logger.Debug($"Checking project #{counter} for manifest file. {uri}");
 
                 counter++;
-                ProjectInfo info = this.GetInfo(uri, organization, repo, repoStamp);
+                ProjectInfo info = this.GetInfo(uri, repositoryInfo, repoStamp);
                 if (info != null)
                 {
                     yield return info;
@@ -40,7 +40,7 @@ namespace RepoCat.Transmission.Client
 
         }
 
-        public ProjectInfo GetInfo(string uri, string organization, string repo, string repoStamp)
+        public ProjectInfo GetInfo(string uri, RepositoryInfo repositoryInfo, string repoStamp)
         {
             Project project = this.LoadProject(uri);
             if (project == null)
@@ -54,7 +54,7 @@ namespace RepoCat.Transmission.Client
                 if (manifestInclude?.ResolvedIncludePath != null)
                 {
                     this.logger.Debug($"Reading Project Info - {uri}");
-                    ProjectInfo info = this.ConstructInfo(uri, organization, repo, repoStamp, project);
+                    ProjectInfo info = this.ConstructInfo(uri, repositoryInfo, repoStamp, project);
                     if (info != null)
                     {
                         this.logger.Debug($"Loaded project info. Reading manifest info from {uri}.");
@@ -99,7 +99,7 @@ namespace RepoCat.Transmission.Client
             }
         }
 
-        private ProjectInfo ConstructInfo(string uri, string organization, string repo, string repoStamp, Project prj)
+        private ProjectInfo ConstructInfo(string uri, RepositoryInfo repositoryInfo, string repoStamp, Project prj)
         {
             try
             {
@@ -108,8 +108,7 @@ namespace RepoCat.Transmission.Client
                     AssemblyName = prj.AssemblyName,
                     ProjectUri = prj.FullPath,
                     ProjectName = Path.GetFileNameWithoutExtension(prj.Name),
-                    RepositoryName = repo,
-                    OrganizationName = organization,
+                    RepositoryInfo = repositoryInfo,
                     RepositoryStamp = repoStamp,
                     OutputType = prj.OutputType,
                     TargetExtension = prj.TargetExtension
