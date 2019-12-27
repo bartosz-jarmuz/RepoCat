@@ -28,6 +28,7 @@ namespace RepoCat.Transmission.Client
 
         }
 
+#pragma warning disable CA1716 // Identifiers should not match keywords
         public virtual void Error(string message, Exception exception)
         {
             this.logger.Error(message, exception);
@@ -39,6 +40,7 @@ namespace RepoCat.Transmission.Client
             this.logger.Error(message);
 
         }
+#pragma warning restore CA1716 // Identifiers should not match keywords
 
         public virtual void Warn(string message)
         {

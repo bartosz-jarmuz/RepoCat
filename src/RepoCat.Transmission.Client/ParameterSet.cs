@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -104,7 +105,7 @@ namespace RepoCat.Transmission.Client
         public IReadOnlyCollection<KeyValuePair<string, string>> GetParameterCollection(bool skipNullAndEmpty = false, bool skipDefaultsForValueTypes = false)
         {
             var list = new List<KeyValuePair<string, string>>();
-            this.TraverseParameters((k, v) => list.Add(new KeyValuePair<string, string>(k, v?.ToString())), skipNullAndEmpty, skipDefaultsForValueTypes);
+            this.TraverseParameters((k, v) => list.Add(new KeyValuePair<string, string>(k, v?.ToString(CultureInfo.InvariantCulture))), skipNullAndEmpty, skipDefaultsForValueTypes);
 
             return list.AsReadOnly();
         }
@@ -146,7 +147,7 @@ namespace RepoCat.Transmission.Client
 
                 if (value is DateTime dt)
                 {
-                    outputParameters(propertyInfo.Name, dt.ToString("O"));
+                    outputParameters(propertyInfo.Name, dt.ToString("O", CultureInfo.InvariantCulture));
                 }
                 else
                 {
@@ -170,7 +171,7 @@ namespace RepoCat.Transmission.Client
         /// Parses a string with parameters in a '-key value' format
         /// </summary>
 
-        public static class Parser
+        private static class Parser
         {
             private static readonly Regex Splitter = new Regex(@"^-{1,2}|^/|=|:", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
