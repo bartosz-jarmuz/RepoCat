@@ -111,3 +111,12 @@
 .card.condensed{
     margin-bottom: 0.3rem;
 }
+
+.cm-tag, .cm-bracket, .cm-string, .cm-attribute {
+    font-weight: 100 !important;
+}
+
+.CodeMirror pre {
+    font-weight: 900 !important;
+    font-family: monospace !important;
+}   

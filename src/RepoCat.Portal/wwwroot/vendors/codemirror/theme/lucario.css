@@ -10,6 +10,9 @@
   color: #f8f8f2 !important;
   border: none;
 }
+.* {
+    color: red;
+}
 .cm-s-lucario .CodeMirror-gutters { color: #2b3e50; }
 .cm-s-lucario .CodeMirror-cursor { border-left: solid thin #E6C845; }
 .cm-s-lucario .CodeMirror-linenumber { color: #f8f8f2; }

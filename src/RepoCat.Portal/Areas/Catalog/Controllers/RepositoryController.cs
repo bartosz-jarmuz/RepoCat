@@ -86,10 +86,13 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         [HttpGet]
         public ViewResult AddProject()
         {
+            var empty = SampleManifestXmlProvider.GetEmptyProjectInfo();
+            empty.RepositoryInfo.RepositoryName = "MISC";
+            empty.RepositoryInfo.OrganizationName = "MISC";
             return this.View(new AddProjectModel()
             {
                 SampleManifestXml = SampleManifestXmlProvider.GetSampleProjectInfoSerialized()
-                ,EmptyManifestXml = SampleManifestXmlProvider.GetEmptyProjectInfoSerialized()
+                ,EmptyManifestXml = ManifestSerializer.SerializeProjectInfo(empty).ToString()
             });
         }
 
