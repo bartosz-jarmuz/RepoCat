@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
@@ -21,20 +22,35 @@ namespace RepoCat.RepositoryManagement.Service
 
         public async Task<ProjectInfo> Upsert(Transmission.Models.ProjectInfo projectInfo)
         {
-            RepositoryInfo mappedRepo = this.mapper.Map<RepositoryInfo>(projectInfo.RepositoryInfo);
-
-            RepositoryInfo repo = await this.database.UpsertUpdate(mappedRepo).ConfigureAwait(false);
-
-            ProjectInfo mappedProject = this.mapper.Map<ProjectInfo>(projectInfo);
-            mappedProject.RepositoryId = repo.Id;
-            
-            if (repo.RepositoryMode == RepositoryMode.Snapshot)
+            ProjectInfo mappedProject;
+            RepositoryInfo repo;
+            try
             {
-                return await this.database.Create(mappedProject).ConfigureAwait(false);
+                RepositoryInfo mappedRepo = this.mapper.Map<RepositoryInfo>(projectInfo.RepositoryInfo);
+                repo = await this.database.UpsertUpdate(mappedRepo).ConfigureAwait(false);
+                mappedProject = this.mapper.Map<ProjectInfo>(projectInfo);
             }
-            else
+            catch (Exception ex)
             {
-                return await this.database.Upsert(mappedProject).ConfigureAwait(false);
+                throw new InvalidOperationException("Mapping exception", ex);
+            }
+            mappedProject.RepositoryId = repo.Id;
+
+            try
+            {
+
+                if (repo.RepositoryMode == RepositoryMode.Snapshot)
+                {
+                    return await this.database.Create(mappedProject).ConfigureAwait(false);
+                }
+                else
+                {
+                    return await this.database.Upsert(mappedProject).ConfigureAwait(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Database write exception", ex);
             }
         }
 

@@ -46,10 +46,10 @@ namespace RepoCat.Portal.Controllers.api
                 return this.CreatedAtAction("Get", new { id = result.Id }, result);
             }
 #pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception)
+            catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
             {
-                return this.StatusCode(500);
+                return this.StatusCode(500, ex);
             }
         }
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RepoCat.Transmission.Models;
+using Exception = System.Exception;
 
 namespace RepoCat.Transmission.Client
 {
@@ -97,14 +98,24 @@ namespace RepoCat.Transmission.Client
                     }
                     else
                     {
+                        string response;
+                        try
+                        {
+                            response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        }
+                        catch (Exception ex)
+                        {
+                            response = "Error while reading http response content: " + ex;
+                        }
+
                         this.logger.Error(
-                            $"Error - [{result.StatusCode}] - [{result.ReasonPhrase}] - while sending [{info.ProjectName}].");
+                            $"Error - [{result.StatusCode}] - [{result.ReasonPhrase}] - while sending [{info.ProjectName}]. {response}");
                     }
                 }
             }
             catch (Exception ex)
             {
-                this.logger.Error($"Error while sending project info: {info.ProjectName}. {serialized}", ex);
+                this.logger.Error($"Unexpected error while sending project info: {info.ProjectName}. {serialized}", ex);
             }
 
         }
