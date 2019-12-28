@@ -84,6 +84,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// </summary>
         /// <returns>Task&lt;ViewResult&gt;.</returns>
         [HttpGet]
+        [Route("AddProject")]
         public ViewResult AddProject()
         {
             var empty = SampleManifestXmlProvider.GetEmptyProjectInfo();
@@ -102,6 +103,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <param name="project">The project.</param>
         /// <returns>Task&lt;IActionResult&gt;.</returns>
         [HttpPost]
+        [Route("AddProject")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Whatever is wrong, just display the error")]
 #pragma warning disable 1998
         public async Task<IActionResult> AddProject([FromBody] AddProjectModel project)

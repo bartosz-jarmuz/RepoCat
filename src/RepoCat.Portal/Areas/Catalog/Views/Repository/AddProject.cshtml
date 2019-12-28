@@ -198,7 +198,7 @@ else if (TempData["error"] != null)
                 $.ajax({
                     method: 'POST',
                     contentType : 'application/json',
-                    url: '@Url.Action("AddProject", "RepositoryController")',
+                    url: '@Url.Action("AddProject", "Repository")',
                     data: JSON.stringify(
                         { EmptyManifestXml: manifestEditor.getValue() }
                     )

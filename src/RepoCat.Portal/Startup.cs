@@ -40,7 +40,7 @@ namespace RepoCat.Portal
             services.AddScoped<IRepositoryManagementService, RepositoryManagementService>();
             ConfigureAutoMapper(services);
     
-            services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation(); 
+            services.AddMvc().AddNewtonsoftJson().AddRazorRuntimeCompilation(); 
             services.AddApplicationInsightsTelemetry();
 
         }
@@ -78,8 +78,9 @@ namespace RepoCat.Portal
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
+                endpoints.MapAreaControllerRoute(
                     name: "Catalog",
+                    areaName: "Catalog",
                     pattern: "{area=Catalog}/{controller=Search}/{action=Index}/{id?}");
 
                 endpoints.MapControllerRoute(
