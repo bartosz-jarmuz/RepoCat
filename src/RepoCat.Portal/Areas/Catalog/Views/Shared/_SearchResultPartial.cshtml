@@ -6,7 +6,10 @@
     <div class="row">
         <div class="col-md-12">
             <div id="searchResultsCard">
-                <h2>Search results:</h2>
+                <h2 style="display: inline;">
+                    Search result
+                </h2>
+                <a class="badge badge-light collapseAllToggle open" href="#">Collapse all</a>
                 <p>
                     <span><strong>@Model.RepositoryName</strong> - Found <strong>@Model.Projects.Count</strong> matches</span>
                     <span>
@@ -22,13 +25,13 @@
                                 <span>for </span>
                                 @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.OrganizationName, @Model.RepositoryName, token))"/>
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.OrganizationName, @Model.RepositoryName, token))" />
 
                                 }
                             }
                         }
                     </span>
-                
+
                     <span>in <strong>@(Model.Elapsed.TotalMilliseconds.ToString("N2"))ms</strong></span>
                 </p>
             </div>

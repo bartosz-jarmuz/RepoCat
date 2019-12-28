@@ -40,7 +40,7 @@ namespace RepoCat.Portal
             services.AddScoped<IRepositoryManagementService, RepositoryManagementService>();
             ConfigureAutoMapper(services);
     
-            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation(); 
             services.AddApplicationInsightsTelemetry();
 
         }

@@ -101,9 +101,10 @@ else
     </div>
 
 
-    <h2>
-        Projects list:
+    <h2 style="display: inline;">
+        Projects list
     </h2>
+    <a class="badge badge-light collapseAllToggle open" href="#">Collapse all</a>
     <div class="row">
         @foreach (ProjectInfoViewModel manifest in @Model.ProjectManifestViewModels)
         {

@@ -22,3 +22,16 @@ function getOrganizationFromKey(key) {
 function getRepositoryFromKey(key) {
     return key.split(":")[1];
 }
+
+$('.collapseAllToggle').click(function () {
+    if ($(this).hasClass('open')) {
+        $(this).removeClass('open')
+        $('div.collapse').removeClass('show');
+        $(this).text('Expand all')
+    } else {
+        $(this).addClass('open')
+        $('div.collapse').addClass('show');
+        $(this).text('Collapse all')
+
+    }
+});

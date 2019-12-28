@@ -107,3 +107,7 @@
     color: #000;
     font-size: 30px;
 }
+
+.card.condensed{
+    margin-bottom: 0.3rem;
+}

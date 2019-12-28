@@ -2,15 +2,12 @@
 @model ProjectInfoViewModel
 
 <div class="col-md-12">
-    <div class="card">
+    <div class="card condensed">
         <div class="card-header">
             <strong>@Model.ProjectName</strong> <span class="badge badge-secondary">@Model.OutputType</span>
             <div class="card-header-actions">
                 <a class="card-header-action btn-minimize" href="#" data-toggle="collapse" data-target="#@Model.GetIdentifier()" aria-expanded="true">
                     <i class="icon-arrow-up"></i>
-                </a>
-                <a class="card-header-action btn-close" href="#">
-                    <i class="icon-close"></i>
                 </a>
             </div>
         </div>
