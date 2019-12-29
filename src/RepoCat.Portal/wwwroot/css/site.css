@@ -45,8 +45,12 @@
 
 .project-card .component {
     position: relative;
-    padding: 1rem 1rem 1rem 2rem;
+    padding: 1rem 0rem 1rem 0rem;
     border-bottom: 1px solid #c8ced3
+}
+
+.project-card .component-main {
+    border-right: 1px solid #c8ced3
 }
 
 .project-card .component:hover {

@@ -30,32 +30,49 @@
                         <ul class="compontents-list">
                             @foreach (var component in Model.Components)
                             {
-                                <li class="component">
-                                    <div class="header">
-                                        <span class="component-label">Component name:&nbsp;</span>
-                                        <span> @component.Name</span>
+                            <li class="component">
+                                <div class="row">
+                                    <div class="col-md-9 component-main">
+
+                                        <div class="header">
+                                            <span class="component-label">Component name:&nbsp;</span>
+                                            <span> @component.Name</span>
+                                        </div>
+                                        <div>
+                                            <span class="component-label">Docs link:&nbsp;</span>
+                                            @if (!string.IsNullOrEmpty(component.DocumentationUri))
+                                            {
+                                                <a href="@component.DocumentationUri" target="_blank" class="help-link"> <i class="fa fa-external-link-alt"></i> @component.DocumentationUri</a>
+                                            }
+                                        </div>
+                                        <div>
+                                            <span class="component-label description">Description:&nbsp;</span>
+                                            <span class="description">
+                                                @component.Description
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="component-label">Tags:&nbsp;</span>
+                                            @foreach (var tag in @component.Tags)
+                                            {
+                                                <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.OrganizationName, @Model.RepositoryName, tag))" />
+                                            }
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span class="component-label">Docs link:&nbsp;</span>
-                                        @if (!string.IsNullOrEmpty(component.DocumentationUri))
-                                        {
-                                            <a href="@component.DocumentationUri" target="_blank" class="help-link"> <i class="fa fa-external-link-alt"></i> @component.DocumentationUri</a>
-                                        }
+                                    <div class="col-md-3">
+                                        <div class="">
+                                            <div class="component-label">Properties&nbsp;</div>
+                                            @foreach (var property in @component.Properties)
+                                            {
+                                                <span class="component-label description">@property.Key:&nbsp;</span>
+                                                <span class="description">
+                                                    @property.Value
+                                                </span>
+                                            }
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span class="component-label description">Description:&nbsp;</span>
-                                        <span class="description">
-                                            @component.Description
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span class="component-label">Tags:&nbsp;</span>
-                                        @foreach (var tag in @component.Tags)
-                                        {
-                                            <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.OrganizationName, @Model.RepositoryName, tag))"/>
-                                        }
-                                    </div>
-                                </li>
+                                </div>
+                            </li>
                             }
                         </ul>
                     </div>
