@@ -39,12 +39,23 @@ namespace RepoCat.Persistence.Service
         private void ConfigureIndexes()
         {
             IndexKeysDefinition<ProjectInfo> keys = Builders<ProjectInfo>.IndexKeys
-                    .Text($"$**")
-                ;
+                    .Text($"$**");
 
             CreateIndexModel<ProjectInfo> indexModel = new CreateIndexModel<ProjectInfo>(keys);
             
             this.projects.Indexes.CreateOne(indexModel);
+
+            this.repositories.Indexes.CreateOne(
+                new CreateIndexModel<RepositoryInfo>(
+                    Builders<RepositoryInfo>.IndexKeys
+                        .Ascending(r => r.OrganizationName)
+                        .Ascending(r => r.RepositoryName), new CreateIndexOptions()
+                    {
+                        Sparse = true,
+                        Unique = true
+                    }
+                )
+            );
         }
 
 

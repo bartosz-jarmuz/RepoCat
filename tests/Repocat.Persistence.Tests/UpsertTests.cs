@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
@@ -68,30 +69,43 @@ namespace Repocat.Persistence.Tests
         }
 
         [Test]
-        public async Task TestUpsertRepo_ShouldReturnTheSameId()
+        public async Task TestUpsertRepo_CannotAddSameTwice_ShouldReturnTheSameId()
         {
             RepositoryDatabase service = new RepositoryDatabase(Settings);
             string organizationOne = Guid.NewGuid().ToString();
             string repoOne = Guid.NewGuid().ToString();
+            RepositoryInfo repo = null;
+            RepositoryInfo repo2 = null;
 
-            //first add a new repository to a new organization
-            RepositoryInfo repo = await service.UpsertUpdate(new RepositoryInfo()
+            Task t1 = Task.Run(async () =>
             {
-                OrganizationName = organizationOne, 
-                RepositoryName = repoOne}
-            ).ConfigureAwait(false);
+                repo = await service.UpsertUpdate(new RepositoryInfo()
+                    {
+                        OrganizationName = organizationOne,
+                        RepositoryName = repoOne
+                    }
+                ).ConfigureAwait(false);
+                
+            });
+            Task t2 = Task.Run(async () =>
+            {
+                repo2 = await service.UpsertUpdate(new RepositoryInfo()
+                    {
+                        OrganizationName = organizationOne,
+                        RepositoryName = repoOne
+                    }
+                ).ConfigureAwait(false);
+            });
+            //add both repos pretty much at the same time
+            await Task.WhenAll(t1, t2);
+
+            repo.Should().NotBeNull("Because it should have been created by the tasks invoke");
 
             repo.Id.Should().NotBe(ObjectId.Empty);
+            repo.Id.Should().Be(repo2.Id, "because the same repository already exists");
 
-            //then add it again
-            RepositoryInfo repo2 = await service.UpsertUpdate(new RepositoryInfo()
-                {
-                    OrganizationName = organizationOne,
-                    RepositoryName = repoOne
-                }
-            ).ConfigureAwait(false);
-            repo2.Id.Should().Be(repo2.Id, "because the same repository already exists");
         }
+
 
         [Test]
         public async Task TestUpsertRepo_SnapshotModeSetFromStart()

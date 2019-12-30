@@ -68,8 +68,19 @@ namespace RepoCat.Persistence.Service
                 .SetOnInsert(x=>x.RepositoryName, repositoryInfo.RepositoryName)
                 .SetOnInsert(x=>x.RepositoryMode, repositoryInfo.RepositoryMode)
                 ;
-
-            return await this.repositories.FindOneAndUpdateAsync(repoNameFilter, updateDef, options).ConfigureAwait(false);
+            try
+            {
+                return await this.repositories.FindOneAndUpdateAsync(repoNameFilter, updateDef, options)
+                    .ConfigureAwait(false);
+            }
+            catch (MongoException)
+            {
+                //upsert might require a retry
+                //https://docs.mongodb.com/manual/reference/method/db.collection.findAndModify/#upsert-and-unique-index
+                //https://stackoverflow.com/questions/42752646/async-update-or-insert-mongodb-documents-using-net-driver
+                return await this.repositories.FindOneAndUpdateAsync(repoNameFilter, updateDef, options)
+                    .ConfigureAwait(false);
+            }
         }
 
     

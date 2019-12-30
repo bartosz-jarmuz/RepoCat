@@ -63,9 +63,18 @@ namespace RepoCat.Persistence.Service
                 IsUpsert = true,
                 ReturnDocument = ReturnDocument.After
             };
-            ProjectInfo result = await this.projects.FindOneAndReplaceAsync(repoNameFilter, prjInfo, options).ConfigureAwait(false);
+            try
+            {
+               return await this.projects.FindOneAndReplaceAsync(repoNameFilter, prjInfo, options).ConfigureAwait(false);
 
-            return result;
+            }
+            catch (MongoException)
+            {
+                //upsert might require a retry
+                //https://docs.mongodb.com/manual/reference/method/db.collection.findAndModify/#upsert-and-unique-index
+                //https://stackoverflow.com/questions/42752646/async-update-or-insert-mongodb-documents-using-net-driver
+                return await this.projects.FindOneAndReplaceAsync(repoNameFilter, prjInfo, options).ConfigureAwait(false);
+            }
         }
 
 

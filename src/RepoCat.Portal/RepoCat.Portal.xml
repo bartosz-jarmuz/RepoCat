@@ -16,6 +16,7 @@
             </summary>
             <param name="service">The repository management service.</param>
             <param name="mapper"></param>
+            <param name="telemetryClient"></param>
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.GetRepositoryNames">
             <summary>
@@ -440,6 +441,30 @@
             invoke as an asynchronous operation.
             </summary>
             <returns>Task&lt;IViewComponentResult&gt;.</returns>
+        </member>
+        <member name="T:RepoCat.Portal.Controllers.api.HealthcheckController">
+            <summary>
+            Handles healthcheck requests
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.api.HealthcheckController.#ctor(Microsoft.ApplicationInsights.TelemetryClient)">
+            <summary>
+            Handles healthcheck requests
+            </summary>
+            <param name="telemetryClient"></param>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.api.HealthcheckController.Ping">
+            <summary>
+            Is it alive?
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.api.HealthcheckController.ErrorNotification(System.Exception)">
+            <summary>
+            Is it alive?
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:RepoCat.Portal.Controllers.api.ManifestController">
             <summary>
