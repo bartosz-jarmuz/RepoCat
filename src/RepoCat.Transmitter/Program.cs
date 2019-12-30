@@ -1,13 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using log4net;
 using RepoCat.Transmission.Client;
 
-namespace RepoCat.Transmitter
+namespace RepoCat.Transmission.ConsoleClient
 {
     class Program
     {

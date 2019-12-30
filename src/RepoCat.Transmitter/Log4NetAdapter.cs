@@ -8,7 +8,7 @@ using System;
 using log4net;
 using RepoCat.Transmission.Client;
 
-namespace RepoCat.Transmitter
+namespace RepoCat.Transmission.ConsoleClient
 {
     /// <summary>
     /// Logger
