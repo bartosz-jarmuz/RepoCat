@@ -23,21 +23,22 @@ namespace RepoCat.RepositoryManagement.Service
         public async Task<ProjectInfo> Upsert(Transmission.Models.ProjectInfo projectInfo)
         {
             ProjectInfo mappedProject;
-            RepositoryInfo repo;
+            RepositoryInfo mappedRepo;
             try
             {
-                RepositoryInfo mappedRepo = this.mapper.Map<RepositoryInfo>(projectInfo.RepositoryInfo);
-                repo = await this.database.UpsertUpdate(mappedRepo).ConfigureAwait(false);
+                mappedRepo = this.mapper.Map<RepositoryInfo>(projectInfo.RepositoryInfo);
                 mappedProject = this.mapper.Map<ProjectInfo>(projectInfo);
             }
             catch (Exception ex)
             {
                 throw new InvalidOperationException("Mapping exception", ex);
             }
-            mappedProject.RepositoryId = repo.Id;
+          
 
             try
             {
+                RepositoryInfo repo = await this.database.UpsertUpdate(mappedRepo).ConfigureAwait(false);
+                mappedProject.RepositoryId = repo.Id;
 
                 if (repo.RepositoryMode == RepositoryMode.Snapshot)
                 {

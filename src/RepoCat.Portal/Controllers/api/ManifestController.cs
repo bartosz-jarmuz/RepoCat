@@ -48,8 +48,8 @@ namespace RepoCat.Portal.Controllers.api
             this.telemetryClient.TrackEvent(Names.AddingProjectInfo, new Dictionary<string, string>()
             {
                 {PropertyKeys.ProjectName, projectInfo.ProjectName},
-                {PropertyKeys.OrganizationName, projectInfo.RepositoryInfo?.OrganizationName},
-                {PropertyKeys.RepositoryName, projectInfo.RepositoryInfo?.RepositoryName}
+                {PropertyKeys.OrganizationName, projectInfo.RepositoryInfo?.OrganizationName??""},
+                {PropertyKeys.RepositoryName, projectInfo.RepositoryInfo?.RepositoryName??""}
             });
 
            
