@@ -10,7 +10,7 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,AutoMapper.IMapper)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,AutoMapper.IMapper,Microsoft.ApplicationInsights.TelemetryClient)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController"/> class.
             </summary>
@@ -447,11 +447,12 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Controllers.api.ManifestController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService)">
+        <member name="M:RepoCat.Portal.Controllers.api.ManifestController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,Microsoft.ApplicationInsights.TelemetryClient)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Controllers.api.ManifestController"/> class.
             </summary>
             <param name="repositoryManagementService"></param>
+            <param name="telemetryClient"></param>
         </member>
         <member name="M:RepoCat.Portal.Controllers.api.ManifestController.Post(RepoCat.Transmission.Models.ProjectInfo)">
             <summary>

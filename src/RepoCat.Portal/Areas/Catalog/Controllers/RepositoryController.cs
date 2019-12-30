@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using AutoMapper;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
@@ -12,6 +13,7 @@ using RepoCat.Portal.Utilities;
 using RepoCat.Schemas;
 using RepoCat.Persistence.Models;
 using RepoCat.RepositoryManagement.Service;
+using RepoCat.Telemetry;
 using RepoCat.Transmission.Client;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
@@ -26,16 +28,18 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
     {
         private readonly IRepositoryManagementService service;
         private readonly IMapper mapper;
+        private readonly TelemetryClient telemetryClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RepositoryController"/> class.
         /// </summary>
         /// <param name="service">The repository management service.</param>
         /// <param name="mapper"></param>
-        public RepositoryController(IRepositoryManagementService service, IMapper mapper)
+        public RepositoryController(IRepositoryManagementService service, IMapper mapper, TelemetryClient telemetryClient)
         {
             this.service = service;
             this.mapper = mapper;
+            this.telemetryClient = telemetryClient;
         }
 
         /// <summary>
@@ -60,6 +64,12 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             {
                 RepositoryName = repositoryName
             };
+
+            this.telemetryClient.TrackEvent(Names.ViewRepository, new Dictionary<string, string>()
+            {
+                {PropertyKeys.RepositoryName, repositoryName},
+                {PropertyKeys.OrganizationName, organizationName}
+            });
 
             ManifestQueryResult result = await this.service.GetAllCurrentProjects(organizationName, repositoryName).ConfigureAwait(false);
             List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects);

@@ -52,6 +52,7 @@
     <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj" />
     <ProjectReference Include="..\RepoCat.RepositoryManagement.Service\RepoCat.RepositoryManagement.Service.csproj" />
     <ProjectReference Include="..\RepoCat.Schemas\RepoCat.Schemas.csproj" />
+    <ProjectReference Include="..\RepoCat.Telemetry\RepoCat.Telemetry.csproj" />
     <ProjectReference Include="..\RepoCat.Transmission.Client\RepoCat.Transmission.Client.csproj" />
   </ItemGroup>
 

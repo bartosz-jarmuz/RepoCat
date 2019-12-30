@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using RepoCat.RepositoryManagement.Service;
+using RepoCat.Telemetry;
 using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
 
 namespace RepoCat.Portal.Controllers.api
@@ -17,14 +20,17 @@ namespace RepoCat.Portal.Controllers.api
     public class ManifestController : Controller
     {
         private readonly IRepositoryManagementService service;
+        private readonly TelemetryClient telemetryClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManifestController"/> class.
         /// </summary>
         /// <param name="repositoryManagementService"></param>
-        public ManifestController(IRepositoryManagementService repositoryManagementService)
+        /// <param name="telemetryClient"></param>
+        public ManifestController(IRepositoryManagementService repositoryManagementService, TelemetryClient telemetryClient)
         {
             this.service = repositoryManagementService;
+            this.telemetryClient = telemetryClient;
         }
 
         /// <summary>
@@ -39,6 +45,12 @@ namespace RepoCat.Portal.Controllers.api
             {
                 return this.BadRequest("Project info is null");
             }
+            this.telemetryClient.TrackEvent(Names.AddingProjectInfo, new Dictionary<string, string>()
+            {
+                {PropertyKeys.ProjectName, projectInfo.ProjectName},
+                {PropertyKeys.OrganizationName, projectInfo.RepositoryInfo?.OrganizationName},
+                {PropertyKeys.RepositoryName, projectInfo.RepositoryInfo?.RepositoryName}
+            });
 
             try
             {
@@ -49,6 +61,10 @@ namespace RepoCat.Portal.Controllers.api
             catch (Exception ex)
 #pragma warning restore CA1031 // Do not catch general exception types
             {
+                this.telemetryClient.TrackException(ex, new Dictionary<string, string>()
+                {
+                    {PropertyKeys.OperationName, Names.AddingProjectInfo},
+                });
                 return this.StatusCode(500, ex);
             }
         }
