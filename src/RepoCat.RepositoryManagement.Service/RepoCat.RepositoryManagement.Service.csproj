@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RepoCat.Models.Manifests\RepoCat.Persistence.Models.csproj" />
     <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj" />
+    <ProjectReference Include="..\RepoCat.Telemetry\RepoCat.Telemetry.csproj" />
     <ProjectReference Include="..\RepoCat.Web.Persistence\RepoCat.Persistence.Service.csproj" />
   </ItemGroup>
 

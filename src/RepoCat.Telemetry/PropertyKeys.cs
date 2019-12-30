@@ -11,6 +11,9 @@ namespace RepoCat.Telemetry
         public static string RepositoryName => "RepositoryName";
         public static string OrganizationName => "OrganizationName";
         public static string ProjectName => "ProjectName";
-        public static string OperationName => "OperationName";
+        public static string RepositoryMode => "RepositoryMode";
+        public static string Id => "Id";
+        public static string ProjectUri => "ProjectUri";
+        public static string RepositoryId => "RepositoryId";
     }
 }

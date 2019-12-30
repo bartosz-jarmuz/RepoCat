@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using AutoMapper;
+using Microsoft.ApplicationInsights;
 using MongoDB.Driver;
 
 namespace RepoCat.RepositoryManagement.Service
@@ -12,12 +13,13 @@ namespace RepoCat.RepositoryManagement.Service
     {
         private readonly RepositoryDatabase database;
         private readonly IMapper mapper;
+        private readonly TelemetryClient telemetryClient;
 
-        public RepositoryManagementService(RepositoryDatabase database, IMapper mapper)
+        public RepositoryManagementService(RepositoryDatabase database, IMapper mapper, TelemetryClient telemetryClient)
         {
             this.database = database;
             this.mapper = mapper;
-
+            this.telemetryClient = telemetryClient;
         }
 
         public async Task<ProjectInfo> Upsert(Transmission.Models.ProjectInfo projectInfo)
@@ -38,16 +40,21 @@ namespace RepoCat.RepositoryManagement.Service
             try
             {
                 RepositoryInfo repo = await this.database.UpsertUpdate(mappedRepo).ConfigureAwait(false);
-                mappedProject.RepositoryId = repo.Id;
+                repo.TrackUpserted(this.telemetryClient);
 
+                mappedProject.RepositoryId = repo.Id;
+                ProjectInfo project;
                 if (repo.RepositoryMode == RepositoryMode.Snapshot)
                 {
-                    return await this.database.Create(mappedProject).ConfigureAwait(false);
+                    project= await this.database.Create(mappedProject).ConfigureAwait(false);
                 }
                 else
                 {
-                    return await this.database.Upsert(mappedProject).ConfigureAwait(false);
+                    project = await this.database.Upsert(mappedProject).ConfigureAwait(false);
                 }
+                project.TrackUpserted(this.telemetryClient);
+                return project;
+
             }
             catch (Exception ex)
             {
