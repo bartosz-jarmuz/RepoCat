@@ -35,6 +35,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// </summary>
         /// <param name="service">The repository management service.</param>
         /// <param name="mapper"></param>
+        /// <param name="telemetryClient"></param>
         public RepositoryController(IRepositoryManagementService service, IMapper mapper, TelemetryClient telemetryClient)
         {
             this.service = service;

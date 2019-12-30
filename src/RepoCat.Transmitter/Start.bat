@@ -1,2 +1,2 @@
-".\bin\Debug\RepoCat.Transmitter.exe" --CodeRootFolder=c:\code\PS\Current\ --ApiBaseUri=http://psrepocat01.development.sheffield.sdl.corp/ --OrganizationName="Professional Services" --RepositoryName="PS TFS Current"
+".\bin\Debug\RepoCat.Transmitter.exe" --CodeRootFolder=c:\code\PS\Current\ --ApiBaseUri=http://psrepocat01.development.sheffield.sdl.corp/ --OrganizationName="Test" --RepositoryName="Test PS TFS Current"
 pause
