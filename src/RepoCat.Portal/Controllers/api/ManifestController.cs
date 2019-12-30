@@ -52,21 +52,10 @@ namespace RepoCat.Portal.Controllers.api
                 {PropertyKeys.RepositoryName, projectInfo.RepositoryInfo?.RepositoryName}
             });
 
-            try
-            {
-                ProjectInfo result = await this.service.Upsert(projectInfo).ConfigureAwait(false);
-                return this.CreatedAtAction("Get", new { id = result.Id }, result);
-            }
-#pragma warning disable CA1031 // Do not catch general exception types
-            catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
-            {
-                this.telemetryClient.TrackException(ex, new Dictionary<string, string>()
-                {
-                    {PropertyKeys.OperationName, Names.AddingProjectInfo},
-                });
-                return this.StatusCode(500, ex);
-            }
+           
+            ProjectInfo result = await this.service.Upsert(projectInfo).ConfigureAwait(false);
+            return this.CreatedAtAction("Get", new { id = result.Id }, result);
+          
         }
 
         /// <summary>
