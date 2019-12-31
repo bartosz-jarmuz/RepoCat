@@ -46,7 +46,9 @@ namespace RepoCat.Portal.Mapping
                 .ForMember(x=>x.RepositoryId, o=>o.Ignore())
                 .ForMember(x=>x.AddedDateTime, o=>o.Ignore());
             this.CreateMap<Transmission.Models.ComponentManifest, ComponentManifest>();
-            this.CreateMap<Transmission.Models.RepositoryInfo, RepositoryInfo>();
+            this.CreateMap<Transmission.Models.RepositoryInfo, RepositoryInfo>()
+                .ForMember(x => x.Id, o => o.Ignore())
+                ;
 
         }
     }

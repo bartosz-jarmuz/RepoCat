@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
+using Microsoft.ApplicationInsights;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using NUnit.Framework;
@@ -48,9 +49,15 @@ namespace Repocat.Persistence.Tests
 
         };
 
+        private TelemetryClient telemetryClient;
+
+
+       
+
         [SetUp]
         public void SetUp()
         {
+            this.telemetryClient = TelemetryMock.InitializeMockTelemetryClient();
             MongoClient client = new MongoClient(Settings.ConnectionString);
             client.DropDatabase(Settings.DatabaseName);
 
@@ -177,7 +184,7 @@ namespace Repocat.Persistence.Tests
         public async Task TestUpsertProject_DefaultRepo_ShouldReturnUpdatedProjects()
         {
             RepositoryDatabase database = new RepositoryDatabase(Settings);
-            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()));
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), this.telemetryClient);
             var allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
             allProjects.Projects.Count.Should().Be(0, "because there are no projects yet");
 
@@ -268,7 +275,7 @@ namespace Repocat.Persistence.Tests
         public async Task TestUpsertProject_SnapshotRepo_ShouldOnlyReturnLastProjects()
         {
             RepositoryDatabase database = new RepositoryDatabase(Settings);
-            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()));
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), this.telemetryClient);
             
             await SetSnapshotMode(database, this.testRepoOne).ConfigureAwait(false);
 

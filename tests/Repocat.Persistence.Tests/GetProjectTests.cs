@@ -138,7 +138,7 @@ namespace Repocat.Persistence.Tests
             }
 
             RepositoryDatabase database = new RepositoryDatabase(Settings);
-            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()));
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
 
             var prj = new RepoCat.Transmission.Models.ProjectInfo()
             {
