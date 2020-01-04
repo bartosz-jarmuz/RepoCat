@@ -47,6 +47,7 @@ namespace RepoCat.Portal.Utilities
                 TargetExtension = " ",
                 OutputType = " ",
                 ProjectUri = " ",
+                DownloadLocation = " ",
                 RepositoryStamp = " ",
                 RepositoryInfo = new RepositoryInfo()
                 {
@@ -89,6 +90,7 @@ namespace RepoCat.Portal.Utilities
                 TargetExtension = ".dll",
                 OutputType = "Library",
                 ProjectUri = "//local/or/remote/path/to/project.csproj",
+                DownloadLocation = "//networkshare/or/url/path/to/program",
                 RepositoryInfo = new RepositoryInfo()
                 {
                     RepositoryName = "CoolProjects",
