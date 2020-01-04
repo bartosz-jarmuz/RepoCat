@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Models;
+using RepoCat.RepositoryManagement.Service;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
 {
@@ -19,16 +21,18 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
     {
         private readonly RepositoryDatabase repositoryDatabase;
         private readonly IMapper mapper;
+        private readonly TelemetryClient telemetryClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchController"/> class.
         /// </summary>
         /// <param name="repositoryDatabase">The manifests service.</param>
         /// <param name="mapper">The mapper.</param>
-        public SearchController(RepositoryDatabase repositoryDatabase, IMapper mapper)
+        public SearchController(RepositoryDatabase repositoryDatabase, IMapper mapper, TelemetryClient telemetryClient)
         {
             this.repositoryDatabase = repositoryDatabase;
             this.mapper = mapper;
+            this.telemetryClient = telemetryClient;
         }
 
         /// <summary>
@@ -76,7 +80,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         public async Task<PartialViewResult> Search(string organizationName, string repositoryName, string query, bool isRegex)
         {
             ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(organizationName, repositoryName, query, isRegex).ConfigureAwait(false);
-
+            this.telemetryClient.TrackSearch(organizationName, repositoryName, query, isRegex);
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
 

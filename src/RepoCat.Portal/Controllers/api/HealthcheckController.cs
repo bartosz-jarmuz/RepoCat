@@ -8,6 +8,7 @@ using System;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Mvc;
+using RepoCat.Telemetry;
 
 namespace RepoCat.Portal.Controllers.api
 {

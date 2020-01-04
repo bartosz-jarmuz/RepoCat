@@ -11,6 +11,11 @@ namespace RepoCat.Portal.Areas.Catalog.Models
     public class ProjectInfoViewModel
     {
         /// <summary>
+        /// The Id of the project
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the repository.
         /// </summary>
         /// <value>The name of the repository.</value>
@@ -55,6 +60,11 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The type of the output.</value>
         public string OutputType { get; set; }
+
+        /// <summary>
+        /// The download location
+        /// </summary>
+        public string DownloadLocation { get; set; }
         /// <summary>
         /// Gets or sets the components.
         /// </summary>

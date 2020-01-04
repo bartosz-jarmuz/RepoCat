@@ -83,6 +83,13 @@
             </summary>
             <value>The name of the assembly.</value>
         </member>
+        <member name="P:RepoCat.Transmission.Models.ProjectInfo.DownloadLocation">
+            <summary>
+            Gets a location from which the file should be downloadable.
+            The location should be accessible to user (if not the RepoCat webapp).
+            Either URL or file path
+            </summary>
+        </member>
         <member name="P:RepoCat.Transmission.Models.ProjectInfo.OutputType">
             <summary>
             Gets or sets the type of the project output (class library, windows app etc)

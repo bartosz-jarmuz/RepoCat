@@ -6,6 +6,7 @@ using RepoCat.Persistence.Service;
 using AutoMapper;
 using Microsoft.ApplicationInsights;
 using MongoDB.Driver;
+using RepoCat.Telemetry;
 
 namespace RepoCat.RepositoryManagement.Service
 {
@@ -40,7 +41,7 @@ namespace RepoCat.RepositoryManagement.Service
             try
             {
                 RepositoryInfo repo = await this.database.UpsertUpdate(mappedRepo).ConfigureAwait(false);
-                repo.TrackUpserted(this.telemetryClient);
+                this.telemetryClient.TrackUpserted(repo);
 
                 mappedProject.RepositoryId = repo.Id;
                 ProjectInfo project;
@@ -52,7 +53,8 @@ namespace RepoCat.RepositoryManagement.Service
                 {
                     project = await this.database.Upsert(mappedProject).ConfigureAwait(false);
                 }
-                project.TrackUpserted(this.telemetryClient);
+
+                this.telemetryClient.TrackUpserted(project);
                 return project;
 
             }

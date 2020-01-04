@@ -45,7 +45,8 @@ namespace RepoCat.Portal.Controllers.api
             {
                 return this.BadRequest("Project info is null");
             }
-            projectInfo.TrackAdding(this.telemetryClient);
+
+            this.telemetryClient.TrackAdding(projectInfo);
 
             ProjectInfo result = await this.service.Upsert(projectInfo).ConfigureAwait(false);
             return this.CreatedAtAction("Get", new { id = result.Id }, result);

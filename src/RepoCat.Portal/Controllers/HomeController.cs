@@ -8,6 +8,7 @@ namespace RepoCat.Portal.Controllers
     /// Class HomeController.
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
+    [Route("Home")]
     public class HomeController : Controller
     {
 
@@ -22,6 +23,8 @@ namespace RepoCat.Portal.Controllers
         /// Abouts this instance.
         /// </summary>
         /// <returns>IActionResult.</returns>
+    [Route("About")]
+
         public IActionResult About()
         {
             return this.View();
@@ -32,7 +35,9 @@ namespace RepoCat.Portal.Controllers
         /// Errors this instance.
         /// </summary>
         /// <returns>IActionResult.</returns>
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    [Route("Error")]
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });

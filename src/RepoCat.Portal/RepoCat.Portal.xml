@@ -51,7 +51,7 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(RepoCat.Persistence.Service.RepositoryDatabase,AutoMapper.IMapper)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(RepoCat.Persistence.Service.RepositoryDatabase,AutoMapper.IMapper,Microsoft.ApplicationInsights.TelemetryClient)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Controllers.SearchController"/> class.
             </summary>
@@ -257,6 +257,11 @@
             Class ProjectInfoViewModel.
             </summary>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.Id">
+            <summary>
+            The Id of the project
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.RepositoryName">
             <summary>
             Gets or sets the name of the repository.
@@ -309,6 +314,11 @@
             Gets or sets the type of the output.
             </summary>
             <value>The type of the output.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.DownloadLocation">
+            <summary>
+            The download location
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.Components">
             <summary>
@@ -441,6 +451,26 @@
             invoke as an asynchronous operation.
             </summary>
             <returns>Task&lt;IViewComponentResult&gt;.</returns>
+        </member>
+        <member name="T:RepoCat.Portal.Controllers.api.DownloadController">
+            <summary>
+            Handles requests related to project manifests
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.api.DownloadController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,Microsoft.ApplicationInsights.TelemetryClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Controllers.api.ManifestController"/> class.
+            </summary>
+            <param name="repositoryManagementService"></param>
+            <param name="telemetryClient"></param>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.api.DownloadController.Download(System.String)">
+            <summary>
+            Gets the project info with specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>ProjectInfo.</returns>
         </member>
         <member name="T:RepoCat.Portal.Controllers.api.HealthcheckController">
             <summary>

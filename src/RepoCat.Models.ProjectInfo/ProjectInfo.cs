@@ -32,6 +32,13 @@ namespace RepoCat.Transmission.Models
                               /// <value>The name of the assembly.</value>
         public string AssemblyName { get; set; }
 
+          /// <summary>
+          /// Gets a location from which the file should be downloadable.
+          /// The location should be accessible to user (if not the RepoCat webapp).
+          /// Either URL or file path
+          /// </summary>
+          public string DownloadLocation { get; set; }
+
         /// <summary>
         /// Gets or sets the type of the project output (class library, windows app etc)
         /// </summary>

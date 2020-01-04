@@ -66,11 +66,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
                 RepositoryName = repositoryName
             };
 
-            this.telemetryClient.TrackEvent(Names.ViewRepository, new Dictionary<string, string>()
-            {
-                {PropertyKeys.RepositoryName, repositoryName},
-                {PropertyKeys.OrganizationName, organizationName}
-            });
+            this.telemetryClient.TrackViewRepository( organizationName, repositoryName);
 
             ManifestQueryResult result = await this.service.GetAllCurrentProjects(organizationName, repositoryName).ConfigureAwait(false);
             List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects);

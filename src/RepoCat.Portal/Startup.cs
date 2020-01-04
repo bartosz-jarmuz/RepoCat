@@ -78,15 +78,15 @@ namespace RepoCat.Portal
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapAreaControllerRoute(
                     name: "Catalog",
                     areaName: "Catalog",
                     pattern: "{area=Catalog}/{controller=Search}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action}/{id?}");
+              
             });
+
+
         }
 
         

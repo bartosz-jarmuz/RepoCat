@@ -23,6 +23,12 @@
                             <dd>@Model.GetOutputFileName()</dd>
                             <dt>Project path:</dt>
                             <dd class="project-path">@Model.ProjectUri</dd>
+                            @if (!string.IsNullOrEmpty(Model.DownloadLocation))
+                            {
+                                <dt>Download from:</dt>
+                                <dd class="project-path">@Html.ActionLink(Model.DownloadLocation, "Download", "Download", new { id = Model.Id })</dd>
+                            }
+
                         </dl>
 
                     </div>

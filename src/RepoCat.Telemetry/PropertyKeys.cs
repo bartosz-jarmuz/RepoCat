@@ -8,6 +8,10 @@ namespace RepoCat.Telemetry
 {
     public static class PropertyKeys
     {
+        public static string FileSize => "FileSize";
+        public static string IsRegex => "IsRegex";
+        public static string Query => "Query";
+        public static string IsLocal => "IsLocal";
         public static string RepositoryName => "RepositoryName";
         public static string OrganizationName => "OrganizationName";
         public static string ProjectName => "ProjectName";
