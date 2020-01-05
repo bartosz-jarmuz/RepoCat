@@ -59,42 +59,6 @@ namespace RepoCat.Persistence.Service
         }
 
 
-        [SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Predicate building does not support StringComparison enum")]
-        private static FilterDefinition<RepositoryInfo> BuildRepositoryFilter(string organizationName, string repositoryName)
-        {
-            FilterDefinition<RepositoryInfo> repoNameFilter =
-                Builders<RepositoryInfo>.Filter.Where(x =>
-                    x.RepositoryName.ToUpperInvariant() == repositoryName.ToUpperInvariant()
-                    && x.OrganizationName.ToUpperInvariant() == organizationName.ToUpperInvariant()
-                );
-            return repoNameFilter;
-        }
-
-
-        private static FilterDefinition<ProjectInfo> BuildTextFilter(string query, bool isRegex)
-        {
-            if (!isRegex)
-            {
-                return Builders<ProjectInfo>.Filter.Text(query);
-            }
-            else
-            {
-                BsonRegularExpression regex = new BsonRegularExpression(new System.Text.RegularExpressions.Regex(query,
-                    System.Text.RegularExpressions.RegexOptions.IgnoreCase));
-                return Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Tags)),
-                           regex)
-                       | Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Name)),
-                           regex)
-                       | Builders<ProjectInfo>.Filter.Regex(x => x.AssemblyName, regex)
-                       | Builders<ProjectInfo>.Filter.Regex(x => x.ProjectName, regex)
-                       | Builders<ProjectInfo>.Filter.Regex(x => x.TargetExtension, regex);
-            }
-        }
-
-        private static string GetComponentFieldName(string field)
-        {
-            return nameof(ProjectInfo.Components) + "." + field;
-        }
 
       
     }

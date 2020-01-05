@@ -21,12 +21,6 @@
             Allows access to the stored Manifests data
             </summary>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAll">
-            <summary>
-            Gets all items
-            </summary>
-            <returns>List&lt;ProjectInfo&gt;.</returns>
-        </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetById(System.String)">
             <summary>
             Gets the item with specified ID.
@@ -34,27 +28,21 @@
             <param name="id">The identifier.</param>
             <returns>ProjectInfo.</returns>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAllCurrentProjects(RepoCat.Persistence.Models.RepositoryInfo)">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo},System.String,System.Boolean)">
             <summary>
-            Gets all projects for the latest version of a given repository.
+            
             </summary>
-            <returns>Task&lt;ManifestQueryResult&gt;.</returns>
+            <param name="repos"></param>
+            <param name="query"></param>
+            <param name="isRegex"></param>
+            <returns></returns>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAllCurrentProjects(System.String,System.String)">
-            <summary>
-            Gets all projects for the latest version of a given repository.
-            </summary>
-            <param name="organizationName">Name of the organization which holds the repository</param>
-            <param name="repositoryName">Name of the repository.</param>
-            <returns>Task&lt;ManifestQueryResult&gt;.</returns>
-        </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryQueryParameter},System.String,System.Boolean)">
             <summary>
             Gets all projects for the latest version of a given repository matching specified search parameters
             </summary>
-            <param name="organizationName">Name of the organization which holds the repository</param>
-            <param name="repositoryName">Name of the repository.</param>
-            <param name="query">The string to search by</param>
+            <param name="repositoryParams">List of key value pairs - Organization and Repository name</param>
+            <param name="query">The string to search by. Set to null, empty or * to ignore the query</param>
             <param name="isRegex">Specify whether the search string is a Regex</param>
             <returns>Task&lt;ManifestQueryResult&gt;.</returns>
         </member>
@@ -64,12 +52,6 @@
             </summary>
             <param name="query"></param>
             <param name="isRegex"></param>
-            <returns></returns>
-        </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetProjects(MongoDB.Driver.FilterDefinition{RepoCat.Persistence.Models.ProjectInfo})">
-            <summary>
-            Gets projects matching the query from all repositories in all organizations
-            </summary>
             <returns></returns>
         </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Create(RepoCat.Persistence.Models.ProjectInfo)">
@@ -111,12 +93,6 @@
             </summary>
             <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns> 
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAllRepositoriesGrouped">
-            <summary>
-            Gets repositories grouped per organization name
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetRepository(System.String,System.String)">
             <summary>
             Gets a repository by the specified name and organization name
@@ -157,6 +133,15 @@
             Initializes a new instance of the <see cref="T:RepoCat.Persistence.Service.RepositoryDatabase"/> class.
             </summary>
             <param name="settings">The settings.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepoCatFilterBuilder.AppendNewestStampFilterIfNeeded(MongoDB.Driver.IMongoCollection{RepoCat.Persistence.Models.ProjectInfo},MongoDB.Driver.FilterDefinition{RepoCat.Persistence.Models.ProjectInfo},RepoCat.Persistence.Models.RepositoryInfo)">
+            <summary>
+            If the repository is in snapshot mode, add the filter that selects entries from latest version only
+            </summary>
+            <param name="projects"></param>
+            <param name="filter"></param>
+            <param name="repository"></param>
+            <returns></returns>
         </member>
         <member name="T:RepoCat.Persistence.Service.IRepoCatDbSettings">
             <summary>

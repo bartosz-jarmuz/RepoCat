@@ -9,7 +9,6 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using RepoCat.Persistence.Models;
-using RepoCat.Utilities;
 
 namespace RepoCat.Persistence.Service
 {
@@ -18,15 +17,6 @@ namespace RepoCat.Persistence.Service
     /// </summary>
     public partial class RepositoryDatabase
     {
-
-        /// <summary>
-        /// Gets all items
-        /// </summary>
-        /// <returns>List&lt;ProjectInfo&gt;.</returns>
-        public IFindFluent<ProjectInfo, ProjectInfo> GetAll()
-        {
-            return this.projects.Find(FilterDefinition<ProjectInfo>.Empty);
-        }
 
         /// <summary>
         /// Gets the item with specified ID.
@@ -38,100 +28,50 @@ namespace RepoCat.Persistence.Service
             return await (await this.projects.FindAsync<ProjectInfo>(manifest => manifest.Id == ObjectId.Parse(id)).ConfigureAwait(false)).FirstOrDefaultAsync().ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// Gets all projects for the latest version of a given repository.
-        /// </summary>
-        /// <returns>Task&lt;ManifestQueryResult&gt;.</returns>
-        public Task<ManifestQueryResult> GetAllCurrentProjects(RepositoryInfo repository)
-        {
-            if (repository == null) throw new ArgumentNullException(nameof(repository));
-
-            return this.GetAllCurrentProjects(repository.OrganizationName, repository.RepositoryName);
-        }
 
         /// <summary>
-        /// Gets all projects for the latest version of a given repository.
+        /// 
         /// </summary>
-        /// <param name="organizationName">Name of the organization which holds the repository</param>
-        /// <param name="repositoryName">Name of the repository.</param>
-        /// <returns>Task&lt;ManifestQueryResult&gt;.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Predicates do not support StringComparison enum")]
-        public async Task<ManifestQueryResult> GetAllCurrentProjects(string organizationName, string repositoryName)
+        /// <param name="repos"></param>
+        /// <param name="query"></param>
+        /// <param name="isRegex"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Project>> GetCurrentProjects(IEnumerable<RepositoryInfo> repos, string query, bool isRegex)
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
-
-            RepositoryInfo repo = await this.GetRepository(organizationName, repositoryName).ConfigureAwait(false);
-
-            FilterDefinition<ProjectInfo> projectFilter =
-                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryId.Equals(repo.Id));
-
-            (string newestStamp, FilterDefinition<ProjectInfo> filter) filter = await this.GetNewestStampFilter(projectFilter, repo.RepositoryMode).ConfigureAwait(false);
-
-            List<Project> list = (await this.GetProjects(filter.filter).ConfigureAwait(false)).ToList();
-
-            stopwatch.Stop();
-
-            return new ManifestQueryResult(list)
+            var tasks = new List<Task<IEnumerable<Project>>>();
+            if (repos != null)
             {
-                OrganizationName = repo.OrganizationName,
-                RepositoryName = repo.RepositoryName,
-                RepositoryStamp = filter.newestStamp,
-                Elapsed = stopwatch.Elapsed,
-            };
+                foreach (RepositoryInfo repositoryInfo in repos)
+                {
+                    tasks.Add(this.GetProjects(repositoryInfo, query, isRegex));
+                }
+            }
+
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+            return tasks.SelectMany(x => x.Result);
+
         }
 
         /// <summary>
         /// Gets all projects for the latest version of a given repository matching specified search parameters
         /// </summary>
-        /// <param name="organizationName">Name of the organization which holds the repository</param>
-        /// <param name="repositoryName">Name of the repository.</param>
-        /// <param name="query">The string to search by</param>
+        /// <param name="repositoryParams">List of key value pairs - Organization and Repository name</param>
+        /// <param name="query">The string to search by. Set to null, empty or * to ignore the query</param>
         /// <param name="isRegex">Specify whether the search string is a Regex</param>
         /// <returns>Task&lt;ManifestQueryResult&gt;.</returns>
-        public async Task<ManifestQueryResult> GetCurrentProjects(string organizationName, string repositoryName, string query, bool isRegex)
+        public async Task<IEnumerable<Project>> GetCurrentProjects(IEnumerable<RepositoryQueryParameter> repositoryParams, string query, bool isRegex)
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
+            if (repositoryParams == null) throw new ArgumentNullException(nameof(repositoryParams));
 
-            RepositoryInfo repo = await this.GetRepository(organizationName, repositoryName).ConfigureAwait(false);
-
-            FilterDefinition<ProjectInfo> projectFilter = Builders<ProjectInfo>.Filter.Where(x => x.RepositoryId.Equals(repo.Id));
-
-            (string newestStamp, FilterDefinition<ProjectInfo> filter) filter = await this.GetNewestStampFilter(projectFilter, repo.RepositoryMode).ConfigureAwait(false);
-
-
-            if (!string.IsNullOrEmpty(query))
+            var tasks = new List<Task<RepositoryInfo>>();
+            foreach (RepositoryQueryParameter repositoryParam in repositoryParams)
             {
-                projectFilter = filter.filter & BuildTextFilter(query, isRegex);
+                 tasks.Add(this.GetRepository(repositoryParam.OrganizationName, repositoryParam.RepositoryName));
             }
 
-            List<Project> list = (await this.GetProjects(projectFilter).ConfigureAwait(false)).ToList();
+            await Task.WhenAll(tasks).ConfigureAwait(false);
 
-            stopwatch.Stop();
-            return new ManifestQueryResult(list)
-            {
-                OrganizationName = repo.OrganizationName,
-                RepositoryName = repo.RepositoryName,
-                RepositoryStamp = filter.newestStamp,
-                Elapsed = stopwatch.Elapsed,
-                IsRegex = isRegex,
-                QueryString = query
-            };
-        }
-        private async Task<(string newestStamp, FilterDefinition<ProjectInfo> filter)> GetNewestStampFilter(
-            FilterDefinition<ProjectInfo> projectFilter, RepositoryMode repositoryMode)
-        {
-            List<string> stamps =
-                await (await this.projects.DistinctAsync(x => x.RepositoryStamp, projectFilter).ConfigureAwait(false))
-                    .ToListAsync().ConfigureAwait(false);
-            string newestStamp = StampSorter.GetNewestStamp(stamps);
-
-            if (repositoryMode == RepositoryMode.Snapshot)
-            {
-                projectFilter = projectFilter &
-                                Builders<ProjectInfo>.Filter.Where(x => x.RepositoryStamp == newestStamp);
-            }
-
-            return (newestStamp, projectFilter);
+            return await this.GetCurrentProjects(tasks.Select(x=>x.Result), query, isRegex).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -142,16 +82,18 @@ namespace RepoCat.Persistence.Service
         /// <returns></returns>
         public Task<IEnumerable<Project>> GetProjectsByQuery(string query, bool isRegex)
         {
-            FilterDefinition<ProjectInfo> filter = BuildTextFilter(query, isRegex);
-                
-            return this.GetProjects(filter);
+            FilterDefinition<ProjectInfo> filter = RepoCatFilterBuilder.BuildProjectsTextFilter(query, isRegex);
+            return this.ExecuteFilter(filter);
         }
 
-        /// <summary>
-        /// Gets projects matching the query from all repositories in all organizations
-        /// </summary>
-        /// <returns></returns>
-        private async Task<IEnumerable<Project>> GetProjects(FilterDefinition<ProjectInfo> filter)
+
+        private async Task<IEnumerable<Project>> GetProjects(RepositoryInfo repository, string query, bool isRegex)
+        {
+            FilterDefinition<ProjectInfo> filter = await RepoCatFilterBuilder.BuildProjectsFilter(this.projects, query, isRegex, repository).ConfigureAwait(false);
+            return await this.ExecuteFilter(filter).ConfigureAwait(false);
+        }
+
+        private async Task<IEnumerable<Project>> ExecuteFilter(FilterDefinition<ProjectInfo> filter)
         {
             IAggregateFluent<ProjectWithRepos> aggr = this.projects.Aggregate()
                 .Match(filter)
@@ -163,7 +105,7 @@ namespace RepoCat.Persistence.Service
                 );
 
             IEnumerable<Project> projected = (await aggr.ToListAsync().ConfigureAwait(false)).Select(x => new Project()
-                { ProjectInfo = x, RepositoryInfo = x.RepositoryInfo.First() });
+                {ProjectInfo = x, RepositoryInfo = x.RepositoryInfo.First()});
 
             return projected;
         }

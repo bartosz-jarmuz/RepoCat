@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
@@ -69,14 +71,27 @@ namespace RepoCat.RepositoryManagement.Service
             return this.database.GetById(id);
         }
 
-        public  Task<ManifestQueryResult> GetAllCurrentProjects(string organizationName, string repositoryName)
+        public  Task<ManifestQueryResult> GetAllCurrentProjects(RepositoryQueryParameter repositoryQueryParameter)
         {
-            return this.database.GetAllCurrentProjects(organizationName, repositoryName);
+            return this.GetCurrentProjects(repositoryQueryParameter, "*", false);
         }
 
-        public Task<ManifestQueryResult> GetAllCurrentProjects(RepositoryInfo repository)
+        public Task<ManifestQueryResult> GetAllCurrentProjects(List<RepositoryQueryParameter> repoParams)
         {
-            return this.database.GetAllCurrentProjects(repository);
+            return this.GetCurrentProjects(repoParams, "*", false);
+        }
+
+        public Task<ManifestQueryResult> GetCurrentProjects(RepositoryQueryParameter repositoryQueryParameter, string query, bool isRegex)
+        {
+            return this.GetCurrentProjects(new List<RepositoryQueryParameter>() { repositoryQueryParameter }, query, isRegex);
+        }
+
+        public async Task<ManifestQueryResult> GetCurrentProjects(IReadOnlyCollection<RepositoryQueryParameter> repoParams, string query, bool isRegex)
+        {
+            var sw = Stopwatch.StartNew();
+            var projects = await this.database.GetCurrentProjects(this.mapper.Map<IReadOnlyCollection<Persistence.Models.RepositoryQueryParameter>>(repoParams), query, isRegex).ConfigureAwait(false);
+            sw.Stop();
+            return new ManifestQueryResult(repoParams, projects, sw.Elapsed, query, isRegex);
         }
 
         public async Task<IEnumerable<RepositoryInfo>> GetAllRepositories()
@@ -84,11 +99,15 @@ namespace RepoCat.RepositoryManagement.Service
             return (await this.database.GetAllRepositories().ConfigureAwait(false)).ToList();
         }
 
-
-        public Task<ManifestQueryResult> GetCurrentProjects(string organizationName, string repositoryName,
-            string query, bool isRegex)
+        /// <summary>
+        /// Gets repositories grouped per organization name
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IReadOnlyCollection<RepositoryGrouping>> GetAllRepositoriesGrouped()
         {
-            return this.database.GetCurrentProjects(organizationName, repositoryName, query, isRegex);
+            var repos = await this.GetAllRepositories().ConfigureAwait(false);
+            return RepositoryGrouping.CreateGroupings(repos.ToList()).ToList().AsReadOnly();
         }
+
     }
 }

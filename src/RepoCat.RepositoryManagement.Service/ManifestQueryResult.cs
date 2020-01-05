@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RepoCat.Persistence.Models;
 
-namespace RepoCat.Persistence.Models
+namespace RepoCat.RepositoryManagement.Service
 {
     /// <summary>
     /// Encapsulates the result of querying the database
@@ -10,11 +11,20 @@ namespace RepoCat.Persistence.Models
     public class ManifestQueryResult
     {
         /// <summary>
-        /// New instance
+        /// 
         /// </summary>
+        /// <param name="repoParams"></param>
         /// <param name="projects"></param>
-        public ManifestQueryResult(IEnumerable<Project> projects)
+        /// <param name="elapsed"></param>
+        /// <param name="queryString"></param>
+        /// <param name="isRegex"></param>
+        public ManifestQueryResult(IEnumerable<RepositoryQueryParameter> repoParams, IEnumerable<Project> projects,
+            TimeSpan elapsed, string queryString, bool isRegex)
         {
+            this.RepositoryQueryParameters = repoParams;
+            this.Elapsed = elapsed;
+            this.IsRegex = isRegex;
+            this.QueryString = queryString;
             this.Projects = projects.ToList();
         }
 
@@ -22,20 +32,15 @@ namespace RepoCat.Persistence.Models
         /// Gets or sets the project infos.
         /// </summary>
         /// <value>The manifests.</value>
-        public IReadOnlyList<Project> Projects { get; internal set; } 
+        public IReadOnlyList<Project> Projects { get; internal set; }
+
+        public IEnumerable<RepositoryQueryParameter> RepositoryQueryParameters { get; set; }
+
         /// <summary>
         /// How long it took to execute the query
         /// </summary>
         public TimeSpan Elapsed { get; set; }
-        /// <summary>
-        /// The stamp of the repository from which the result comes
-        /// </summary>
-        public string RepositoryStamp { get; set; }
-        /// <summary>
-        /// Gets or sets the name of the queried repository.
-        /// </summary>
-        /// <value>The name of the repository.</value>
-        public string RepositoryName { get; set; }
+        
         /// <summary>
         /// Gets or sets a value indicating whether this search was regex.
         /// </summary>
@@ -47,9 +52,5 @@ namespace RepoCat.Persistence.Models
         /// <value>The query string.</value>
         public string QueryString { get; set; }
 
-        /// <summary>
-        /// Name of the organization in which repo is
-        /// </summary>
-        public string OrganizationName { get; set; }
     }
 }

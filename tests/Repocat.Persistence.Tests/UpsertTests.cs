@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
@@ -14,6 +13,7 @@ using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Mapping;
 using RepoCat.RepositoryManagement.Service;
+using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace Repocat.Persistence.Tests
 {
@@ -185,7 +185,7 @@ namespace Repocat.Persistence.Tests
         {
             RepositoryDatabase database = new RepositoryDatabase(Settings);
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), this.telemetryClient);
-            var allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
+            var allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
             allProjects.Projects.Count.Should().Be(0, "because there are no projects yet");
 
             await this.AddTwoProjectsWithSameRepoStamp(service).ConfigureAwait(false);
@@ -218,11 +218,12 @@ namespace Repocat.Persistence.Tests
 
             var returnedPrj2Again = await service.Upsert(prj2Again).ConfigureAwait(false);
 
-            allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
+            allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
 
 
             allProjects.Projects.Count.Should().Be(2, "because we don't return latest stamp only");
-            allProjects.RepositoryStamp.Should().Be("2.0");
+            allProjects.Projects.Should().Contain(x=>x.ProjectInfo.RepositoryStamp == "2.0");
+            allProjects.Projects.Should().Contain(x=>x.ProjectInfo.RepositoryStamp == "1.0");
 
             returnedPrj2Again.Id.Should().Be(returnedPrj2.Id);
             returnedPrj2Again.ProjectUri.Should().Be(returnedPrj2.ProjectUri);
@@ -279,7 +280,7 @@ namespace Repocat.Persistence.Tests
             
             await SetSnapshotMode(database, this.testRepoOne).ConfigureAwait(false);
 
-            var allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
+            var allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
             allProjects.Projects.Count.Should().Be(0, "because there are no projects yet");
 
             ProjectInfo returnedPrj2 = await this.AddTwoProjectsWithSameRepoStamp(service).ConfigureAwait(false);
@@ -300,11 +301,12 @@ namespace Repocat.Persistence.Tests
             };
             var returnedPrj2Again = await service.Upsert(prj2Again).ConfigureAwait(false);
 
-            allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
+            allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
 
 
             allProjects.Projects.Count.Should().Be(1, "because recently only added 1 project");
-            allProjects.RepositoryStamp.Should().Be("2.0");
+            allProjects.Projects.Should().OnlyContain(x => x.ProjectInfo.RepositoryStamp == "2.0");
+
             returnedPrj2Again.Id.Should().NotBe(returnedPrj2.Id);
             returnedPrj2Again.ProjectUri.Should().Be(returnedPrj2.ProjectUri);
             returnedPrj2Again.ProjectName.Should().Be(returnedPrj2.ProjectName);
@@ -353,10 +355,11 @@ namespace Repocat.Persistence.Tests
             };
             ProjectInfo returnedPrj2 = await service.Upsert(prj2).ConfigureAwait(false);
 
-            allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
+            allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
 
             allProjects.Projects.Count.Should().Be(2, "because we just added 2 projects with same stamp");
-            allProjects.RepositoryStamp.Should().Be("1.0");
+            allProjects.Projects.Should().OnlyContain(x => x.ProjectInfo.RepositoryStamp == "1.0");
+
             return returnedPrj2;
         }
 

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using RepoCat.Persistence.Models;
 using RepoCat.Portal.Areas.Catalog.Models;
+using RepoCat.RepositoryManagement.Service;
 using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
+using RepositoryQueryParameter = RepoCat.Persistence.Models.RepositoryQueryParameter;
 
 namespace RepoCat.Portal.Mapping
 {
@@ -18,6 +20,7 @@ namespace RepoCat.Portal.Mapping
         {
             this.MapTransmitterModels();
             this.MapViewModels();
+            this.MapPersistenceModels();
         }
 
         private void MapViewModels()
@@ -26,18 +29,20 @@ namespace RepoCat.Portal.Mapping
                 .IncludeMembers(p=>p.ProjectInfo)
                 .ForMember(x => x.RepositoryName, o=>o.MapFrom(p=>p.RepositoryInfo.RepositoryName))
                 .ForMember(x => x.OrganizationName, o=>o.MapFrom(p=>p.RepositoryInfo.OrganizationName))
-                
                 ;
             this.CreateMap<ProjectInfo, ProjectInfoViewModel>()
                 .ForMember(x => x.RepositoryName, o => o.Ignore())
                 .ForMember(x=>x.OrganizationName, o=>o.Ignore())
                 ;
             this.CreateMap<RepoCat.Persistence.Models.ComponentManifest, ComponentManifestViewModel>();
-            this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>()
-                .ForMember(x => x.SearchTokens, o=>o.Ignore());
-
-
+            this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>().ForMember(x => x.SearchTokens, o=>o.Ignore());
         }
+
+        private void MapPersistenceModels()
+        {
+            this.CreateMap<RepoCat.RepositoryManagement.Service.RepositoryQueryParameter, RepositoryQueryParameter>();
+        }
+
 
         private void MapTransmitterModels()
         {

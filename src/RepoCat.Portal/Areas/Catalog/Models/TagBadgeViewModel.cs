@@ -1,4 +1,7 @@
-﻿namespace RepoCat.Portal.Areas.Catalog.Models
+﻿using System.Collections.Generic;
+using RepoCat.RepositoryManagement.Service;
+
+namespace RepoCat.Portal.Areas.Catalog.Models
 {
     /// <summary>
     /// Class TagBadgeViewModel.
@@ -8,26 +11,30 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="TagBadgeViewModel"/> class.
         /// </summary>
-        /// <param name="organizationName">Name of the organization in which repo is</param>
-        /// <param name="repositoryName">Name of the repo.</param>
+        /// <param name="repositoryQueryParameters"></param>
         /// <param name="tagText">The tag text.</param>
-        public TagBadgeViewModel(string organizationName, string repositoryName, string tagText)
+        public TagBadgeViewModel(IReadOnlyCollection<RepositoryQueryParameter> repositoryQueryParameters, string tagText)
         {
-            this.OrganizationName = organizationName;
-            this.RepositoryName = repositoryName;
+            this.RepositoryQueryParameters = repositoryQueryParameters;
             this.TagText = tagText;
         }
 
         /// <summary>
-        /// Name of the organization in which repo is
+        /// 
         /// </summary>
-        public string OrganizationName { get; }
+        /// <param name="organizationName"></param>
+        /// <param name="repositoryName"></param>
+        /// <param name="tagText"></param>
+        public TagBadgeViewModel(string organizationName, string repositoryName, string tagText)
+        {
+            this.RepositoryQueryParameters = new []{new RepositoryQueryParameter(organizationName, repositoryName), };
+            this.TagText = tagText;
+        }
 
         /// <summary>
-        /// Gets or sets the name of the repo.
+        /// 
         /// </summary>
-        /// <value>The name of the repo.</value>
-        public string RepositoryName { get; set; }
+        public IReadOnlyCollection<RepositoryQueryParameter> RepositoryQueryParameters { get; }
 
         /// <summary>
         /// Gets or sets the tag text.

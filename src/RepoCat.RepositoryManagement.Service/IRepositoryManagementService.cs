@@ -14,10 +14,20 @@ namespace RepoCat.RepositoryManagement.Service
     {
         Task<ProjectInfo> Upsert(Transmission.Models.ProjectInfo projectInfo);
         Task<ProjectInfo> GetById(string id);
-        Task<ManifestQueryResult> GetAllCurrentProjects(string organizationName, string repositoryName);
+        Task<ManifestQueryResult> GetAllCurrentProjects(RepositoryQueryParameter repositoryQueryParameter);
+
+        Task<ManifestQueryResult> GetCurrentProjects(IReadOnlyCollection<RepositoryQueryParameter> repoParams, string query, bool isRegex);
+
+        Task<ManifestQueryResult> GetCurrentProjects(RepositoryQueryParameter repositoryQueryParameter, string query, bool isRegex);
+
         Task<IEnumerable<RepositoryInfo>> GetAllRepositories();
 
-        Task<ManifestQueryResult> GetCurrentProjects(string organizationName, string repositoryName,
-            string query, bool isRegex);
+        /// <summary>
+        /// Gets repositories grouped per organization name
+        /// </summary>
+        /// <returns></returns>
+        Task<IReadOnlyCollection<RepositoryGrouping>> GetAllRepositoriesGrouped();
+
+      
     }
 }

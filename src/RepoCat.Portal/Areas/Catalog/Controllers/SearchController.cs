@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.ApplicationInsights;
@@ -9,6 +10,7 @@ using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Models;
 using RepoCat.RepositoryManagement.Service;
+using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
 {
@@ -19,20 +21,22 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
     [Area("Catalog")]
     public class SearchController : Controller
     {
-        private readonly RepositoryDatabase repositoryDatabase;
         private readonly IMapper mapper;
         private readonly TelemetryClient telemetryClient;
+        private readonly IRepositoryManagementService service;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchController"/> class.
         /// </summary>
-        /// <param name="repositoryDatabase">The manifests service.</param>
         /// <param name="mapper">The mapper.</param>
-        public SearchController(RepositoryDatabase repositoryDatabase, IMapper mapper, TelemetryClient telemetryClient)
+        /// <param name="telemetryClient"></param>
+        /// <param name="service"></param>
+        public SearchController(IMapper mapper, TelemetryClient telemetryClient, IRepositoryManagementService service)
         {
-            this.repositoryDatabase = repositoryDatabase;
             this.mapper = mapper;
             this.telemetryClient = telemetryClient;
+            this.service = service;
         }
 
         /// <summary>
@@ -49,7 +53,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
         private async Task<List<SelectListItem>> GetRepositoriesSelectList()
         {
-            IReadOnlyCollection<RepositoryGrouping> groups = await this.repositoryDatabase.GetAllRepositoriesGrouped().ConfigureAwait(false);
+            IReadOnlyCollection<RepositoryGrouping> groups = await this.service.GetAllRepositoriesGrouped().ConfigureAwait(false);
 
             List<SelectListItem> items = new List<SelectListItem>();
 
@@ -68,50 +72,65 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
 
         /// <summary>
-        /// Search the repository for a specified query
+        /// 
         /// </summary>
-        /// <param name="organizationName"></param>
-        /// <param name="repositoryName"></param>
+        /// <param name="org"></param>
+        /// <param name="repo"></param>
         /// <param name="query"></param>
         /// <param name="isRegex"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("Search/{organizationName}/{repositoryName}")]
-        public async Task<PartialViewResult> Search(string organizationName, string repositoryName, string query, bool isRegex)
+        [Route("Search")]
+        public async Task<IActionResult> Search(string[] org, string[] repo, string query, bool isRegex)
         {
-            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(organizationName, repositoryName, query, isRegex).ConfigureAwait(false);
-            this.telemetryClient.TrackSearch(organizationName, repositoryName, query, isRegex);
+            if (org.Length != repo.Length)
+            {
+                this.TempData["Error"] = $"Number of org parameters does not match the number of repo parameters. Orgs: {string.Join(", ", org)}. Repos: {string.Join(", ", repo)}";
+                return this.RedirectToAction("Error", "Error");
+            }
+
+            IReadOnlyCollection<RepositoryQueryParameter> parameters = RepositoryQueryParameter.ConvertFromArrays(org, repo);
+
+            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(parameters, query, isRegex).ConfigureAwait(false);
+            this.telemetryClient.TrackSearch(parameters, query, isRegex);
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
+
+
 
         /// <summary>
         /// Gets the search result page (for URL sharing).
         /// </summary>
-        /// <param name="organizationName">Name of the organization which holds the repository</param>
-        /// <param name="repositoryName">Name of the repository.</param>
+        /// <param name="org">Names of the organizations which holds the repository</param>
+        /// <param name="repo">Names of the repositories.</param>
         /// <param name="query">The query.</param>
         /// <param name="isRegex">if set to <c>true</c> [is regex].</param>
         /// <returns>Task&lt;IActionResult&gt;.</returns>
         [HttpGet]
-        [Route("{controller}/{organizationName}/{repositoryName}/Result")]
-        public async Task<IActionResult> GetSearchResultPage(string organizationName, string repositoryName, string query, bool isRegex)
+        [Route("{controller}/Result")]
+        public async Task<IActionResult> GetSearchResultPage(string[] org, string[] repo, string query, bool isRegex)
         {
+            if (org.Length != repo.Length)
+            {
+                this.TempData["Error"] = $"Number of org parameters does not match the number of repo parameters. Orgs: {string.Join(", ", org)}. Repos: {string.Join(", ", repo)}";
+                return this.RedirectToAction("Error", "Error");
+            }
             SearchIndexViewModel model = new SearchIndexViewModel
             {
                 Repositories = await this.GetRepositoriesSelectList().ConfigureAwait(false),
-                Repository = repositoryName,
                 Query = query,
                 IsRegex = isRegex
             };
+            IReadOnlyCollection<RepositoryQueryParameter> parameters = RepositoryQueryParameter.ConvertFromArrays(org, repo);
 
-            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(organizationName, repositoryName, query, isRegex).ConfigureAwait(false);
+            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(parameters, query, isRegex).ConfigureAwait(false);
             model.Result = queryResultViewModel;
             return this.View("Index", model);
         }
 
-        private async Task<ManifestQueryResultViewModel> GetQueryResultViewModel(string organizationName, string repositoryName, string query, bool isRegex)
+        private async Task<ManifestQueryResultViewModel> GetQueryResultViewModel(IReadOnlyCollection<RepositoryQueryParameter> parameters, string query, bool isRegex)
         {
-            ManifestQueryResult result = await this.repositoryDatabase.GetCurrentProjects(organizationName, repositoryName, query, isRegex).ConfigureAwait(false);
+            ManifestQueryResult result = await this.service.GetCurrentProjects(parameters, query, isRegex).ConfigureAwait(false);
             ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
             return queryResultViewModel;
         }

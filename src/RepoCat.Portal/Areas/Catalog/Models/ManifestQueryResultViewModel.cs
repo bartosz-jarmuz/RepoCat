@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using RepoCat.RepositoryManagement.Service;
 using RepoCat.Utilities;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
@@ -69,20 +72,12 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The elapsed.</value>
         public TimeSpan Elapsed { get; set; }
-        /// <summary>
-        /// Gets or sets the repo stamp.
-        /// </summary>
-        /// <value>The repo stamp.</value>
-        public string RepositoryStamp { get; set; }
-        /// <summary>
-        /// Gets or sets the repo.
-        /// </summary>
-        /// <value>The repo.</value>
-        public string RepositoryName { get; set; }
 
         /// <summary>
-        /// Name of the organization in which repo is
+        /// 
         /// </summary>
-        public string OrganizationName { get; set; }
+        public IReadOnlyCollection<RepositoryQueryParameter> RepositoryQueryParameters { get; set; }
+
+     
     }
 }

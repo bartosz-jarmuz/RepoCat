@@ -17,15 +17,19 @@ namespace RepoCat.RepositoryManagement.Service
             });
         } 
         
-        public static void TrackSearch(this TelemetryClient telemetryClient, string organizationName, string repositoryName, string query, bool isRegex)
+        public static void TrackSearch(this TelemetryClient telemetryClient, IReadOnlyCollection<RepositoryQueryParameter> parameters, string query, bool isRegex)
         {
-            telemetryClient.TrackEvent(Names.RepositorySearch, new Dictionary<string, string>()
+            foreach (RepositoryQueryParameter repositoryQueryParameter in parameters)
             {
-                {PropertyKeys.OrganizationName, organizationName},
-                {PropertyKeys.RepositoryName, repositoryName},
-                {PropertyKeys.Query, query },
-                {PropertyKeys.IsRegex, isRegex.ToString()},
-            });
+                telemetryClient.TrackEvent(Names.RepositorySearch, new Dictionary<string, string>()
+                {
+                    {PropertyKeys.OrganizationName, repositoryQueryParameter.OrganizationName},
+                    {PropertyKeys.RepositoryName, repositoryQueryParameter.RepositoryName},
+                    {PropertyKeys.Query, query },
+                    {PropertyKeys.IsRegex, isRegex.ToString()},
+                });
+            }
+            
         }
 
         public static void TrackFileDownload(this TelemetryClient telemetryClient, ProjectInfo project, bool isLocal, long? fileSize = null)

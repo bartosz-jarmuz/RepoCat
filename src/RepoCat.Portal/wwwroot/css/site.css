@@ -120,7 +120,18 @@
     font-weight: 100 !important;
 }
 
+
+
 .CodeMirror pre {
     font-weight: 900 !important;
     font-family: monospace !important;
-}   
+}
+
+.badge-large {
+    font-size: 100% !important;
+}
+
+.collapseAllToggle {
+    font-size: 75% !important;
+    color: #808080;
+}

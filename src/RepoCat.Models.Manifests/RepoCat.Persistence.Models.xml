@@ -42,56 +42,6 @@
             </summary>
             <value>The properties.</value>
         </member>
-        <member name="T:RepoCat.Persistence.Models.ManifestQueryResult">
-            <summary>
-            Encapsulates the result of querying the database
-            </summary>
-        </member>
-        <member name="M:RepoCat.Persistence.Models.ManifestQueryResult.#ctor(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.Project})">
-            <summary>
-            New instance
-            </summary>
-            <param name="projects"></param>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.Projects">
-            <summary>
-            Gets or sets the project infos.
-            </summary>
-            <value>The manifests.</value>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.Elapsed">
-            <summary>
-            How long it took to execute the query
-            </summary>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.RepositoryStamp">
-            <summary>
-            The stamp of the repository from which the result comes
-            </summary>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.RepositoryName">
-            <summary>
-            Gets or sets the name of the queried repository.
-            </summary>
-            <value>The name of the repository.</value>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.IsRegex">
-            <summary>
-            Gets or sets a value indicating whether this search was regex.
-            </summary>
-            <value><c>true</c> if this instance is regex; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.QueryString">
-            <summary>
-            Gets or sets the query string.
-            </summary>
-            <value>The query string.</value>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.ManifestQueryResult.OrganizationName">
-            <summary>
-            Name of the organization in which repo is
-            </summary>
-        </member>
         <member name="T:RepoCat.Persistence.Models.ProjectInfo">
             <summary>
             Project info contains data about a project, understood as a class library or an executable.
@@ -184,35 +134,6 @@
             
             </summary>
         </member>
-        <member name="T:RepoCat.Persistence.Models.RepositoryGrouping">
-            <summary>
-            Represents a collection of repositories from a single organization
-            </summary>
-        </member>
-        <member name="M:RepoCat.Persistence.Models.RepositoryGrouping.#ctor(System.String,System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo})">
-            <summary>
-            Creates new instance
-            </summary>
-            <param name="organizationName"></param>
-            <param name="repositories"></param>
-        </member>
-        <member name="M:RepoCat.Persistence.Models.RepositoryGrouping.CreateGroupings(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo})">
-            <summary>
-            Creates the collection of groupings
-            </summary>
-            <param name="repositories"></param>
-            <returns></returns>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.RepositoryGrouping.OrganizationName">
-            <summary>
-            Name of the organization that all repositories belong to
-            </summary>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.RepositoryGrouping.Repositories">
-            <summary>
-            Collection of repositories
-            </summary>
-        </member>
         <member name="T:RepoCat.Persistence.Models.RepositoryInfo">
             <summary>
             Info about repository
@@ -255,6 +176,21 @@
             Snapshot mode is for when entire repository (multiple projects &amp; components) is built at the same time, having the same repository stamp.<br/>
             In this mode, every time projects are transmitted, they are created as new entities under a given repository stamp<br/>
             This way RepoCat can present a current and previous snapshots of a repository, rather than all projects that are currently or used to be in it.<br/>
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.RepositoryQueryParameter">
+            <summary>
+            A parameter object for repository queries
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryQueryParameter.OrganizationName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryQueryParameter.RepositoryName">
+            <summary>
+            
             </summary>
         </member>
     </members>

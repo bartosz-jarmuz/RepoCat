@@ -1,17 +1,24 @@
 @using RepoCat.Portal.Areas.Catalog.Models
 @model ManifestQueryResultViewModel
-
+<input type="hidden" id="RepositoryQueryParameters" value="@(string.Join(",", Model.RepositoryQueryParameters.Select(x=>$"{x.OrganizationName}:{x.RepositoryName}")))"/>
 @if (Model.Projects.Count > 0)
 {
     <div class="row">
         <div class="col-md-12">
             <div id="searchResultsCard">
-                <h2 style="display: inline;">
-                    Search result
-                </h2>
-                <a class="badge badge-light collapseAllToggle open" href="#">Collapse all</a>
-                <p>
-                    <span><strong>@Model.RepositoryName</strong> - Found <strong>@Model.Projects.Count</strong> matches</span>
+
+                    <h2 style="display: inline;">
+                        Search result
+                    </h2>
+                    <a class="collapseAllToggle open" href="#" onclick="collapseAllToggle(this)" >Collapse all</a>
+
+                <div>
+                    <partial name="_SearchedRepositoriesListPartial" model="@Model.RepositoryQueryParameters" />
+                </div>
+                <div>
+
+                    <span>Found <strong>@Model.Projects.Count</strong> matches</span>
+
                     <span>
                         @if (Model.IsRegex)
                         {
@@ -25,7 +32,7 @@
                                 <span>for </span>
                                 @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.OrganizationName, @Model.RepositoryName, token))" />
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
 
                                 }
                             }
@@ -33,7 +40,7 @@
                     </span>
 
                     <span>in <strong>@(Model.Elapsed.TotalMilliseconds.ToString("N2"))ms</strong></span>
-                </p>
+                </div>
             </div>
         </div>
     </div>
@@ -67,13 +74,14 @@ else
                                 <span>for </span>
                                 @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.OrganizationName, @Model.RepositoryName, token))" />
-
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
                                 }
                             }
                         }
                     </span>
-                    in <strong>@Model.RepositoryName</strong> and found nothing...
+                    in
+                    <partial name="_SearchedRepositoriesListPartial" model="@Model.RepositoryQueryParameters" />
+                    and found nothing...
                 </span>
                 <img src="~/images/cats/cat_hungry256.png" class="mx-auto d-block" alt="No results">
                 <br />

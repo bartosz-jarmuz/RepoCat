@@ -15,6 +15,8 @@ using RepoCat.Persistence.Models;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Telemetry;
 using RepoCat.Transmission.Client;
+using RepoCat.Utilities;
+using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
 {
@@ -68,12 +70,12 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
             this.telemetryClient.TrackViewRepository( organizationName, repositoryName);
 
-            ManifestQueryResult result = await this.service.GetAllCurrentProjects(organizationName, repositoryName).ConfigureAwait(false);
+            ManifestQueryResult result = await this.service.GetAllCurrentProjects(new RepositoryQueryParameter(organizationName, repositoryName)).ConfigureAwait(false);
             List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects);
             if (manifests.Any())
             {
                 model.ProjectManifestViewModels = manifests;
-                model.RepositoryStamp = result.RepositoryStamp;
+                model.RepositoryStamp = StampSorter.GetNewestStamp(manifests.Select(x => x.RepositoryStamp).ToList());
                 var orderedTimes = manifests.OrderByDescending(x => x.AddedDateTime).ToList();
                 model.ImportedDate = orderedTimes.First().AddedDateTime;
                 model.ImportDuration = model.ImportedDate - orderedTimes.Last().AddedDateTime;

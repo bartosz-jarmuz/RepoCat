@@ -20,25 +20,26 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var selectedRepoCookie = getCookie('selectedRepo');
-            if (selectedRepoCookie) {
-                $('#selectedRepo option').each(function(){
-                    if (this.value == selectedRepoCookie) {
-                        $('#selectedRepo').val(selectedRepoCookie);
-                        $('#selectedRepo').trigger('change');
-                        return false;
-                    }
-                });
-            }
+            if (window.location.href.indexOf('org=') == -1) {
 
+                var selectedRepoCookie = getCookie('selectedRepo');
+                if (selectedRepoCookie) {
+                    var items = selectedRepoCookie.split(',');
+                    $('#selectedRepo').val(items);
+                    $('#selectedRepo').trigger('change');
+                }
+            } else {
+                var value = $('#RepositoryQueryParameters').val();
+                $('#selectedRepo').val(value.split(','));
+                $('#selectedRepo').trigger('change');
+            }
             $('#selectedRepo').change(function () {
                  setCookie("selectedRepo", $('#selectedRepo').val());
             })
 
+           
+
             
-
-
-
             $('#searchQuery').keypress(function (e) {
                 var key = e.which;
                 if(key === 13)  // the enter key code
@@ -54,10 +55,18 @@
                 var overlay = $(this).closest('.card').find('.overlay');
                 $(overlay).fadeIn();
 
-                var queryString ='?query=' + encodeURIComponent($('#searchQuery').val()) + '&isRegex=' + $('#isRegex').is(':checked');
-                var url = '@Url.Action("Search", new {organizationName = "___orgName___", repositoryName = "___repoName___"})' + queryString;
-                url = url.replace("___repoName___", getRepositoryFromKey($('#selectedRepo').val()));
-                url = url.replace("___orgName___", getOrganizationFromKey($('#selectedRepo').val()));
+                var queryString ='&query=' + encodeURIComponent($('#searchQuery').val()) + '&isRegex=' + $('#isRegex').is(':checked');
+                var url = '@Url.Action("Search")' 
+                var selectedOptions = $('#selectedRepo').val();
+                var reposParam= "";
+                selectedOptions.forEach(function (item, index) {
+                    reposParam = reposParam + '&org=' + getOrganizationFromKey(item) + '&repo=' + getRepositoryFromKey(item);
+                });
+
+                var fullQuery = reposParam + queryString;
+                fullQuery = '?' + fullQuery.replace(/^&/, '')
+
+                url = url + fullQuery;
                 $.get(url,
                     function (data) {
                         $(overlay).fadeOut();
@@ -66,10 +75,8 @@
                         RegexColorizer.colorizeAll();
 
                     });
-                var historyUrl = '@Url.Action("GetSearchResultPage",new {organizationName = "___orgName___", repositoryName = "___repoName___"})' + queryString;
-                historyUrl = historyUrl.replace("___repoName___", getRepositoryFromKey($('#selectedRepo').val()));
-                historyUrl = historyUrl.replace("___orgName___", getOrganizationFromKey($('#selectedRepo').val()));
-
+                var historyUrl = '@Url.Action("GetSearchResultPage")';
+                historyUrl = historyUrl + fullQuery;
                 history.pushState(null, null,historyUrl);
             });
         });

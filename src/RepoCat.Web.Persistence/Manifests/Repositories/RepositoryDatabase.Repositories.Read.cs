@@ -26,15 +26,7 @@ namespace RepoCat.Persistence.Service
             return this.repositories.FindAsync(FilterDefinition<RepositoryInfo>.Empty);
         }
 
-        /// <summary>
-        /// Gets repositories grouped per organization name
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IReadOnlyCollection<RepositoryGrouping>> GetAllRepositoriesGrouped()
-        {
-            var repos = await this.GetAllRepositories().ConfigureAwait(false);
-            return RepositoryGrouping.CreateGroupings(repos.ToList()).ToList().AsReadOnly();
-        }
+       
 
 
         /// <summary>
@@ -45,7 +37,7 @@ namespace RepoCat.Persistence.Service
         /// <returns></returns>
         public async Task<RepositoryInfo> GetRepository(string organizationName, string repositoryName)
         {
-            FilterDefinition<RepositoryInfo> repoFilter = BuildRepositoryFilter(organizationName, repositoryName);
+            FilterDefinition<RepositoryInfo> repoFilter = RepoCatFilterBuilder.BuildRepositoryFilter(organizationName, repositoryName);
 
             RepositoryInfo repo = await (await this.repositories.FindAsync(repoFilter).ConfigureAwait(false))
                 .FirstOrDefaultAsync().ConfigureAwait(false);

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Service;
+using RepoCat.RepositoryManagement.Service;
 
 namespace RepoCat.Portal.Areas.Catalog.Views.Components
 {
@@ -14,13 +15,13 @@ namespace RepoCat.Portal.Areas.Catalog.Views.Components
         /// <summary>
         /// The service
         /// </summary>
-        private readonly RepositoryDatabase service;
+        private readonly IRepositoryManagementService service;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RepositoryList"/> class.
         /// </summary>
         /// <param name="repositoryDatabase">The manifests service.</param>
-        public RepositoryList(RepositoryDatabase repositoryDatabase)
+        public RepositoryList(IRepositoryManagementService repositoryDatabase)
         {
             this.service = repositoryDatabase;
         }
