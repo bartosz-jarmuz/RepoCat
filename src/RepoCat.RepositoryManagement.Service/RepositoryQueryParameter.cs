@@ -74,6 +74,7 @@ namespace RepoCat.RepositoryManagement.Service
             return "?"+ sb.ToString().TrimStart('&');
         }
 
+
         /// <summary>
         /// 
         /// </summary>

@@ -4,7 +4,7 @@
 
     @foreach (RepositoryQueryParameter item in Model)
     {
-        <a class="badge badge-primary tag badge-large"
+        <a class="badge badge-primary tag badge-large" data-toggle="tooltip" data-placement="top" title="View repository content" data-delay='{"show":"500"}'
            href="@Url.Action("Index", "Repository", new { organizationName = item.OrganizationName, repositoryName = item.RepositoryName })">
             <i class="fab fa-codepen font-weight-light"></i>&nbsp;@item.OrganizationName - @item.RepositoryName
         </a>

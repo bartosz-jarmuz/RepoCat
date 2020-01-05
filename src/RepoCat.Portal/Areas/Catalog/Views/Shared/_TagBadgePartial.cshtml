@@ -1,6 +1,7 @@
 @model RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel
 
-<a class="badge badge-warning tag" 
+<a class="badge badge-warning tag" data-toggle="tooltip" data-placement="top" 
+   title="Search for this tag in @string.Join("\r\n", Model.RepositoryQueryParameters.Select(x=> $"{x.OrganizationName} - {x.RepositoryName}"))" data-delay='{"show":"500"}' 
    href="@Url.Action("GetSearchResultPage", "Search")@RepoCat.RepositoryManagement.Service.RepositoryQueryParameter.ConvertToQueryString(Model.RepositoryQueryParameters)&query=@Model.TagText">
     <i class="fa fa-tag"></i>&nbsp;@Model.TagText
 </a>
