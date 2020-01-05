@@ -40,6 +40,10 @@ namespace RepoCat.Transmission.Client
         /// <value>The repo.</value>
         public string OrganizationName { get; set; }
 
+        /// <summary>
+        /// Transmitter operation mode
+        /// </summary>
+        public TransmissionMode TransmissionMode { get; set; }
 
         /// <summary>
         /// Repository mode

@@ -96,9 +96,13 @@
     <Compile Include="DefaultLogging\TraceLogger.cs" />
     <Compile Include="DefaultLogging\LoggerDecorator.cs" />
     <Compile Include="Implementation\HttpSender.cs" />
-    <Compile Include="Implementation\LocalProjectUriProvider.cs" />
-    <Compile Include="Implementation\ProjectInfoProvider.cs" />
+    <Compile Include="Implementation\LocalDotNetProjectUriProvider.cs" />
+    <Compile Include="Implementation\DotNetProjectInfoProvider.cs" />
+    <Compile Include="Implementation\ManifestBasedProjectInfoProvider.cs" />
+    <Compile Include="Implementation\ManifestBasedUriProvider.cs" />
+    <Compile Include="Implementation\Strings.cs" />
     <Compile Include="Implementation\TransmissionClient.cs" />
+    <Compile Include="Implementation\TransmissionMode.cs" />
     <Compile Include="Implementation\TransmitterArguments.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IProjectInfoProvider.cs" />

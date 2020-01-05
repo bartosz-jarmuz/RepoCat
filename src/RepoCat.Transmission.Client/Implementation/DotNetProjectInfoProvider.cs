@@ -7,13 +7,12 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client
 {
-    public class ProjectInfoProvider : IProjectInfoProvider
+    public class DotNetProjectInfoProvider : IProjectInfoProvider
     {
         private readonly ILogger logger;
 
-        private readonly string ManifestSuffix = "RepoCat.xml";
 
-        public ProjectInfoProvider(ILogger logger)
+        public DotNetProjectInfoProvider(ILogger logger)
         {
             this.logger = logger;
         }
@@ -50,7 +49,7 @@ namespace RepoCat.Transmission.Client
 
             try
             {
-                ProjectItem manifestInclude = project.Items.FirstOrDefault(x => x.ResolvedIncludePath.EndsWith(this.ManifestSuffix, StringComparison.CurrentCultureIgnoreCase));
+                ProjectItem manifestInclude = project.Items.FirstOrDefault(x => x.ResolvedIncludePath.EndsWith(Strings.ManifestSuffix, StringComparison.CurrentCultureIgnoreCase));
                 if (manifestInclude?.ResolvedIncludePath != null)
                 {
                     this.logger.Debug($"Reading Project Info - {uri}");
@@ -65,7 +64,7 @@ namespace RepoCat.Transmission.Client
                 }
                 else
                 {
-                    this.logger.Debug($"Project does not include manifest file (expected file name ending with [{this.ManifestSuffix}]). Will be ignored by RepoCat. {uri}");
+                    this.logger.Debug($"Project does not include manifest file (expected file name ending with [{Strings.ManifestSuffix}]). Will be ignored by RepoCat. {uri}");
                 }
             }
             catch (Exception ex)

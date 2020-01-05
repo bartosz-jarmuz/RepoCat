@@ -16,7 +16,7 @@ namespace RepoCat.ProjectParsers.Tests
         {
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetFramework.csproj");
 
-            var provider = new ProjectInfoProvider(new Mock<ILogger>().Object);
+            var provider = new DotNetProjectInfoProvider(new Mock<ILogger>().Object);
             var repo = new RepositoryInfo()
             {
                 RepositoryName = "Test",
@@ -34,7 +34,7 @@ namespace RepoCat.ProjectParsers.Tests
         {
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetCore.csproj");
 
-            var provider = new ProjectInfoProvider(new Mock<ILogger>().Object);
+            var provider = new DotNetProjectInfoProvider(new Mock<ILogger>().Object);
             var repo = new RepositoryInfo()
             {
                 RepositoryName = "Test",

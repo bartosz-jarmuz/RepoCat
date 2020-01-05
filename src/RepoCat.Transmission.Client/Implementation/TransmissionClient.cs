@@ -53,7 +53,7 @@ namespace RepoCat.Transmission.Client
 
                 IEnumerable<string> uris = GetPaths(args);
 
-                ProjectInfoProvider infoProvider = new ProjectInfoProvider(this.logger);
+                DotNetProjectInfoProvider infoProvider = new DotNetProjectInfoProvider(this.logger);
 
                 var repoInfo = new RepositoryInfo()
                 {
@@ -93,7 +93,7 @@ namespace RepoCat.Transmission.Client
             IEnumerable<string> uris;
             if (args.ProjectPaths == null || !args.ProjectPaths.Any())
             {
-                LocalProjectUriProvider uriProvider = new LocalProjectUriProvider();
+                LocalDotNetProjectUriProvider uriProvider = new LocalDotNetProjectUriProvider();
                 uris = uriProvider.GetUris(args.CodeRootFolder);
             }
             else

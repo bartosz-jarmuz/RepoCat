@@ -9,7 +9,7 @@ namespace RepoCat.Transmission.Client
     /// Class LocalProjectUriProvider.
     /// </summary>
     /// <seealso cref="IProjectUriProvider" />
-    public class LocalProjectUriProvider : IProjectUriProvider
+    public class LocalDotNetProjectUriProvider : IProjectUriProvider
     {
         /// <summary>
         /// Finds the URIs of the projects in a local (file system) directory 
@@ -22,7 +22,7 @@ namespace RepoCat.Transmission.Client
             if (codeDirectory.Exists)
             {
                 return codeDirectory.EnumerateFiles("*",SearchOption.AllDirectories)
-                    .Where(x => x.FullName.EndsWith(".csproj", StringComparison.CurrentCultureIgnoreCase))
+                    .Where(x => x.FullName.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
                     .Select(x => x.FullName);
             }
 
