@@ -21,7 +21,7 @@
         $(document).ready(function () {
 
             if (window.location.href.indexOf('org=') == -1) {
-
+                //Only when showing new page set the repositories to cookie values
                 var selectedRepoCookie = getCookie('selectedRepo');
                 if (selectedRepoCookie) {
                     var items = selectedRepoCookie.split(',');
@@ -29,6 +29,7 @@
                     $('#selectedRepo').trigger('change');
                 }
             } else {
+                //when refreshing a page, set the repositories to what was queried on
                 var value = $('#RepositoryQueryParameters').val();
                 $('#selectedRepo').val(value.split(','));
                 $('#selectedRepo').trigger('change');

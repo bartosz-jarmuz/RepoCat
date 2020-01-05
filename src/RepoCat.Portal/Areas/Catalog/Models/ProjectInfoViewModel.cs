@@ -16,6 +16,11 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         public string Id { get; set; }
 
         /// <summary>
+        /// When queries are run on many repositories, add a repo badge to each project 
+        /// </summary>
+        public bool DisplayRepositoryName { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the repository.
         /// </summary>
         /// <value>The name of the repository.</value>

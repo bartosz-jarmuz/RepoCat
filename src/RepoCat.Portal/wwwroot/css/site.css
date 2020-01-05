@@ -129,6 +129,7 @@
 
 .badge-large {
     font-size: 100% !important;
+    font-weight: 600;
 }
 
 .collapseAllToggle {

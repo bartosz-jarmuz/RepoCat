@@ -47,6 +47,7 @@
     <div class="row">
         @foreach (ProjectInfoViewModel manifest in Model.Projects)
         {
+            manifest.DisplayRepositoryName = Model.RepositoryQueryParameters.Count > 1;
             <partial name="_ProjectViewPartial" for="@manifest" />
         }
     </div>

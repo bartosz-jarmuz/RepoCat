@@ -251,6 +251,11 @@
             The Id of the project
             </summary>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.DisplayRepositoryName">
+            <summary>
+            When queries are run on many repositories, add a repo badge to each project 
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.RepositoryName">
             <summary>
             Gets or sets the name of the repository.

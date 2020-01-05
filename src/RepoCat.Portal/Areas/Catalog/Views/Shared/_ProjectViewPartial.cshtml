@@ -1,4 +1,5 @@
 @using RepoCat.Portal.Areas.Catalog.Models
+@using RepoCat.RepositoryManagement.Service;
 @model ProjectInfoViewModel
 
 <div class="col-md-12">
@@ -6,6 +7,11 @@
         <div class="card-header">
             <strong>@Model.ProjectName</strong> <span class="badge badge-secondary">@Model.OutputType</span>
             <div class="card-header-actions">
+                @if (Model.DisplayRepositoryName)
+                {
+                 <partial name="_SearchedRepositoriesListPartial" model="@new [] { new RepositoryQueryParameter(Model.OrganizationName, Model.RepositoryName)}" />
+                }
+
                 <a class="card-header-action btn-minimize" href="#" data-toggle="collapse" data-target="#@Model.GetIdentifier()" aria-expanded="true">
                     <i class="icon-arrow-up"></i>
                 </a>
