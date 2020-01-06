@@ -28,7 +28,7 @@ namespace RepoCat.Tests
         [Test]
         public void SampleManifest_MultipleComponents_WorksOK()
         {
-            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\TestFiles\\SampleManifest.RepoCat.xml");
+            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\SampleManifestFiles\\SampleManifest.RepoCat.xml");
 
             var components = ManifestDeserializer.DeserializeComponents(text);
 

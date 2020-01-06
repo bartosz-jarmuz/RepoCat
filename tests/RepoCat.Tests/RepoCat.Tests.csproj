@@ -24,10 +24,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestFiles\FullGeneratedProjectInfoMessage.xml">
+    <None Update="SampleScriptsRepository\TextFileScripts\ScriptTwo\Guide\ScriptTwoGuide.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\SampleManifest.RepoCat.xml">
+    <None Update="SampleScriptsRepository\TextFileScripts\ScriptTwo\ScriptTwoManifest.RepoCat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleScriptsRepository\TextFileScripts\ScriptTwo\Script\I_AM_FAKE_TOO.Script">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleScriptsRepository\TextFileScripts\ScriptOne\Guide\ScriptOneGuide.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleScriptsRepository\TextFileScripts\ScriptOne\Script\I_AM_FAKE.Script">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleManifestFiles\SomeScriptManifest.RepoCat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleManifestFiles\FullGeneratedProjectInfoMessage.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleManifestFiles\SampleManifest.RepoCat.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleScriptsRepository\TextFileScripts\ScriptOne\ScriptOneManifest.RepoCat.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

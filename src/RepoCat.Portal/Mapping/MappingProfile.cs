@@ -33,6 +33,7 @@ namespace RepoCat.Portal.Mapping
                 ;
             this.CreateMap<ProjectInfo, ProjectInfoViewModel>()
                 .ForMember(x => x.RepositoryName, o => o.Ignore())
+                .ForMember(x => x.DisplayRepositoryName, o=>o.Ignore())
                 .ForMember(x=>x.OrganizationName, o=>o.Ignore())
                 ;
             this.CreateMap<RepoCat.Persistence.Models.ComponentManifest, ComponentManifestViewModel>();

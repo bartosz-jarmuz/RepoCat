@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- This is a sample of a manifest for a script project/file (i.e. a tool that is a single file without a project declaration, e.g. an excel macro, bat, autohotkey script etc).
+In this case, there is no info to be 'extracted' from a project file (.csproj / .project) automatically, and all the info needs to be specified in the manifest
+-->
+<Project>
+  <Name>CustomerFileProcessor</Name>
+  <ProjectUri>Path to the project location in repository</ProjectUri>
+  <DownloadLocation>Path from which a tool can be downloaded</DownloadLocation>
+  <RepositoryName>Repo Cat Scripts</RepositoryName>
+  <OrganizationName>Repo Cat Organization</OrganizationName>
+  <!-- The Components part specifies details about the functionalities that a project contains. Each project will contain at least one functionality (otherwise it's quite redundant, right?)
+  It is advisable to treat each separate functionality as a different component. 
+  For example, if a CustomerFileProcessor tool can perform file validation, file extraction, file delivery and schedule management, then these should be specified as separate components.
+  -->
+  <Components xmlns="https://git.io/RepoCat-Components" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://git.io/RepoCat-Components 
+                             https://git.io/RepoCat-Components.xsd" >
+    <Component>
+      <Name>FileValidator</Name>
+      <Description>Validates that the files are compliant with Business Rules.</Description>
+      <DocumentationUri>http://google.com</DocumentationUri>
+      <Tags Value="File;Validation;Customer;Json"/>
+      <Properties>
+        <Add Key="Author" Value="JimBeam"/>
+        <Add Key="Format" Value="json"/>
+      </Properties>
+    </Component>
+    <Component>
+      <Name>FileExtractor</Name>
+      <Description>Extracts files from custom protected archive to specific folder structure</Description>
+      <DocumentationUri>http://google.com</DocumentationUri>
+      <Tags Value="File;Extraction;Customer;Folder;Structure"/>
+      <Properties>
+        <Add Key="Author" Value="Jack Black"/>
+        <Add Key="Format" Value="tar"/>
+      </Properties>
+    </Component>
+  </Components>
+</Project>

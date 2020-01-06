@@ -83,6 +83,8 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         [Route("Search")]
         public async Task<IActionResult> Search(string[] org, string[] repo, string query, bool isRegex)
         {
+            if (org == null) throw new ArgumentNullException(nameof(org));
+            if (repo == null) throw new ArgumentNullException(nameof(repo));
             if (org.Length != repo.Length)
             {
                 this.TempData["Error"] = $"Number of org parameters does not match the number of repo parameters. Orgs: {string.Join(", ", org)}. Repos: {string.Join(", ", repo)}";
@@ -110,6 +112,8 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         [Route("{controller}/Result")]
         public async Task<IActionResult> GetSearchResultPage(string[] org, string[] repo, string query, bool isRegex)
         {
+            if (org == null) throw new ArgumentNullException(nameof(org));
+            if (repo == null) throw new ArgumentNullException(nameof(repo));
             if (org.Length != repo.Length)
             {
                 this.TempData["Error"] = $"Number of org parameters does not match the number of repo parameters. Orgs: {string.Join(", ", org)}. Repos: {string.Join(", ", repo)}";

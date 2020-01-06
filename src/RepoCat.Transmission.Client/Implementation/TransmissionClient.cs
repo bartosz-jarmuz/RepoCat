@@ -13,6 +13,8 @@ namespace RepoCat.Transmission.Client
     public class TransmissionClient : ITransmissionClient
     {
         private readonly ILogger logger;
+        private IProjectInfoProvider infoProvider;
+        private IProjectUriProvider pathsProvider;
 
         /// <summary>
         /// Creates new instance
@@ -51,9 +53,14 @@ namespace RepoCat.Transmission.Client
 
                 this.ValidateParameters(args);
 
-                IEnumerable<string> uris = GetPaths(args);
+                args.CodeRootFolder = @"\\bydproj4\Public\Users\bjarmuz\FakeAPPS\";
+                args.TransmissionMode = TransmissionMode.LocalManifestBased;
 
-                DotNetProjectInfoProvider infoProvider = new DotNetProjectInfoProvider(this.logger);
+                this.InitializeProviders(args.TransmissionMode);
+
+                IEnumerable<string> uris = this.GetPaths(args);
+
+               this.infoProvider = new DotNetProjectInfoProvider(this.logger);
 
                 var repoInfo = new RepositoryInfo()
                 {
@@ -62,7 +69,7 @@ namespace RepoCat.Transmission.Client
                     RepositoryMode = args.RepositoryMode
                 };
 
-                IEnumerable<ProjectInfo> infos = infoProvider.GetInfos(uris, repoInfo, args.RepositoryStamp);
+                IEnumerable<ProjectInfo> infos = this.infoProvider.GetInfos(uris, repoInfo, args.RepositoryStamp);
 
                 using (HttpSender sender = new HttpSender(args.ApiBaseUri, this.logger))
                 {
@@ -77,6 +84,21 @@ namespace RepoCat.Transmission.Client
             }
         }
 
+        private void InitializeProviders(TransmissionMode transmissionMode)
+        {
+            if (transmissionMode == TransmissionMode.LocalDotNetProjects)
+            {
+                this.pathsProvider = new LocalDotNetProjectUriProvider();
+                this.infoProvider = new DotNetProjectInfoProvider(this.logger);
+            }
+            else
+            {
+                this.infoProvider = new ManifestBasedProjectInfoProvider();
+                this.pathsProvider = new ManifestBasedUriProvider();
+            }
+
+        }
+
         private void DisplayParameters(TransmitterArguments args)
         {
             this.logger.Info($"Command line string: [{args.OriginalParameterInputString}]");
@@ -88,13 +110,13 @@ namespace RepoCat.Transmission.Client
             }
         }
 
-        private static IEnumerable<string> GetPaths(TransmitterArguments args)
+        private IEnumerable<string> GetPaths(TransmitterArguments args)
         {
             IEnumerable<string> uris;
             if (args.ProjectPaths == null || !args.ProjectPaths.Any())
             {
-                LocalDotNetProjectUriProvider uriProvider = new LocalDotNetProjectUriProvider();
-                uris = uriProvider.GetUris(args.CodeRootFolder);
+                this.pathsProvider = new LocalDotNetProjectUriProvider();
+                uris = this.pathsProvider.GetUris(args.CodeRootFolder);
             }
             else
             {

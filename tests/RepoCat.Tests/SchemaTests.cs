@@ -22,7 +22,7 @@ namespace RepoCat.Tests
         [Test]
         public void TestSchema_SampleFile_IsValid()
         {
-            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\TestFiles\\SampleManifest.RepoCat.xml");
+            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\SampleManifestFiles\\SampleManifest.RepoCat.xml");
             var xDoc = XDocument.Parse(text);
             var validator = new SchemaValidator();
             var errors = validator.ValidateComponentManifest(xDoc);

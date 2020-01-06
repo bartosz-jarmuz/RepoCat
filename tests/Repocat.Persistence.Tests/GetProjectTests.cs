@@ -602,7 +602,7 @@ namespace Repocat.Persistence.Tests
                     }
                 }
             };
-            ProjectInfo bananaToolV1 = await database.Upsert(prj).ConfigureAwait(false);
+            await database.Upsert(prj).ConfigureAwait(false);
             //add v2 of the same project
             prj = new ProjectInfo()
             {
@@ -633,7 +633,7 @@ namespace Repocat.Persistence.Tests
                     }
                 }
             };
-            ProjectInfo pineAppleTool = await database.Upsert(prj).ConfigureAwait(false);
+            await database.Upsert(prj).ConfigureAwait(false);
             //add a project that does not match query but sits in latest version
             prj = new ProjectInfo()
             {
@@ -648,7 +648,7 @@ namespace Repocat.Persistence.Tests
                     }
                 }
             };
-            var appleTool = await database.Upsert(prj).ConfigureAwait(false);
+            await database.Upsert(prj).ConfigureAwait(false);
             return new SeedResult()
             {
                 Repository = snapshotRepo1,
@@ -679,7 +679,7 @@ namespace Repocat.Persistence.Tests
                     }
                 }
             };
-            ProjectInfo bananaToolV1 = await database.Upsert(prj).ConfigureAwait(false);
+            await database.Upsert(prj).ConfigureAwait(false);
             //add v2 of the same project
             prj = new ProjectInfo()
             {
@@ -710,7 +710,7 @@ namespace Repocat.Persistence.Tests
                     }
                 }
             };
-            ProjectInfo pineAppleTool = await database.Upsert(prj).ConfigureAwait(false);
+            await database.Upsert(prj).ConfigureAwait(false);
             //add a project that does not match query but sits in latest version
             prj = new ProjectInfo()
             {
@@ -725,7 +725,7 @@ namespace Repocat.Persistence.Tests
                     }
                 }
             };
-            var appleTool = await database.Upsert(prj).ConfigureAwait(false);
+            await database.Upsert(prj).ConfigureAwait(false);
             return new SeedResult()
             {
                 Repository = snapshotRepo2,

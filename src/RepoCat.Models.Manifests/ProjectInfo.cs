@@ -75,24 +75,4 @@ namespace RepoCat.Persistence.Models
         /// <value>The components.</value>
         public List<ComponentManifest> Components { get; internal set; } = new List<ComponentManifest>();
     }
-
-
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class Project
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        public ProjectInfo ProjectInfo { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public RepositoryInfo RepositoryInfo { get; set; }
-    }
-    
-
-   
 }

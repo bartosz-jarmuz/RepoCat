@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.RepositoryManagemen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repocat.Persistence.Tests", "tests\Repocat.Persistence.Tests\Repocat.Persistence.Tests.csproj", "{7B2C7EDD-87F5-4748-BB93-E496F58C0582}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Telemetry", "src\RepoCat.Telemetry\RepoCat.Telemetry.csproj", "{51AAD33B-8034-4D6C-9367-F0596AA637B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Telemetry", "src\RepoCat.Telemetry\RepoCat.Telemetry.csproj", "{51AAD33B-8034-4D6C-9367-F0596AA637B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

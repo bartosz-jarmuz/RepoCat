@@ -108,7 +108,9 @@ namespace RepoCat.Portal.Controllers.api
             this.telemetryClient.TrackFileDownload(project, true, file.Length);
 
 
+#pragma warning disable CA2000 // Dispose objects before losing scope - the dispose is done by the File result. If you dispose it yourself, it will cause errors
             return this.File(System.IO.File.OpenRead(file.FullName), "application/octet-stream", file.Name);
+#pragma warning restore CA2000 // Dispose objects before losing scope
         }
 }
 }

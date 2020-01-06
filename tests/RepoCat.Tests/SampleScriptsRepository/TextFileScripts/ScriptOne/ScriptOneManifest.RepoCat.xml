@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- See sample files for info about the structure of this file -->
+<Project>
+  <Name>ScriptOne</Name>
+  <ProjectUri IsRelative="True">.</ProjectUri>
+  <DownloadLocation IsRelative="True">\Script\I_AM_FAKE.Script</DownloadLocation>
+  <RepositoryName>Repo Cat Scripts</RepositoryName>
+  <OrganizationName>Repo Cat Organization</OrganizationName>
+  <Components xmlns="https://git.io/RepoCat-Components" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://git.io/RepoCat-Components 
+                             https://git.io/RepoCat-Components.xsd" >
+    <Component>
+      <Name>FakeFeature</Name>
+      <Description>Does nothing.</Description>
+      <DocumentationUri>/Guide/ScriptOneGuide.txt</DocumentationUri>
+      <Tags Value="Lorem;Ipsum"/>
+      <Properties>
+        <Add Key="Usability" Value="Useless"/>
+      </Properties>
+    </Component>
+   </Components>
+</Project>

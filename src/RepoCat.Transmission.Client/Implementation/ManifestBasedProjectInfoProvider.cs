@@ -13,10 +13,12 @@ namespace RepoCat.Transmission.Client
     {
         public ProjectInfo GetInfo(string uri, RepositoryInfo repositoryInfo, string repoStamp)
         {
+            return null;
         }
 
         public IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, RepositoryInfo repositoryInfo, string repoStamp)
         {
+            return null;
         }
     }
 }
