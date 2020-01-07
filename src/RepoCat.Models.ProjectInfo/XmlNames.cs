@@ -39,6 +39,11 @@ namespace RepoCat.Transmission.Models
         public static string Add { get; } = "Add";
 
         /// <summary>
+        /// 
+        /// </summary>
+        public static string IsRelativePath { get; } = "IsRelativePath";
+
+        /// <summary>
         /// Value element
         /// </summary>
         public static string Value { get; } = "Value";

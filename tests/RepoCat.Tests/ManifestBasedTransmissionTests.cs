@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
 using RepoCat.Portal;
 using RepoCat.Portal.Mapping;
 using RepoCat.Transmission.Client;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Tests
 {
@@ -15,13 +17,67 @@ namespace RepoCat.Tests
 
 
         [Test]
-        public void CheckManifestFilesPathsProvidedOk()
+        public void ManifestFilesPaths_ProvidedOk()
         {
-            var uriProvider = new ManifestBasedUriProvider();
-            var uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
             Assert.AreEqual(2, uris.Count);
             Assert.IsTrue(uris.Any(x=>x.Contains("ScriptOneManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
             Assert.IsTrue(uris.Any(x=>x.Contains("ScriptTwoManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
+        }
+
+
+        [Test]
+        public void ProjectInfo_ProvidedOk()
+        {
+            //arrange
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
+            IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
+
+            //act
+            List<ProjectInfo> infos = provider.GetInfos(uris).ToList();
+
+            //assert
+            Assert.AreEqual(2, infos.Count);
+            var scriptOne = infos.Single(x => x.ProjectName == "ScriptOne");
+            var scriptTwo = infos.Single(x => x.ProjectName == "ScriptTwo");
+            //most properties are the same. Also, we care simply about whether the files exist
+            ValidateProjectInfo(scriptOne);
+            ValidateProjectInfo(scriptTwo);
+        }
+
+        [Test]
+        public void RelativePathPropertyKey_ResolvedOk()
+        {
+            //arrange
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
+            IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
+
+            //act
+            List<ProjectInfo> infos = provider.GetInfos(uris).ToList();
+
+            //assert
+            var scriptTwo = infos.Single(x => x.ProjectName == "ScriptTwo");
+            var samplePath = scriptTwo.Components.Single().Properties["SamplePath"];
+            FileAssert.Exists(samplePath);
+        }
+
+
+        private static void ValidateProjectInfo(ProjectInfo scriptOne)
+        {
+            Assert.AreEqual("RepoCat Scripts", scriptOne.RepositoryInfo.RepositoryName);
+            Assert.AreEqual("RepoCat Organization", scriptOne.RepositoryInfo.OrganizationName);
+            DirectoryAssert.Exists(scriptOne.ProjectUri);
+            FileAssert.Exists(scriptOne.DownloadLocation);
+            Assert.IsFalse(string.IsNullOrEmpty(scriptOne.RepositoryStamp));
+            
+            ComponentManifest feature = scriptOne.Components.Single();
+            FileAssert.Exists(feature.DocumentationUri);
+            Assert.IsFalse(string.IsNullOrEmpty(feature.Description));
+            Assert.IsTrue(feature.Tags.Any());
+            Assert.IsTrue(feature.Properties.Any());
         }
     }
 }

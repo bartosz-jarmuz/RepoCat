@@ -16,14 +16,24 @@ namespace RepoCat.ProjectParsers.Tests
         {
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetFramework.csproj");
 
-            var provider = new DotNetProjectInfoProvider(new Mock<ILogger>().Object);
             var repo = new RepositoryInfo()
             {
                 RepositoryName = "Test",
                 OrganizationName = "TestOrg"
             };
-            var info = provider.GetInfo(path.FullName, repo, "");
+            var provider = ProjectInfoProviderFactory.Get(new TransmitterArguments()
+            {
+                TransmissionMode = TransmissionMode.LocalDotNetProjects, 
+                RepositoryName = repo.RepositoryName,
+                OrganizationName = repo.OrganizationName
+            }, new Mock<ILogger>().Object);
+
+
+           
+            var info = provider.GetInfo(path.FullName);
             info.Should().NotBeNull();
+            info.RepositoryInfo.Should().BeEquivalentTo(repo);
+            info.RepositoryStamp.Should().NotBeNullOrEmpty();
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetFramework");
             info.Components.Single().Name.Should().Be("SampleNetFrameworkConsoleApp");
             info.Components.Single().Tags.Count.Should().Be(3);
@@ -34,14 +44,18 @@ namespace RepoCat.ProjectParsers.Tests
         {
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetCore.csproj");
 
-            var provider = new DotNetProjectInfoProvider(new Mock<ILogger>().Object);
             var repo = new RepositoryInfo()
             {
                 RepositoryName = "Test",
                 OrganizationName = "TestOrg"
             };
-            var info = provider.GetInfo(path.FullName, repo, "");
+            var provider = ProjectInfoProviderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalDotNetProjects, RepositoryName = repo.RepositoryName, OrganizationName = repo.OrganizationName}, new Mock<ILogger>().Object);
+
+            
+            var info = provider.GetInfo(path.FullName);
             info.Should().NotBeNull();
+            info.RepositoryInfo.Should().BeEquivalentTo(repo);
+            info.RepositoryStamp.Should().NotBeNullOrEmpty();
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetCore");
             info.Components.Single().Name.Should().Be("SampleNetCoreConsoleApp");
             info.Components.Single().Tags.Count.Should().Be(3);

@@ -3,9 +3,10 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client
 {
-    internal interface IProjectInfoProvider
+    public interface IProjectInfoProvider
     {
-        ProjectInfo GetInfo(string uri, RepositoryInfo repositoryInfo, string repoStamp);
-        IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris, RepositoryInfo repositoryInfo, string repoStamp);
+        IList<IProjectInfoEnricher> ProjectInfoEnrichers { get; }
+        ProjectInfo GetInfo(string projectUri);
+        IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris);
     }
 }

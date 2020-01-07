@@ -2,12 +2,18 @@
 <!-- This is a sample of how the full message sent to the API will look like for each project. 
 The info about a project is generated automatically by the transmitter, whereas the Component elements are defined by the humans. 
 The component elements *might* get enriched by a transmitter plugin-->
-<Project>
-  <Name>RepoCat.Sample.FeatureBox.csproj</Name>
-  <AssemblyName>FeaturesBox.dll</AssemblyName>
+<ProjectInfo>
+  <ProjectName>RepoCat.Sample.FeatureBox.csproj</ProjectName>
   <ProjectUri>https://github.com/bartosz-jarmuz/repocat</ProjectUri>
-  <RepositoryName>Repo Cat</RepositoryName>
-  <OrganizationName>Repo Cat Organization</OrganizationName>
+  <AssemblyName>FeaturesBox.dll</AssemblyName>
+  <DownloadLocation>Optionally, set URL or network path for the downloadable thing</DownloadLocation>
+  <OutputType>Library</OutputType>
+  <TargetExtension>.dll</TargetExtension>
+  <RepositoryInfo>
+    <RepositoryName>CoolProjects</RepositoryName>
+    <OrganizationName>DreamTeam</OrganizationName>
+    <RepositoryMode>Default</RepositoryMode>
+  </RepositoryInfo>
   <RepositoryStamp>12.3.5.12312</RepositoryStamp>
   <!-- The Components part specifies details about the functionalities that a project contains. Each project will contain at least one functionality (otherwise it's quite redundant, right?)
   It is advisable to treat each separate functionality as a different component. 
@@ -36,4 +42,4 @@ The component elements *might* get enriched by a transmitter plugin-->
       </Properties>
     </Component>
   </Components>
-</Project>
+</ProjectInfo>

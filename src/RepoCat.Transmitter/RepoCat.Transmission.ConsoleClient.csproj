@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Log4NetAdapter.cs" />
     <Compile Include="Program.cs" />
+    <None Include="StartDebug.bat" />
     <None Include="Start.bat" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

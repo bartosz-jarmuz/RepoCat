@@ -188,6 +188,11 @@
             Component property element name
             </summary>
         </member>
+        <member name="P:RepoCat.Transmission.Models.XmlNames.IsRelativePath">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:RepoCat.Transmission.Models.XmlNames.Value">
             <summary>
             Value element

@@ -11,3 +11,6 @@ dotnet_diagnostic.CA2234.severity = suggestion
 
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = suggestion
+
+# IDE0044: Add readonly modifier
+dotnet_style_readonly_field = true:warning

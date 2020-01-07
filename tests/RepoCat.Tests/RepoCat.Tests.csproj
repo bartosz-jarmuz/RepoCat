@@ -24,10 +24,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="SampleScriptsRepository\TextFileScripts\ScriptTwo\Guide\Sample\Ex1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="SampleScriptsRepository\TextFileScripts\ScriptTwo\Guide\ScriptTwoGuide.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SampleScriptsRepository\TextFileScripts\ScriptTwo\ScriptTwoManifest.RepoCat.xml">
+    <None Update="SampleScriptsRepository\TextFileScripts\ScriptTwo\Script\ScriptTwoManifest.RepoCat.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="SampleScriptsRepository\TextFileScripts\ScriptTwo\Script\I_AM_FAKE_TOO.Script">

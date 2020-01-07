@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!-- See sample files for info about the structure of this file -->
 <ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectName>ScriptOne</ProjectName>
-  <ProjectUri IsRelativePath="True">.</ProjectUri>
-  <DownloadLocation IsRelativePath="True">\Script\I_AM_FAKE.Script</DownloadLocation>
+  <ProjectName>ScriptTwo</ProjectName>
+  <ProjectUri IsRelativePath="True">..</ProjectUri>
+  <DownloadLocation IsRelativePath="True">I_AM_FAKE_TOO.Script</DownloadLocation>
   <RepositoryInfo>
     <RepositoryName>RepoCat Scripts</RepositoryName>
     <OrganizationName>RepoCat Organization</OrganizationName>
@@ -12,12 +12,13 @@
   <Components xmlns="https://git.io/RepoCat-Components" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://git.io/RepoCat-Components 
                              https://git.io/RepoCat-Components.xsd" >
     <Component>
-      <Name>FakeFeature</Name>
+      <Name>FakeFeatureTwo</Name>
       <Description>Does nothing.</Description>
-      <DocumentationUri IsRelativePath="True">/Guide/ScriptOneGuide.txt</DocumentationUri>
+      <DocumentationUri IsRelativePath="True">../Guide/ScriptTwoGuide.txt</DocumentationUri>
       <Tags Value="Lorem;Ipsum"/>
       <Properties>
         <Add Key="Usability" Value="Useless"/>
+        <Add Key="SamplePath" Value="../Guide/Sample/Ex1.txt" IsRelativePath="True"/>
       </Properties>
     </Component>
    </Components>
