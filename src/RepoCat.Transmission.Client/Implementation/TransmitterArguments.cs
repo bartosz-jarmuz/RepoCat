@@ -68,5 +68,11 @@ namespace RepoCat.Transmission.Client
         /// <value>The API base URI.</value>
         public Uri ApiBaseUri { get; set; }
 
+        /// <summary>
+        /// Set to true if it is possible for the manifest file to contain repository info which should override the setting in the transmitter arguments. <br/>
+        /// The repository info in the manifest is ignored if the transmitter arguments contain the repository info. Set this flag to true, to change that behaviour.
+        /// </summary>
+        public bool ManifestCanOverrideRepositoryInfo { get; set; }
+
     }
 }

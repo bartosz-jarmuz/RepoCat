@@ -34,16 +34,9 @@ namespace RepoCat.Transmission.Client
         {
             infoProvider.ProjectInfoEnrichers.Add(new RepositoryStampAddingEnricher(args.RepositoryStamp, logger));
 
-            if (args.RepositoryName != null)
-            {
-                var repoInfo = new RepositoryInfo()
-                {
-                    RepositoryName = args.RepositoryName,
-                    OrganizationName = args.OrganizationName,
-                    RepositoryMode = args.RepositoryMode
-                };
-                infoProvider.ProjectInfoEnrichers.Add(new RepositoryInfoAddingEnricher(repoInfo));
-            }
+            infoProvider.ProjectInfoEnrichers.Add(new RepositoryInfoAddingEnricher(args));
+
+           
         }
     }
 }

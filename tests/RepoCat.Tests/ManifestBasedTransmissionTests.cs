@@ -24,6 +24,8 @@ namespace RepoCat.Tests
             Assert.IsTrue(uris.Any(x => x.Contains("ScriptTwoManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
         }
 
+
+
         [Test]
         public void ProjectInfo_ProvidedOk()
         {
