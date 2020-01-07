@@ -10,7 +10,7 @@ namespace RepoCat.Transmission.Client
 {
     public static class UriProviderFactory
     {
-        public static IProjectUriProvider Get(TransmitterArguments args)
+        public static IInputUriProvider Get(TransmitterArguments args)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
             if (args.TransmissionMode == TransmissionMode.LocalDotNetProjects)

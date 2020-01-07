@@ -14,18 +14,15 @@ namespace RepoCat.Tests
     public class ManifestBasedTransmissionTests
     {
         private static DirectoryInfo RepoRoot => new DirectoryInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, "SampleScriptsRepository"));
-
-
         [Test]
         public void ManifestFilesPaths_ProvidedOk()
         {
             ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
             Assert.AreEqual(2, uris.Count);
-            Assert.IsTrue(uris.Any(x=>x.Contains("ScriptOneManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
-            Assert.IsTrue(uris.Any(x=>x.Contains("ScriptTwoManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(uris.Any(x => x.Contains("ScriptOneManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(uris.Any(x => x.Contains("ScriptTwoManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
         }
-
 
         [Test]
         public void ProjectInfo_ProvidedOk()

@@ -55,6 +55,13 @@ namespace RepoCat.Transmission.Client
         /// </summary>
         /// <value>The repo stamp.</value>
         public string RepositoryStamp { get; set; }
+
+
+        /// <summary>
+        /// Exclude these paths from searching for manifests
+        /// </summary>
+        public string IgnoredPathsRegex { get; set; }
+
         /// <summary>
         /// Gets or sets the API base URI of the RepoCat instance that the transmitter is supposed to talk to.
         /// </summary>

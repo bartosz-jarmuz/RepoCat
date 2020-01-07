@@ -15,13 +15,18 @@ namespace RepoCat.ProjectParsers.Tests
             return slnDir;
         }
 
-        public static FileInfo GetSampleProject(string name)
+        public static DirectoryInfo GetSampleProjectsRoot()
         {
             var sln = GetSolutionDirectory();
 
-            var samplesFolder = new DirectoryInfo(Path.Combine(sln.FullName, "tests", "SampleProjects"));
+            DirectoryInfo samplesFolder = new DirectoryInfo(Path.Combine(sln.FullName, "tests", "SampleProjects"));
             ThrowIfNotExists(samplesFolder.FullName);
+            return samplesFolder;
+        }
 
+        public static FileInfo GetSampleProject(string name)
+        {
+            var samplesFolder = GetSampleProjectsRoot();
             var projectFile = samplesFolder.EnumerateFiles("*.*", SearchOption.AllDirectories)
                 .FirstOrDefault(x => x.Name == name);
             if (projectFile == null)

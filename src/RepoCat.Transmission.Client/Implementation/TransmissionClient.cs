@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DotNetLittleHelpers;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client
@@ -85,7 +87,12 @@ namespace RepoCat.Transmission.Client
             if (args.ProjectPaths == null || !args.ProjectPaths.Any())
             {
                 var provider = UriProviderFactory.Get(args);
-                uris = provider.GetUris(args.CodeRootFolder);
+                Regex regex = null;
+                if (!string.IsNullOrEmpty(args.IgnoredPathsRegex))
+                {
+                    regex = new Regex(args.IgnoredPathsRegex);
+                }
+                uris = provider.GetUris(args.CodeRootFolder,regex);
             }
             else
             {
