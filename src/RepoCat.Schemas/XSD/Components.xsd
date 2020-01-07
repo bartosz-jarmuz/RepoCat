@@ -11,7 +11,15 @@
             <xs:sequence>
               <xs:element type="xs:string" name="Name"/>
               <xs:element type="xs:string" name="Description"/>
-              <xs:element type="xs:anyURI" name="DocumentationUri"/>
+              <xs:element name="DocumentationUri">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="IsRelativePath" type="xs:string" use="optional" />
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
               <xs:element name="Tags">
                 <xs:complexType>
                   <xs:simpleContent>
