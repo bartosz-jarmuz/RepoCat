@@ -14,27 +14,27 @@
                         <div class="col-md-9">
                             <div class="row">
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <small class="help-block text-secondary">Select repository</small>
                                         <select data-allow-clear="0" class="form-control form-control-lg select2 select2-hidden-accessible" multiple="multiple"
                                                 placeholder="Select repository..." id="selectedRepo" asp-for="Repository" asp-items="@Model.Repositories"></select>
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-8">
                                     <div class="form-group row">
                                         <div class="col-md-10">
                                             <small class="help-block text-secondary">Search for</small>
-                                            <input type="text" id="searchQuery" class="form-control form-control-lg" placeholder="Keywords or phrases" asp-for="Query">
+                                            <input type="text" id="searchQuery" class="form-control form-control-lg" placeholder="Keywords or phrases" asp-for="Query" tabindex="1">
                                             <div class="form-check checkbox">
-                                                <input class="form-check-input" id="isRegex" asp-for="IsRegex" type="checkbox" value="">
+                                                <input class="form-check-input" id="isRegex" asp-for="IsRegex" type="checkbox" value="" tabindex="3">
                                                 <label class="form-check-label" for="isRegex">Is Regex search?</label>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <small class="help-block text-secondary">&nbsp;</small>
                                             <div>
-                                                <button type="submit" id="searchBtn" class="btn btn-lg btn-primary">
+                                                <button type="submit" id="searchBtn" class="btn btn-lg btn-primary" tabindex="2">
                                                     <i class="fa fa-dot-circle-o"></i> Search
                                                 </button>
                                             </div>
