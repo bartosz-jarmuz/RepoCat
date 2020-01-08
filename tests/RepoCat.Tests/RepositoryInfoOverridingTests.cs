@@ -17,17 +17,41 @@ namespace RepoCat.Tests
     public class RepositoryInfoOverridingTests
     {
         private static DirectoryInfo RepoRoot => new DirectoryInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, "SampleScriptsRepository"));
+        private static DirectoryInfo Samples => new DirectoryInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, "SampleManifestFiles"));
 
-        private ProjectInfo LoadFromManifestWithRepoIncluded(bool allowOverride, RepositoryInfo repositoryInfo)
+        private ProjectInfo LoadFromManifestWithoutRepositoryInfo(bool allowOverride, RepositoryInfo repositoryInfoFromTransmitter)
+        {
+            //arrange
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            var file = Samples.GetFiles("ProjectManifestWithoutRepository.RepoCat.xml").Single();
+
+            IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments()
+            {
+                RepositoryName = repositoryInfoFromTransmitter?.RepositoryName,
+                OrganizationName = repositoryInfoFromTransmitter?.OrganizationName,
+                RepositoryMode = repositoryInfoFromTransmitter?.RepositoryMode ?? RepositoryMode.Default,
+                TransmissionMode = TransmissionMode.LocalManifestBased,
+                ManifestCanOverrideRepositoryInfo = allowOverride
+            }, new TraceLogger(LogLevel.Debug));
+
+            //act
+            List<ProjectInfo> infos = provider.GetInfos(new []{file.FullName}).ToList();
+
+            //assert
+            var scriptOne = infos.Single();
+            return scriptOne;
+        }
+
+        private ProjectInfo LoadFromManifestWithRepoIncluded(bool allowOverride, RepositoryInfo repositoryInfoFromTransmitter)
         {
             //arrange
             ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
             IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments()
             {
-                RepositoryName = repositoryInfo?.RepositoryName,
-                OrganizationName = repositoryInfo?.OrganizationName,
-                RepositoryMode = repositoryInfo?.RepositoryMode??RepositoryMode.Default,
+                RepositoryName = repositoryInfoFromTransmitter?.RepositoryName,
+                OrganizationName = repositoryInfoFromTransmitter?.OrganizationName,
+                RepositoryMode = repositoryInfoFromTransmitter?.RepositoryMode??RepositoryMode.Default,
                 TransmissionMode = TransmissionMode.LocalManifestBased, 
                 ManifestCanOverrideRepositoryInfo = allowOverride
             }, new TraceLogger(LogLevel.Debug));
@@ -39,6 +63,9 @@ namespace RepoCat.Tests
             var scriptOne = infos.Single(x => x.ProjectName == "ScriptOne");
             return scriptOne;
         }
+
+
+
 
 
         [Test]
@@ -93,6 +120,60 @@ namespace RepoCat.Tests
             Assert.AreEqual("RepoCat Scripts", scriptOne.RepositoryInfo.RepositoryName);
             Assert.AreEqual("RepoCat Organization", scriptOne.RepositoryInfo.OrganizationName);
         }
+
+
+
+        [Test]
+        public void OverrideFalse_WithoutInfoInManifest_NoInfoInArgs_ShoudBeAsInManifest()
+        {
+            //arrange and act
+            var scriptOne = this.LoadFromManifestWithoutRepositoryInfo(false, null);
+            //assert
+            Assert.IsNull(scriptOne.RepositoryInfo);
+        }
+
+        [Test]
+        public void OverrideFalse_WithoutInfoInManifest_InfoInArgs_ShoudBeAsInArgs()
+        {
+            //arrange and act
+            var info = new RepositoryInfo()
+            {
+                RepositoryName = "TestRepo",
+                OrganizationName = "TestOrg"
+            };
+            var scriptOne = this.LoadFromManifestWithoutRepositoryInfo(false, info);
+
+            //assert
+            Assert.AreEqual("TestRepo", scriptOne.RepositoryInfo.RepositoryName);
+            Assert.AreEqual("TestOrg", scriptOne.RepositoryInfo.OrganizationName);
+        }
+
+        [Test]
+        public void OverrideTrue_WithoutInfoInManifest_NoInfoInArgs_ShoudBeAsInManifest()
+        {
+            //arrange and act
+            var scriptOne = this.LoadFromManifestWithoutRepositoryInfo(true, null);
+
+            //assert
+            Assert.IsNull(scriptOne.RepositoryInfo);
+        }
+
+        [Test]
+        public void OverrideTrue_WithoutInfoInManifest_InfoInArgs_ShoudBeAsInManifest()
+        {
+            //arrange and act
+            var info = new RepositoryInfo()
+            {
+                RepositoryName = "TestRepo",
+                OrganizationName = "TestOrg"
+            };
+            var scriptOne = this.LoadFromManifestWithoutRepositoryInfo(true, info);
+
+            //assert
+            Assert.AreEqual("TestRepo", scriptOne.RepositoryInfo.RepositoryName);
+            Assert.AreEqual("TestOrg", scriptOne.RepositoryInfo.OrganizationName);
+        }
+
 
     }
 }
