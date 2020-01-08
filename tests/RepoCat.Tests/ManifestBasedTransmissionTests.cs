@@ -14,6 +14,7 @@ namespace RepoCat.Tests
     public class ManifestBasedTransmissionTests
     {
         private static DirectoryInfo RepoRoot => new DirectoryInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, "SampleScriptsRepository"));
+       
         [Test]
         public void ManifestFilesPaths_ProvidedOk()
         {
@@ -23,7 +24,25 @@ namespace RepoCat.Tests
             Assert.IsTrue(uris.Any(x => x.Contains("ScriptOneManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
             Assert.IsTrue(uris.Any(x => x.Contains("ScriptTwoManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
         }
+      
+        
+        [Test]
+        public void ProjectInfo_RepoStampsShouldBeEqual()
+        {
+            //arrange
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
+            IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
 
+            //act
+            List<ProjectInfo> infos = provider.GetInfos(uris).ToList();
+
+            //assert
+
+            //the stamp of both scripts should be the same (as they are loaded at the same time)
+            //otherwise, they would be visible in different snapshots of the repo
+            Assert.AreEqual(infos[0].RepositoryStamp, infos[1].RepositoryStamp);
+        }
 
 
         [Test]

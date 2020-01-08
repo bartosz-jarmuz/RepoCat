@@ -13,12 +13,19 @@ namespace RepoCat.Transmission.Client
     public class RepositoryStampAddingEnricher : EnricherBase
     {
         private readonly string stamp;
-        private readonly ILogger logger;
 
         public RepositoryStampAddingEnricher(string stamp, ILogger logger)
         {
-            this.stamp = stamp;
-            this.logger = logger;
+            if (logger == null) throw new ArgumentNullException(nameof(logger));
+            if (string.IsNullOrEmpty(stamp))
+            {
+                this.stamp = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture);
+                logger.Info($"Repository stamp was null or empty - updated to current execution time (UTC) - [{this.stamp}]");
+            }
+            else
+            {
+                this.stamp = stamp;
+            }
         }
 
         ///<inheritdoc cref="IProjectInfoEnricher"/>
@@ -26,16 +33,7 @@ namespace RepoCat.Transmission.Client
         {
             if (projectInfo != null)
             {
-                if (string.IsNullOrEmpty(this.stamp))
-                {
-                    projectInfo.RepositoryStamp = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture);
-                    this.logger.Info($"Repository stamp was null or empty - updated to current execution time (UTC) - [{projectInfo.RepositoryStamp}]");
-                }
-                else
-                {
-                    projectInfo.RepositoryStamp = this.stamp;
-                }
-
+                projectInfo.RepositoryStamp = this.stamp;
             }
         }
     }
