@@ -15,14 +15,17 @@ namespace RepoCat.Transmission.Client
     public class TransmissionClient : ITransmissionClient
     {
         private readonly ILogger logger;
+        private readonly ISender sender;
 
         /// <summary>
         /// Creates new instance
         /// </summary>
         /// <param name="logger"></param>
-        public TransmissionClient(ILogger logger)
+        /// <param name="sender">The component that performs actual delivery of generated project info to the API (via HTTP or directly to DB)</param>
+        public TransmissionClient(ILogger logger, ISender sender)
         {
             this.logger = logger;
+            this.sender = sender;
         }
 
         /// <summary>
@@ -36,14 +39,14 @@ namespace RepoCat.Transmission.Client
             this.logger.Debug($"Arguments: {arguments.OriginalParameterInputString}");
             return this.Work(arguments);
         }
-    
+
 
         /// <summary>
         /// Entry point for the transmission
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Task.</returns>
-        public async Task Work(TransmitterArguments args)
+        public async Task<RepositoryImportResult> Work(TransmitterArguments args)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
 
@@ -56,16 +59,17 @@ namespace RepoCat.Transmission.Client
                 var infoProvider = ProjectInfoProviderFactory.Get(args, this.logger);
                 IEnumerable<ProjectInfo> infos = infoProvider.GetInfos(uris);
 
-                using (HttpSender sender = new HttpSender(args.ApiBaseUri, this.logger))
-                {
-                    await sender.Send(infos).ConfigureAwait(false);
-                }
+                this.sender.SetBaseAddress(args.ApiBaseUri);
+
+                var result =  await this.sender.Send(infos).ConfigureAwait(false);
 
                 this.logger.Info("All done");
+                return result;
             }
             catch (Exception ex)
             {
                 this.logger.Fatal(ex);
+                throw;
             }
         }
 

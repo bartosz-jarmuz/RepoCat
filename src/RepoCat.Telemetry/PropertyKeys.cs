@@ -13,11 +13,16 @@ namespace RepoCat.Telemetry
         public static string Query => "Query";
         public static string IsLocal => "IsLocal";
         public static string RepositoryName => "RepositoryName";
+        public static string RepositoryPath => "RepositoryPath";
         public static string OrganizationName => "OrganizationName";
         public static string ProjectName => "ProjectName";
         public static string RepositoryMode => "RepositoryMode";
+        public static string TransmissionMode => "TransmissionMode";
         public static string Id => "Id";
         public static string ProjectUri => "ProjectUri";
         public static string RepositoryId => "RepositoryId";
+        public static string JobExecutionCron => "JobExecutionCron";
+        public static string SuccessCount => "SuccessCount";
+        public static string FailedCount => "FailedCount";
     }
 }

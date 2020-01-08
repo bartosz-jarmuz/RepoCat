@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using RepoCat.Transmission.Models;
 
@@ -14,13 +15,19 @@ namespace RepoCat.Transmission.Client
         /// </summary>
         /// <param name="infos">The infos.</param>
         /// <returns>Task.</returns>
-        Task Send(IEnumerable<ProjectInfo> infos);
+        Task<RepositoryImportResult> Send(IEnumerable<ProjectInfo> infos);
 
         /// <summary>
         /// Sends the specified information.
         /// </summary>
         /// <param name="info">The information.</param>
         /// <returns>Task.</returns>
-        Task Send(ProjectInfo info);
+        Task<ProjectImportResult> Send(ProjectInfo info);
+
+        /// <summary>
+        /// Set the base URL of the RepoCat API
+        /// </summary>
+        /// <param name="baseAddress"></param>
+        void SetBaseAddress(Uri baseAddress);
     }
 }

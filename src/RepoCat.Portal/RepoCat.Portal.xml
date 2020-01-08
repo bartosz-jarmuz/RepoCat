@@ -580,6 +580,125 @@
             </summary>
             <value><c>true</c> if [show request identifier]; otherwise, <c>false</c>.</value>
         </member>
+        <member name="T:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,Microsoft.ApplicationInsights.TelemetryClient)">
+            <summary>
+            
+            </summary>
+            <param name="service"></param>
+            <param name="telemetryClient"></param>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.LogInfo">
+            <inheritdoc cref="T:RepoCat.Transmission.Client.ISender"/>
+        </member>
+        <member name="M:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.Send(RepoCat.Transmission.Models.ProjectInfo)">
+            <inheritdoc cref="T:RepoCat.Transmission.Client.ISender"/>
+        </member>
+        <member name="T:RepoCat.Portal.RecurringJobs.IScanRepositoryJob">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RepoCat.Portal.RecurringJobs.RepoCatRecurringJobsScheduler">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.RecurringJobs.RepoCatRecurringJobsScheduler.ScheduleRecurringJobs(RepoCat.Portal.RecurringJobs.IRepositoryMonitoringSettings,Microsoft.ApplicationInsights.TelemetryClient)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RepoCat.Portal.RecurringJobs.ScanRepositoryJob">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.RecurringJobs.ScanRepositoryJob.#ctor(Microsoft.ApplicationInsights.TelemetryClient,AutoMapper.IMapper,RepoCat.Transmission.Client.ITransmissionClient)">
+            <summary>
+            The job of looking into specified repository for manifests and sending them to RepoCat
+            </summary>
+            <param name="telemetryClient"></param>
+            <param name="mapper"></param>
+            <param name="transmissionClient"></param>
+        </member>
+        <member name="M:RepoCat.Portal.RecurringJobs.ScanRepositoryJob.Run(RepoCat.Portal.RecurringJobs.RepositoryToScanSettings)">
+            <summary>
+            Performs the job
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="T:RepoCat.Portal.RecurringJobs.IRepositoryMonitoringSettings">
+            <summary>
+            Collection of settings
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.IRepositoryMonitoringSettings.RepositorySettings">
+            <summary>
+            A collection of settings for each monitored repository
+            </summary>
+        </member>
+        <member name="T:RepoCat.Portal.RecurringJobs.RepositoryMonitoringSettings">
+            <inheritdoc cref="T:RepoCat.Portal.RecurringJobs.IRepositoryMonitoringSettings"/>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryMonitoringSettings.RepositorySettings">
+            <inheritdoc cref="T:RepoCat.Portal.RecurringJobs.IRepositoryMonitoringSettings"/>
+        </member>
+        <member name="T:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings">
+            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.RepositoryPath">
+            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.RepositoryName">
+            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.OrganizationName">
+            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.RepositoryMode">
+            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.TransmissionMode">
+            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.JobExecutionCron">
+            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+        </member>
+        <member name="T:RepoCat.Portal.TelemetryExtensions">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.TelemetryExtensions.TrackRecurringJobStarted(Microsoft.ApplicationInsights.TelemetryClient,RepoCat.Portal.RecurringJobs.RepositoryToScanSettings)">
+            <summary>
+            Before execution starts
+            </summary>
+            <param name="telemetryClient"></param>
+            <param name="settings"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:RepoCat.Portal.TelemetryExtensions.TrackRecurringJobFinished(Microsoft.ApplicationInsights.TelemetryClient,RepoCat.Transmission.Client.TransmitterArguments,RepoCat.Transmission.Client.RepositoryImportResult)">
+            <summary>
+            Ater execution finished
+            </summary>
+            <param name="telemetryClient"></param>
+            <param name="arguments"></param>
+            <param name="result"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:RepoCat.Portal.TelemetryExtensions.TrackRecurringJobScheduled(Microsoft.ApplicationInsights.TelemetryClient,RepoCat.Portal.RecurringJobs.RepositoryToScanSettings)">
+            <summary>
+            When added to schedule
+            </summary>
+            <param name="telemetryClient"></param>
+            <param name="settings"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
         <member name="T:RepoCat.Portal.Utilities.SampleManifestXmlProvider">
             <summary>
             Generates a sample XML

@@ -12,6 +12,6 @@ namespace RepoCat.Transmission.Client
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// <returns>Task.</returns>
-        Task Work(TransmitterArguments args);
+        Task<RepositoryImportResult> Work(TransmitterArguments args);
     }
 }

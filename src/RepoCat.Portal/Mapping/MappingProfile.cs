@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using RepoCat.Persistence.Models;
 using RepoCat.Portal.Areas.Catalog.Models;
+using RepoCat.Portal.RecurringJobs;
 using RepoCat.RepositoryManagement.Service;
+using RepoCat.Transmission.Client;
 using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
 using RepositoryQueryParameter = RepoCat.Persistence.Models.RepositoryQueryParameter;
 
@@ -55,6 +57,14 @@ namespace RepoCat.Portal.Mapping
             this.CreateMap<Transmission.Models.ComponentManifest, ComponentManifest>();
             this.CreateMap<Transmission.Models.RepositoryInfo, RepositoryInfo>()
                 .ForMember(x => x.Id, o => o.Ignore())
+                ;
+            this.CreateMap<RepositoryToScanSettings, TransmitterArguments>()
+                .ForMember(x => x.CodeRootFolder, o => o.MapFrom(s => s.RepositoryPath))
+                .ForMember(x => x.ApiBaseUri, o => o.Ignore())
+                .ForMember(x => x.ProjectPaths, o => o.Ignore())
+                .ForMember(x => x.OriginalParameterInputString, o => o.Ignore())
+                .ForMember(x => x.OriginalParameterCollection, o => o.Ignore())
+                .ForMember(x => x.RepositoryStamp, o => o.Ignore())
                 ;
 
         }

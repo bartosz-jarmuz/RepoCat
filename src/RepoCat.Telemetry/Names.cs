@@ -4,8 +4,11 @@ namespace RepoCat.Telemetry
 {
     public static class Names
     {
+        public static string RecurringJobScheduled => "RecurringJobScheduled";
+        public static string RecurringJobStarted => "RecurringJobStarted";
+        public static string RecurringJobFinished => "RecurringJobFinished";
         public static string ViewRepository => "ViewRepository";
-        public static string AddingProjectInfo => "AddingProjectInfo";
+        public static string PostingProjectInfo => "PostingProjectInfo";
         public static string UpsertedRepository => "UpsertedRepository";
         public static string UpsertedProject => "UpsertedProject";
         public static string FileDownload => "FileDownload";

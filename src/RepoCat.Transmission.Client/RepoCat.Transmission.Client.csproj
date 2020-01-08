@@ -100,6 +100,9 @@
     <Compile Include="Implementation\Enrichers\RepositoryStampAddingEnricher.cs" />
     <Compile Include="Implementation\HttpSender.cs" />
     <Compile Include="Implementation\InputUriProviding\InputUriProviderBase.cs" />
+    <Compile Include="Implementation\ProjectImportResult.cs" />
+    <Compile Include="Implementation\RepositoryImportResult.cs" />
+    <Compile Include="Implementation\SenderBase.cs" />
     <Compile Include="Interfaces\IProjectInfoEnricher.cs" />
     <Compile Include="Implementation\InputUriProviding\LocalDotNetProjectUriProvider.cs" />
     <Compile Include="Implementation\ProjectInfoProviding\DotNetProjectInfoProvider.cs" />

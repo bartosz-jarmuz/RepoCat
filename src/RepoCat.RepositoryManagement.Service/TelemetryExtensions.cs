@@ -7,7 +7,6 @@ namespace RepoCat.RepositoryManagement.Service
 {
     public static class TelemetryExtensions
     {
-
         public static void TrackViewRepository(this TelemetryClient telemetryClient, string organizationName, string repositoryName)
         {
             telemetryClient.TrackEvent(Names.ViewRepository, new Dictionary<string, string>()
@@ -43,12 +42,9 @@ namespace RepoCat.RepositoryManagement.Service
             });
         }
 
-
-
-
         public static void TrackAdding(this TelemetryClient telemetryClient, Transmission.Models.ProjectInfo project)
         {
-            telemetryClient.TrackEvent(Names.AddingProjectInfo, new Dictionary<string, string>()
+            telemetryClient.TrackEvent(Names.PostingProjectInfo, new Dictionary<string, string>()
             {
                 {PropertyKeys.ProjectName, project.ProjectName},
                 {PropertyKeys.ProjectUri, project.ProjectUri},
