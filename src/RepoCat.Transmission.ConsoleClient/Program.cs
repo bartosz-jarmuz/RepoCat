@@ -15,9 +15,9 @@ namespace RepoCat.Transmission.ConsoleClient
             {
                 log.Info($"Console transmitter [{GetAssemblyFileVersion()}] starting...");
                 ILogger logAdapter = new Log4NetAdapter(log);
-                using (var sender = new HttpSender(logAdapter))
+                using (var sender = new HttpProjectInfoSender(logAdapter))
                 {
-                    TransmissionClient client = new TransmissionClient(logAdapter,sender );
+                    Transmitter client = new Transmitter(logAdapter,sender );
                     client.Work(args).GetAwaiter().GetResult();
                 }
                 log.Info($"{typeof(Program).Assembly.GetName().Name} - Finished");

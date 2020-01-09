@@ -593,10 +593,10 @@
             <param name="telemetryClient"></param>
         </member>
         <member name="P:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.LogInfo">
-            <inheritdoc cref="T:RepoCat.Transmission.Client.ISender"/>
+            <inheritdoc cref="T:RepoCat.Transmission.Client.IProjectInfoSender"/>
         </member>
         <member name="M:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.Send(RepoCat.Transmission.Models.ProjectInfo)">
-            <inheritdoc cref="T:RepoCat.Transmission.Client.ISender"/>
+            <inheritdoc cref="T:RepoCat.Transmission.Client.IProjectInfoSender"/>
         </member>
         <member name="T:RepoCat.Portal.RecurringJobs.IScanRepositoryJob">
             <summary>
@@ -618,13 +618,13 @@
             
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.RecurringJobs.ScanRepositoryJob.#ctor(Microsoft.ApplicationInsights.TelemetryClient,AutoMapper.IMapper,RepoCat.Transmission.Client.ITransmissionClient)">
+        <member name="M:RepoCat.Portal.RecurringJobs.ScanRepositoryJob.#ctor(Microsoft.ApplicationInsights.TelemetryClient,AutoMapper.IMapper,RepoCat.Transmission.Client.IProjectInfoTransmitter)">
             <summary>
             The job of looking into specified repository for manifests and sending them to RepoCat
             </summary>
             <param name="telemetryClient"></param>
             <param name="mapper"></param>
-            <param name="transmissionClient"></param>
+            <param name="projectInfoTransmitter"></param>
         </member>
         <member name="M:RepoCat.Portal.RecurringJobs.ScanRepositoryJob.Run(RepoCat.Portal.RecurringJobs.RepositoryToScanSettings)">
             <summary>
@@ -649,25 +649,49 @@
             <inheritdoc cref="T:RepoCat.Portal.RecurringJobs.IRepositoryMonitoringSettings"/>
         </member>
         <member name="T:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings">
-            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+            <summary>
+            Settings of the repo to scan
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.RepositoryPath">
-            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+            <summary>
+            Path to repository
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.RepositoryName">
-            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+            <summary>
+            Repository name
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.OrganizationName">
-            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+            <summary>
+            
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.RepositoryMode">
-            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+            <summary>
+            
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.TransmissionMode">
-            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+            <summary>
+            Defines what project info builder will be used (e.g. manifest based, .NET project based etc)
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.JobExecutionCron">
-            <inheritdoc cref="!:IRepositoryToScanSettings"/>
+            <summary>
+            How often and when should it be executed
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.IgnoredPathsRegex">
+            <summary>
+            Optionally, what should be excuded
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.ManifestCanOverrideRepositoryInfo">
+            <summary>
+            Optional
+            </summary>
         </member>
         <member name="T:RepoCat.Portal.TelemetryExtensions">
             <summary>

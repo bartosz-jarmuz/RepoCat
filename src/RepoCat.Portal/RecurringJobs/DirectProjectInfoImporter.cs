@@ -17,7 +17,7 @@ namespace RepoCat.Portal.RecurringJobs
     /// <summary>
     /// 
     /// </summary>
-    public class DirectProjectInfoImporter : SenderBase
+    public class DirectProjectInfoImporter : ProjectInfoSenderBase
     {
         private readonly IRepositoryManagementService service;
         private readonly TelemetryClient telemetryClient;
@@ -33,11 +33,11 @@ namespace RepoCat.Portal.RecurringJobs
             this.telemetryClient = telemetryClient;
         }
 
-        ///<inheritdoc cref="ISender"/>
+        ///<inheritdoc cref="IProjectInfoSender"/>
         protected override Action<string> LogInfo => (message) => this.telemetryClient.TrackTrace(message);
 
 
-        ///<inheritdoc cref="ISender"/>
+        ///<inheritdoc cref="IProjectInfoSender"/>
         public override async Task<ProjectImportResult> Send(ProjectInfo info)
         {
             var importResult = new ProjectImportResult(info);

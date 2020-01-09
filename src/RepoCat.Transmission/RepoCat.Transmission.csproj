@@ -14,8 +14,8 @@
     <ProjectGuid>{B50B7D0E-D794-4F8D-8FCB-531491C032B7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RepoCat.Transmission.Client</RootNamespace>
-    <AssemblyName>RepoCat.Transmission.Client</AssemblyName>
+    <RootNamespace>RepoCat.Transmission</RootNamespace>
+    <AssemblyName>RepoCat.Transmission</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -98,11 +98,11 @@
     <Compile Include="Implementation\Enrichers\EnricherBase.cs" />
     <Compile Include="Implementation\Enrichers\RelativePathResolvingEnricher.cs" />
     <Compile Include="Implementation\Enrichers\RepositoryStampAddingEnricher.cs" />
-    <Compile Include="Implementation\HttpSender.cs" />
+    <Compile Include="Implementation\HttpProjectInfoSender.cs" />
     <Compile Include="Implementation\InputUriProviding\InputUriProviderBase.cs" />
     <Compile Include="Implementation\ProjectImportResult.cs" />
     <Compile Include="Implementation\RepositoryImportResult.cs" />
-    <Compile Include="Implementation\SenderBase.cs" />
+    <Compile Include="Implementation\ProjectInfoSenderBase.cs" />
     <Compile Include="Interfaces\IProjectInfoEnricher.cs" />
     <Compile Include="Implementation\InputUriProviding\LocalDotNetProjectUriProvider.cs" />
     <Compile Include="Implementation\ProjectInfoProviding\DotNetProjectInfoBuilder.cs" />
@@ -111,15 +111,15 @@
     <Compile Include="Implementation\Factories\ProjectInfoBuilderFactory.cs" />
     <Compile Include="Implementation\Enrichers\RepositoryInfoAddingEnricher.cs" />
     <Compile Include="Strings.cs" />
-    <Compile Include="Implementation\TransmissionClient.cs" />
+    <Compile Include="Implementation\Transmitter.cs" />
     <Compile Include="Implementation\TransmissionMode.cs" />
     <Compile Include="Implementation\TransmitterArguments.cs" />
     <Compile Include="Implementation\Factories\UriProviderFactory.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IProjectInfoBuilder.cs" />
     <Compile Include="Interfaces\IInputUriProvider.cs" />
-    <Compile Include="Interfaces\ISender.cs" />
-    <Compile Include="Interfaces\ITransmissionClient.cs" />
+    <Compile Include="Interfaces\IProjectInfoSender.cs" />
+    <Compile Include="Interfaces\IProjectInfoTransmitter.cs" />
     <Compile Include="Implementation\ProjectInfoProviding\ProjectInfoBuilderBase.cs" />
     <Compile Include="ManifestDeserializer.cs" />
     <Compile Include="ManifestSerializer.cs" />
@@ -127,7 +127,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj">
+    <ProjectReference Include="..\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj">
       <Project>{894549a7-4337-4e81-9d54-4f7b5d9fa19a}</Project>
       <Name>RepoCat.Transmission.Models</Name>
     </ProjectReference>

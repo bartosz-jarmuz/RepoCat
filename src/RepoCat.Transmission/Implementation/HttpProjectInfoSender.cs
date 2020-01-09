@@ -12,7 +12,7 @@ namespace RepoCat.Transmission.Client
     /// <summary>
     /// Class that sends the project manifests to the RepoCat API over HTTP
     /// </summary>
-    public class HttpSender : SenderBase, ISender, IDisposable
+    public class HttpProjectInfoSender : ProjectInfoSenderBase, IProjectInfoSender, IDisposable
     {
         /// <summary>
         /// The client
@@ -22,10 +22,10 @@ namespace RepoCat.Transmission.Client
         private readonly ILogger logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HttpSender"/> class.
+        /// Initializes a new instance of the <see cref="HttpProjectInfoSender"/> class.
         /// </summary>
         /// <param name="logger"></param>
-        public HttpSender(ILogger logger)
+        public HttpProjectInfoSender(ILogger logger)
         {
             this.logger = logger;
             this.client = new HttpClient();

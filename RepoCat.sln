@@ -5,17 +5,17 @@ VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Portal", "src\RepoCat.Portal\RepoCat.Portal.csproj", "{DBD512A0-F5AA-4F60-8759-0BB842C44B35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Transmission.ConsoleClient", "src\RepoCat.Transmitter\RepoCat.Transmission.ConsoleClient.csproj", "{4455B3FB-565B-4020-A619-D6ED25E4F0DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Transmission.ConsoleClient", "src\RepoCat.Transmission.ConsoleClient\RepoCat.Transmission.ConsoleClient.csproj", "{4455B3FB-565B-4020-A619-D6ED25E4F0DA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Tests", "tests\RepoCat.Tests\RepoCat.Tests.csproj", "{2DDC3EA2-8817-4D5A-80EC-DAF60B01AB6A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EDD18317-7871-4682-B214-DF2985656B6A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Transmission.Models", "src\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj", "{894549A7-4337-4E81-9D54-4F7B5D9FA19A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Transmission.Models", "src\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj", "{894549A7-4337-4E81-9D54-4F7B5D9FA19A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Schemas", "src\RepoCat.Schemas\RepoCat.Schemas.csproj", "{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Models", "src\RepoCat.Models.Manifests\RepoCat.Persistence.Models.csproj", "{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Models", "src\RepoCat.Persistence.Models\RepoCat.Persistence.Models.csproj", "{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Service", "src\RepoCat.Web.Persistence\RepoCat.Persistence.Service.csproj", "{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}"
 EndProject
@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Utilities", "src\Re
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transmission", "Transmission", "{6F7FE48C-2880-4EC9-A6F5-AA07081432FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Transmission.Client", "src\RepoCat.Transmission.Client\RepoCat.Transmission.Client.csproj", "{B50B7D0E-D794-4F8D-8FCB-531491C032B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Transmission", "src\RepoCat.Transmission\RepoCat.Transmission.csproj", "{B50B7D0E-D794-4F8D-8FCB-531491C032B7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.ProjectParsers.Tests", "tests\RepoCat.ProjectParsers.Tests\RepoCat.ProjectParsers.Tests.csproj", "{A117C1D7-FF00-4095-91E4-E57B06966B3C}"
 EndProject

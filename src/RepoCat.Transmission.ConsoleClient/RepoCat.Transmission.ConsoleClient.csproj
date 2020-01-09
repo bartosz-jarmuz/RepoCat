@@ -80,13 +80,13 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj">
+    <ProjectReference Include="..\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj">
       <Project>{894549A7-4337-4E81-9D54-4F7B5D9FA19A}</Project>
       <Name>RepoCat.Transmission.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RepoCat.Transmission.Client\RepoCat.Transmission.Client.csproj">
+    <ProjectReference Include="..\RepoCat.Transmission\RepoCat.Transmission.csproj">
       <Project>{b50b7d0e-d794-4f8d-8fcb-531491c032b7}</Project>
-      <Name>RepoCat.Transmission.Client</Name>
+      <Name>RepoCat.Transmission</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

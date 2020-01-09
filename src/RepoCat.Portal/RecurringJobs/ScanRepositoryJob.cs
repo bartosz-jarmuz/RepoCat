@@ -16,19 +16,19 @@ namespace RepoCat.Portal.RecurringJobs
     {
         private readonly TelemetryClient telemetryClient;
         private readonly IMapper mapper;
-        private readonly ITransmissionClient transmissionClient;
+        private readonly IProjectInfoTransmitter projectInfoTransmitter;
 
         /// <summary>
         /// The job of looking into specified repository for manifests and sending them to RepoCat
         /// </summary>
         /// <param name="telemetryClient"></param>
         /// <param name="mapper"></param>
-        /// <param name="transmissionClient"></param>
-        public ScanRepositoryJob(TelemetryClient telemetryClient, IMapper mapper, ITransmissionClient transmissionClient)
+        /// <param name="projectInfoTransmitter"></param>
+        public ScanRepositoryJob(TelemetryClient telemetryClient, IMapper mapper, IProjectInfoTransmitter projectInfoTransmitter)
         {
             this.telemetryClient = telemetryClient;
             this.mapper = mapper;
-            this.transmissionClient = transmissionClient;
+            this.projectInfoTransmitter = projectInfoTransmitter;
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace RepoCat.Portal.RecurringJobs
             if (settings == null) throw new ArgumentNullException(nameof(settings));
 
             var arguments = this.mapper.Map<TransmitterArguments>(settings);
-            RepositoryImportResult result = await this.transmissionClient.Work(arguments).ConfigureAwait(false);
+            RepositoryImportResult result = await this.projectInfoTransmitter.Work(arguments).ConfigureAwait(false);
             this.telemetryClient.TrackRecurringJobFinished(arguments, result);
         }
 

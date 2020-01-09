@@ -11,7 +11,7 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client
 {
-    public abstract class SenderBase : ISender
+    public abstract class ProjectInfoSenderBase : IProjectInfoSender
     {
         public virtual void SetBaseAddress(Uri baseAddress)
         {

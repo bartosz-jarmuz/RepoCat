@@ -6,7 +6,7 @@ namespace RepoCat.Transmission.Client
     /// <summary>
     /// Controls end-to-end transmission of manifests to API
     /// </summary>
-    public interface ITransmissionClient
+    public interface IProjectInfoTransmitter
     {
         /// <summary>
         /// Additional enrichers can be added to the pipeline of ProjectInfo creation, so that newly created project info can be updated with some extra properties<br/>

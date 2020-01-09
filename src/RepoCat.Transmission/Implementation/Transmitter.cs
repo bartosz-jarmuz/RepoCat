@@ -1,34 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DotNetLittleHelpers;
+using RepoCat.Transmission.Client;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     /// <summary>
-    /// Main worker class
+    /// Default implementation of transmitter. Contains extension points to make in customizable
     /// </summary>
-    public class TransmissionClient : ITransmissionClient
+    public class Transmitter : IProjectInfoTransmitter
     {
         private readonly ILogger logger;
-        private readonly ISender sender;
+        private readonly IProjectInfoSender projectInfoSender;
 
         /// <summary>
         /// Creates new instance
         /// </summary>
         /// <param name="logger"></param>
-        /// <param name="sender">The component that performs actual delivery of generated project info to the API (via HTTP or directly to DB)</param>
-        public TransmissionClient(ILogger logger, ISender sender)
+        /// <param name="projectInfoSender">The component that performs actual delivery of generated project info to the API (via HTTP or directly to DB)</param>
+        public Transmitter(ILogger logger, IProjectInfoSender projectInfoSender)
         {
             this.logger = logger;
-            this.sender = sender;
+            this.projectInfoSender = projectInfoSender;
         }
 
-        ///<inheritdoc cref="ITransmissionClient"/>
+        ///<inheritdoc cref="IProjectInfoTransmitter"/>
         public Task Work(string[] args)
         {
             TransmitterArguments arguments= new TransmitterArguments(args);
@@ -36,11 +35,11 @@ namespace RepoCat.Transmission.Client
             return this.Work(arguments);
         }
 
-        ///<inheritdoc cref="ITransmissionClient"/>
+        ///<inheritdoc cref="IProjectInfoTransmitter"/>
 
         public IList<IProjectInfoEnricher> AdditionalProjectInfoEnrichers { get; } = new List<IProjectInfoEnricher>();
 
-    ///<inheritdoc cref="ITransmissionClient"/>
+    ///<inheritdoc cref="IProjectInfoTransmitter"/>
         public async Task<RepositoryImportResult> Work(TransmitterArguments args, IInputUriProvider uriProvider = null, IProjectInfoBuilder projectInfoBuilder = null)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
@@ -60,9 +59,9 @@ namespace RepoCat.Transmission.Client
 
                 IEnumerable<ProjectInfo> infos = projectInfoBuilder.GetInfos(uris);
 
-                this.sender.SetBaseAddress(args.ApiBaseUri);
+                this.projectInfoSender.SetBaseAddress(args.ApiBaseUri);
 
-                var result =  await this.sender.Send(infos).ConfigureAwait(false);
+                var result =  await this.projectInfoSender.Send(infos).ConfigureAwait(false);
 
                 this.logger.Info("All done");
                 return result;
