@@ -132,7 +132,7 @@ namespace RepoCat.Transmission
 
             try
             {
-                AuthorizationRuleCollection rules = Directory.GetAccessControl(path)
+                AuthorizationRuleCollection rules = System.IO.FileSystemAclExtensions.GetAccessControl(new DirectoryInfo(path))
                     .GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
                 WindowsIdentity identity = WindowsIdentity.GetCurrent();
 
