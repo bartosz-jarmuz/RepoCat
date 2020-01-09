@@ -14,7 +14,7 @@ using RepoCat.Schemas;
 using RepoCat.Persistence.Models;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Telemetry;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 using RepoCat.Utilities;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 

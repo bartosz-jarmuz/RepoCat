@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Portal.Utilities

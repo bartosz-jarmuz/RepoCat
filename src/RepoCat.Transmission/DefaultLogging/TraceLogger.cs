@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public class TraceLogger : ILogger
     {

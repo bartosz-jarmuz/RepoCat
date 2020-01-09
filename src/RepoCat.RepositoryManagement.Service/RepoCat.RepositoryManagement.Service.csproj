@@ -10,10 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RepoCat.Models.Manifests\RepoCat.Persistence.Models.csproj" />
-    <ProjectReference Include="..\RepoCat.Models.ProjectInfo\RepoCat.Transmission.Models.csproj" />
+    <ProjectReference Include="..\RepoCat.Persistence.Models\RepoCat.Persistence.Models.csproj" />
+    <ProjectReference Include="..\RepoCat.Persistence.Service\RepoCat.Persistence.Service.csproj" />
     <ProjectReference Include="..\RepoCat.Telemetry\RepoCat.Telemetry.csproj" />
-    <ProjectReference Include="..\RepoCat.Web.Persistence\RepoCat.Persistence.Service.csproj" />
+    <ProjectReference Include="..\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj" />
   </ItemGroup>
 
 </Project>

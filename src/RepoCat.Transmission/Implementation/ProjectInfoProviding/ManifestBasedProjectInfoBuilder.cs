@@ -5,11 +5,10 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Linq;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     /// <summary>
     /// Provides project info based on Manifest files, without parsing a project file

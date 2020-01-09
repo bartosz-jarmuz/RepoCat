@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public abstract class ProjectInfoSenderBase : IProjectInfoSender
     {

@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     /// <summary>
     /// Adds additional data to project infos

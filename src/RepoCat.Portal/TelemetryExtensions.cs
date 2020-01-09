@@ -4,7 +4,7 @@ using System.Globalization;
 using Microsoft.ApplicationInsights;
 using RepoCat.Portal.RecurringJobs;
 using RepoCat.Telemetry;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 
 namespace RepoCat.Portal
 {

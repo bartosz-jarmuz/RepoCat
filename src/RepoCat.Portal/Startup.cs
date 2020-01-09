@@ -19,7 +19,6 @@ using RepoCat.Portal.Mapping;
 using RepoCat.Portal.RecurringJobs;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Transmission;
-using RepoCat.Transmission.Client;
 
 #pragma warning disable 1591
 

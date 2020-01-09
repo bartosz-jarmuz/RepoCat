@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     /// <summary>
     /// Responsible for sending messages to the API

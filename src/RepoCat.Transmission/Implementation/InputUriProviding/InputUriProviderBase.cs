@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public abstract class InputUriProviderBase : IInputUriProvider
     {

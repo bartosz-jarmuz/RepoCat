@@ -1,4 +1,4 @@
-﻿namespace RepoCat.Transmission.Client
+﻿namespace RepoCat.Transmission
 {
     /// <summary>
     /// Class LocalProjectUriProvider.

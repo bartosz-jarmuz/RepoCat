@@ -4,7 +4,7 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public enum LogLevel
     {

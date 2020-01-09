@@ -6,7 +6,7 @@
 
 using System;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public abstract class LoggerDecorator : ILogger
     {

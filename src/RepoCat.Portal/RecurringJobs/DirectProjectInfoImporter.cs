@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using RepoCat.RepositoryManagement.Service;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Portal.RecurringJobs

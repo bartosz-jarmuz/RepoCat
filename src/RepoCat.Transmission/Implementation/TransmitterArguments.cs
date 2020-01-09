@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     /// <summary>
     /// The set of parameters for the worker.

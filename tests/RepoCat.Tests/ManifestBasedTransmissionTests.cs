@@ -5,7 +5,7 @@ using System.Linq;
 using NUnit.Framework;
 using RepoCat.Portal;
 using RepoCat.Portal.Mapping;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Tests

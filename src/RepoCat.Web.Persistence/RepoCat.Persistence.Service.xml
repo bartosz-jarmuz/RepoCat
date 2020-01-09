@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RepoCat.Persistence.Service</name>
+    </assembly>
+    <members>
+        <member name="T:RepoCat.Persistence.Service.RepositoryDatabase">
+            <summary>
+            Allows access to the stored Manifests data
+            </summary>
+            <summary>
+            Allows access to the stored Manifests data
+            </summary>
+            <summary>
+            Allows access to the stored Manifests data
+            </summary>
+            <summary>
+            Allows access to the stored Manifests data
+            </summary>
+            <summary>
+            Allows access to the stored Manifests data
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetById(System.String)">
+            <summary>
+            Gets the item with specified ID.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>ProjectInfo.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo},System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="repos"></param>
+            <param name="query"></param>
+            <param name="isRegex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryQueryParameter},System.String,System.Boolean)">
+            <summary>
+            Gets all projects for the latest version of a given repository matching specified search parameters
+            </summary>
+            <param name="repositoryParams">List of key value pairs - Organization and Repository name</param>
+            <param name="query">The string to search by. Set to null, empty or * to ignore the query</param>
+            <param name="isRegex">Specify whether the search string is a Regex</param>
+            <returns>Task&lt;ManifestQueryResult&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetProjectsByQuery(System.String,System.Boolean)">
+            <summary>
+            Gets projects matching the query from all repositories in all organizations
+            </summary>
+            <param name="query"></param>
+            <param name="isRegex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Create(RepoCat.Persistence.Models.ProjectInfo)">
+            <summary>
+            Creates a new item.
+            </summary>
+            <param name="info">The information.</param>
+            <returns>ProjectInfo.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Upsert(RepoCat.Persistence.Models.ProjectInfo)">
+            <summary>
+            Creates the entity if it didn't exist, or just updates it
+            </summary>
+            <param name="prjInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Update(System.String,RepoCat.Persistence.Models.ProjectInfo)">
+            <summary>
+            Updates the specified item.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="info">The information.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Remove(RepoCat.Persistence.Models.ProjectInfo)">
+            <summary>
+            Removes the specified item.
+            </summary>
+            <param name="info">The information.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Remove(System.String)">
+            <summary>
+            Removes the item with specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAllRepositories">
+            <summary>
+            Gets all the repositories names
+            </summary>
+            <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns> 
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetRepository(System.String,System.String)">
+            <summary>
+            Gets a repository by the specified name and organization name
+            </summary>
+            <param name="organizationName"></param>
+            <param name="repositoryName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetRepositoryById(MongoDB.Bson.ObjectId)">
+            <summary>
+            Gets a repository by its ID
+            </summary>
+            <param name="objectId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Create(RepoCat.Persistence.Models.RepositoryInfo)">
+            <summary>
+            Creates a new repository
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.UpsertReplace(RepoCat.Persistence.Models.RepositoryInfo)">
+            <summary>
+            Updates a repository if it exists (replace entire document). Otherwise, creates new.
+            </summary>
+            <param name="info"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.UpsertUpdate(RepoCat.Persistence.Models.RepositoryInfo)">
+            <summary>
+            Adds a repository if it did not exist. 
+            </summary>
+            <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.#ctor(RepoCat.Persistence.Service.IRepoCatDbSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Persistence.Service.RepositoryDatabase"/> class.
+            </summary>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepoCatFilterBuilder.AppendNewestStampFilterIfNeeded(MongoDB.Driver.IMongoCollection{RepoCat.Persistence.Models.ProjectInfo},MongoDB.Driver.FilterDefinition{RepoCat.Persistence.Models.ProjectInfo},RepoCat.Persistence.Models.RepositoryInfo)">
+            <summary>
+            If the repository is in snapshot mode, add the filter that selects entries from latest version only
+            </summary>
+            <param name="projects"></param>
+            <param name="filter"></param>
+            <param name="repository"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RepoCat.Persistence.Service.IRepoCatDbSettings">
+            <summary>
+            Interface IRepoCatDbSettings
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.ProjectsCollectionName">
+            <summary>
+            Gets or sets the name of the manifests collection.
+            </summary>
+            <value>The name of the manifests collection.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.RepositoriesCollectionName">
+            <summary>
+            Name of the repositories collection
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+            <value>The connection string.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.DatabaseName">
+            <summary>
+            Gets or sets the name of the database.
+            </summary>
+            <value>The name of the database.</value>
+        </member>
+        <member name="T:RepoCat.Persistence.Service.RepoCatDbSettings">
+            <inheritdoc />
+        </member>
+        <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.RepositoriesCollectionName">
+            <inheritdoc />
+        </member>
+        <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.ProjectsCollectionName">
+            <inheritdoc />
+        </member>
+        <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.ConnectionString">
+            <inheritdoc />
+        </member>
+        <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.DatabaseName">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

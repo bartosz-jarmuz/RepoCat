@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public class ConsoleLogger : LoggerDecorator
     {

@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public abstract class ProjectInfoBuilderBase : IProjectInfoBuilder
     {

@@ -3,7 +3,7 @@ using FluentAssertions;
 using Moq;
 using System.Xml.Linq;
 using NUnit.Framework;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.ProjectParsers.Tests

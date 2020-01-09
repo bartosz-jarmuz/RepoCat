@@ -7,7 +7,7 @@
 using System.Xml.Linq;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public abstract class EnricherBase : IProjectInfoEnricher
     {

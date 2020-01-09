@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RepoCat.Persistence.Models</name>
+    </assembly>
+    <members>
+        <member name="T:RepoCat.Persistence.Models.ComponentManifest">
+            <summary>
+            Component manifests contains a human-created short metadata about a top-level functional component in an assembly.
+            <para>A component is 'something of interest for a user' a tool, an app (or significant part of it), a plugin etc. </para>
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.Name">
+            <summary>
+            Gets or sets the name of the component
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.Description">
+            <summary>
+            Gets or sets the short description of the component.
+            </summary>
+            <value>The description.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.DocumentationUri">
+            <summary>
+            Gets or sets the component documentation URI.
+            </summary>
+            <value>The documentation URI.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.Tags">
+            <summary>
+            Gets or sets the tags that should allow for a component to be found in a repository catalog.
+            </summary>
+            <value>The tags.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ComponentManifest.Properties">
+            <summary>
+            Gets or sets the additional key-value properties associated with a component.
+            These properties might be enriched by a transmitter plugin automatically
+            (e.g. if a transmitter plugin uses reflection to scan through code for some extra info)
+            </summary>
+            <value>The properties.</value>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.Project">
+            <summary>
+            Project component which contains a reference to it's repository and project details.<br/>
+            It does not correspond to a specific database collection.<br/>
+            It is assembled by performing a join during a query.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.Project.ProjectInfo">
+            <summary>
+            Details about the project
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.Project.RepositoryInfo">
+            <summary>
+            Repository reference
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.ProjectInfo">
+            <summary>
+            Project info contains data about a project, understood as a class library or an executable.
+            <para>Projects can contain zero or more components
+            They can contain a set of plugins, tool or functionalities,
+            however they can only be helper assemblies which do not contain any high-level components
+            (in which case they are not interesting from the point of view of repository catalog).</para>
+            <para>Project info is also different from a component manifest in that a project properties
+            are automatically extracted from the project file (e.g. csproj),
+            whereas component manifests are intended as a human-to-human communication</para>
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.AddedDateTime">
+            <summary>
+            Gets or sets the date time of when the info was added to the database
+            </summary>
+            <value>The added date time.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.ProjectName">
+            <summary>
+            The name of the project (e.g. the name of the csproj file)
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.ProjectUri">
+            <summary>
+            Gets or sets the project URI.
+            </summary>
+            <value>The project URI.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.DownloadLocation">
+            <summary>
+            Gets a location from which the file should be downloadable.
+            The location should be accessible to user (if not the RepoCat webapp).
+            Either URL or file path
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.AssemblyName">
+            <summary>
+            Gets or sets the name of the assembly generated by this project
+            </summary>
+            <value>The name of the assembly.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.OutputType">
+            <summary>
+            Gets or sets the type of the project output (class library, windows app etc)
+            </summary>
+            <value>The type of the output.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.TargetExtension">
+            <summary>
+            Gets or sets the target extension.
+            </summary>
+            <value>The target extension.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.RepositoryId">
+            <summary>
+            Gets or sets the ID of the repository in which the project lives
+            </summary>
+            <value>The name of the repository.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.RepositoryStamp">
+            <summary>
+            A datetime or version stamp of the repository as of when the project info was read and transmitted
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.Components">
+            <summary>
+            Gets or sets the components manifests
+            </summary>
+            <value>The components.</value>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.RepositoryInfo">
+            <summary>
+            Info about repository
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryInfo.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryInfo.RepositoryName">
+            <summary>
+            Name of the repository
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryInfo.OrganizationName">
+            <summary>
+            Name of the organization owning the repository
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryInfo.RepositoryMode">
+            <summary>
+            Mode of project storage in the repository
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.RepositoryMode">
+            <summary>
+            Specifies how the repository data should be collected.
+            </summary>
+        </member>
+        <member name="F:RepoCat.Persistence.Models.RepositoryMode.Default">
+            <summary>
+            In default mode, when a project info is transmitted to RepoCat, it will look for this project in the database <br/>
+            and update the existing entity - or create one if not found
+            </summary>
+        </member>
+        <member name="F:RepoCat.Persistence.Models.RepositoryMode.Snapshot">
+            <summary>
+            Snapshot mode is for when entire repository (multiple projects &amp; components) is built at the same time, having the same repository stamp.<br/>
+            In this mode, every time projects are transmitted, they are created as new entities under a given repository stamp<br/>
+            This way RepoCat can present a current and previous snapshots of a repository, rather than all projects that are currently or used to be in it.<br/>
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.RepositoryQueryParameter">
+            <summary>
+            A parameter object for repository queries
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryQueryParameter.OrganizationName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.RepositoryQueryParameter.RepositoryName">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

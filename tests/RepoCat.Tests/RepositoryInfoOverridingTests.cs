@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Tests

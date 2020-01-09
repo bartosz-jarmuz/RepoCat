@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.ApplicationInsights;
 using RepoCat.RepositoryManagement.Service;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Portal.RecurringJobs

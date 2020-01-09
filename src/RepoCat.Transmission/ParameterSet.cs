@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
 
     /// <summary>

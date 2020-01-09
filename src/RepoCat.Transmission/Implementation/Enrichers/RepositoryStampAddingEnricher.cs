@@ -8,7 +8,7 @@ using System;
 using System.Globalization;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public class RepositoryStampAddingEnricher : EnricherBase
     {

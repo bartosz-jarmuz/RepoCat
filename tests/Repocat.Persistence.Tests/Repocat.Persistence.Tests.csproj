@@ -14,10 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\RepoCat.Models.Manifests\RepoCat.Persistence.Models.csproj" />
+    <ProjectReference Include="..\..\src\RepoCat.Persistence.Service\RepoCat.Persistence.Service.csproj" />
     <ProjectReference Include="..\..\src\RepoCat.Portal\RepoCat.Portal.csproj" />
     <ProjectReference Include="..\..\src\RepoCat.RepositoryManagement.Service\RepoCat.RepositoryManagement.Service.csproj" />
-    <ProjectReference Include="..\..\src\RepoCat.Web.Persistence\RepoCat.Persistence.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 using RepoCat.ProjectParsers.Tests;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 
 namespace RepoCat.Tests
 {

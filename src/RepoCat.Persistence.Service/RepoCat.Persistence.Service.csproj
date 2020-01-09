@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RepoCat.Models.Manifests\RepoCat.Persistence.Models.csproj" />
+    <ProjectReference Include="..\RepoCat.Persistence.Models\RepoCat.Persistence.Models.csproj" />
     <ProjectReference Include="..\RepoCat.Utilities\RepoCat.Utilities.csproj" />
   </ItemGroup>
 

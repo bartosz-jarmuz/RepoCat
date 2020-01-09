@@ -3,7 +3,7 @@ using RepoCat.Persistence.Models;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.RecurringJobs;
 using RepoCat.RepositoryManagement.Service;
-using RepoCat.Transmission.Client;
+using RepoCat.Transmission;
 using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
 using RepositoryQueryParameter = RepoCat.Persistence.Models.RepositoryQueryParameter;
 

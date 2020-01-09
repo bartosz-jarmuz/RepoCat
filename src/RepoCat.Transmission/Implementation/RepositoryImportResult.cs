@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace RepoCat.Transmission.Client
+namespace RepoCat.Transmission
 {
     public class RepositoryImportResult
     {

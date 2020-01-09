@@ -13,6 +13,10 @@ using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Mapping;
 using RepoCat.RepositoryManagement.Service;
+using RepoCat.Transmission.Models;
+using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
+using RepositoryInfo = RepoCat.Persistence.Models.RepositoryInfo;
+using RepositoryMode = RepoCat.Persistence.Models.RepositoryMode;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace Repocat.Persistence.Tests
