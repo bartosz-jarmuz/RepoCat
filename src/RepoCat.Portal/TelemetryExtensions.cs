@@ -37,8 +37,8 @@ namespace RepoCat.Portal
         {
             if (telemetryClient == null) throw new ArgumentNullException(nameof(telemetryClient));
             var props = GetProperties(arguments);
-            props.Add(PropertyKeys.SuccessCount, result.SuccessCount.ToString(CultureInfo.InvariantCulture));
-            props.Add(PropertyKeys.FailedCount, result.FailedCount.ToString(CultureInfo.InvariantCulture));
+            props.Add(PropertyKeys.SuccessCount, result?.SuccessCount.ToString(CultureInfo.InvariantCulture));
+            props.Add(PropertyKeys.FailedCount, result?.FailedCount.ToString(CultureInfo.InvariantCulture));
             telemetryClient.TrackEvent(Telemetry.Names.RecurringJobFinished, props);
         }
 

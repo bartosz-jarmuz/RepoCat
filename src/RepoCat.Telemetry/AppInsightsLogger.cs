@@ -25,7 +25,8 @@ namespace RepoCat.Telemetry
         {
             this.telemetryClient.TrackTrace(message, SeverityLevel.Verbose, new Dictionary<string, string>()
             {
-                { PropertyKeys.Verbosity, nameof(this.Debug) }
+                { PropertyKeys.Verbosity, nameof(this.Debug) },
+                { PropertyKeys.Origin, nameof(AppInsightsLogger) }
             });
         }
 
@@ -34,6 +35,8 @@ namespace RepoCat.Telemetry
             this.telemetryClient.TrackTrace(message, SeverityLevel.Information, new Dictionary<string, string>()
             {
                 { PropertyKeys.Verbosity, nameof(this.Info) }
+                ,{ PropertyKeys.Origin, nameof(AppInsightsLogger) }
+                
             });
         }
 
@@ -43,6 +46,7 @@ namespace RepoCat.Telemetry
             {
                 { PropertyKeys.Verbosity, nameof(this.Error) },
                 { PropertyKeys.Exception, exception.ToString() },
+                { PropertyKeys.Origin, nameof(AppInsightsLogger) }
             });
         }
 
@@ -51,6 +55,7 @@ namespace RepoCat.Telemetry
             this.telemetryClient.TrackTrace(message, SeverityLevel.Error, new Dictionary<string, string>()
             {
                 { PropertyKeys.Verbosity, nameof(this.Error) },
+                { PropertyKeys.Origin, nameof(AppInsightsLogger) }
             });
         }
 
@@ -59,6 +64,7 @@ namespace RepoCat.Telemetry
             this.telemetryClient.TrackTrace(message, SeverityLevel.Warning, new Dictionary<string, string>()
             {
                 { PropertyKeys.Verbosity, nameof(this.Warn) }
+               , { PropertyKeys.Origin, nameof(AppInsightsLogger) }
             });
         }
 
@@ -67,6 +73,7 @@ namespace RepoCat.Telemetry
             this.telemetryClient.TrackTrace("FATAL EXCEPTION", SeverityLevel.Critical, new Dictionary<string, string>()
             {
                 { PropertyKeys.Exception, exception.ToString() },
+                { PropertyKeys.Origin, nameof(AppInsightsLogger) }
             });
         }
 
@@ -76,6 +83,7 @@ namespace RepoCat.Telemetry
             {
                 { PropertyKeys.Verbosity, nameof(this.Fatal) },
                 { PropertyKeys.Exception, exception.ToString() },
+                { PropertyKeys.Origin, nameof(AppInsightsLogger) }
             });
         }
     }

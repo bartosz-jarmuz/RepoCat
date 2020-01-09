@@ -1,6 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using RepoCat.Transmission.Models;
@@ -107,14 +112,52 @@ namespace RepoCat.Transmission
                 {
                     regex = new Regex(args.IgnoredPathsRegex);
                 }
+                this.logger.Info($"Loading files from [{args.CodeRootFolder}], excluding those which match regex [{args.IgnoredPathsRegex}]");
+                this.CheckIfCanAccesDirectory(args.CodeRootFolder, FileSystemRights.Read);
                 uris = provider.GetUris(args.CodeRootFolder,regex);
+
             }
             else
             {
+                this.logger.Info($"Files will be loaded from [{args.ProjectPaths.Count}] paths specified in the arguments.");
                 uris = args.ProjectPaths;
             }
 
             return uris;
+        }
+
+        public bool CheckIfCanAccesDirectory(string path, FileSystemRights rights)
+        {
+            if (string.IsNullOrEmpty(path)) return false;
+
+            try
+            {
+                AuthorizationRuleCollection rules = Directory.GetAccessControl(path)
+                    .GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
+                WindowsIdentity identity = WindowsIdentity.GetCurrent();
+
+                foreach (FileSystemAccessRule rule in rules)
+                {
+                    if (identity.Groups.Contains(rule.IdentityReference))
+                    {
+                        if ((rights & rule.FileSystemRights) == rights)
+                        {
+                            if (rule.AccessControlType == AccessControlType.Allow)
+                            {
+                                this.logger.Debug($"Confirmed access rights to [{path}]");
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logger.Error($"Cannot access directory [{path}]", ex);
+                throw;
+            }
+            this.logger.Error($"No permissions to directory [{path}]");
+            throw new UnauthorizedAccessException($"No permissions to directory [{path}]");
         }
     }
 }
