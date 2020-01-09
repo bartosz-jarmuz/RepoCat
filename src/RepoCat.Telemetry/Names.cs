@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RepoCat.Telemetry
+﻿namespace RepoCat.Telemetry
 {
     public static class Names
     {

@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.12.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RepoCat.Transmission\RepoCat.Transmission.csproj" />
+  </ItemGroup>
+
 </Project>

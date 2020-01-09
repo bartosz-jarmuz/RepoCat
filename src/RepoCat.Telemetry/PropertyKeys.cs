@@ -24,5 +24,7 @@ namespace RepoCat.Telemetry
         public static string JobExecutionCron => "JobExecutionCron";
         public static string SuccessCount => "SuccessCount";
         public static string FailedCount => "FailedCount";
+        public static string Verbosity => "Verbosity";
+        public static string Exception => "Exception";
     }
 }

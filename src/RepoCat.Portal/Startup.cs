@@ -18,6 +18,7 @@ using RepoCat.Persistence.Service;
 using RepoCat.Portal.Mapping;
 using RepoCat.Portal.RecurringJobs;
 using RepoCat.RepositoryManagement.Service;
+using RepoCat.Telemetry;
 using RepoCat.Transmission;
 
 #pragma warning disable 1591
@@ -65,7 +66,7 @@ namespace RepoCat.Portal
         private static void AddRecurringRepositoryScanJob(IServiceCollection services)
         {
             services.AddScoped<IProjectInfoSender, DirectProjectInfoImporter>();
-            services.AddScoped<ILogger>(x=> new TraceLogger(LogLevel.Info));
+            services.AddScoped<ILogger, AppInsightsLogger>();
             services.AddScoped<IProjectInfoTransmitter, Transmitter>();
             services.AddScoped<IScanRepositoryJob, ScanRepositoryJob>();
         }
@@ -115,6 +116,8 @@ namespace RepoCat.Portal
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 #pragma warning restore CA1822 // Mark members as static
         {
+            if (app == null) throw new ArgumentNullException(nameof(app));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -151,9 +154,6 @@ namespace RepoCat.Portal
         {
             app.UseHangfireDashboard();
             app.UseHangfireServer();
-            var settings1 = this.Configuration.GetSection("RepositoryMonitoringSettings");
-            var settings2 = this.Configuration.Get<RepositoryMonitoringSettings>();
-            var settings3 = this.Configuration.GetSection("RepositoryMonitoringSettings").Get<List<RepositoryToScanSettings>>();
             var settings = this.Configuration.GetSection("RepositoryMonitoringSettings").Get<RepositoryMonitoringSettings>();
             var telemetry = app.ApplicationServices.GetService<TelemetryClient>();
             RepoCatRecurringJobsScheduler.ScheduleRecurringJobs(settings, telemetry);
