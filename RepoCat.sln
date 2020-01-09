@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Schemas", "src\Repo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Models", "src\RepoCat.Persistence.Models\RepoCat.Persistence.Models.csproj", "{03295F4E-1F49-48DB-9090-B7C3E5B9DAD8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Service", "src\RepoCat.Web.Persistence\RepoCat.Persistence.Service.csproj", "{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Persistence.Service", "src\RepoCat.Persistence.Service\RepoCat.Persistence.Service.csproj", "{8F68AE8A-35C8-4390-AC00-7194D5A0CCF4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Utilities", "src\RepoCat.Utilities\RepoCat.Utilities.csproj", "{8410B2AA-78D6-4EF3-9097-F1ED5377FCAB}"
 EndProject
