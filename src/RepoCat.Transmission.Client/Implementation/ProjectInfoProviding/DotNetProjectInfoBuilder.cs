@@ -8,11 +8,11 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client
 {
-    public class DotNetProjectInfoProvider : ProjectInfoProviderBase
+    public class DotNetProjectInfoBuilder : ProjectInfoBuilderBase
     {
         private readonly ILogger logger;
 
-        public DotNetProjectInfoProvider(ILogger logger) : base(logger)
+        public DotNetProjectInfoBuilder(ILogger logger) : base(logger)
         {
             this.logger = logger;
         }

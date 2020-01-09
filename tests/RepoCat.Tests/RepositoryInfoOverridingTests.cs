@@ -22,10 +22,9 @@ namespace RepoCat.Tests
         private ProjectInfo LoadFromManifestWithoutRepositoryInfo(bool allowOverride, RepositoryInfo repositoryInfoFromTransmitter)
         {
             //arrange
-            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
             var file = Samples.GetFiles("ProjectManifestWithoutRepository.RepoCat.xml").Single();
 
-            IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments()
+            IProjectInfoBuilder builder = ProjectInfoBuilderFactory.Get(new TransmitterArguments()
             {
                 RepositoryName = repositoryInfoFromTransmitter?.RepositoryName,
                 OrganizationName = repositoryInfoFromTransmitter?.OrganizationName,
@@ -35,7 +34,7 @@ namespace RepoCat.Tests
             }, new TraceLogger(LogLevel.Debug));
 
             //act
-            List<ProjectInfo> infos = provider.GetInfos(new []{file.FullName}).ToList();
+            List<ProjectInfo> infos = builder.GetInfos(new []{file.FullName}).ToList();
 
             //assert
             var scriptOne = infos.Single();
@@ -47,7 +46,7 @@ namespace RepoCat.Tests
             //arrange
             ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
-            IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments()
+            IProjectInfoBuilder builder = ProjectInfoBuilderFactory.Get(new TransmitterArguments()
             {
                 RepositoryName = repositoryInfoFromTransmitter?.RepositoryName,
                 OrganizationName = repositoryInfoFromTransmitter?.OrganizationName,
@@ -57,7 +56,7 @@ namespace RepoCat.Tests
             }, new TraceLogger(LogLevel.Debug));
 
             //act
-            List<ProjectInfo> infos = provider.GetInfos(uris).ToList();
+            List<ProjectInfo> infos = builder.GetInfos(uris).ToList();
 
             //assert
             var scriptOne = infos.Single(x => x.ProjectName == "ScriptOne");
@@ -129,7 +128,9 @@ namespace RepoCat.Tests
             //arrange and act
             var scriptOne = this.LoadFromManifestWithoutRepositoryInfo(false, null);
             //assert
-            Assert.IsNull(scriptOne.RepositoryInfo);
+            //assert
+            Assert.AreEqual("Unspecified", scriptOne.RepositoryInfo.RepositoryName);
+            Assert.AreEqual("Unspecified", scriptOne.RepositoryInfo.OrganizationName);
         }
 
         [Test]
@@ -155,7 +156,8 @@ namespace RepoCat.Tests
             var scriptOne = this.LoadFromManifestWithoutRepositoryInfo(true, null);
 
             //assert
-            Assert.IsNull(scriptOne.RepositoryInfo);
+            Assert.AreEqual("Unspecified", scriptOne.RepositoryInfo.RepositoryName);
+            Assert.AreEqual("Unspecified", scriptOne.RepositoryInfo.OrganizationName);
         }
 
         [Test]

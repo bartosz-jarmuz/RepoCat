@@ -3,7 +3,7 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client
 {
-    public interface IProjectInfoProvider
+    public interface IProjectInfoBuilder
     {
         IList<IProjectInfoEnricher> ProjectInfoEnrichers { get; }
         ProjectInfo GetInfo(string projectUri);

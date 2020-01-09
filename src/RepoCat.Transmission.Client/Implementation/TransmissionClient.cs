@@ -28,11 +28,7 @@ namespace RepoCat.Transmission.Client
             this.sender = sender;
         }
 
-        /// <summary>
-        /// Entry point for the transmission
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns>Task.</returns>
+        ///<inheritdoc cref="ITransmissionClient"/>
         public Task Work(string[] args)
         {
             TransmitterArguments arguments= new TransmitterArguments(args);
@@ -40,13 +36,12 @@ namespace RepoCat.Transmission.Client
             return this.Work(arguments);
         }
 
+        ///<inheritdoc cref="ITransmissionClient"/>
 
-        /// <summary>
-        /// Entry point for the transmission
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// <returns>Task.</returns>
-        public async Task<RepositoryImportResult> Work(TransmitterArguments args)
+        public IList<IProjectInfoEnricher> AdditionalProjectInfoEnrichers { get; } = new List<IProjectInfoEnricher>();
+
+    ///<inheritdoc cref="ITransmissionClient"/>
+        public async Task<RepositoryImportResult> Work(TransmitterArguments args, IInputUriProvider uriProvider = null, IProjectInfoBuilder projectInfoBuilder = null)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
 
@@ -54,10 +49,16 @@ namespace RepoCat.Transmission.Client
             {
                 this.DisplayParameters(args);
 
-                IEnumerable<string> uris = this.GetPaths(args);
+                IEnumerable<string> uris = this.GetPaths(args, uriProvider?? UriProviderFactory.Get(args));
 
-                var infoProvider = ProjectInfoProviderFactory.Get(args, this.logger);
-                IEnumerable<ProjectInfo> infos = infoProvider.GetInfos(uris);
+                if (projectInfoBuilder == null)
+                {
+                    projectInfoBuilder = ProjectInfoBuilderFactory.Get(args, this.logger);
+                }
+
+                this.AddEnrichersToBuilder(projectInfoBuilder);
+
+                IEnumerable<ProjectInfo> infos = projectInfoBuilder.GetInfos(uris);
 
                 this.sender.SetBaseAddress(args.ApiBaseUri);
 
@@ -73,8 +74,21 @@ namespace RepoCat.Transmission.Client
             }
         }
 
+    private void AddEnrichersToBuilder(IProjectInfoBuilder projectInfoBuilder)
+    {
+        foreach (IProjectInfoEnricher additionalProjectInfoEnricher in this.AdditionalProjectInfoEnrichers)
+        {
+            this.logger.Debug(
+                $"Adding {additionalProjectInfoEnricher.GetType().Name} to {projectInfoBuilder.GetType().Name}");
+            projectInfoBuilder.ProjectInfoEnrichers.Add(additionalProjectInfoEnricher);
+        }
 
-        private void DisplayParameters(TransmitterArguments args)
+        this.logger.Info($"Enrichers added to {projectInfoBuilder.GetType().Name}: " +
+                         $"[{string.Join(", ", projectInfoBuilder.ProjectInfoEnrichers.Select(x => x.GetType().Name))}]");
+    }
+
+
+    private void DisplayParameters(TransmitterArguments args)
         {
             this.logger.Info($"Command line string: [{args.OriginalParameterInputString}]");
             this.logger.Info($"Resolved parameters:");
@@ -85,12 +99,11 @@ namespace RepoCat.Transmission.Client
             }
         }
 
-        private IEnumerable<string> GetPaths(TransmitterArguments args)
+        private IEnumerable<string> GetPaths(TransmitterArguments args, IInputUriProvider provider)
         {
             IEnumerable<string> uris;
             if (args.ProjectPaths == null || !args.ProjectPaths.Any())
             {
-                var provider = UriProviderFactory.Get(args);
                 Regex regex = null;
                 if (!string.IsNullOrEmpty(args.IgnoredPathsRegex))
                 {

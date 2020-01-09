@@ -9,7 +9,7 @@ using RepoCat.Transmission.Models;
 namespace RepoCat.ProjectParsers.Tests
 {
     [TestFixture]
-    public class ProjectInfoProvidingTests
+    public class ProjectInfoBuildingTests
     {
         [Test]
         public void NetFrameworkProject_Load()
@@ -21,7 +21,7 @@ namespace RepoCat.ProjectParsers.Tests
                 RepositoryName = "Test",
                 OrganizationName = "TestOrg"
             };
-            var provider = ProjectInfoProviderFactory.Get(new TransmitterArguments()
+            var provider = ProjectInfoBuilderFactory.Get(new TransmitterArguments()
             {
                 TransmissionMode = TransmissionMode.LocalDotNetProjects, 
                 RepositoryName = repo.RepositoryName,
@@ -49,7 +49,7 @@ namespace RepoCat.ProjectParsers.Tests
                 RepositoryName = "Test",
                 OrganizationName = "TestOrg"
             };
-            var provider = ProjectInfoProviderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalDotNetProjects, RepositoryName = repo.RepositoryName, OrganizationName = repo.OrganizationName}, new Mock<ILogger>().Object);
+            var provider = ProjectInfoBuilderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalDotNetProjects, RepositoryName = repo.RepositoryName, OrganizationName = repo.OrganizationName}, new Mock<ILogger>().Object);
 
             
             var info = provider.GetInfo(path.FullName);

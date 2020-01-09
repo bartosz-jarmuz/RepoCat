@@ -32,10 +32,10 @@ namespace RepoCat.Tests
             //arrange
             ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
-            IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
+            IProjectInfoBuilder builder = ProjectInfoBuilderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
 
             //act
-            List<ProjectInfo> infos = provider.GetInfos(uris).ToList();
+            List<ProjectInfo> infos = builder.GetInfos(uris).ToList();
 
             //assert
 
@@ -51,10 +51,10 @@ namespace RepoCat.Tests
             //arrange
             ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
-            IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
+            IProjectInfoBuilder builder = ProjectInfoBuilderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
 
             //act
-            List<ProjectInfo> infos = provider.GetInfos(uris).ToList();
+            List<ProjectInfo> infos = builder.GetInfos(uris).ToList();
 
             //assert
             Assert.AreEqual(2, infos.Count);
@@ -71,10 +71,10 @@ namespace RepoCat.Tests
             //arrange
             ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
-            IProjectInfoProvider provider = ProjectInfoProviderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
+            IProjectInfoBuilder builder = ProjectInfoBuilderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
 
             //act
-            List<ProjectInfo> infos = provider.GetInfos(uris).ToList();
+            List<ProjectInfo> infos = builder.GetInfos(uris).ToList();
 
             //assert
             var scriptTwo = infos.Single(x => x.ProjectName == "ScriptTwo");

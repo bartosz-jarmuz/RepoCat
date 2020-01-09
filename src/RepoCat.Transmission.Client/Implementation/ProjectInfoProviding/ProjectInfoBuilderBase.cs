@@ -10,11 +10,11 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Client
 {
-    public abstract class ProjectInfoProviderBase : IProjectInfoProvider
+    public abstract class ProjectInfoBuilderBase : IProjectInfoBuilder
     {
         private readonly ILogger logger;
 
-        protected ProjectInfoProviderBase(ILogger logger)
+        protected ProjectInfoBuilderBase(ILogger logger)
         {
             this.logger = logger;
         }

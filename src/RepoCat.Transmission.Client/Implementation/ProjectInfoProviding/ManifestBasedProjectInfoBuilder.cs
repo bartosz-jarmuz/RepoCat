@@ -14,11 +14,11 @@ namespace RepoCat.Transmission.Client
     /// <summary>
     /// Provides project info based on Manifest files, without parsing a project file
     /// </summary>
-    public class ManifestBasedProjectInfoProvider : ProjectInfoProviderBase
+    public class ManifestBasedProjectInfoBuilder : ProjectInfoBuilderBase
     {
         private readonly ILogger logger;
 
-        public ManifestBasedProjectInfoProvider(ILogger logger) : base(logger)
+        public ManifestBasedProjectInfoBuilder(ILogger logger) : base(logger)
         {
             this.logger = logger;
         }

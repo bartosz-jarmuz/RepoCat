@@ -16,7 +16,6 @@ namespace RepoCat.Transmission.Client
         public override void Enrich(ProjectInfo projectInfo, string manifestFilePath, string inputUri)
         {
             if (projectInfo == null) return;
-            if (string.IsNullOrWhiteSpace(this.arguments.RepositoryName)) return;
             
             var repoInfo = new RepositoryInfo()
             {
@@ -25,19 +24,30 @@ namespace RepoCat.Transmission.Client
                 RepositoryMode = this.arguments.RepositoryMode
             };
 
-
-            if (this.arguments.ManifestCanOverrideRepositoryInfo)
+            if (!string.IsNullOrEmpty(repoInfo.RepositoryName))
             {
-                if (string.IsNullOrEmpty(projectInfo.RepositoryInfo?.RepositoryName))
+                if (this.arguments.ManifestCanOverrideRepositoryInfo)
                 {
-                    //manifest could prevail, but its not set
+                    if (string.IsNullOrEmpty(projectInfo.RepositoryInfo?.RepositoryName))
+                    {
+                        //manifest could prevail (as it is the current value), but its not set
+                        projectInfo.RepositoryInfo = repoInfo;
+                    }
+                }
+                else
+                {
+                    //whatever is in arguments prevails
                     projectInfo.RepositoryInfo = repoInfo;
                 }
             }
-            else
+
+            var currentOrg = projectInfo.RepositoryInfo?.OrganizationName;
+            var currentRepo = projectInfo.RepositoryInfo?.RepositoryName;
+            if (string.IsNullOrEmpty(currentRepo) || string.IsNullOrEmpty(currentOrg))
             {
-                //whatever is in arguments prevails
-                projectInfo.RepositoryInfo = repoInfo;
+                projectInfo.RepositoryInfo = new RepositoryInfo();
+                projectInfo.RepositoryInfo.RepositoryName = string.IsNullOrEmpty(currentRepo) ? "Unspecified" : currentRepo;
+                projectInfo.RepositoryInfo.OrganizationName = string.IsNullOrEmpty(currentOrg) ? "Unspecified" : currentOrg;
             }
         }
     }

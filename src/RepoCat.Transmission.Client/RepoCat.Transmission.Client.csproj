@@ -105,10 +105,10 @@
     <Compile Include="Implementation\SenderBase.cs" />
     <Compile Include="Interfaces\IProjectInfoEnricher.cs" />
     <Compile Include="Implementation\InputUriProviding\LocalDotNetProjectUriProvider.cs" />
-    <Compile Include="Implementation\ProjectInfoProviding\DotNetProjectInfoProvider.cs" />
-    <Compile Include="Implementation\ProjectInfoProviding\ManifestBasedProjectInfoProvider.cs" />
+    <Compile Include="Implementation\ProjectInfoProviding\DotNetProjectInfoBuilder.cs" />
+    <Compile Include="Implementation\ProjectInfoProviding\ManifestBasedProjectInfoBuilder.cs" />
     <Compile Include="Implementation\InputUriProviding\ManifestBasedUriProvider.cs" />
-    <Compile Include="Implementation\Factories\ProjectInfoProviderFactory.cs" />
+    <Compile Include="Implementation\Factories\ProjectInfoBuilderFactory.cs" />
     <Compile Include="Implementation\Enrichers\RepositoryInfoAddingEnricher.cs" />
     <Compile Include="Strings.cs" />
     <Compile Include="Implementation\TransmissionClient.cs" />
@@ -116,11 +116,11 @@
     <Compile Include="Implementation\TransmitterArguments.cs" />
     <Compile Include="Implementation\Factories\UriProviderFactory.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
-    <Compile Include="Interfaces\IProjectInfoProvider.cs" />
+    <Compile Include="Interfaces\IProjectInfoBuilder.cs" />
     <Compile Include="Interfaces\IInputUriProvider.cs" />
     <Compile Include="Interfaces\ISender.cs" />
     <Compile Include="Interfaces\ITransmissionClient.cs" />
-    <Compile Include="Implementation\ProjectInfoProviding\ProjectInfoProviderBase.cs" />
+    <Compile Include="Implementation\ProjectInfoProviding\ProjectInfoBuilderBase.cs" />
     <Compile Include="ManifestDeserializer.cs" />
     <Compile Include="ManifestSerializer.cs" />
     <Compile Include="ParameterSet.cs" />
