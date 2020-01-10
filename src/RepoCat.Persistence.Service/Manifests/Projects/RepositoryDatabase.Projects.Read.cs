@@ -75,7 +75,7 @@ namespace RepoCat.Persistence.Service
         }
 
         /// <summary>
-        /// Gets projects matching the query from all repositories in all organizations
+        /// Gets projects matching the query from all repositories in all organizations (both current projects and old shapshots!)
         /// </summary>
         /// <param name="query"></param>
         /// <param name="isRegex"></param>

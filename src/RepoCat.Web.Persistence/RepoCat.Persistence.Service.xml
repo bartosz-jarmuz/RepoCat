@@ -48,7 +48,7 @@
         </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetProjectsByQuery(System.String,System.Boolean)">
             <summary>
-            Gets projects matching the query from all repositories in all organizations
+            Gets projects matching the query from all repositories in all organizations (both current projects and old shapshots!)
             </summary>
             <param name="query"></param>
             <param name="isRegex"></param>

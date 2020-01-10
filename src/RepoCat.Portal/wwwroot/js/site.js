@@ -27,6 +27,12 @@
         }
     });
 
+    $.get("/Home/NavHeaderStats", function (data) { $("#NavHeaderStatsContainer").replaceWith(function() {
+    return $(data).hide().fadeIn(500);
+}); });
+    
+
+
 
 
     var openItems = getCookie('openNavItems');

@@ -1,8 +1,14 @@
-﻿<ul class="nav navbar-nav d-md-down-none">
-  <li class="nav-item px-3">
-    <a class="nav-link" asp-area="Catalog" asp-controller="Search" asp-action="Index">Search</a>
-  </li>
-  <li class="nav-item px-3">
-    <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
-  </li>
+﻿<ul class="nav navbar-nav d-md-down-none mr-auto">
+    <li class="nav-item px-3">
+        <a class="nav-link" asp-area="Catalog" asp-controller="Search" asp-action="Index">Search</a>
+    </li>
+    <li class="nav-item px-3">
+        <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Home" asp-action="ClearCache" role="button" data-toggle="tooltip" data-placement="bottom" title="Clear cache and reload the page">
+        @*<a class="nav-link" onclick="window.location.reload(true);" role="button" data-toggle="tooltip" data-placement="bottom" title="Clear cache and reload the page">*@
+            <i class="fas fa-sync-alt"></i>
+        </a>
+    </li>
 </ul>

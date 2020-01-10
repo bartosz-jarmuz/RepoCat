@@ -733,7 +733,6 @@ namespace Repocat.Persistence.Tests
             };
         }
 
-
         [Test]
         public async Task TestGetProjectByQuery_DefaultRepo_VariousRepos_ShouldOnlyReturnProjectFromOneRepo()
         {

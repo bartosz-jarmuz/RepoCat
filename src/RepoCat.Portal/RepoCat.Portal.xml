@@ -398,6 +398,65 @@
             </summary>
             <value>The tag text.</value>
         </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStats">
+            <summary>
+            Class NavHeaderStats.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ViewComponent" />
+        </member>
+        <member name="F:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStats.service">
+            <summary>
+            The service
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStats.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Views.Components.RepositoryList"/> class.
+            </summary>
+            <param name="repositoryService">The manifests service.</param>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStats.InvokeAsync">
+             <summary>
+             invoke as an asynchronous operation.
+             </summary>
+             <returns>Task&lt;IViewComponentResult&gt;.</returns>
+            
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStatsViewModel">
+            <summary>
+            View model for the stats displayed in top bar
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStatsViewModel.OrganizationsCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStatsViewModel.RepositoriesCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStatsViewModel.ProjectsCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStatsViewModel.ComponentsCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStatsViewModel.TagsCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStatsViewModel.PropertiesCount">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Views.Components.OrganizationRepositoryGroup">
             <summary>
             List of repositories within a given organization
@@ -524,7 +583,7 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Controllers.HomeController.#ctor">
+        <member name="M:RepoCat.Portal.Controllers.HomeController.#ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Controllers.HomeController"/> class.
             </summary>
@@ -534,6 +593,12 @@
             Abouts this instance.
             </summary>
             <returns>IActionResult.</returns>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.HomeController.NavHeaderStats">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:RepoCat.Portal.Controllers.HomeController.Error">
             <summary>

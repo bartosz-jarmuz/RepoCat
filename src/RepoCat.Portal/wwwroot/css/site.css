@@ -136,3 +136,7 @@
     font-size: 75% !important;
     color: #808080;
 }
+
+.badge-inherit {
+    position: inherit !important;
+}

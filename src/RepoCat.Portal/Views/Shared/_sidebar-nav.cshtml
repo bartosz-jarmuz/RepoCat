@@ -14,7 +14,7 @@
             </li>
         </ul>
         <li class="nav-title">Browse repositories</li>
-        <cache expires-after="@TimeSpan.FromMilliseconds(500)">
+        <cache expires-after="@TimeSpan.FromMinutes(15)">
             @await Component.InvokeAsync("RepositoryList")
         </cache>
     </ul>

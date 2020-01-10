@@ -1,0 +1,34 @@
+﻿@using RepoCat.Portal.Areas.Catalog.Views.Components
+@model RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStatsViewModel
+
+
+    <li class="nav-item px-3 ">
+        <div class="nav-link" style="text-align: left !important;">
+            <span class="badge badge-info badge-pill badge-inherit">@Model.OrganizationsCount</span>
+            <span class="small">Organizations</span>
+        </div>
+        <div class="nav-link" style="text-align: left !important;">
+            <span class="badge badge-info badge-pill badge-inherit">@Model.RepositoriesCount</span>
+            <span class="small">Repositories</span>
+        </div>
+    </li>
+    <li class="nav-item px-3 ">
+        <div class="nav-link" style="text-align: left !important;">
+            <span class="badge badge-info badge-pill badge-inherit">@Model.ProjectsCount</span>
+            <span class="small">Projects</span>
+        </div>
+        <div class="nav-link" style="text-align: left !important;">
+            <span class="badge badge-info badge-pill badge-inherit">@Model.ComponentsCount</span>
+            <span class="small">Components</span>
+        </div>
+    </li>
+    <li class="nav-item px-3 ">
+        <div class="nav-link" style="text-align: left !important;">
+            <span class="badge badge-info badge-pill badge-inherit">@Model.TagsCount</span>
+            <span class="small">Tags</span>
+        </div>
+        <div class="nav-link" style="text-align: left !important;">
+            <span class="badge badge-info badge-pill badge-inherit">@Model.PropertiesCount</span>
+            <span class="small">Properties</span>
+        </div>
+    </li>
