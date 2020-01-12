@@ -20,7 +20,7 @@ $(document).ready(function () {
    
 
     $(function () {
-        $('[data-toggle="collapse"]').click(function () {
+        $('[data-toggle="collapse"]').on('click', function () {
             var icon = $(this).find('.toggler-icon');
             if (icon.hasClass('icon-arrow-up')) {
                 setArrowDown(icon);
@@ -44,13 +44,17 @@ function setArrowUp(icon) {
 
 function collapseAllToggle(sender) {
     if ($(sender).hasClass('open')) {
+
+        $('div.collapse').collapse('hide')
         $(sender).removeClass('open')
-        $('div.collapse').removeClass('show');
+        //$('div.collapse').removeClass('show');
         $(sender).text('Expand all')
         setArrowDown($('[data-toggle="collapse"]').find('.toggler-icon'));
     } else {
+        $('div.collapse').collapse('show')
+
         $(sender).addClass('open')
-        $('div.collapse').addClass('show');
+        //$('div.collapse').addClass('show');
         $(sender).text('Collapse all')
         setArrowUp($('[data-toggle="collapse"]').find('.toggler-icon'));
     }
@@ -161,3 +165,4 @@ function getOrganizationFromKey(key) {
 function getRepositoryFromKey(key) {
     return key.split(":")[1];
 }
+
