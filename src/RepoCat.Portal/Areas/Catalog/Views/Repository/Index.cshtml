@@ -23,10 +23,12 @@ string cardClass = "card text-white bg-info";
 }
 else
 {
-
-<span class="h5" style="margin-top: 0px;">
-    @Model.RepositoryName
+<span class="small " style="color: #73818f; margin-top: -15px !important;position: absolute;">
+    Repository name:
 </span>
+<div class="h2" style="margin-top: 0px;">
+    @Model.RepositoryName
+</div>
 
 
 <div class="row">
@@ -104,11 +106,13 @@ else
 
 </div>
 
+<div class="mb-2">
+    <h2 style="display: inline;">
+        Projects list
+    </h2>
+    <a class="badge badge-light collapseAllToggle open" href="#" onclick="collapseAllToggle(this)">Collapse all</a>
+</div>
 
-<h2 style="display: inline;">
-    Projects list
-</h2>
-<a class="badge badge-light collapseAllToggle open" href="#" onclick="collapseAllToggle(this)">Collapse all</a>
 <div class="row">
     @foreach (ProjectInfoViewModel manifest in @Model.ProjectManifestViewModels)
         {

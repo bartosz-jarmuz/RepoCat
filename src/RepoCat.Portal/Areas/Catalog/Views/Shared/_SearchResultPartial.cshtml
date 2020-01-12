@@ -3,14 +3,16 @@
 <input type="hidden" id="RepositoryQueryParameters" value="@(string.Join(",", Model.RepositoryQueryParameters.Select(x=>$"{x.OrganizationName}:{x.RepositoryName}")))"/>
 @if (Model.Projects.Count > 0)
 {
-    <div class="row">
+    <div class="row mb-1">
         <div class="col-md-12">
             <div id="searchResultsCard">
+                <div class="mb-1">
 
-                    <h2 style="display: inline;">
+                    <h2 style="display: inline;" >
                         Search result
                     </h2>
-                    <a class="collapseAllToggle open" href="#" onclick="collapseAllToggle(this)" >Collapse all</a>
+                    <a class="collapseAllToggle open" href="#" onclick="collapseAllToggle(this)">Collapse all</a>
+                </div>
 
                 <div>
                     <partial name="_SearchedRepositoriesListPartial" model="@Model.RepositoryQueryParameters" />
@@ -22,17 +24,17 @@
                     <span>
                         @if (Model.IsRegex)
                         {
-                            <span>for RegEx: </span>
-                            <span class="regex">@Model.QueryString</span>
+                        <span>for RegEx: </span>
+                        <span class="regex">@Model.QueryString</span>
                         }
                         else
                         {
-                            @if (@Model.SearchTokens.Any())
+                        @if (@Model.SearchTokens.Any())
                             {
-                                <span>for </span>
-                                @foreach (var token in Model.SearchTokens)
+                        <span>for </span>
+                        @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
+                        <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
 
                                 }
                             }
