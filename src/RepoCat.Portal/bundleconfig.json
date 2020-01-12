@@ -24,9 +24,13 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site.min.js",
+    "outputFileName": "wwwroot/js/site-bundle.js", 
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/js/site/site.js",
+      "wwwroot/js/site/collapseToggle.js",
+      "wwwroot/js/site/cookies.js",
+      "wwwroot/js/site/navigationMenu.js",
+      "wwwroot/js/site/selectBox.js"
     ]
   }
 ]
