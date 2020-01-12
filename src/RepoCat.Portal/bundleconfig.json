@@ -24,13 +24,19 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site-bundle.js", 
+    "outputFileName": "wwwroot/js/site-bundle.js",
     "inputFiles": [
       "wwwroot/js/site/site.js",
       "wwwroot/js/site/collapseToggle.js",
       "wwwroot/js/site/cookies.js",
       "wwwroot/js/site/navigationMenu.js",
       "wwwroot/js/site/selectBox.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/vendors/busy-spinner/busy-spinner.min.css",
+    "inputFiles": [
+      "wwwroot/vendors/busy-spinner/busy-spinner.css"
     ]
   }
 ]
