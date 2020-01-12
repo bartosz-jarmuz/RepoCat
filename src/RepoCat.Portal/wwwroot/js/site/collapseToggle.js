@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-   
+
 
     $(function () {
         $('[data-toggle="collapse"]').on('click', function () {
@@ -12,7 +12,7 @@
         });
     });
 
- 
+
 
 });
 
@@ -26,18 +26,14 @@ function setArrowUp(icon) {
 
 function collapseAllToggle(sender) {
     if ($(sender).hasClass('open')) {
-
-        $('div.collapse').collapse('hide')
-        $(sender).removeClass('open')
-        //$('div.collapse').removeClass('show');
-        $(sender).text('Expand all')
+        $('div.collapse').collapse('hide');
+        $(sender).removeClass('open');
+        $(sender).text('Expand all');
         setArrowDown($('[data-toggle="collapse"]').find('.toggler-icon'));
     } else {
-        $('div.collapse').collapse('show')
-
-        $(sender).addClass('open')
-        //$('div.collapse').addClass('show');
-        $(sender).text('Collapse all')
+        $('div.collapse').collapse('show');
+        $(sender).addClass('open');
+        $(sender).text('Collapse all');
         setArrowUp($('[data-toggle="collapse"]').find('.toggler-icon'));
     }
 }
