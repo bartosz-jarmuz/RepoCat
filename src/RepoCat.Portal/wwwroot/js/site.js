@@ -1,4 +1,10 @@
 ﻿$(document).ready(function () {
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+
     $('.nav-dropdown-toggle').click(function () {
         var itemText = $(this).text().trim();
         var cookie = getCookie('openNavItems');

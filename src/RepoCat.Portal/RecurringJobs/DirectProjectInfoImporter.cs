@@ -48,7 +48,9 @@ namespace RepoCat.Portal.RecurringJobs
                 importResult.Success = true;
                 importResult.Response = importedProject.Id.ToString();
             }
+#pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
             {
                 this.telemetryClient.TrackException(ex);
                 importResult.Exception = ex;

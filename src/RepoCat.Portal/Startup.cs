@@ -20,6 +20,7 @@ using RepoCat.Portal.RecurringJobs;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Telemetry;
 using RepoCat.Transmission;
+using SmartBreadcrumbs.Extensions;
 
 #pragma warning disable 1591
 
@@ -52,7 +53,6 @@ namespace RepoCat.Portal
 
 
 
-
             services.AddSingleton<RepositoryDatabase>();
             services.AddScoped<IRepositoryManagementService, RepositoryManagementService>();
             AddRecurringRepositoryScanJob(services);
@@ -61,6 +61,8 @@ namespace RepoCat.Portal
 
             services.AddMvc().AddNewtonsoftJson().AddRazorRuntimeCompilation();
             AddApplicationInsights(services);
+            services.AddBreadcrumbs(this.GetType().Assembly);
+
         }
 
         private static void AddRecurringRepositoryScanJob(IServiceCollection services)

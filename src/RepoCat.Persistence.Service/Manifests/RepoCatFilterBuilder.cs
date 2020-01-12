@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -29,7 +30,7 @@ namespace RepoCat.Persistence.Service
             return repoNameFilter;
         }
 
-        public static async Task<FilterDefinition<ProjectInfo>> BuildProjectsFilter(IMongoCollection<ProjectInfo> projects, string query, bool isRegex, RepositoryInfo repo)
+        public static async Task<FilterDefinition<ProjectInfo>> BuildProjectsFilter(IMongoCollection<ProjectInfo> projects, string query, bool isRegex, RepositoryInfo repo, string stamp = null)
         {
             if (projects == null) throw new ArgumentNullException(nameof(projects));
 
@@ -37,7 +38,7 @@ namespace RepoCat.Persistence.Service
                 
             respositoryFilter = AppendRepositoryFilterIfNeeded(respositoryFilter, repo);
 
-            respositoryFilter = await AppendNewestStampFilterIfNeeded(projects, respositoryFilter, repo).ConfigureAwait(false);
+            respositoryFilter = await AppendNewestStampFilterIfNeeded(projects, respositoryFilter, repo, stamp).ConfigureAwait(false);
 
             respositoryFilter = AppendTextFilterIfNeeded(query, isRegex, respositoryFilter);
 
@@ -81,14 +82,30 @@ namespace RepoCat.Persistence.Service
         /// <param name="projects"></param>
         /// <param name="filter"></param>
         /// <param name="repository"></param>
+        /// <param name="stamp"></param>
         /// <returns></returns>
-        private static async Task<FilterDefinition<ProjectInfo>> AppendNewestStampFilterIfNeeded(IMongoCollection<ProjectInfo> projects, FilterDefinition<ProjectInfo> filter, RepositoryInfo repository)
+        private static async Task<FilterDefinition<ProjectInfo>> AppendNewestStampFilterIfNeeded(IMongoCollection<ProjectInfo> projects, 
+            FilterDefinition<ProjectInfo> filter, RepositoryInfo repository, string stamp = null)
         {
             if (repository != null && repository.RepositoryMode == RepositoryMode.Snapshot)
             {
                 List<string> stamps = await (await projects.DistinctAsync(x => x.RepositoryStamp, filter).ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
-                string newestStamp = StampSorter.GetNewestStamp(stamps);
-                filter = filter & Builders<ProjectInfo>.Filter.Where(x => x.RepositoryStamp == newestStamp);
+                string stampToInclude;
+                if (!string.IsNullOrEmpty(stamp))
+                {
+                    if (!stamps.Any(x => string.Equals(x, stamp, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        throw new InvalidOperationException($"Stamp [{stamp}] is not available within the repository");
+                    }
+
+                    stampToInclude = stamp;
+                }
+                else
+                {
+                    stampToInclude = StampSorter.GetNewestStamp(stamps);
+                }
+
+                filter = filter & Builders<ProjectInfo>.Filter.Where(x => x.RepositoryStamp == stampToInclude);
             }
 
             return filter;

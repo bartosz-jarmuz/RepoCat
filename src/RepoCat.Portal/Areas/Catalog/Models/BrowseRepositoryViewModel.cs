@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RepoCat.Persistence.Models;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
 {
@@ -13,11 +14,21 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The name of the repository.</value>
         public string RepositoryName { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public string RepositoryMode { get; set; }
         /// <summary>
         /// Gets or sets the repository stamp.
         /// </summary>
         /// <value>The repository stamp.</value>
         public string RepositoryStamp { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<string> RepositoryStamps { get; set; } = new List<string>();
         /// <summary>
         /// Gets or sets the number of projects.
         /// </summary>
@@ -48,5 +59,15 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The number of tags.</value>
         public int NumberOfTags { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public int NumberOfProperties { get; set; }
+
+        /// <summary>
+        /// Number of repository stamps in this repo
+        /// </summary>
+        public int NumberOfStamps { get; set; }
     }
 }

@@ -71,6 +71,12 @@ namespace RepoCat.RepositoryManagement.Service
             return this.database.GetById(id);
         }
 
+        public async Task<List<string>> GetStamps(RepositoryQueryParameter repositoryQueryParameter)
+        {
+            var repo = await this.database.GetRepository(repositoryQueryParameter.OrganizationName,repositoryQueryParameter.RepositoryName);
+            return await this.database.GetStamps(repo);
+
+        }
         public  Task<ManifestQueryResult> GetAllCurrentProjects(RepositoryQueryParameter repositoryQueryParameter)
         {
             return this.GetCurrentProjects(repositoryQueryParameter, "*", false);

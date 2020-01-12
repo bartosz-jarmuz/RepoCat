@@ -37,6 +37,13 @@
             <param name="isRegex"></param>
             <returns></returns>
         </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetStamps(RepoCat.Persistence.Models.RepositoryInfo)">
+            <summary>
+            Gets the coollection of stamps for a given repository
+            </summary>
+            <param name="repository"></param>
+            <returns></returns>
+        </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryQueryParameter},System.String,System.Boolean)">
             <summary>
             Gets all projects for the latest version of a given repository matching specified search parameters
@@ -134,13 +141,14 @@
             </summary>
             <param name="settings">The settings.</param>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepoCatFilterBuilder.AppendNewestStampFilterIfNeeded(MongoDB.Driver.IMongoCollection{RepoCat.Persistence.Models.ProjectInfo},MongoDB.Driver.FilterDefinition{RepoCat.Persistence.Models.ProjectInfo},RepoCat.Persistence.Models.RepositoryInfo)">
+        <member name="M:RepoCat.Persistence.Service.RepoCatFilterBuilder.AppendNewestStampFilterIfNeeded(MongoDB.Driver.IMongoCollection{RepoCat.Persistence.Models.ProjectInfo},MongoDB.Driver.FilterDefinition{RepoCat.Persistence.Models.ProjectInfo},RepoCat.Persistence.Models.RepositoryInfo,System.String)">
             <summary>
             If the repository is in snapshot mode, add the filter that selects entries from latest version only
             </summary>
             <param name="projects"></param>
             <param name="filter"></param>
             <param name="repository"></param>
+            <param name="stamp"></param>
             <returns></returns>
         </member>
         <member name="T:RepoCat.Persistence.Service.IRepoCatDbSettings">

@@ -10,6 +10,7 @@ using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Models;
 using RepoCat.RepositoryManagement.Service;
+using SmartBreadcrumbs.Attributes;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
@@ -43,6 +44,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// Indexes this instance.
         /// </summary>
         /// <returns>Task&lt;IActionResult&gt;.</returns>
+        [Breadcrumb("Search")]
         public async Task<IActionResult> Index()
         {
             SearchIndexViewModel model = new SearchIndexViewModel();

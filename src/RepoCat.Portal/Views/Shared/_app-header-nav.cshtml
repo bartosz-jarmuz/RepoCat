@@ -6,8 +6,7 @@
         <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" asp-controller="Home" asp-action="ClearCache" role="button" data-toggle="tooltip" data-placement="bottom" title="Clear cache and reload the page">
-        @*<a class="nav-link" onclick="window.location.reload(true);" role="button" data-toggle="tooltip" data-placement="bottom" title="Clear cache and reload the page">*@
+        <a class="nav-link" role="button" href="#" data-toggle="tooltip" data-trigger="focus" onclick="alert(this.title);" title="Press CTRL+F5 or hold CTRL while clicking on refresh button to clear cache" >
             <i class="fas fa-sync-alt"></i>
         </a>
     </li>

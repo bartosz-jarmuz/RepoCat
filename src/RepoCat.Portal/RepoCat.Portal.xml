@@ -113,11 +113,21 @@
             </summary>
             <value>The name of the repository.</value>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.RepositoryMode">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.RepositoryStamp">
             <summary>
             Gets or sets the repository stamp.
             </summary>
             <value>The repository stamp.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.RepositoryStamps">
+            <summary>
+            
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.NumberOfProjects">
             <summary>
@@ -154,6 +164,16 @@
             Gets or sets the number of tags.
             </summary>
             <value>The number of tags.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.NumberOfProperties">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.NumberOfStamps">
+            <summary>
+            Number of repository stamps in this repo
+            </summary>
         </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel">
             <summary>
@@ -597,6 +617,12 @@
         <member name="M:RepoCat.Portal.Controllers.HomeController.NavHeaderStats">
             <summary>
             
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.HomeController.Index">
+            <summary>
+            Home page (redirects to search page)
             </summary>
             <returns></returns>
         </member>

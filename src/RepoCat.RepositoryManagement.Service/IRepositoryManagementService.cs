@@ -28,6 +28,7 @@ namespace RepoCat.RepositoryManagement.Service
         /// <returns></returns>
         Task<IReadOnlyCollection<RepositoryGrouping>> GetAllRepositoriesGrouped();
 
-      
+
+        Task<List<string>> GetStamps(RepositoryQueryParameter repositoryQueryParameter);
     }
 }

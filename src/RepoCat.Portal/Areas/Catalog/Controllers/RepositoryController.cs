@@ -12,10 +12,13 @@ using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Utilities;
 using RepoCat.Schemas;
 using RepoCat.Persistence.Models;
+using RepoCat.Portal.Controllers;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Telemetry;
 using RepoCat.Transmission;
 using RepoCat.Utilities;
+using SmartBreadcrumbs.Attributes;
+using SmartBreadcrumbs.Nodes;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
@@ -26,6 +29,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
     /// <seealso cref="Microsoft.AspNetCore.Mvc.Controller" />
     [Area("Catalog")]
     [Route("Repository")]
+    [Breadcrumb("")]
     public class RepositoryController : Controller
     {
         private readonly IRepositoryManagementService service;
@@ -69,9 +73,16 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             };
 
             this.telemetryClient.TrackViewRepository( organizationName, repositoryName);
+            var queryyParam = new RepositoryQueryParameter(organizationName, repositoryName);
+            var projectsTask = this.service.GetAllCurrentProjects(queryyParam);
+            var stampsTask = this.service.GetStamps(queryyParam);
 
-            ManifestQueryResult result = await this.service.GetAllCurrentProjects(new RepositoryQueryParameter(organizationName, repositoryName)).ConfigureAwait(false);
-            List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects);
+            await Task.WhenAll(projectsTask, stampsTask).ConfigureAwait(false);
+            ManifestQueryResult result = projectsTask.Result;
+            model.NumberOfStamps = stampsTask.Result.Count;
+            model.RepositoryMode = result?.Projects?.FirstOrDefault()?.RepositoryInfo?.RepositoryMode.ToString();
+
+           List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects);
             if (manifests.Any())
             {
                 model.ProjectManifestViewModels = manifests;
@@ -84,6 +95,26 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
                 model.NumberOfTags = manifests.Sum(prj => prj.Components.Sum(cmp=> cmp.Tags.Count));
             }
 
+            var breadCrumb = new MvcBreadcrumbNode(nameof(RepositoryController.Index), "Repository",
+                organizationName, areaName: "Catalog")
+            {
+                
+                RouteValues = new { organizationName = organizationName, repositoryName = repositoryName}
+            };
+            var breadCrumb2 = new MvcBreadcrumbNode(nameof(RepositoryController.Index), "Repository",
+                repositoryName)
+            {
+                RouteValues = new { organizationName = organizationName, repositoryName = repositoryName },
+                Parent = breadCrumb
+                
+            };
+            var breadCrumb3 = new MvcBreadcrumbNode(nameof(RepositoryController.Index), "Repository",
+                "Repository overview")
+            {
+                Parent = breadCrumb2
+            };
+
+            ViewData["BreadcrumbNode"] = breadCrumb3;
             return this.View(model);
 
         }
@@ -94,6 +125,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <returns>Task&lt;ViewResult&gt;.</returns>
         [HttpGet]
         [Route("AddProject")]
+        [Breadcrumb("Add Project", FromAction = "Index", FromController = typeof(HomeController))]
         public ViewResult AddProject()
         {
             var empty = SampleManifestXmlProvider.GetEmptyProjectInfo();
@@ -113,6 +145,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <returns>Task&lt;IActionResult&gt;.</returns>
         [HttpPost]
         [Route("AddProject")]
+        [Breadcrumb("Add Project")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Whatever is wrong, just display the error")]
 #pragma warning disable 1998
         public async Task<IActionResult> AddProject([FromBody] AddProjectModel project)

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using RepoCat.Portal.Models;
+using SmartBreadcrumbs.Attributes;
 
 namespace RepoCat.Portal.Controllers
 {
@@ -29,6 +30,7 @@ namespace RepoCat.Portal.Controllers
         /// </summary>
         /// <returns>IActionResult.</returns>
         [Route("About")]
+        [Breadcrumb("About RepoCat")]
         public IActionResult About()
         {
             return this.View();
@@ -45,14 +47,13 @@ namespace RepoCat.Portal.Controllers
             return this.ViewComponent("NavHeaderStats");
         }
 
-        [Route("ClearCache")]
-        public IActionResult ClearCache()
+        /// <summary>
+        /// Home page (redirects to search page)
+        /// </summary>
+        /// <returns></returns>
+        [DefaultBreadcrumb("Catalog")]
+        public IActionResult Index()
         {
-            
-            PropertyInfo prop = this.cache.GetType().GetProperty("EntriesCollection", BindingFlags.Instance | BindingFlags.GetProperty | BindingFlags.NonPublic | BindingFlags.Public);
-            object innerCache = prop.GetValue(this.cache);
-            MethodInfo clearMethod = innerCache.GetType().GetMethod("Clear", BindingFlags.Instance | BindingFlags.Public);
-            clearMethod.Invoke(innerCache, null);
             return this.RedirectToAction("Index", "Search");
         }
 
@@ -61,8 +62,7 @@ namespace RepoCat.Portal.Controllers
         /// </summary>
         /// <returns>IActionResult.</returns>
         [Route("Error")]
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });

@@ -49,8 +49,22 @@ namespace RepoCat.Persistence.Service
 
             await Task.WhenAll(tasks).ConfigureAwait(false);
             return tasks.SelectMany(x => x.Result);
-
         }
+
+        /// <summary>
+        /// Gets the coollection of stamps for a given repository
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <returns></returns>
+        public async Task<List<string>> GetStamps(RepositoryInfo repository)
+        {
+            if (repository == null) throw new ArgumentNullException(nameof(repository));
+
+            var filter = Builders<ProjectInfo>.Filter.Eq(p => p.RepositoryId, repository.Id);
+            List<string> stamps = await (await this.projects.DistinctAsync(x => x.RepositoryStamp, filter).ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
+            return stamps;
+        }
+
 
         /// <summary>
         /// Gets all projects for the latest version of a given repository matching specified search parameters
@@ -87,9 +101,9 @@ namespace RepoCat.Persistence.Service
         }
 
 
-        private async Task<IEnumerable<Project>> GetProjects(RepositoryInfo repository, string query, bool isRegex)
+        private async Task<IEnumerable<Project>> GetProjects(RepositoryInfo repository, string query, bool isRegex, string stamp = null)
         {
-            FilterDefinition<ProjectInfo> filter = await RepoCatFilterBuilder.BuildProjectsFilter(this.projects, query, isRegex, repository).ConfigureAwait(false);
+            FilterDefinition<ProjectInfo> filter = await RepoCatFilterBuilder.BuildProjectsFilter(this.projects, query, isRegex, repository, stamp).ConfigureAwait(false);
             return await this.ExecuteFilter(filter).ConfigureAwait(false);
         }
 
