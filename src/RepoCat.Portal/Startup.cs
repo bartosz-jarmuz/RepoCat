@@ -6,6 +6,7 @@ using Hangfire;
 using Hangfire.Dashboard;
 using Hangfire.Dashboard.BasicAuthorization;
 using Hangfire.SqlServer;
+using HangfireBasicAuthenticationFilter;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
@@ -157,21 +158,15 @@ namespace RepoCat.Portal
 
         private void UseHangfire(IApplicationBuilder app)
         {
-            Hangfire.Dashboard.IDashboardAuthorizationFilter filter = new BasicAuthAuthorizationFilter(
-                new BasicAuthAuthorizationFilterOptions
-                {
-                    Users = new[]
-                    {
-                        new BasicAuthAuthorizationUser
-                        {
-                            Login = "admin",
-                            PasswordClear = "reset"
-                        }
-                    }
-                });
+            Hangfire.Dashboard.IDashboardAuthorizationFilter filter = new HangfireCustomBasicAuthenticationFilter()
+            {
+                User = "admin", 
+                Pass = "reset",
+            };
             var options = new DashboardOptions
             {
                 Authorization = new[] { filter }
+                
             };
             app.UseHangfireDashboard(pathMatch: "/hangfire", options);
             app.UseHangfireServer();
