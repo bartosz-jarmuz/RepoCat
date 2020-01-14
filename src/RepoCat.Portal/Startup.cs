@@ -4,7 +4,6 @@ using System.Linq;
 using AutoMapper;
 using Hangfire;
 using Hangfire.Dashboard;
-using Hangfire.Dashboard.BasicAuthorization;
 using Hangfire.SqlServer;
 using HangfireBasicAuthenticationFilter;
 using Microsoft.ApplicationInsights;
