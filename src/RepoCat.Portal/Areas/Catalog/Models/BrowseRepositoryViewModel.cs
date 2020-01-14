@@ -28,7 +28,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// <summary>
         /// 
         /// </summary>
-        public List<string> RepositoryStamps { get; set; } = new List<string>();
+        public List<string> RepositoryStamps { get; internal set; } = new List<string>();
         /// <summary>
         /// Gets or sets the number of projects.
         /// </summary>

@@ -141,6 +141,11 @@
             </summary>
             <param name="settings">The settings.</param>
         </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetSummary">
+            <summary>
+            Gets summary info about a collection.
+            </summary>
+        </member>
         <member name="M:RepoCat.Persistence.Service.RepoCatFilterBuilder.AppendNewestStampFilterIfNeeded(MongoDB.Driver.IMongoCollection{RepoCat.Persistence.Models.ProjectInfo},MongoDB.Driver.FilterDefinition{RepoCat.Persistence.Models.ProjectInfo},RepoCat.Persistence.Models.RepositoryInfo,System.String)">
             <summary>
             If the repository is in snapshot mode, add the filter that selects entries from latest version only

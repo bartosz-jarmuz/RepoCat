@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Hangfire;
+using Hangfire.Dashboard;
 using Hangfire.SqlServer;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
@@ -20,6 +21,7 @@ using RepoCat.Portal.RecurringJobs;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Telemetry;
 using RepoCat.Transmission;
+using RepoCat.Transmission.Models;
 using SmartBreadcrumbs.Extensions;
 
 #pragma warning disable 1591
@@ -154,6 +156,7 @@ namespace RepoCat.Portal
 
         private void UseHangfire(IApplicationBuilder app)
         {
+
             app.UseHangfireDashboard();
             app.UseHangfireServer();
             var settings = this.Configuration.GetSection("RepositoryMonitoringSettings").Get<RepositoryMonitoringSettings>();

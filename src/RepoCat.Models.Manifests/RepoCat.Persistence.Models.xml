@@ -42,23 +42,6 @@
             </summary>
             <value>The properties.</value>
         </member>
-        <member name="T:RepoCat.Persistence.Models.Project">
-            <summary>
-            Project component which contains a reference to it's repository and project details.<br/>
-            It does not correspond to a specific database collection.<br/>
-            It is assembled by performing a join during a query.
-            </summary>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.Project.ProjectInfo">
-            <summary>
-            Details about the project
-            </summary>
-        </member>
-        <member name="P:RepoCat.Persistence.Models.Project.RepositoryInfo">
-            <summary>
-            Repository reference
-            </summary>
-        </member>
         <member name="T:RepoCat.Persistence.Models.ProjectInfo">
             <summary>
             Project info contains data about a project, understood as a class library or an executable.
@@ -178,6 +161,63 @@
             Snapshot mode is for when entire repository (multiple projects &amp; components) is built at the same time, having the same repository stamp.<br/>
             In this mode, every time projects are transmitted, they are created as new entities under a given repository stamp<br/>
             This way RepoCat can present a current and previous snapshots of a repository, rather than all projects that are currently or used to be in it.<br/>
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.CollectionSummary">
+            <summary>
+            Summary info about a collection
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.CollectionSummary.CollectionNamespace">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.CollectionSummary.SizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.CollectionSummary.AverageObjectSizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.CollectionSummary.DocumentCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.CollectionSummary.IndexesCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.CollectionSummary.TotalIndexSizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.CollectionSummary.StorageSizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.Project">
+            <summary>
+            Project component which contains a reference to it's repository and project details.<br/>
+            It does not correspond to a specific database collection.<br/>
+            It is assembled by performing a join during a query.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.Project.ProjectInfo">
+            <summary>
+            Details about the project
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.Project.RepositoryInfo">
+            <summary>
+            Repository reference
             </summary>
         </member>
         <member name="T:RepoCat.Persistence.Models.RepositoryQueryParameter">

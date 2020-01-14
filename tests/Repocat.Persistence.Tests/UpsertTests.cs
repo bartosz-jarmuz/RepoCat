@@ -65,10 +65,10 @@ namespace Repocat.Persistence.Tests
             MongoClient client = new MongoClient(Settings.ConnectionString);
             client.DropDatabase(Settings.DatabaseName);
 
-            RepositoryDatabase service = new RepositoryDatabase(Settings);
-            RepositoryInfo result = service.Create(this.testRepoOne);
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            RepositoryInfo result = database.Create(this.testRepoOne);
             Assert.IsNotNull(result);
-            RepositoryInfo result2 = service.Create(this.testRepoTwo);
+            RepositoryInfo result2 = database.Create(this.testRepoTwo);
             Assert.IsNotNull(result2);
 
         }
@@ -82,7 +82,7 @@ namespace Repocat.Persistence.Tests
         [Test]
         public async Task TestUpsertRepo_CannotAddSameTwice_ShouldReturnTheSameId()
         {
-            RepositoryDatabase service = new RepositoryDatabase(Settings);
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
             string organizationOne = Guid.NewGuid().ToString();
             string repoOne = Guid.NewGuid().ToString();
             RepositoryInfo repo = null;
@@ -90,7 +90,7 @@ namespace Repocat.Persistence.Tests
 
             Task t1 = Task.Run(async () =>
             {
-                repo = await service.UpsertUpdate(new RepositoryInfo()
+                repo = await database.UpsertUpdate(new RepositoryInfo()
                     {
                         OrganizationName = organizationOne,
                         RepositoryName = repoOne
@@ -100,7 +100,7 @@ namespace Repocat.Persistence.Tests
             });
             Task t2 = Task.Run(async () =>
             {
-                repo2 = await service.UpsertUpdate(new RepositoryInfo()
+                repo2 = await database.UpsertUpdate(new RepositoryInfo()
                     {
                         OrganizationName = organizationOne,
                         RepositoryName = repoOne

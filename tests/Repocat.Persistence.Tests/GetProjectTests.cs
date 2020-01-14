@@ -522,6 +522,8 @@ namespace Repocat.Persistence.Tests
             {
                 Assert.That(() => byQueryResult.Projects.Any(x => x.ProjectInfo.Id == matchingProject.Id));
             }
+
+            var result =  await database.GetSummary().ConfigureAwait(false);
         }
 
         private static async Task<SeedResult> SeedDefaultRepoOneForMultiRepoQuery(RepositoryDatabase database)

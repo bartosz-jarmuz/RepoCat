@@ -1,7 +1,7 @@
 [
   {
     "outputFileName": "wwwroot/css/site-bundle.css",
-    "inputFiles": [ 
+    "inputFiles": [
       "wwwroot/css/site/!(*.min).css"
     ]
   },
@@ -27,18 +27,20 @@
     "outputFileName": "wwwroot/js/site-bundle.js",
     "inputFiles": [
       "wwwroot/js/site/!(*.min).js"
-    ]  
+    ]
   },
   {
     "outputFileName": "wwwroot/vendors/busy-spinner/busy-spinner.min.css",
     "inputFiles": [
       "wwwroot/vendors/busy-spinner/busy-spinner.css"
-    ] 
-  }, 
-  { 
-    "outputFileName": "wwwroot/css/style.min.css",
-    "inputFiles": [
-      "wwwroot/css/style.css"
     ]
   }
+  //minifying the style.css resulted in errors: (Bundler & Minifier) Expected semicolon or closing curly-brace, found '0%'
+  //lets not edit this file and just use the minified version
+  //{ 
+  //  "outputFileName": "wwwroot/css/style.min.css",
+  //  "inputFiles": [
+  //    "wwwroot/css/style.css"
+  //  ]
+  //}
 ]

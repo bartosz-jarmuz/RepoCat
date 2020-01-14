@@ -208,5 +208,51 @@
             Components collection
             </summary>
         </member>
+        <member name="T:RepoCat.Transmission.ILogger">
+            <summary>
+            Interface for the transmitter logger
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.ILogger.Debug(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:RepoCat.Transmission.ILogger.Info(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:RepoCat.Transmission.ILogger.Error(System.String,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
+        <member name="M:RepoCat.Transmission.ILogger.Error(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:RepoCat.Transmission.ILogger.Warn(System.String)">
+            
+        </member>
+        <member name="M:RepoCat.Transmission.ILogger.Fatal(System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="exception"></param>
+        </member>
+        <member name="M:RepoCat.Transmission.ILogger.Fatal(System.String,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+            <param name="exception"></param>
+        </member>
     </members>
 </doc>

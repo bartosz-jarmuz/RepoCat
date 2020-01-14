@@ -9,7 +9,10 @@ namespace RepoCat.Portal.RecurringJobs
     {
         /// <summary>
         /// A collection of settings for each monitored repository
-        /// </summary>
+        /// </summary>\
+        #pragma warning disable CA2227 
         List<RepositoryToScanSettings> RepositorySettings { get; set; }
+#pragma warning restore CA2227
+
     }
 }

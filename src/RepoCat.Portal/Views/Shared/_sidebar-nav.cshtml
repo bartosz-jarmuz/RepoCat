@@ -13,9 +13,24 @@
                 </a>
             </li>
         </ul>
-        <li class="nav-title">Browse repositories</li>
+        <li class="nav-title">Repositories</li>
         <cache expires-after="@TimeSpan.FromMinutes(15)">
             @await Component.InvokeAsync("RepositoryList")
         </cache>
+        <li class="nav-title">System</li>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="System" asp-action="Index">
+                    <i class="nav-icon fas fa-database"></i> Database overview
+                </a>
+            </li>
+        </ul>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/hangfire">
+                    <i class="nav-icon fas fa-dolly"></i> Job Queue
+                </a>
+            </li>
+        </ul>
     </ul>
 </nav>

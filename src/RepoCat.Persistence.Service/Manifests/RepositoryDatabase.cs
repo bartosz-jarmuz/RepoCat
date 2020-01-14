@@ -20,6 +20,7 @@ namespace RepoCat.Persistence.Service
     {
         private readonly IMongoCollection<ProjectInfo> projects;
         private readonly IMongoCollection<RepositoryInfo> repositories;
+        private readonly IMongoDatabase database;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RepositoryDatabase"/> class.
@@ -30,9 +31,9 @@ namespace RepoCat.Persistence.Service
             if (settings == null) throw new ArgumentNullException(nameof(settings));
 
             MongoClient client = new MongoClient(settings.ConnectionString);
-            IMongoDatabase database = client.GetDatabase(settings.DatabaseName);
-            this.projects = database.GetCollection<ProjectInfo>(settings.ProjectsCollectionName);
-            this.repositories = database.GetCollection<RepositoryInfo>(settings.RepositoriesCollectionName);
+            this.database = client.GetDatabase(settings.DatabaseName);
+            this.projects = this.database.GetCollection<ProjectInfo>(settings.ProjectsCollectionName);
+            this.repositories = this.database.GetCollection<RepositoryInfo>(settings.RepositoriesCollectionName);
             this.ConfigureIndexes();
         }
 
@@ -58,8 +59,15 @@ namespace RepoCat.Persistence.Service
             );
         }
 
+        /// <summary>
+        /// Gets summary info about a collection.
+        /// </summary>
+        public async Task<IEnumerable<CollectionSummary>> GetSummary()
+        {
+            var projectsSummary = await this.database.RunCommandAsync<CollectionSummary>("{collstats: '"+this.projects.CollectionNamespace.CollectionName+"'}").ConfigureAwait(false);
+            var reposSummary = await this.database.RunCommandAsync<CollectionSummary>("{collstats: '"+this.repositories.CollectionNamespace.CollectionName+"'}").ConfigureAwait(false);
 
-
-      
+            return new List<CollectionSummary>() {projectsSummary, reposSummary};
+        }
     }
 }

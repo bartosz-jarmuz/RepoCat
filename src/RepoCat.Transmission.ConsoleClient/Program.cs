@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using log4net;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.ConsoleClient
 {

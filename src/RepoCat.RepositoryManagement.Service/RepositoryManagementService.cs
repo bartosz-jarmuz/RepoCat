@@ -71,6 +71,11 @@ namespace RepoCat.RepositoryManagement.Service
             return this.database.GetById(id);
         }
 
+        public async Task<IEnumerable<CollectionSummary>> GetSummary()
+        {
+            return await this.database.GetSummary().ConfigureAwait(false);
+        }
+
         public async Task<List<string>> GetStamps(RepositoryQueryParameter repositoryQueryParameter)
         {
             var repo = await this.database.GetRepository(repositoryQueryParameter.OrganizationName,repositoryQueryParameter.RepositoryName);

@@ -1,0 +1,40 @@
+﻿@using RepoCat.Portal.Areas.Admin.Models
+@model RepoCat.Portal.Areas.Admin.Models.DatabaseOverviewViewModel
+
+@{
+    ViewData["Title"] = "System overview";
+}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Database size</div>
+            <div class="card-body">
+                <table class="table table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>Collection Namespace</th>
+                            <th>Objects Count</th>
+                            <th>Collection Size</th>
+                            <th>Average Object Size</th>
+                            <th>Indexes Count</th>
+                            <th>Total Index Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var item in Model.Collections)
+                        {
+                            <tr>
+                                <td>@item.CollectionNamespace</td>
+                                <td>@item.DocumentCount</td>
+                                <td>@item.CollectionSize()</td>
+                                <td>@item.AverageObjectSize()</td>
+                                <td>@item.IndexesCount</td>
+                                <td>@item.TotalIndexSize()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

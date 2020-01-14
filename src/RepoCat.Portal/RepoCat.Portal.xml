@@ -4,6 +4,100 @@
         <name>RepoCat.Portal</name>
     </assembly>
     <members>
+        <member name="T:RepoCat.Portal.Areas.Admin.Controllers.SystemController">
+            <summary>
+            Class RepositoryController.
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Admin.Controllers.SystemController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,AutoMapper.IMapper,Microsoft.ApplicationInsights.TelemetryClient)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Admin.Controllers.SystemController"/> class.
+            </summary>
+            <param name="service">The repository management service.</param>
+            <param name="mapper"></param>
+            <param name="telemetryClient"></param>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Admin.Controllers.SystemController.Index">
+            <summary>
+            Default view
+            </summary>
+            <returns>Task&lt;ViewResult&gt;.</returns>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Admin.Models.CollectionSummary">
+            <summary>
+            Summary info about a collection
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.CollectionNamespace">
+            <summary>
+            Name
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.SizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.CollectionSize">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.AverageObjectSizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.AverageObjectSize">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.DocumentCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.IndexesCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.TotalIndexSizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.TotalIndexSize">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.StorageSizeInBytes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Admin.Models.CollectionSummary.StorageSize">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Admin.Models.DatabaseOverviewViewModel">
+            <summary>
+            View model
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Admin.Models.DatabaseOverviewViewModel.Collections">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController">
             <summary>
             Class RepositoryController.
@@ -738,7 +832,7 @@
         <member name="P:RepoCat.Portal.RecurringJobs.IRepositoryMonitoringSettings.RepositorySettings">
             <summary>
             A collection of settings for each monitored repository
-            </summary>
+            </summary>\
         </member>
         <member name="T:RepoCat.Portal.RecurringJobs.RepositoryMonitoringSettings">
             <inheritdoc cref="T:RepoCat.Portal.RecurringJobs.IRepositoryMonitoringSettings"/>

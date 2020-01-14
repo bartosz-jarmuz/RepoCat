@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission
 {

@@ -30,5 +30,6 @@ namespace RepoCat.RepositoryManagement.Service
 
 
         Task<List<string>> GetStamps(RepositoryQueryParameter repositoryQueryParameter);
+        Task<IEnumerable<CollectionSummary>> GetSummary();
     }
 }

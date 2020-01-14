@@ -6,6 +6,7 @@
 
 using System;
 using log4net;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.ConsoleClient
 {

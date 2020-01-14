@@ -1,4 +1,5 @@
 ﻿using System;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission
 {
