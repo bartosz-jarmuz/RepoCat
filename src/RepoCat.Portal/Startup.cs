@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Hangfire;
 using Hangfire.Dashboard;
+using Hangfire.Dashboard.BasicAuthorization;
 using Hangfire.SqlServer;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
@@ -156,8 +157,23 @@ namespace RepoCat.Portal
 
         private void UseHangfire(IApplicationBuilder app)
         {
-
-            app.UseHangfireDashboard();
+            Hangfire.Dashboard.IDashboardAuthorizationFilter filter = new BasicAuthAuthorizationFilter(
+                new BasicAuthAuthorizationFilterOptions
+                {
+                    Users = new[]
+                    {
+                        new BasicAuthAuthorizationUser
+                        {
+                            Login = "admin",
+                            PasswordClear = "reset"
+                        }
+                    }
+                });
+            var options = new DashboardOptions
+            {
+                Authorization = new[] { filter }
+            };
+            app.UseHangfireDashboard(pathMatch: "/hangfire", options);
             app.UseHangfireServer();
             var settings = this.Configuration.GetSection("RepositoryMonitoringSettings").Get<RepositoryMonitoringSettings>();
             var telemetry = app.ApplicationServices.GetService<TelemetryClient>();
