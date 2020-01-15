@@ -1,4 +1,7 @@
-﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+﻿<xs:schema id="ProjectInfo" elementFormDefault="qualified"
+           targetNamespace="https://git.io/RepoCat-ProjectInfo"
+           xmlns="https://git.io/RepoCat ProjectInfo.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="ProjectInfo">
     <xs:complexType>
       <xs:sequence>
