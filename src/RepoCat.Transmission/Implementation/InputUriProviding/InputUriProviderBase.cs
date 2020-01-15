@@ -49,28 +49,33 @@ namespace RepoCat.Transmission
 
         public virtual bool CheckIfCanAccesDirectory(string path, FileSystemRights rights)
         {
-            if (string.IsNullOrEmpty(path)) return false;
-
             try
             {
-                AuthorizationRuleCollection rules = System.IO.FileSystemAclExtensions.GetAccessControl(new DirectoryInfo(path))
-                    .GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
+                var control = System.IO.FileSystemAclExtensions.GetAccessControl(new DirectoryInfo(path));
+                var securityIdentifierRules = control.GetAccessRules(true, true, typeof(SecurityIdentifier));
+                var nTAccountRules = control.GetAccessRules(true, true, typeof(NTAccount));
+                
                 WindowsIdentity identity = WindowsIdentity.GetCurrent();
-
-                foreach (FileSystemAccessRule rule in rules)
+                if (identity.Groups == null)
+                {
+                    this.logger.Warn("Identity groups are null. Cannot check folder access. Access is undetermined, it might or might not work. ");
+                    return true;
+                }
+                foreach (FileSystemAccessRule rule in nTAccountRules)
+                {
+                    if (rule.IdentityReference.Value == identity.Name)
+                    {
+                        if (this.RuleAllowsAccess(path, rights, rule)) return true;
+                    }
+                }
+                foreach (FileSystemAccessRule rule in securityIdentifierRules)
                 {
                     if (identity.Groups.Contains(rule.IdentityReference))
                     {
-                        if ((rights & rule.FileSystemRights) == rights)
-                        {
-                            if (rule.AccessControlType == AccessControlType.Allow)
-                            {
-                                this.logger.Debug($"Confirmed access rights to [{path}]");
-                                return true;
-                            }
-                        }
+                        if (this.RuleAllowsAccess(path, rights, rule)) return true;
                     }
                 }
+               
             }
             catch (Exception ex)
             {
@@ -79,6 +84,20 @@ namespace RepoCat.Transmission
             }
             this.logger.Error($"No permissions to directory [{path}]");
             throw new UnauthorizedAccessException($"No permissions to directory [{path}]");
+        }
+
+        private bool RuleAllowsAccess(string path, FileSystemRights rights, FileSystemAccessRule rule)
+        {
+            if ((rights & rule.FileSystemRights) == rights)
+            {
+                if (rule.AccessControlType == AccessControlType.Allow)
+                {
+                    this.logger.Debug($"Confirmed access rights to [{path}]");
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
