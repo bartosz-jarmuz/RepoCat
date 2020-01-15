@@ -52,7 +52,7 @@ namespace RepoCat.Transmission
             {
                 this.DisplayParameters(args);
 
-                IEnumerable<string> uris = this.GetPaths(args, uriProvider?? UriProviderFactory.Get(args));
+                IEnumerable<string> uris = this.GetPaths(args, uriProvider?? UriProviderFactory.Get(args, this.logger));
 
                 if (projectInfoBuilder == null)
                 {
@@ -92,72 +92,37 @@ namespace RepoCat.Transmission
 
 
     private void DisplayParameters(TransmitterArguments args)
-        {
-            this.logger.Info($"Command line string: [{args.OriginalParameterInputString}]");
-            this.logger.Info($"Resolved parameters:");
+    {
+        this.logger.Info($"Command line string: [{args.OriginalParameterInputString}]");
+        this.logger.Info($"Resolved parameters:");
 
-            foreach (KeyValuePair<string, string> parameter in args.GetParameterCollection())
+        foreach (KeyValuePair<string, string> parameter in args.GetParameterCollection())
+        {
+            this.logger.Info($"{parameter.Key}: [{parameter.Value}]");
+        }
+    }
+
+    private IEnumerable<string> GetPaths(TransmitterArguments args, IInputUriProvider provider)
+    {
+        IEnumerable<string> uris;
+        if (args.ProjectPaths == null || !args.ProjectPaths.Any())
+        {
+            Regex regex = null;
+            if (!string.IsNullOrEmpty(args.IgnoredPathsRegex))
             {
-                this.logger.Info($"{parameter.Key}: [{parameter.Value}]");
+                regex = new Regex(args.IgnoredPathsRegex);
             }
+            this.logger.Info($"Loading files from [{args.CodeRootFolder}], excluding those which match regex [{args.IgnoredPathsRegex}]");
+            uris = provider.GetUris(args.CodeRootFolder,regex);
+
+        }
+        else
+        {
+            this.logger.Info($"Files will be loaded from [{args.ProjectPaths.Count}] paths specified in the arguments.");
+            uris = args.ProjectPaths;
         }
 
-        private IEnumerable<string> GetPaths(TransmitterArguments args, IInputUriProvider provider)
-        {
-            IEnumerable<string> uris;
-            if (args.ProjectPaths == null || !args.ProjectPaths.Any())
-            {
-                Regex regex = null;
-                if (!string.IsNullOrEmpty(args.IgnoredPathsRegex))
-                {
-                    regex = new Regex(args.IgnoredPathsRegex);
-                }
-                this.logger.Info($"Loading files from [{args.CodeRootFolder}], excluding those which match regex [{args.IgnoredPathsRegex}]");
-                this.CheckIfCanAccesDirectory(args.CodeRootFolder, FileSystemRights.Read);
-                uris = provider.GetUris(args.CodeRootFolder,regex);
-
-            }
-            else
-            {
-                this.logger.Info($"Files will be loaded from [{args.ProjectPaths.Count}] paths specified in the arguments.");
-                uris = args.ProjectPaths;
-            }
-
-            return uris;
-        }
-
-        public bool CheckIfCanAccesDirectory(string path, FileSystemRights rights)
-        {
-            if (string.IsNullOrEmpty(path)) return false;
-
-            try
-            {
-                AuthorizationRuleCollection rules = System.IO.FileSystemAclExtensions.GetAccessControl(new DirectoryInfo(path))
-                    .GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
-                WindowsIdentity identity = WindowsIdentity.GetCurrent();
-
-                foreach (FileSystemAccessRule rule in rules)
-                {
-                    if (identity.Groups.Contains(rule.IdentityReference))
-                    {
-                        if ((rights & rule.FileSystemRights) == rights)
-                        {
-                            if (rule.AccessControlType == AccessControlType.Allow)
-                            {
-                                this.logger.Debug($"Confirmed access rights to [{path}]");
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                this.logger.Error($"Cannot access directory [{path}]", ex);
-                throw;
-            }
-            this.logger.Error($"No permissions to directory [{path}]");
-            throw new UnauthorizedAccessException($"No permissions to directory [{path}]");
-        }
+        return uris;
+    }
     }
 }

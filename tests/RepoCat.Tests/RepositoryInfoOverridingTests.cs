@@ -44,7 +44,7 @@ namespace RepoCat.Tests
         private ProjectInfo LoadFromManifestWithRepoIncluded(bool allowOverride, RepositoryInfo repositoryInfoFromTransmitter)
         {
             //arrange
-            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider(new TraceLogger(LogLevel.Debug));
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
             IProjectInfoBuilder builder = ProjectInfoBuilderFactory.Get(new TransmitterArguments()
             {

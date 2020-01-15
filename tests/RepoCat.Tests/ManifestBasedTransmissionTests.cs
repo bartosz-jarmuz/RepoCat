@@ -18,7 +18,7 @@ namespace RepoCat.Tests
         [Test]
         public void ManifestFilesPaths_ProvidedOk()
         {
-            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider(new TraceLogger(LogLevel.Debug));
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
             Assert.AreEqual(2, uris.Count);
             Assert.IsTrue(uris.Any(x => x.Contains("ScriptOneManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
@@ -30,7 +30,7 @@ namespace RepoCat.Tests
         public void ProjectInfo_RepoStampsShouldBeEqual()
         {
             //arrange
-            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider(new TraceLogger(LogLevel.Debug));
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
             IProjectInfoBuilder builder = ProjectInfoBuilderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
 
@@ -49,7 +49,7 @@ namespace RepoCat.Tests
         public void ProjectInfo_ProvidedOk()
         {
             //arrange
-            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider(new TraceLogger(LogLevel.Debug));
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
             IProjectInfoBuilder builder = ProjectInfoBuilderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
 
@@ -69,7 +69,7 @@ namespace RepoCat.Tests
         public void RelativePathPropertyKey_ResolvedOk()
         {
             //arrange
-            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider();
+            ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider(new TraceLogger(LogLevel.Debug));
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
             IProjectInfoBuilder builder = ProjectInfoBuilderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalManifestBased }, new TraceLogger(LogLevel.Debug));
 

@@ -23,7 +23,7 @@ namespace RepoCat.Tests
         {
             var root = TestUtils.GetSampleProjectsRoot();
 
-            var uriProvider = new LocalDotNetProjectUriProvider();
+            var uriProvider = new LocalDotNetProjectUriProvider(new TraceLogger(LogLevel.Debug));
             List<string> uris = uriProvider.GetUris(root.FullName).ToList();
             Assert.AreEqual(2, uris.Count);
 

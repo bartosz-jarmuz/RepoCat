@@ -10,16 +10,16 @@ namespace RepoCat.Transmission
 {
     public static class UriProviderFactory
     {
-        public static IInputUriProvider Get(TransmitterArguments args)
+        public static IInputUriProvider Get(TransmitterArguments args, ILogger logger)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
             if (args.TransmissionMode == TransmissionMode.LocalDotNetProjects)
             {
-                return new LocalDotNetProjectUriProvider();
+                return new LocalDotNetProjectUriProvider(logger);
             }
             else
             {
-                return new ManifestBasedUriProvider();
+                return new ManifestBasedUriProvider(logger);
             }
         }
 

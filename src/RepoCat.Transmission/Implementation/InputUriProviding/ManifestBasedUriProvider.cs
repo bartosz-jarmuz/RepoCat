@@ -16,5 +16,8 @@ namespace RepoCat.Transmission
     {
         protected override string InputUriSuffix { get; } = Strings.ManifestSuffix;
 
+        public ManifestBasedUriProvider(ILogger logger) : base(logger)
+        {
+        }
     }
 }

@@ -7,5 +7,9 @@
     public class LocalDotNetProjectUriProvider : InputUriProviderBase
     {
         protected override string InputUriSuffix { get; } = ".csproj";
+
+        public LocalDotNetProjectUriProvider(ILogger logger) : base(logger)
+        {
+        }
     }
 }
