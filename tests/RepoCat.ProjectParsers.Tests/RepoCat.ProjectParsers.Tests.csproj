@@ -88,6 +88,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\RepoCat.Schemas\RepoCat.Schemas.csproj">
+      <Project>{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}</Project>
+      <Name>RepoCat.Schemas</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj">
       <Project>{894549A7-4337-4E81-9D54-4F7B5D9FA19A}</Project>
       <Name>RepoCat.Transmission.Models</Name>

@@ -21,10 +21,12 @@ namespace RepoCat.Transmission
         {
             if (infoElement == null) throw new ArgumentNullException(nameof(infoElement));
 
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProjectInfo));
+            var xmlSerializer = new XmlSerializer(typeof(ProjectInfo), XmlNames.ProjectManifestNamespace);
+
             var info = (ProjectInfo)xmlSerializer.Deserialize(infoElement.CreateReader());
 
-            var components = DeserializeComponents(infoElement.Element(XmlNames.GetComponentXName(XmlNames.Components)));
+            var componentsElement = infoElement.Element(XmlNames.GetComponentXName(XmlNames.Components));
+            var components = DeserializeComponents(componentsElement);
 
             info.Components.AddRange(components);
             return info;
@@ -40,7 +42,7 @@ namespace RepoCat.Transmission
             var list = new List<ComponentManifest>();
             if (componentsElement != null)
             {
-                var xmlSerializer = new XmlSerializer(typeof(ComponentManifest), XmlNames.ComponentManifestNamespace);
+                var xmlSerializer = new XmlSerializer(typeof(ComponentManifest), XmlNames.ProjectManifestNamespace);
 
                 foreach (XElement xElement in componentsElement.Elements())
                 {
@@ -50,17 +52,6 @@ namespace RepoCat.Transmission
             }
 
             return list;
-        }
-
-        /// <summary>
-        /// Loads the components from the specified manifest string
-        /// </summary>
-        /// <param name="manifest">The manifest.</param>
-        /// <returns>List&lt;ComponentManifest&gt;.</returns>
-        public static List<ComponentManifest> DeserializeComponents(string manifest)
-        {
-            XElement componentsElement = XElement.Parse(manifest);
-            return DeserializeComponents(componentsElement);
         }
 
         private static ComponentManifest Deserialize(XmlSerializer xmlSerializer, XElement xElement)

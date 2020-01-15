@@ -87,8 +87,8 @@
     <Compile Include="Implementation\ProjectInfoSenderBase.cs" />
     <Compile Include="Interfaces\IProjectInfoEnricher.cs" />
     <Compile Include="Implementation\InputUriProviding\LocalDotNetProjectUriProvider.cs" />
-    <Compile Include="Implementation\ProjectInfoProviding\DotNetProjectInfoBuilder.cs" />
-    <Compile Include="Implementation\ProjectInfoProviding\ManifestBasedProjectInfoBuilder.cs" />
+    <Compile Include="Implementation\Builders\DotNetProjectInfoBuilder.cs" />
+    <Compile Include="Implementation\Builders\ManifestBasedProjectInfoBuilder.cs" />
     <Compile Include="Implementation\InputUriProviding\ManifestBasedUriProvider.cs" />
     <Compile Include="Implementation\Factories\ProjectInfoBuilderFactory.cs" />
     <Compile Include="Implementation\Enrichers\RepositoryInfoAddingEnricher.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="Interfaces\IInputUriProvider.cs" />
     <Compile Include="Interfaces\IProjectInfoSender.cs" />
     <Compile Include="Interfaces\IProjectInfoTransmitter.cs" />
-    <Compile Include="Implementation\ProjectInfoProviding\ProjectInfoBuilderBase.cs" />
+    <Compile Include="Implementation\Builders\ProjectInfoBuilderBase.cs" />
     <Compile Include="ManifestDeserializer.cs" />
     <Compile Include="ManifestSerializer.cs" />
     <Compile Include="ParameterSet.cs" />

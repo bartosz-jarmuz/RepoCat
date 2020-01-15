@@ -25,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="SampleManifestFiles\AbsoluteMinimum.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="SampleManifestFiles\OnlyProjectInfo.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -168,7 +168,7 @@
             <param name="localName"></param>
             <returns></returns>
         </member>
-        <member name="F:RepoCat.Transmission.Models.XmlNames.ComponentManifestNamespace">
+        <member name="F:RepoCat.Transmission.Models.XmlNames.ProjectManifestNamespace">
             <summary>
             The namespace of the component manifests
             </summary>

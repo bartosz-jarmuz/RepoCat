@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!-- See sample files for info about the structure of this file -->
-<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<ProjectInfo  xmlns="https://git.io/RepoCat-ProjectInfo"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://git.io/RepoCat-ProjectInfo
+                             https://git.io/RepoCat-ProjectInfo.xsd">
   <ProjectName>ScriptOne</ProjectName>
   <ProjectUri IsRelativePath="True">.</ProjectUri>
   <DownloadLocation IsRelativePath="True">\Script\I_AM_FAKE.Script</DownloadLocation>
@@ -9,8 +12,7 @@
     <OrganizationName>RepoCat Organization</OrganizationName>
     <RepositoryMode>Snapshot</RepositoryMode>
   </RepositoryInfo>
-  <Components xmlns="https://git.io/RepoCat-Components" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://git.io/RepoCat-Components 
-                             https://git.io/RepoCat-Components.xsd" >
+  <Components>
     <Component>
       <Name>FakeFeature</Name>
       <Description>Does nothing.</Description>

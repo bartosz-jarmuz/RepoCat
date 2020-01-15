@@ -2,7 +2,10 @@
 <!-- This is a sample of how the full message sent to the API will look like for each project. 
 The info about a project is generated automatically by the transmitter, whereas the Component elements are defined by the humans. 
 The component elements *might* get enriched by a transmitter plugin-->
-<ProjectInfo>
+<ProjectInfo  xmlns="https://git.io/RepoCat-ProjectInfo"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="https://git.io/RepoCat-ProjectInfo
+                             https://git.io/RepoCat-ProjectInfo.xsd">
   <ProjectName>RepoCat.Sample.FeatureBox.csproj</ProjectName>
   <ProjectUri>https://github.com/bartosz-jarmuz/repocat</ProjectUri>
   <AssemblyName>FeaturesBox.dll</AssemblyName>
@@ -19,8 +22,7 @@ The component elements *might* get enriched by a transmitter plugin-->
   It is advisable to treat each separate functionality as a different component. 
   For example, if a CustomerFileProcessor tool can perform file validation, file extraction, file delivery and schedule management, then these should be specified as separate components.
   -->
-  <Components xmlns="https://git.io/RepoCat-Components" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://git.io/RepoCat-Components 
-                             https://git.io/RepoCat-Components.xsd" >
+  <Components  >
     <Component>
       <Name>PneumaticPick</Name>
       <Description>You don't even know you need it</Description>

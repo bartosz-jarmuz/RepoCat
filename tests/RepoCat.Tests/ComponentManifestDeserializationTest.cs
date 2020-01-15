@@ -30,8 +30,9 @@ namespace RepoCat.Tests
         {
             string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\SampleManifestFiles\\SampleManifest.RepoCat.xml");
 
-            var components = ManifestDeserializer.DeserializeComponents(text);
-
+            var manifest = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(text));
+            var components = manifest.Components;
+            manifest.ProjectName.Should().Be("OptionallyProvidedProjectName");
             components.Count.Should().Be(2);
             var first = components[0];
             var second = components[1];

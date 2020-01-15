@@ -162,7 +162,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
                 var validator = new SchemaValidator();
 
-                var errors = validator.ValidateComponentManifest(project.EmptyManifestXml, out XDocument _);
+                var errors = validator.ValidateManifest(project.EmptyManifestXml, out XDocument _);
 
                 if (errors.Count > 0)
                 {

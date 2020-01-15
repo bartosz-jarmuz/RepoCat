@@ -9,9 +9,9 @@
             Available schema names
             </summary>
         </member>
-        <member name="F:RepoCat.Schemas.SchemaName.Components">
+        <member name="F:RepoCat.Schemas.SchemaName.ProjectInfo">
             <summary>
-            The Component manifest schema
+            Project Info schema
             </summary>
         </member>
         <member name="T:RepoCat.Schemas.SchemaValidator">
@@ -19,14 +19,14 @@
             Handles validations of XML files against schemas
             </summary>
         </member>
-        <member name="M:RepoCat.Schemas.SchemaValidator.ValidateComponentManifest(System.Xml.Linq.XDocument)">
+        <member name="M:RepoCat.Schemas.SchemaValidator.ValidateManifest(System.Xml.Linq.XDocument)">
             <summary>
             Validates against ComponentManifest schema
             </summary>
             <param name="xDoc"></param>
             <returns></returns>
         </member>
-        <member name="M:RepoCat.Schemas.SchemaValidator.ValidateComponentManifest(System.String,System.Xml.Linq.XDocument@)">
+        <member name="M:RepoCat.Schemas.SchemaValidator.ValidateManifest(System.String,System.Xml.Linq.XDocument@)">
             <summary>
             Validates against ComponentManifest schema
             </summary>

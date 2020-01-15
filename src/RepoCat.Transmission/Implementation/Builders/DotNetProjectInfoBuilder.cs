@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using DotNetProjectParser;
 using RepoCat.Transmission.Models;
@@ -30,19 +31,22 @@ namespace RepoCat.Transmission
                 ProjectItem manifestInclude = project.Items.FirstOrDefault(x => x.ResolvedIncludePath.EndsWith(Strings.ManifestSuffix, StringComparison.CurrentCultureIgnoreCase));
                 if (manifestInclude?.ResolvedIncludePath != null)
                 {
-                    this.logger.Debug($"Reading Project Info - {projectUri}");
-                    ProjectInfo info = this.ConstructInfo(projectUri, project);
-                    if (info != null)
-                    {
-                        this.logger.Debug($"Loaded project info. Reading manifest info from {projectUri}.");
-                        this.LoadComponentManifest(projectUri, manifestInclude, info);
-                        foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
-                        {
-                            projectInfoEnricher.Enrich(info, manifestInclude.ResolvedIncludePath, projectUri);
-                        }
-                        return info;
-                    }
+                    this.logger.Debug($"Reading manifest - {manifestInclude.ResolvedIncludePath}");
+                    XDocument manifest = XDocument.Load(manifestInclude.ResolvedIncludePath);
 
+                    foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
+                    {
+                        projectInfoEnricher.Enrich(manifest, manifestInclude?.ResolvedIncludePath, projectUri);
+                    }
+                    ProjectInfo projectInfoFromManifest = ManifestDeserializer.DeserializeProjectInfo(manifest.Root);
+
+                    this.SynchronizeProjectInfos(projectInfoFromManifest, projectUri, project);
+
+                    foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
+                    {
+                        projectInfoEnricher.Enrich(projectInfoFromManifest, manifestInclude.ResolvedIncludePath, projectUri);
+                    }
+                    return projectInfoFromManifest;
                 }
                 else
                 {
@@ -57,30 +61,26 @@ namespace RepoCat.Transmission
             return null;
         }
 
-        private void LoadComponentManifest(string projectUri, ProjectItem manifestInclude, ProjectInfo info)
+        /// <summary>
+        /// Ensure that whatever property was set in the manifest (which is done explicitly and manually) prevails over the automatically gathered info.
+        /// </summary>
+        /// <param name="projectInfoFromManifest"></param>
+        /// <param name="projectInfoReadFromCsproj"></param>
+        private void SynchronizeProjectInfos(ProjectInfo projectInfoFromManifest, string projectUri, Project project)
         {
-            try
+            ProjectInfo projectInfoReadFromCsproj = this.ConstructInfo(projectUri, project);
+
+            var properties = typeof(ProjectInfo).GetProperties().Where(x => x.Name != nameof(ProjectInfo.Components));
+
+            foreach (var propertyInfo in properties)
             {
-                FileInfo file = new FileInfo(manifestInclude.ResolvedIncludePath);
-                if (!file.Exists)
+                object manifestValue = propertyInfo.GetValue(projectInfoFromManifest);
+                object defaultValue = propertyInfo.PropertyType.IsValueType ? Activator.CreateInstance(propertyInfo.PropertyType) : null;
+
+                if (manifestValue == defaultValue)
                 {
-                    this.logger.Error($"Manifest not found at [{manifestInclude.ResolvedIncludePath}] for project {projectUri}!");
+                    propertyInfo.SetValue(projectInfoFromManifest, propertyInfo.GetValue(projectInfoReadFromCsproj));
                 }
-                else
-                {
-                    XDocument manifest = XDocument.Load(file.FullName);
-                    foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
-                    {
-                        projectInfoEnricher.Enrich(manifest, file.FullName, projectUri);
-                    }
-                    info.Components.AddRange( ManifestDeserializer.DeserializeComponents(manifest.Root));
-                    this.logger.Info($"Manifest Read OK from {projectUri}");
-                }
-            }
-            catch (Exception ex)
-            {
-                this.logger.Warn($"Error while loading ComponentManifest [{projectUri}] {ex.Message}. Details in DEBUG mode.");
-                this.logger.Debug($"Error details:" + ex);
             }
         }
 
@@ -101,9 +101,8 @@ namespace RepoCat.Transmission
             }
             catch (Exception ex)
             {
-                this.logger.Warn($"Error while constructing project info based on project object [{uri}] {ex.Message}. Details in DEBUG mode.");
-                this.logger.Debug($"Error details:" + ex);
-                return null;
+                this.logger.Error($"Error while constructing project info based on project object [{uri}] {ex.Message}. Details in DEBUG mode.", ex);
+                throw;
             }
 
         }

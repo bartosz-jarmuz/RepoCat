@@ -59,8 +59,8 @@ namespace RepoCat.Schemas
         {
             switch (name)
             {
-                case SchemaName.Components:
-                    return "Components.xsd";
+                case SchemaName.ProjectInfo:
+                    return "ProjectInfo.xsd";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(name), name, null);
             }

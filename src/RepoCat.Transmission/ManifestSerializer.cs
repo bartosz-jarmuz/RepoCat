@@ -21,7 +21,7 @@ namespace RepoCat.Transmission
         {
             if (info == null) throw new ArgumentNullException(nameof(info));
 
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProjectInfo));
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProjectInfo), XmlNames.ProjectManifestNamespace);
             using (StringWriter sw = new StringWriter())
             {
                 xmlSerializer.Serialize(sw, info);
@@ -30,8 +30,8 @@ namespace RepoCat.Transmission
                 var componentsElement = SerializeComponents(info.Components);
 
                 projectInfoElement.Add(componentsElement);
-
-                return projectInfoElement;
+                var final = ClearNamespaces(projectInfoElement);
+                return final;
             }
         }
 
@@ -45,7 +45,7 @@ namespace RepoCat.Transmission
             if (manifests == null) throw new ArgumentNullException(nameof(manifests));
 
             List<XElement> list = new List<XElement>();
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ComponentManifest), XmlNames.ComponentManifestNamespace);
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ComponentManifest), XmlNames.ProjectManifestNamespace);
 
             foreach (ComponentManifest manifest in manifests)
             {
@@ -59,9 +59,8 @@ namespace RepoCat.Transmission
             {
                 components.Add(xElement);
             }
-          
-            XElement final = ClearNamespaces(components);
-            return final;
+
+            return components;
         }
 
         private static XElement ClearNamespaces(XElement final)

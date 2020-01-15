@@ -14,13 +14,13 @@ namespace RepoCat.Transmission.Models
         /// <returns></returns>
         public static XName GetComponentXName(string localName)
         {
-            return XName.Get(localName, ComponentManifestNamespace);
+            return XName.Get(localName, ProjectManifestNamespace);
         }
 
         /// <summary>
         /// The namespace of the component manifests
         /// </summary>
-        public const string ComponentManifestNamespace = "https://git.io/RepoCat-Components";
+        public const string ProjectManifestNamespace = "https://git.io/RepoCat-ProjectInfo";
 
         /// <summary>
         /// Tags of a component

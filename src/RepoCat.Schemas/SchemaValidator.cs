@@ -11,16 +11,16 @@ namespace RepoCat.Schemas
     /// </summary>
     public class SchemaValidator
     {
-        private Lazy<XmlSchemaSet> ComponentManifestSchemas { get; } = new Lazy<XmlSchemaSet>(()=> XsdProvider.GetSchemaSet(SchemaName.Components));
+        private Lazy<XmlSchemaSet> ComponentManifestSchemas { get; } = new Lazy<XmlSchemaSet>(()=> XsdProvider.GetSchemaSet(SchemaName.ProjectInfo));
 
         /// <summary>
         /// Validates against ComponentManifest schema
         /// </summary>
         /// <param name="xDoc"></param>
         /// <returns></returns>
-        public List<string> ValidateComponentManifest(XDocument xDoc)
+        public List<string> ValidateManifest(XDocument xDoc)
         {
-            return Validate(xDoc, ComponentManifestSchemas.Value);
+            return Validate(xDoc, this.ComponentManifestSchemas.Value);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace RepoCat.Schemas
         /// <param name="xmlString"></param>
         /// <param name="document"></param>
         /// <returns></returns>
-        public List<string> ValidateComponentManifest(string xmlString, out XDocument document)
+        public List<string> ValidateManifest(string xmlString, out XDocument document)
         {
             if (xmlString == null) throw new ArgumentNullException(nameof(xmlString));
             try
@@ -45,7 +45,7 @@ namespace RepoCat.Schemas
                 };
             }
 
-            return ValidateComponentManifest(document);
+            return this.ValidateManifest(document);
         }
 
         private static List<string> Validate(XDocument xDoc, XmlSchemaSet schemas)

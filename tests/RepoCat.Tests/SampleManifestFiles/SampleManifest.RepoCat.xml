@@ -3,28 +3,31 @@
 It should contain a declaration of one or more components that are in this project -->
 <!--This data might be enriched by a transmitter automatically, 
 although the primary assumption is that this is a from-human-to-human information -->
-<Components xmlns="https://git.io/RepoCat-Components"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://git.io/RepoCat-Components 
-                             https://git.io/RepoCat-Components.xsd" >
-  <Component>
-    <Name>PneumaticPick</Name>
-    <Description>You don't even know you need it</Description>
-    <DocumentationUri>http://google.com</DocumentationUri>
-    <Tags Value="Mining;Teeth;Hygiene"/>
-    <Properties>
-      <Add Key="Author" Value="JimBeam"/>
-      <Add Key="Weight" Value="25kg"/>
-    </Properties>
-  </Component>
-  <Component>
-    <Name>SteamPick</Name>
-    <Description>You know you don't need it</Description>
-    <DocumentationUri>http://google.com</DocumentationUri>
-    <Tags Value="Coal;Steam;Injury"/>
-    <Properties>
-      <Add Key="Author" Value="Jack Black"/>
-      <Add Key="Fuel" Value="Coal"/>
-    </Properties>
-  </Component>
-</Components>
+<ProjectInfo   xmlns="https://git.io/RepoCat-ProjectInfo"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="https://git.io/RepoCat-ProjectInfo
+                             https://git.io/RepoCat-ProjectInfo.xsd">
+  <ProjectName>OptionallyProvidedProjectName</ProjectName>
+  <Components>
+    <Component>
+      <Name>PneumaticPick</Name>
+      <Description>You don't even know you need it</Description>
+      <DocumentationUri>http://google.com</DocumentationUri>
+      <Tags Value="Mining;Teeth;Hygiene"/>
+      <Properties>
+        <Add Key="Author" Value="JimBeam"/>
+        <Add Key="Weight" Value="25kg"/>
+      </Properties>
+    </Component>
+    <Component>
+      <Name>SteamPick</Name>
+      <Description>You know you don't need it</Description>
+      <DocumentationUri>http://google.com</DocumentationUri>
+      <Tags Value="Coal;Steam;Injury"/>
+      <Properties>
+        <Add Key="Author" Value="Jack Black"/>
+        <Add Key="Fuel" Value="Coal"/>
+      </Properties>
+    </Component>
+  </Components>
+</ProjectInfo>

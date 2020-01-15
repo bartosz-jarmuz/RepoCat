@@ -6,8 +6,8 @@
     public enum SchemaName
     {
         /// <summary>
-        /// The Component manifest schema
+        /// Project Info schema
         /// </summary>
-        Components
+        ProjectInfo
     }
 }
