@@ -21,4 +21,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="set folderPath= $(SolutionDir)dist\XSD&#xD;&#xA;set fileToCopy= $(ProjectDir)XSD\Components.xsd&#xD;&#xA;copy %25fileToCopy%25 %25folderPath%25&#xD;&#xA;" />
+  </Target>
+
 </Project>
