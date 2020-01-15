@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProjectInfo>
+  <ProjectName>RepoCat.Sample.FeatureBox.csproj</ProjectName>
+  <ProjectUri>https://github.com/bartosz-jarmuz/repocat</ProjectUri>
+  <AssemblyName>FeaturesBox.dll</AssemblyName>
+  <DownloadLocation>Optionally, set URL or network path for the downloadable thing</DownloadLocation>
+  <OutputType>Library</OutputType>
+  <TargetExtension>.dll</TargetExtension>
+  <RepositoryInfo>
+    <RepositoryName>CoolProjects</RepositoryName>
+    <OrganizationName>DreamTeam</OrganizationName>
+    <RepositoryMode>Default</RepositoryMode>
+  </RepositoryInfo>
+  <RepositoryStamp>12.3.5.12312</RepositoryStamp>
+</ProjectInfo>

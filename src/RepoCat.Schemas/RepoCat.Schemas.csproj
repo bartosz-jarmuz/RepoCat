@@ -13,16 +13,20 @@
   <ItemGroup>
     <None Remove="ComponentManifest.xsd" />
     <None Remove="ProjectInfoMessage.xsd" />
+    <None Remove="XSD\ProjectInfo.xsd" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="XSD\ProjectInfo.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="XSD\Components.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="set folderPath= $(SolutionDir)dist\XSD&#xD;&#xA;set fileToCopy= $(ProjectDir)XSD\Components.xsd&#xD;&#xA;copy %25fileToCopy%25 %25folderPath%25&#xD;&#xA;" />
+    <Exec Command="set folderPath= $(SolutionDir)dist\XSD&#xD;&#xA;set fileToCopy= $(ProjectDir)XSD\ProjectInfo.xsd&#xD;&#xA;copy %25fileToCopy%25 %25folderPath%25&#xD;&#xA;" />
   </Target>
 
 </Project>

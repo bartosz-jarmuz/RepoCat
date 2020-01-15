@@ -25,6 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="SampleManifestFiles\OnlyProjectInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="SampleManifestFiles\ProjectManifestWithoutRepository.RepoCat.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
