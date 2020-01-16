@@ -788,10 +788,10 @@
             <param name="telemetryClient"></param>
         </member>
         <member name="P:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.LogInfo">
-            <inheritdoc cref="T:RepoCat.Transmission.IProjectInfoSender"/>
+            <inheritdoc cref="T:RepoCat.Transmission.Contracts.IProjectInfoSender"/>
         </member>
         <member name="M:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.Send(RepoCat.Transmission.Models.ProjectInfo)">
-            <inheritdoc cref="T:RepoCat.Transmission.IProjectInfoSender"/>
+            <inheritdoc cref="T:RepoCat.Transmission.Contracts.IProjectInfoSender"/>
         </member>
         <member name="T:RepoCat.Portal.RecurringJobs.IScanRepositoryJob">
             <summary>
@@ -820,7 +820,7 @@
             
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.RecurringJobs.ScanRepositoryJob.#ctor(Microsoft.ApplicationInsights.TelemetryClient,AutoMapper.IMapper,RepoCat.Transmission.IProjectInfoTransmitter)">
+        <member name="M:RepoCat.Portal.RecurringJobs.ScanRepositoryJob.#ctor(Microsoft.ApplicationInsights.TelemetryClient,AutoMapper.IMapper,RepoCat.Transmission.Contracts.IProjectInfoTransmitter)">
             <summary>
             The job of looking into specified repository for manifests and sending them to RepoCat
             </summary>
@@ -908,7 +908,7 @@
             <param name="settings"></param>
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
-        <member name="M:RepoCat.Portal.TelemetryExtensions.TrackRecurringJobFinished(Microsoft.ApplicationInsights.TelemetryClient,RepoCat.Transmission.TransmitterArguments,RepoCat.Transmission.RepositoryImportResult)">
+        <member name="M:RepoCat.Portal.TelemetryExtensions.TrackRecurringJobFinished(Microsoft.ApplicationInsights.TelemetryClient,RepoCat.Transmission.Contracts.TransmitterArguments,RepoCat.Transmission.Contracts.RepositoryImportResult)">
             <summary>
             Ater execution finished
             </summary>

@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using NUnit.Framework;
 using RepoCat.Transmission;
+using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Tests

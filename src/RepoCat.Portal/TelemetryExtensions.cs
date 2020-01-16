@@ -5,6 +5,7 @@ using Microsoft.ApplicationInsights;
 using RepoCat.Portal.RecurringJobs;
 using RepoCat.Telemetry;
 using RepoCat.Transmission;
+using RepoCat.Transmission.Contracts;
 
 namespace RepoCat.Portal
 {

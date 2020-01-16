@@ -22,6 +22,7 @@ using RepoCat.Portal.RecurringJobs;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Telemetry;
 using RepoCat.Transmission;
+using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 using SmartBreadcrumbs.Extensions;
 

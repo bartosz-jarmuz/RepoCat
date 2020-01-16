@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
-using RepoCat.Transmission;
+using RepoCat.Transmission.Contracts;
 
 namespace RepoCat.Telemetry
 {

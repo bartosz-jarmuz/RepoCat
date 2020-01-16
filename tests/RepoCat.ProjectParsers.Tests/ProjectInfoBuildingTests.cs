@@ -4,6 +4,7 @@ using Moq;
 using System.Xml.Linq;
 using NUnit.Framework;
 using RepoCat.Transmission;
+using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.ProjectParsers.Tests

@@ -79,6 +79,10 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RepoCat.Transmission.Contracts\RepoCat.Transmission.Contracts.csproj">
+      <Project>{36054728-e7c6-46b3-b120-a4646a67115e}</Project>
+      <Name>RepoCat.Transmission.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj">
       <Project>{894549A7-4337-4E81-9D54-4F7B5D9FA19A}</Project>
       <Name>RepoCat.Transmission.Models</Name>

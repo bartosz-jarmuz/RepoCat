@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\RepoCatKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\RepoCatKey.snk" Link="RepoCatKey.snk" />
+  </ItemGroup>
+</Project>

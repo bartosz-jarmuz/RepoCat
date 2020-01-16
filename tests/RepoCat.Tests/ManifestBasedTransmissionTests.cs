@@ -6,6 +6,7 @@ using NUnit.Framework;
 using RepoCat.Portal;
 using RepoCat.Portal.Mapping;
 using RepoCat.Transmission;
+using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Tests

@@ -77,37 +77,30 @@
     <Compile Include="DefaultLogging\LogLevel.cs" />
     <Compile Include="DefaultLogging\TraceLogger.cs" />
     <Compile Include="DefaultLogging\LoggerDecorator.cs" />
-    <Compile Include="Implementation\Enrichers\EnricherBase.cs" />
-    <Compile Include="Implementation\Enrichers\RelativePathResolvingEnricher.cs" />
-    <Compile Include="Implementation\Enrichers\RepositoryStampAddingEnricher.cs" />
-    <Compile Include="Implementation\HttpProjectInfoSender.cs" />
-    <Compile Include="Implementation\InputUriProviding\InputUriProviderBase.cs" />
-    <Compile Include="Implementation\ProjectImportResult.cs" />
-    <Compile Include="Implementation\RepositoryImportResult.cs" />
-    <Compile Include="Implementation\ProjectInfoSenderBase.cs" />
-    <Compile Include="Interfaces\IProjectInfoEnricher.cs" />
-    <Compile Include="Implementation\InputUriProviding\LocalDotNetProjectUriProvider.cs" />
-    <Compile Include="Implementation\Builders\DotNetProjectInfoBuilder.cs" />
-    <Compile Include="Implementation\Builders\ManifestBasedProjectInfoBuilder.cs" />
-    <Compile Include="Implementation\InputUriProviding\ManifestBasedUriProvider.cs" />
-    <Compile Include="Implementation\Factories\ProjectInfoBuilderFactory.cs" />
-    <Compile Include="Implementation\Enrichers\RepositoryInfoAddingEnricher.cs" />
-    <Compile Include="Strings.cs" />
-    <Compile Include="Implementation\Transmitter.cs" />
-    <Compile Include="Implementation\TransmissionMode.cs" />
-    <Compile Include="Implementation\TransmitterArguments.cs" />
-    <Compile Include="Implementation\Factories\UriProviderFactory.cs" />
-    <Compile Include="Interfaces\IProjectInfoBuilder.cs" />
-    <Compile Include="Interfaces\IInputUriProvider.cs" />
-    <Compile Include="Interfaces\IProjectInfoSender.cs" />
-    <Compile Include="Interfaces\IProjectInfoTransmitter.cs" />
-    <Compile Include="Implementation\Builders\ProjectInfoBuilderBase.cs" />
+    <Compile Include="Enrichers\EnricherBase.cs" />
+    <Compile Include="Enrichers\RelativePathResolvingEnricher.cs" />
+    <Compile Include="Enrichers\RepositoryStampAddingEnricher.cs" />
+    <Compile Include="HttpProjectInfoSender.cs" />
+    <Compile Include="InputUriProviding\InputUriProviderBase.cs" />
+    <Compile Include="ProjectInfoSenderBase.cs" />
+    <Compile Include="InputUriProviding\LocalDotNetProjectUriProvider.cs" />
+    <Compile Include="Builders\DotNetProjectInfoBuilder.cs" />
+    <Compile Include="Builders\ManifestBasedProjectInfoBuilder.cs" />
+    <Compile Include="InputUriProviding\ManifestBasedUriProvider.cs" />
+    <Compile Include="Factories\ProjectInfoBuilderFactory.cs" />
+    <Compile Include="Enrichers\RepositoryInfoAddingEnricher.cs" />
+    <Compile Include="Transmitter.cs" />
+    <Compile Include="Factories\UriProviderFactory.cs" />
+    <Compile Include="Builders\ProjectInfoBuilderBase.cs" />
     <Compile Include="ManifestDeserializer.cs" />
     <Compile Include="ManifestSerializer.cs" />
-    <Compile Include="ParameterSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RepoCat.Transmission.Contracts\RepoCat.Transmission.Contracts.csproj">
+      <Project>{36054728-E7C6-46B3-B120-A4646A67115E}</Project>
+      <Name>RepoCat.Transmission.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj">
       <Project>{894549a7-4337-4e81-9d54-4f7b5d9fa19a}</Project>
       <Name>RepoCat.Transmission.Models</Name>

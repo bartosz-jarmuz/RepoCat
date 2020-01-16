@@ -92,6 +92,10 @@
       <Project>{52ABA2A1-8EA6-44C5-B2DB-F4E0C687E254}</Project>
       <Name>RepoCat.Schemas</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\RepoCat.Transmission.Contracts\RepoCat.Transmission.Contracts.csproj">
+      <Project>{36054728-E7C6-46B3-B120-A4646A67115E}</Project>
+      <Name>RepoCat.Transmission.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj">
       <Project>{894549A7-4337-4E81-9D54-4F7B5D9FA19A}</Project>
       <Name>RepoCat.Transmission.Models</Name>

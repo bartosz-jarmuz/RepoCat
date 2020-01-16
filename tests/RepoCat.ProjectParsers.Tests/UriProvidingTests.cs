@@ -16,6 +16,7 @@ using NUnit.Framework;
 using RepoCat.ProjectParsers.Tests;
 using RepoCat.Schemas;
 using RepoCat.Transmission;
+using RepoCat.Transmission.Contracts;
 
 namespace RepoCat.Tests
 {

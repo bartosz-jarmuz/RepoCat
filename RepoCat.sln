@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{985FFB3D-B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{C526653E-A0A6-4F16-A2F0-D25BE77B9F03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.Transmission.Contracts", "src\RepoCat.Transmission.Contracts\RepoCat.Transmission.Contracts.csproj", "{36054728-E7C6-46B3-B120-A4646A67115E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +111,10 @@ Global
 		{51AAD33B-8034-4D6C-9367-F0596AA637B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51AAD33B-8034-4D6C-9367-F0596AA637B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51AAD33B-8034-4D6C-9367-F0596AA637B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36054728-E7C6-46B3-B120-A4646A67115E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36054728-E7C6-46B3-B120-A4646A67115E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36054728-E7C6-46B3-B120-A4646A67115E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36054728-E7C6-46B3-B120-A4646A67115E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +136,7 @@ Global
 		{7B2C7EDD-87F5-4748-BB93-E496F58C0582} = {EDD18317-7871-4682-B214-DF2985656B6A}
 		{51AAD33B-8034-4D6C-9367-F0596AA637B1} = {C526653E-A0A6-4F16-A2F0-D25BE77B9F03}
 		{985FFB3D-B7CE-4898-B355-C42E8731C5BC} = {C526653E-A0A6-4F16-A2F0-D25BE77B9F03}
+		{36054728-E7C6-46B3-B120-A4646A67115E} = {6F7FE48C-2880-4EC9-A6F5-AA07081432FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {397FD6B5-7959-4985-8025-0D125CD07D21}
