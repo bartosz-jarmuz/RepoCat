@@ -1,11 +1,6 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Security.AccessControl;
-using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using RepoCat.Transmission.Contracts;

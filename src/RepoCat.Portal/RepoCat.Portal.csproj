@@ -59,7 +59,9 @@
     <ProjectReference Include="..\RepoCat.Persistence.Service\RepoCat.Persistence.Service.csproj" />
     <ProjectReference Include="..\RepoCat.RepositoryManagement.Service\RepoCat.RepositoryManagement.Service.csproj" />
     <ProjectReference Include="..\RepoCat.Schemas\RepoCat.Schemas.csproj" />
+    <ProjectReference Include="..\RepoCat.Serialization\RepoCat.Serialization.csproj" />
     <ProjectReference Include="..\RepoCat.Telemetry\RepoCat.Telemetry.csproj" />
+    <ProjectReference Include="..\RepoCat.Transmission.Contracts\RepoCat.Transmission.Contracts.csproj" />
     <ProjectReference Include="..\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj" />
     <ProjectReference Include="..\RepoCat.Transmission\RepoCat.Transmission.csproj" />
   </ItemGroup>

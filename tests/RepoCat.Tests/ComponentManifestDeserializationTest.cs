@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 using FluentAssertions;
 using NUnit.Framework;
 using RepoCat.Portal.Utilities;
+using RepoCat.Serialization;
 using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 

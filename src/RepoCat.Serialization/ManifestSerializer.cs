@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission
+namespace RepoCat.Serialization
 {
     /// <summary>
     /// Performs the deserialization of the component manifest

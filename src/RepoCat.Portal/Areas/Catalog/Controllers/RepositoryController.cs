@@ -14,6 +14,7 @@ using RepoCat.Schemas;
 using RepoCat.Persistence.Models;
 using RepoCat.Portal.Controllers;
 using RepoCat.RepositoryManagement.Service;
+using RepoCat.Serialization;
 using RepoCat.Telemetry;
 using RepoCat.Transmission;
 using RepoCat.Utilities;

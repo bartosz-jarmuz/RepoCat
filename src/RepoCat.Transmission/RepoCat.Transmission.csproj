@@ -77,12 +77,10 @@
     <Compile Include="DefaultLogging\LogLevel.cs" />
     <Compile Include="DefaultLogging\TraceLogger.cs" />
     <Compile Include="DefaultLogging\LoggerDecorator.cs" />
-    <Compile Include="Enrichers\EnricherBase.cs" />
     <Compile Include="Enrichers\RelativePathResolvingEnricher.cs" />
     <Compile Include="Enrichers\RepositoryStampAddingEnricher.cs" />
     <Compile Include="HttpProjectInfoSender.cs" />
     <Compile Include="InputUriProviding\InputUriProviderBase.cs" />
-    <Compile Include="ProjectInfoSenderBase.cs" />
     <Compile Include="InputUriProviding\LocalDotNetProjectUriProvider.cs" />
     <Compile Include="Builders\DotNetProjectInfoBuilder.cs" />
     <Compile Include="Builders\ManifestBasedProjectInfoBuilder.cs" />
@@ -91,12 +89,13 @@
     <Compile Include="Enrichers\RepositoryInfoAddingEnricher.cs" />
     <Compile Include="Transmitter.cs" />
     <Compile Include="Factories\UriProviderFactory.cs" />
-    <Compile Include="Builders\ProjectInfoBuilderBase.cs" />
-    <Compile Include="ManifestDeserializer.cs" />
-    <Compile Include="ManifestSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RepoCat.Serialization\RepoCat.Serialization.csproj">
+      <Project>{C827E239-236E-4DF0-8A8C-4E26AED8E70A}</Project>
+      <Name>RepoCat.Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepoCat.Transmission.Contracts\RepoCat.Transmission.Contracts.csproj">
       <Project>{36054728-E7C6-46B3-B120-A4646A67115E}</Project>
       <Name>RepoCat.Transmission.Contracts</Name>

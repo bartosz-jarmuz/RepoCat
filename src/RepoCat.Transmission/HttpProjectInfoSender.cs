@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
-using Exception = System.Exception;
 
 namespace RepoCat.Transmission
 {

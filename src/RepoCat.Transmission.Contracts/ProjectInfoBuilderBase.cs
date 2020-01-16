@@ -6,10 +6,9 @@
 
 using System;
 using System.Collections.Generic;
-using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission
+namespace RepoCat.Transmission.Contracts
 {
     public abstract class ProjectInfoBuilderBase : IProjectInfoBuilder
     {

@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using RepoCat.Transmission.Contracts;
-using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission
 {

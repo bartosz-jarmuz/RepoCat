@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Xml.Linq;
 using DotNetProjectParser;
+using RepoCat.Serialization;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using RepoCat.Serialization;
 using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 

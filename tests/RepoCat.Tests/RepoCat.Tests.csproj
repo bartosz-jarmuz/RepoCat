@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\RepoCat.Portal\RepoCat.Portal.csproj" />
     <ProjectReference Include="..\..\src\RepoCat.Schemas\RepoCat.Schemas.csproj" />
+    <ProjectReference Include="..\..\src\RepoCat.Serialization\RepoCat.Serialization.csproj" />
     <ProjectReference Include="..\..\src\RepoCat.Transmission\RepoCat.Transmission.csproj" />
     <ProjectReference Include="..\..\src\RepoCat.Utilities\RepoCat.Utilities.csproj" />
   </ItemGroup>

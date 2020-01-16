@@ -6,7 +6,6 @@
 
 using System;
 using RepoCat.Transmission.Contracts;
-using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission
 {

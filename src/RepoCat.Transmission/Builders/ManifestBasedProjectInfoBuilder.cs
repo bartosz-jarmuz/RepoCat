@@ -6,6 +6,7 @@
 
 using System;
 using System.Xml.Linq;
+using RepoCat.Serialization;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 

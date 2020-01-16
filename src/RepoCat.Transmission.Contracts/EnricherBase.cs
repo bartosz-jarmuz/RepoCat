@@ -5,10 +5,9 @@
 // -----------------------------------------------------------------------
 
 using System.Xml.Linq;
-using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission
+namespace RepoCat.Transmission.Contracts
 {
     public abstract class EnricherBase : IProjectInfoEnricher
     {
