@@ -32,6 +32,16 @@ namespace RepoCat.Persistence.Models
         /// The name of the project (e.g. the name of the csproj file)
         /// </summary>
         public string ProjectName { get; set; }
+
+        /// <summary>
+        /// Who maintains the project at the moment
+        /// </summary>
+        public string Owner { get; set; }
+
+        /// <summary>
+        /// A description of problem
+        /// </summary>
+        public string ProjectDescription { get; set; }
         /// <summary>
         /// Gets or sets the project URI.
         /// </summary>

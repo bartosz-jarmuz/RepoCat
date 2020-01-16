@@ -7,6 +7,7 @@ although the primary assumption is that this is a from-human-to-human informatio
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:schemaLocation="https://git.io/RepoCat-ProjectInfo
                              https://git.io/RepoCat-ProjectInfo.xsd">
+  <ProjectName>OverridenProjectName</ProjectName>
   <Components>
     <Component>
       <Name>SampleNetFrameworkConsoleApp</Name>

@@ -34,6 +34,7 @@ namespace RepoCat.ProjectParsers.Tests
             info.Should().NotBeNull();
             info.RepositoryInfo.Should().BeEquivalentTo(repo);
             info.RepositoryStamp.Should().NotBeNullOrEmpty();
+            info.ProjectName.Should().BeEquivalentTo("OverridenProjectName");
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetFramework");
             info.Components.Single().Name.Should().Be("SampleNetFrameworkConsoleApp");
             info.Components.Single().Tags.Count.Should().Be(3);
@@ -50,11 +51,13 @@ namespace RepoCat.ProjectParsers.Tests
                 OrganizationName = "TestOrg"
             };
             var provider = ProjectInfoBuilderFactory.Get(new TransmitterArguments() { TransmissionMode = TransmissionMode.LocalDotNetProjects, RepositoryName = repo.RepositoryName, OrganizationName = repo.OrganizationName}, new Mock<ILogger>().Object);
-
             
             var info = provider.GetInfo(path.FullName);
             info.Should().NotBeNull();
             info.RepositoryInfo.Should().BeEquivalentTo(repo);
+            info.Owner.Should().BeEquivalentTo("Jim The Beam");
+            info.ProjectDescription.Should().BeEquivalentTo("Description is optional");
+            info.ProjectName.Should().BeEquivalentTo("RepoCat.TestApps.NetCore");
             info.RepositoryStamp.Should().NotBeNullOrEmpty();
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetCore");
             info.Components.Single().Name.Should().Be("SampleNetCoreConsoleApp");

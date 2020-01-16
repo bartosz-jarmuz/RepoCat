@@ -65,7 +65,8 @@ namespace RepoCat.Transmission
         /// Ensure that whatever property was set in the manifest (which is done explicitly and manually) prevails over the automatically gathered info.
         /// </summary>
         /// <param name="projectInfoFromManifest"></param>
-        /// <param name="projectInfoReadFromCsproj"></param>
+        /// <param name="projectUri"></param>
+        /// <param name="project"></param>
         private void SynchronizeProjectInfos(ProjectInfo projectInfoFromManifest, string projectUri, Project project)
         {
             ProjectInfo projectInfoReadFromCsproj = this.ConstructInfo(projectUri, project);

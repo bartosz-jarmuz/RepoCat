@@ -8,8 +8,9 @@ although the primary assumption is that this is a from-human-to-human informatio
                xsi:schemaLocation="https://git.io/RepoCat-ProjectInfo
                              https://git.io/RepoCat-ProjectInfo.xsd">
   <Owner>Jim The Beam</Owner>
+  <ProjectDescription>Description is optional</ProjectDescription>
   <Components>
-    <Component>
+    <Component> 
       <Name>SampleNetCoreConsoleApp</Name>
       <Description>N/a</Description>
       <DocumentationUri>http://google.com</DocumentationUri>
@@ -20,4 +21,5 @@ although the primary assumption is that this is a from-human-to-human informatio
       </Properties>
     </Component>
   </Components>
+
 </ProjectInfo>

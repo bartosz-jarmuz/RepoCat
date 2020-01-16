@@ -201,6 +201,8 @@ namespace Repocat.Persistence.Tests
             {
                 ProjectName = "Project2",
                 ProjectUri = "SomeLocation",
+                Owner = "An Owner",
+                ProjectDescription = "A description",
                 RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
                 {
                     RepositoryName = this.testRepoOne.RepositoryName,
@@ -242,6 +244,8 @@ namespace Repocat.Persistence.Tests
             prj2ReturnedFromQuery.ProjectInfo.Components.Single().Tags.Count.Should().Be(2);
             prj2ReturnedFromQuery.ProjectInfo.Components.Single().Properties.Count.Should().Be(1);
             prj2ReturnedFromQuery.ProjectInfo.Components.Single().Properties["KeyTwo"].Should().Be("ValueTwo");
+            prj2ReturnedFromQuery.ProjectInfo.Owner.Should().Be("An Owner");
+            prj2ReturnedFromQuery.ProjectInfo.ProjectDescription.Should().Be("A description");
         }
 
         [Test]

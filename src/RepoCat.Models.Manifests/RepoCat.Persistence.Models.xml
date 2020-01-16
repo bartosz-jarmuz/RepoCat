@@ -71,6 +71,16 @@
             The name of the project (e.g. the name of the csproj file)
             </summary>
         </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.Owner">
+            <summary>
+            Who maintains the project at the moment
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.ProjectDescription">
+            <summary>
+            A description of problem
+            </summary>
+        </member>
         <member name="P:RepoCat.Persistence.Models.ProjectInfo.ProjectUri">
             <summary>
             Gets or sets the project URI.

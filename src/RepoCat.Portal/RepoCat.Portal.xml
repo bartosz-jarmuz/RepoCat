@@ -411,6 +411,16 @@
             </summary>
             <value>The name of the project.</value>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.Owner">
+            <summary>
+            Who maintains the project at the moment
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.ProjectDescription">
+            <summary>
+            A description of problem
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.TargetExtension">
             <summary>
             Gets or sets the target ext.
