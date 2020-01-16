@@ -4,7 +4,7 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="ProjectInfo">
     <xs:complexType>
-      <xs:sequence>
+      <xs:all>
         <xs:element type="xs:string" name="ProjectName" minOccurs="0" maxOccurs="1"/>
         <xs:element type="xs:string" name="ProjectDescription" minOccurs="0" maxOccurs="1"/>
         <xs:element type="xs:string" name="Owner" minOccurs="0" maxOccurs="1"/>
@@ -17,7 +17,6 @@
             </xs:simpleContent>
           </xs:complexType>
         </xs:element>
-
         <xs:element type="xs:string" name="AssemblyName" minOccurs="0" maxOccurs="1"/>
         <xs:element name="DownloadLocation" minOccurs="0" maxOccurs="1">
           <xs:complexType>
@@ -85,7 +84,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-      </xs:sequence>
+      </xs:all>
     </xs:complexType>
   </xs:element>
 </xs:schema>
