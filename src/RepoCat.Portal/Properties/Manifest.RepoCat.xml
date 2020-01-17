@@ -3,17 +3,19 @@
 It should contain a declaration of one or more components that are in this project -->
 <!--This data might be enriched by a transmitter automatically, 
 although the primary assumption is that this is a from-human-to-human information -->
-<Components xmlns="https://git.io/RepoCat-Components"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="https://git.io/RepoCat-Components 
-                             https://git.io/RepoCat-Components.xsd" >
-  <Component>
-    <Name>RepoCat</Name>
-    <Description>Repository catalog</Description>
-    <DocumentationUri>https://github.com/bartosz-jarmuz/RepoCat/</DocumentationUri>
-    <Tags Value="Repository;Catalog;Projects;List"/>
-    <Properties>
-      <Add Key="Author" Value="Bartosz Jarmuż"/>
-    </Properties>
-  </Component>
-</Components>
+<ProjectInfo xmlns="https://git.io/RepoCat-ProjectInfo"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://git.io/RepoCat-ProjectInfo
+                             https://git.io/RepoCat-ProjectInfo.xsd">
+  <Components>
+    <Component>
+      <Name>RepoCat</Name>
+      <Description>Repository catalog</Description>
+      <DocumentationUri>https://github.com/bartosz-jarmuz/RepoCat/</DocumentationUri>
+      <Tags Value="Repository;Catalog;Projects;List"/>
+      <Properties>
+        <Add Key="Author" Value="Bartosz Jarmuż"/>
+      </Properties>
+    </Component>
+  </Components>
+</ProjectInfo>
