@@ -1,90 +1,113 @@
-﻿<xs:schema id="ProjectInfo" elementFormDefault="qualified"
-           targetNamespace="https://git.io/RepoCat-ProjectInfo"
-           xmlns="https://git.io/RepoCat ProjectInfo.xsd"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="ProjectInfo">
-    <xs:complexType>
-      <xs:all>
-        <xs:element type="xs:string" name="ProjectName" minOccurs="0" maxOccurs="1"/>
-        <xs:element type="xs:string" name="ProjectDescription" minOccurs="0" maxOccurs="1"/>
-        <xs:element type="xs:string" name="Owner" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="ProjectUri" minOccurs="0" maxOccurs="1">
-          <xs:complexType>
-            <xs:simpleContent>
-              <xs:extension base="xs:string">
-                <xs:attribute name="IsRelativePath" type="xs:string" use="optional" />
-              </xs:extension>
-            </xs:simpleContent>
-          </xs:complexType>
-        </xs:element>
-        <xs:element type="xs:string" name="AssemblyName" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="DownloadLocation" minOccurs="0" maxOccurs="1">
-          <xs:complexType>
-            <xs:simpleContent>
-              <xs:extension base="xs:string">
-                <xs:attribute name="IsRelativePath" type="xs:string" use="optional" />
-              </xs:extension>
-            </xs:simpleContent>
-          </xs:complexType>
-        </xs:element>
-        <xs:element type="xs:string" name="OutputType" minOccurs="0" maxOccurs="1"/>
-        <xs:element type="xs:string" name="TargetExtension" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="RepositoryInfo" minOccurs="0" maxOccurs="1">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element type="xs:string" name="RepositoryName" minOccurs="0" maxOccurs="1"/>
-              <xs:element type="xs:string" name="OrganizationName" minOccurs="0" maxOccurs="1"/>
-              <xs:element type="xs:string" name="RepositoryMode" minOccurs="0" maxOccurs="1"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element type="xs:string" name="RepositoryStamp" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="Components" minOccurs="0" maxOccurs="1">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="Component" maxOccurs="unbounded" minOccurs="0">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element type="xs:string" name="Name"/>
-                    <xs:element type="xs:string" name="Description"/>
-                    <xs:element name="DocumentationUri">
-                      <xs:complexType>
-                        <xs:simpleContent>
-                          <xs:extension base="xs:string">
-                            <xs:attribute name="IsRelativePath" type="xs:string" use="optional" />
-                          </xs:extension>
-                        </xs:simpleContent>
-                      </xs:complexType>
-                    </xs:element>
-                    <xs:element name="Tags">
-                      <xs:complexType>
-                        <xs:simpleContent>
-                          <xs:extension base="xs:string">
-                            <xs:attribute type="xs:string" name="Value" use="optional"/>
-                          </xs:extension>
-                        </xs:simpleContent>
-                      </xs:complexType>
-                    </xs:element>
-                    <xs:element name="Properties">
-                      <xs:complexType>
-                        <xs:sequence>
-                          <xs:element name="Add" maxOccurs="unbounded" minOccurs="0">
-                            <xs:complexType>
-                              <xs:attribute type="xs:string" name="Key" use="optional"/>
+﻿  <xs:schema id="ProjectInfo" elementFormDefault="qualified"
+             targetNamespace="https://git.io/RepoCat-ProjectInfo"
+             xmlns="https://git.io/RepoCat ProjectInfo.xsd"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ProjectInfo">
+      <xs:complexType>
+        <xs:all>
+          <xs:element type="xs:string" name="ProjectName" minOccurs="0" maxOccurs="1"/>
+          <xs:element type="xs:string" name="ProjectDescription" minOccurs="0" maxOccurs="1"/>
+          <xs:element type="xs:string" name="Owner" minOccurs="0" maxOccurs="1"/>
+          <xs:element name="ProjectUri" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="IsRelativePath" type="xs:string" use="optional" />
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element type="xs:string" name="AssemblyName" minOccurs="0" maxOccurs="1"/>
+          <xs:element name="DownloadLocation" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="IsRelativePath" type="xs:string" use="optional" />
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element type="xs:string" name="OutputType" minOccurs="0" maxOccurs="1"/>
+          <xs:element type="xs:string" name="TargetExtension" minOccurs="0" maxOccurs="1"/>
+          <xs:element name="RepositoryInfo" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element type="xs:string" name="RepositoryName" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="OrganizationName" minOccurs="0" maxOccurs="1"/>
+                <xs:element type="xs:string" name="RepositoryMode" minOccurs="0" maxOccurs="1"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element type="xs:string" name="RepositoryStamp" minOccurs="0" maxOccurs="1"/>
+          <xs:element name="Tags" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute type="xs:string" name="Value" use="optional"/>
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Properties" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Add" maxOccurs="unbounded" minOccurs="0">
+                  <xs:complexType>
+                    <xs:attribute type="xs:string" name="Key" use="optional"/>
+                    <xs:attribute type="xs:string" name="Value" use="optional"/>
+                    <xs:attribute type="xs:string" name="IsRelativePath" use="optional"/>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Components" minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Component" maxOccurs="unbounded" minOccurs="0">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element type="xs:string" name="Name"/>
+                      <xs:element type="xs:string" name="Description"/>
+                      <xs:element name="DocumentationUri">
+                        <xs:complexType>
+                          <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                              <xs:attribute name="IsRelativePath" type="xs:string" use="optional" />
+                            </xs:extension>
+                          </xs:simpleContent>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="Tags">
+                        <xs:complexType>
+                          <xs:simpleContent>
+                            <xs:extension base="xs:string">
                               <xs:attribute type="xs:string" name="Value" use="optional"/>
-                              <xs:attribute type="xs:string" name="IsRelativePath" use="optional"/>
-                            </xs:complexType>
-                          </xs:element>
-                        </xs:sequence>
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-      </xs:all>
-    </xs:complexType>
-  </xs:element>
-</xs:schema>
+                            </xs:extension>
+                          </xs:simpleContent>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="Properties">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="Add" maxOccurs="unbounded" minOccurs="0">
+                              <xs:complexType>
+                                <xs:attribute type="xs:string" name="Key" use="optional"/>
+                                <xs:attribute type="xs:string" name="Value" use="optional"/>
+                                <xs:attribute type="xs:string" name="IsRelativePath" use="optional"/>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+        <xs:attribute name="ManifestReadMe" type="xs:string" use="required" fixed="https://git.io/RepoCat-Manifest-Documentation"/>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
