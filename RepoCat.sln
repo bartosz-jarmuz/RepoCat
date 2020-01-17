@@ -49,6 +49,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepoCat.Serialization", "src\RepoCat.Serialization\RepoCat.Serialization.csproj", "{C827E239-236E-4DF0-8A8C-4E26AED8E70A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoCat.TestApps.NetFramework.NoManifest", "tests\SampleProjects\RepoCat.TestApps.NetFramework.NoManifest\RepoCat.TestApps.NetFramework.NoManifest.csproj", "{0B5ED8A4-8B3F-4E0E-990D-A0B40C8A90D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{C827E239-236E-4DF0-8A8C-4E26AED8E70A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C827E239-236E-4DF0-8A8C-4E26AED8E70A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C827E239-236E-4DF0-8A8C-4E26AED8E70A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B5ED8A4-8B3F-4E0E-990D-A0B40C8A90D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B5ED8A4-8B3F-4E0E-990D-A0B40C8A90D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B5ED8A4-8B3F-4E0E-990D-A0B40C8A90D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B5ED8A4-8B3F-4E0E-990D-A0B40C8A90D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +152,7 @@ Global
 		{51AAD33B-8034-4D6C-9367-F0596AA637B1} = {C526653E-A0A6-4F16-A2F0-D25BE77B9F03}
 		{36054728-E7C6-46B3-B120-A4646A67115E} = {6F7FE48C-2880-4EC9-A6F5-AA07081432FE}
 		{C827E239-236E-4DF0-8A8C-4E26AED8E70A} = {9C941AE7-C303-4447-B3F5-038E18168E6E}
+		{0B5ED8A4-8B3F-4E0E-990D-A0B40C8A90D7} = {8E349C64-F992-4280-84FD-FB66615DCAD5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {397FD6B5-7959-4985-8025-0D125CD07D21}

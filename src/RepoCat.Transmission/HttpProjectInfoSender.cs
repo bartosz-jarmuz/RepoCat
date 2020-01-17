@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,8 +36,31 @@ namespace RepoCat.Transmission
             this.client.BaseAddress = baseAddress;
         }
 
+        /// <summary>
+        /// Sends messages to logger
+        /// </summary>
+        protected override IProgress<ProjectImportProgressData> ProgressLog=>new Progress<ProjectImportProgressData>(
+            data =>
+            {
+                switch (data.Verbosity)
+                {
+                    case ProjectImportProgressData.VerbosityLevel.Info:
+                        this.logger.Info(data.Message);
+                        break;
+                    case ProjectImportProgressData.VerbosityLevel.Debug:
+                        this.logger.Debug(data.Message);
+                        break;
+                    case ProjectImportProgressData.VerbosityLevel.Error:
+                        this.logger.Error(data.Message, data.Exception);
+                        break;
+                    case ProjectImportProgressData.VerbosityLevel.Warn:
+                        this.logger.Warn(data.Message);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            });
 
-        protected override Action<string> LogInfo => (s) => this.logger.Info(s);
 
         /// <summary>
         /// Sends the specified information.
@@ -47,7 +71,7 @@ namespace RepoCat.Transmission
         {
             if (info == null) throw new ArgumentNullException(nameof(info));
             var projectImportResult = new ProjectImportResult(info);
-            this.logger.Debug($"Sending {info.ProjectName} project info");
+            this.ProgressLog.Report(new ProjectImportProgressData(ProjectImportProgressData.VerbosityLevel.Debug, $"Serializing {info.ProjectName} project info"));
 
             string serialized;
             try
@@ -56,22 +80,24 @@ namespace RepoCat.Transmission
             }   
             catch (Exception ex)
             {
-                this.logger.Error($"Error while serializing project info: {info.ProjectName}", ex);
+                this.ProgressLog.Report(new ProjectImportProgressData($"Error while serializing project info: {info.ProjectName}", ex));
                 projectImportResult.Exception = ex;
                 return projectImportResult;
             }
-            
+            this.ProgressLog.Report(new ProjectImportProgressData(ProjectImportProgressData.VerbosityLevel.Info, $"Sending {info.ProjectName} project info"));
+            Stopwatch sw = Stopwatch.StartNew();
             try
             {
                 using (StringContent content = new StringContent(serialized, Encoding.UTF8, "application/json"))
                 {
                     HttpResponseMessage result = await this.client.PostAsync("api/manifest", content).ConfigureAwait(false);
+                    sw.Stop();
                     if (result.IsSuccessStatusCode)
                     {
-                        this.logger.Info(
-                            $"Sent [{info.ProjectName}]. StatusCode: [{result.StatusCode}]. Location: [{result.Headers?.Location}]");
+                        this.ProgressLog.Report(new ProjectImportProgressData(ProjectImportProgressData.VerbosityLevel.Info,
+                          $"Sent [{info.ProjectName}]. StatusCode: [{result.StatusCode}]. Elapsed: [{sw.ElapsedMilliseconds}ms] Response: [{result.Headers?.Location}]"));
                         string response = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        this.logger.Debug($"Response [{response}].");
+                        this.ProgressLog.Report(new ProjectImportProgressData(ProjectImportProgressData.VerbosityLevel.Debug, $"Response [{response}]."));
                         projectImportResult.Success = true;
                         projectImportResult.Response = $"Location: [{result.Headers?.Location}]";
                         return projectImportResult;
@@ -88,8 +114,8 @@ namespace RepoCat.Transmission
                             response = "Error while reading http response content: " + ex;
                         }
 
-                        this.logger.Error(
-                            $"Error - [{result.StatusCode}] - [{result.ReasonPhrase}] - while sending [{info.ProjectName}]. {response}");
+                        this.ProgressLog.Report(new ProjectImportProgressData(ProjectImportProgressData.VerbosityLevel.Error,
+                          $"Error - [{result.StatusCode}] - [{result.ReasonPhrase}] - while sending [{info.ProjectName}]. Elapsed: [{sw.ElapsedMilliseconds}ms]. {response}"));
                         projectImportResult.Exception = new InvalidOperationException($"Error - [{result.StatusCode}] - [{result.ReasonPhrase}] - while sending [{info.ProjectName}]. {response}");
                         projectImportResult.Response = response;
                         return projectImportResult;
@@ -98,7 +124,8 @@ namespace RepoCat.Transmission
             }
             catch (Exception ex)
             {
-                this.logger.Error($"Unexpected error while sending project info: {info.ProjectName}. {serialized}", ex);
+                sw.Stop();
+                this.ProgressLog.Report(new ProjectImportProgressData($"Unexpected error while sending project info: {info.ProjectName}. Elapsed: [{sw.ElapsedMilliseconds}ms]. {serialized}", ex));
                 projectImportResult.Exception = ex;
                 return projectImportResult;
             }

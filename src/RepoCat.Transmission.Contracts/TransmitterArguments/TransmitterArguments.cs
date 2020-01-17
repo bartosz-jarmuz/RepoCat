@@ -58,6 +58,13 @@ namespace RepoCat.Transmission.Contracts
 
 
         /// <summary>
+        /// When the project info builder works based on software projects, some basic project info can be extracted from the project file.
+        /// This means repository catalog can be filled in even with projects which don't contain an explicit manifest.
+        /// Set this flag to true if you don't want projects without manifests to be sent to RepoCat
+        /// </summary>
+        public bool SkipProjectsWithoutManifest { get; set; }
+
+        /// <summary>
         /// Exclude these paths from searching for manifests
         /// </summary>
         public string IgnoredPathsRegex { get; set; }

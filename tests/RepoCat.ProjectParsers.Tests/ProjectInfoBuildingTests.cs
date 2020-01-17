@@ -13,6 +13,49 @@ namespace RepoCat.ProjectParsers.Tests
     public class ProjectInfoBuildingTests
     {
         [Test]
+        public void NetFrameworkProject_NoManifest_Load()
+        {
+            var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetFramework.NoManifest.csproj");
+
+            var repo = new RepositoryInfo()
+            {
+                RepositoryName = "Test",
+                OrganizationName = "TestOrg"
+            };
+            var provider = ProjectInfoBuilderFactory.Get(new TransmitterArguments()
+            {
+                TransmissionMode = TransmissionMode.LocalDotNetProjects,
+                RepositoryName = repo.RepositoryName,
+                OrganizationName = repo.OrganizationName,
+            }, new Mock<ILogger>().Object);
+
+
+
+            var info = provider.GetInfo(path.FullName);
+            info.Should().NotBeNull();
+            info.RepositoryInfo.Should().BeEquivalentTo(repo);
+            info.RepositoryStamp.Should().NotBeNullOrEmpty();
+            info.ProjectName.Should().BeEquivalentTo("RepoCat.TestApps.NetFramework.NoManifest");
+            info.AssemblyName.Should().Be("RepoCat.TestApps.NetFramework.NoManifest");
+            info.Components.Count.Should().Be(0);
+        }
+
+        [Test]
+        public void NetFrameworkProject_NoManifest_DoNotLoad()
+        {
+            var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetFramework.NoManifest.csproj");
+
+            var provider = ProjectInfoBuilderFactory.Get(new TransmitterArguments()
+            {
+                TransmissionMode = TransmissionMode.LocalDotNetProjects,
+                SkipProjectsWithoutManifest = true
+            }, new Mock<ILogger>().Object);
+
+            var info = provider.GetInfo(path.FullName);
+            info.Should().BeNull();
+        }
+
+        [Test]
         public void NetFrameworkProject_Load()
         {
             var path = TestUtils.GetSampleProject(@"RepoCat.TestApps.NetFramework.csproj");

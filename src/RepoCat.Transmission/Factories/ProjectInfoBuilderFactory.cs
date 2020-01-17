@@ -19,7 +19,7 @@ namespace RepoCat.Transmission
             IProjectInfoBuilder infoBuilder;
             if (args.TransmissionMode == TransmissionMode.LocalDotNetProjects)
             {
-                infoBuilder = new DotNetProjectInfoBuilder(logger);
+                infoBuilder = new DotNetProjectInfoBuilder(logger, args);
             }
             else
             {

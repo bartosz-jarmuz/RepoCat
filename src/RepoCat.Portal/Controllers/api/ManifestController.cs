@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Hangfire;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Models;
@@ -39,7 +40,7 @@ namespace RepoCat.Portal.Controllers.api
         /// <param name="projectInfo">The project information.</param>
         /// <returns>IActionResult.</returns>
         [HttpPost]
-        public async Task<IActionResult> Post(Transmission.Models.ProjectInfo projectInfo)
+        public IActionResult Post(Transmission.Models.ProjectInfo projectInfo)
         {
             if (projectInfo == null)
             {
@@ -48,8 +49,8 @@ namespace RepoCat.Portal.Controllers.api
 
             this.telemetryClient.TrackAdding(projectInfo);
 
-            ProjectInfo result = await this.service.Upsert(projectInfo).ConfigureAwait(false);
-            return this.CreatedAtAction("Get", new { id = result.Id }, result);
+            string jobId = BackgroundJob.Enqueue(() => this.service.Upsert(projectInfo));
+            return this.Accepted(jobId);
           
         }
 

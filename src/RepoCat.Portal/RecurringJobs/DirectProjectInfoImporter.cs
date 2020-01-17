@@ -34,8 +34,18 @@ namespace RepoCat.Portal.RecurringJobs
             this.telemetryClient = telemetryClient;
         }
 
-        ///<inheritdoc cref="IProjectInfoSender"/>
-        protected override Action<string> LogInfo => (message) => this.telemetryClient.TrackTrace(message);
+        /// <summary>
+        /// Sends messages to telemetry
+        /// </summary>
+        protected override IProgress<ProjectImportProgressData> ProgressLog => new Progress<ProjectImportProgressData>(
+            data =>
+            {
+                this.telemetryClient.TrackTrace(data.Message, new Dictionary<string, string>()
+                {
+                    {Telemetry.PropertyKeys.Verbosity, data.Verbosity.ToString()},
+                    {Telemetry.PropertyKeys.Exception, data.Exception?.ToString()??""}
+                });
+            });
 
 
         ///<inheritdoc cref="IProjectInfoSender"/>

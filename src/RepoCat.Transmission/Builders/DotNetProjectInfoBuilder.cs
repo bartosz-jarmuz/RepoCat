@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 using DotNetProjectParser;
 using RepoCat.Serialization;
@@ -12,12 +13,13 @@ namespace RepoCat.Transmission
     public class DotNetProjectInfoBuilder : ProjectInfoBuilderBase
     {
         private readonly ILogger logger;
+        private readonly TransmitterArguments args;
 
-        public DotNetProjectInfoBuilder(ILogger logger) : base(logger)
+        public DotNetProjectInfoBuilder(ILogger logger, TransmitterArguments args) : base(logger)
         {
             this.logger = logger;
+            this.args = args;
         }
-
 
         public override ProjectInfo GetInfo(string projectUri)
         {
@@ -26,32 +28,16 @@ namespace RepoCat.Transmission
             {
                 return null;
             }
-
             try
             {
                 ProjectItem manifestInclude = project.Items.FirstOrDefault(x => x.ResolvedIncludePath.EndsWith(Strings.ManifestSuffix, StringComparison.CurrentCultureIgnoreCase));
                 if (manifestInclude?.ResolvedIncludePath != null)
                 {
-                    this.logger.Debug($"Reading manifest - {manifestInclude.ResolvedIncludePath}");
-                    XDocument manifest = XDocument.Load(manifestInclude.ResolvedIncludePath);
-
-                    foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
-                    {
-                        projectInfoEnricher.Enrich(manifest, manifestInclude?.ResolvedIncludePath, projectUri);
-                    }
-                    ProjectInfo projectInfoFromManifest = ManifestDeserializer.DeserializeProjectInfo(manifest.Root);
-
-                    this.SynchronizeProjectInfos(projectInfoFromManifest, projectUri, project);
-
-                    foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
-                    {
-                        projectInfoEnricher.Enrich(projectInfoFromManifest, manifestInclude.ResolvedIncludePath, projectUri);
-                    }
-                    return projectInfoFromManifest;
+                    return this.GetInfoWithManifest(projectUri, manifestInclude, project);
                 }
                 else
                 {
-                    this.logger.Debug($"Project does not include manifest file (expected file name ending with [{Strings.ManifestSuffix}]). Will be ignored by RepoCat. {projectUri}");
+                    return this.GetInfoWithoutManifest(projectUri, project);
                 }
             }
             catch (Exception ex)
@@ -60,6 +46,58 @@ namespace RepoCat.Transmission
                 this.logger.Debug($"Error details: {ex}.");
             }
             return null;
+        }
+
+        private ProjectInfo GetInfoWithoutManifest(string projectUri, Project project)
+        {
+            if (this.args.SkipProjectsWithoutManifest)
+            {
+                this.logger.Debug(
+                    $"Project does not include manifest file (expected file name ending with [{Strings.ManifestSuffix}]) " +
+                    $"and [{nameof(this.args.SkipProjectsWithoutManifest)}] setting is [{this.args.SkipProjectsWithoutManifest}]. Will be ignored by RepoCat. {projectUri}");
+                return null;
+            }
+            else
+            {
+                this.logger.Debug(
+                    $"Preparing project without manifest file as per [{nameof(this.args.SkipProjectsWithoutManifest)}] setting value: [{this.args.SkipProjectsWithoutManifest}]");
+                ProjectInfo projectInfoReadFromCsproj = this.ConstructInfo(projectUri, project);
+
+                this.ProcessProjectEnriching(projectUri, projectInfoReadFromCsproj, null);
+                return projectInfoReadFromCsproj;
+            }
+        }
+
+        private ProjectInfo GetInfoWithManifest(string projectUri, ProjectItem manifestInclude, Project project)
+        {
+            this.logger.Debug($"Reading manifest - {manifestInclude.ResolvedIncludePath}");
+            XDocument manifest = XDocument.Load(manifestInclude.ResolvedIncludePath);
+
+            this.ProcessManifestEnriching(projectUri, manifest, manifestInclude);
+
+            ProjectInfo projectInfoFromManifest = ManifestDeserializer.DeserializeProjectInfo(manifest.Root);
+
+            this.SynchronizeProjectInfos(projectInfoFromManifest, projectUri, project);
+
+            this.ProcessProjectEnriching(projectUri, projectInfoFromManifest, manifestInclude.ResolvedIncludePath);
+
+            return projectInfoFromManifest;
+        }
+
+        private void ProcessProjectEnriching(string projectUri, ProjectInfo projectInfoFromManifest, string manifestPath)
+        {
+            foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
+            {
+                projectInfoEnricher.Enrich(projectInfoFromManifest, manifestPath, projectUri);
+            }
+        }
+
+        private void ProcessManifestEnriching(string projectUri, XDocument manifest, ProjectItem manifestInclude)
+        {
+            foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
+            {
+                projectInfoEnricher.Enrich(manifest, manifestInclude?.ResolvedIncludePath, projectUri);
+            }
         }
 
         /// <summary>

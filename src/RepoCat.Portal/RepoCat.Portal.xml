@@ -787,8 +787,10 @@
             <param name="service"></param>
             <param name="telemetryClient"></param>
         </member>
-        <member name="P:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.LogInfo">
-            <inheritdoc cref="T:RepoCat.Transmission.Contracts.IProjectInfoSender"/>
+        <member name="P:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.ProgressLog">
+            <summary>
+            Sends messages to telemetry
+            </summary>
         </member>
         <member name="M:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter.Send(RepoCat.Transmission.Models.ProjectInfo)">
             <inheritdoc cref="T:RepoCat.Transmission.Contracts.IProjectInfoSender"/>
@@ -888,6 +890,13 @@
         <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.IgnoredPathsRegex">
             <summary>
             Optionally, what should be excuded
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.SkipProjectsWithoutManifest">
+            <summary>
+            When the project info builder works based on software projects, some basic project info can be extracted from the project file.
+            This means repository catalog can be filled in even with projects which don't contain an explicit manifest.
+            Set this flag to true if you don't want projects without manifests to be sent to RepoCat
             </summary>
         </member>
         <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.ManifestCanOverrideRepositoryInfo">

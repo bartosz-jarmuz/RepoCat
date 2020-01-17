@@ -7,10 +7,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
-namespace RepoCat.Transmission
+namespace RepoCat.Transmission.Contracts
 {
     public abstract class ProjectInfoSenderBase : IProjectInfoSender
     {
@@ -20,31 +19,64 @@ namespace RepoCat.Transmission
         }
 
         /// <summary>
-        /// Info level log action
+        /// 
         /// </summary>
-        protected abstract Action<string> LogInfo { get; }
-    
+        protected abstract IProgress<ProjectImportProgressData> ProgressLog { get;  }
+
+
 
         public virtual async Task<RepositoryImportResult> Send(IEnumerable<ProjectInfo> infos)
         {
             if (infos == null) throw new ArgumentNullException(nameof(infos));
 
             List<Task<ProjectImportResult>> tasks = new List<Task<ProjectImportResult>>();
-            this.LogInfo?.Invoke($"Starting sending projects RepoCat...");
-
+            this.ProgressLog.Report(new ProjectImportProgressData(ProjectImportProgressData.VerbosityLevel.Info,$"Starting sending projects RepoCat..."));
             int infoCounter = 0;
+
             foreach (ProjectInfo projectInfo in infos)
             {
+                await Task.Delay(250);
                 infoCounter++;
                 tasks.Add(this.Send(projectInfo));
             }
-            this.LogInfo?.Invoke($"Waiting for all {infoCounter} project infos to be sent.");
+            this.ProgressLog.Report(new ProjectImportProgressData(ProjectImportProgressData.VerbosityLevel.Info, $"Waiting for all {infoCounter} project infos to be sent."));
 
             ProjectImportResult[] results = await Task.WhenAll(tasks).ConfigureAwait(false);
-            this.LogInfo?.Invoke($"Finished sending all {infoCounter} project infos.");
+            this.ProgressLog.Report(new ProjectImportProgressData(ProjectImportProgressData.VerbosityLevel.Info, $"Finished sending all {infoCounter} project infos."));
             return new RepositoryImportResult() { ProjectResults = results };
         }
 
         public abstract Task<ProjectImportResult> Send(ProjectInfo info);
+    }
+
+
+    public class ProjectImportProgressData
+    {
+        public ProjectImportProgressData(string message, Exception exception)
+        {
+            this.Verbosity = VerbosityLevel.Error;
+            this.Message = message;
+            this.Exception = exception;
+        }
+
+        public ProjectImportProgressData(VerbosityLevel verbosity, string message)
+        {
+            this.Verbosity = verbosity;
+            this.Message = message;
+        }
+
+        public enum VerbosityLevel
+        {
+            Info,
+            Debug,
+            Error,
+            Warn
+        }
+
+        public VerbosityLevel Verbosity { get; set; }
+
+        public string Message { get; set; }
+
+        public Exception Exception { get; set; }
     }
 }

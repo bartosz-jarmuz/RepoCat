@@ -248,6 +248,7 @@ namespace Repocat.Persistence.Tests
             prj2ReturnedFromQuery.ProjectInfo.ProjectDescription.Should().Be("A description");
         }
 
+     
         [Test]
         public async Task TestUpsertProject_DefaultRepo_ShouldReturnTheSameIdButNewProperties()
         {
