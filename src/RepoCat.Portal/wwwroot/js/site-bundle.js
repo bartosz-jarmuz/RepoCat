@@ -44,7 +44,7 @@ function setCookie(name, value, days) {
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
-    document.cookie = name + "=" + (value || "") + expires + ";secure; path=/";
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 function getCookie(name) {
     var nameEQ = name + "=";
@@ -84,6 +84,8 @@ $(document).ready(function () {
                 }
                 var joint = split.join('_');
                 setCookie('openNavItems', joint);
+            } else {
+                //setCookie('openNavItems', itemText);
             }
         }
     });

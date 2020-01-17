@@ -23,6 +23,8 @@
                 }
                 var joint = split.join('_');
                 setCookie('openNavItems', joint);
+            } else {
+                //setCookie('openNavItems', itemText);
             }
         }
     });

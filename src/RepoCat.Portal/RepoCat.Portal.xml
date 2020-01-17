@@ -724,12 +724,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:RepoCat.Portal.Controllers.HomeController.RepositoryList">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:RepoCat.Portal.Controllers.HomeController.Index">
             <summary>
             Home page (redirects to search page)
