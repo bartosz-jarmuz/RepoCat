@@ -161,4 +161,3 @@ function getOrganizationFromKey(key) {
 function getRepositoryFromKey(key) {
     return key.split(":")[1];
 }
-
