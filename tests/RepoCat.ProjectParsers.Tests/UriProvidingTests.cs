@@ -30,7 +30,7 @@ namespace RepoCat.Tests
 
             var uriProvider = new LocalDotNetProjectUriProvider(new TraceLogger(LogLevel.Debug));
             List<string> uris = uriProvider.GetUris(root.FullName).ToList();
-            Assert.AreEqual(2, uris.Count);
+            Assert.AreEqual(3, uris.Count);
 
             var regex = new Regex(@".*\\SampleProjects\\.*");
             uris = uriProvider.GetUris(root.FullName, regex).ToList();
