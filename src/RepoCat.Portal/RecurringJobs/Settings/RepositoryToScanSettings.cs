@@ -11,6 +11,12 @@ namespace RepoCat.Portal.RecurringJobs
     public class RepositoryToScanSettings 
     {
         /// <summary>
+        /// If the list of paths is too long (over 32k chars, which is max for cmd line argument) you can save the paths to a file and read from there
+        /// </summary>
+        public string ProjectPathsListInputFilePath { get; set; }
+
+
+        /// <summary>
         /// Path to repository
         /// </summary>
         public string RepositoryPath { get; set; }

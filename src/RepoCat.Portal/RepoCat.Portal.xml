@@ -857,6 +857,11 @@
             Settings of the repo to scan
             </summary>
         </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.ProjectPathsListInputFilePath">
+            <summary>
+            If the list of paths is too long (over 32k chars, which is max for cmd line argument) you can save the paths to a file and read from there
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.RepositoryPath">
             <summary>
             Path to repository

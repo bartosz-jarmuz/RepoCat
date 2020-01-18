@@ -40,11 +40,6 @@ namespace RepoCat.Transmission.Contracts
         public string RepositoryName { get; set; }
         
         /// <summary>
-        /// Optional delay to not jam the queue
-        /// </summary>
-        public int MilisecondsDelayBetweenInfoSending{ get; set; }
-
-        /// <summary>
         /// Gets or sets the organization name.
         /// </summary>
         /// <value>The repo.</value>
