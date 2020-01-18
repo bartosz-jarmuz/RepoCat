@@ -5,7 +5,8 @@ In this case, there is no info to be 'extracted' from a project file (.csproj / 
 <ProjectInfo   xmlns="https://git.io/RepoCat-ProjectInfo"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:schemaLocation="https://git.io/RepoCat-ProjectInfo
-                             https://git.io/RepoCat-ProjectInfo.xsd">
+                             https://git.io/RepoCat-ProjectInfo.xsd"
+               ManifestReadMe="https://git.io/RepoCat-Manifest-Documentation">
   <ProjectName>CustomerFileProcessor</ProjectName>
   <ProjectUri>Path to the project location in repository</ProjectUri>
   <DownloadLocation>Path from which a tool can be downloaded</DownloadLocation>

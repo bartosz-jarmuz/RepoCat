@@ -2,5 +2,6 @@
 <ProjectInfo xmlns="https://git.io/RepoCat-ProjectInfo"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://git.io/RepoCat-ProjectInfo
-                             https://git.io/RepoCat-ProjectInfo.xsd">
+                             https://git.io/RepoCat-ProjectInfo.xsd"
+             ManifestReadMe="https://git.io/RepoCat-Manifest-Documentation">
 </ProjectInfo>
