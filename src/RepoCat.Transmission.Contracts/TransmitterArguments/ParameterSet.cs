@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -112,7 +113,7 @@ namespace RepoCat.Transmission.Contracts
 
         private void TraverseParameters(Action<string, string> outputParameters, bool skipNullAndEmpty, bool skipDefaultsForValueTypes)
         {
-            var properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty);
+            PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty);
 
             foreach (PropertyInfo propertyInfo in properties)
             {
@@ -136,7 +137,7 @@ namespace RepoCat.Transmission.Contracts
 
                 if (skipDefaultsForValueTypes && propertyInfo.PropertyType.IsValueType)
                 {
-                    var defaultValue = Activator.CreateInstance(propertyInfo.PropertyType);
+                    object defaultValue = Activator.CreateInstance(propertyInfo.PropertyType);
 
                     if (value != null && value.Equals(defaultValue))
                     {
@@ -148,6 +149,19 @@ namespace RepoCat.Transmission.Contracts
                 if (value is DateTime dt)
                 {
                     outputParameters(propertyInfo.Name, dt.ToString("O", CultureInfo.InvariantCulture));
+                }
+
+                if (!(value is string) && typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
+                {
+                    if (value is IEnumerable values)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        foreach (object val in values)
+                        {
+                            sb.Append(val.ToString() + "|");
+                        }
+                        outputParameters(propertyInfo.Name, sb.ToString());
+                    }
                 }
                 else
                 {
@@ -165,7 +179,17 @@ namespace RepoCat.Transmission.Contracts
             {
                 theType = property.PropertyType;
             }
-            property.SetValue(objectToAssign, TypeDescriptor.GetConverter(theType).ConvertFromInvariantString(value));
+
+            if (theType != typeof(string) && (typeof(IEnumerable).IsAssignableFrom(theType)) && !string.IsNullOrEmpty(value))
+            {
+                string[] list = value.Split(new []{'|'}, StringSplitOptions.RemoveEmptyEntries);
+                property.SetValue(objectToAssign, list);
+
+            }
+            else
+            {
+                property.SetValue(objectToAssign, TypeDescriptor.GetConverter(theType).ConvertFromInvariantString(value));
+            }
         }
         /// <summary>
         /// Parses a string with parameters in a '-key value' format

@@ -6,8 +6,13 @@ although the primary assumption is that this is a from-human-to-human informatio
 <ProjectInfo   xmlns="https://git.io/RepoCat-ProjectInfo"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:schemaLocation="https://git.io/RepoCat-ProjectInfo
-                             https://git.io/RepoCat-ProjectInfo.xsd">
+                             https://git.io/RepoCat-ProjectInfo.xsd"
+               ManifestReadMe="https://git.io/RepoCat-Manifest-Documentation">
   <Owner>Jim The Beam</Owner>
+  <Tags Value="These;Tags;Are;Optional"/>
+  <Properties>
+    <Add Key="EntireProjectProperties" Value="AreAlsoOptional"/>
+  </Properties> 
   <ProjectDescription>Description is optional</ProjectDescription>
   <Components>
     <Component> 
@@ -21,5 +26,4 @@ although the primary assumption is that this is a from-human-to-human informatio
       </Properties>
     </Component>
   </Components>
-
 </ProjectInfo>

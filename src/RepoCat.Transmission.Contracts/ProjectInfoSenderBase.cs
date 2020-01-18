@@ -35,7 +35,6 @@ namespace RepoCat.Transmission.Contracts
 
             foreach (ProjectInfo projectInfo in infos)
             {
-                await Task.Delay(250);
                 infoCounter++;
                 tasks.Add(this.Send(projectInfo));
             }

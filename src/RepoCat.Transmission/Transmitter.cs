@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -101,7 +102,20 @@ namespace RepoCat.Transmission
     private IEnumerable<string> GetPaths(TransmitterArguments args, IInputUriProvider provider)
     {
         IEnumerable<string> uris;
-        if (args.ProjectPaths == null || !args.ProjectPaths.Any())
+        if (!string.IsNullOrEmpty(args.ProjectPathsListInputFilePath))
+        {
+            this.logger.Info($"File paths will be loaded from input file [{args.ProjectPathsListInputFilePath}].");
+            var lines = File.ReadAllLines(args.ProjectPathsListInputFilePath);
+            this.logger.Info($"Files will be loaded from [{lines.Length}] paths specified in the input file [{args.ProjectPathsListInputFilePath}].");
+            return lines;
+        }
+
+        if (args.ProjectPaths != null && args.ProjectPaths.Any())
+        {
+            this.logger.Info($"Files will be loaded from [{args.ProjectPaths.Count}] paths specified in the arguments.");
+            uris = args.ProjectPaths;
+        }
+        else
         {
             Regex regex = null;
             if (!string.IsNullOrEmpty(args.IgnoredPathsRegex))
@@ -109,13 +123,7 @@ namespace RepoCat.Transmission
                 regex = new Regex(args.IgnoredPathsRegex);
             }
             this.logger.Info($"Loading files from [{args.CodeRootFolder}], excluding those which match regex [{args.IgnoredPathsRegex}]");
-            uris = provider.GetUris(args.CodeRootFolder,regex);
-
-        }
-        else
-        {
-            this.logger.Info($"Files will be loaded from [{args.ProjectPaths.Count}] paths specified in the arguments.");
-            uris = args.ProjectPaths;
+            uris = provider.GetUris(args.CodeRootFolder, regex);
         }
 
         return uris;

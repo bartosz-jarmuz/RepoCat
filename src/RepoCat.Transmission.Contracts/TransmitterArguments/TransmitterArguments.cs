@@ -24,6 +24,11 @@ namespace RepoCat.Transmission.Contracts
 #pragma warning restore CA2227 // Collection properties should be read only
 
         /// <summary>
+        /// If the list of paths is too long (over 32k chars, which is max for cmd line argument) you can save the paths to a file and read from there
+        /// </summary>
+        public string ProjectPathsListInputFilePath { get; set; }
+
+        /// <summary>
         /// Gets or sets the code root folder.
         /// </summary>
         /// <value>The code root folder.</value>
@@ -33,6 +38,11 @@ namespace RepoCat.Transmission.Contracts
         /// </summary>
         /// <value>The repo.</value>
         public string RepositoryName { get; set; }
+        
+        /// <summary>
+        /// Optional delay to not jam the queue
+        /// </summary>
+        public int MilisecondsDelayBetweenInfoSending{ get; set; }
 
         /// <summary>
         /// Gets or sets the organization name.
