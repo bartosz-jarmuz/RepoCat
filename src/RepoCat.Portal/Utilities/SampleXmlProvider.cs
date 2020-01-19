@@ -21,8 +21,9 @@ namespace RepoCat.Portal.Utilities
         /// <returns>List&lt;System.String&gt;.</returns>
         public static string GetSampleProjectInfoSerialized()
         {
-            var info = GetSampleProjectInfo();
-            return ManifestSerializer.SerializeProjectInfo(info).ToString();
+            ProjectInfo info = GetSampleProjectInfo();
+            XElement xElement = ManifestSerializer.SerializeProjectInfo(info);
+            return xElement.ToString();
         }
 
         /// <summary>
@@ -31,8 +32,9 @@ namespace RepoCat.Portal.Utilities
         /// <returns>List&lt;System.String&gt;.</returns>
         public static string GetEmptyProjectInfoSerialized()
         {
-            var info = GetEmptyProjectInfo();
-            return ManifestSerializer.SerializeProjectInfo(info).ToString();
+            ProjectInfo info = GetEmptyProjectInfo();
+            XElement xElement = ManifestSerializer.SerializeProjectInfo(info);
+            return xElement.ToString();
         }
 
         /// <summary>

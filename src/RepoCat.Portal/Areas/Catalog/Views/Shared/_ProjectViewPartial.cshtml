@@ -59,7 +59,8 @@
                                             <span class="component-label">Docs link:&nbsp;</span>
                                             @if (!string.IsNullOrEmpty(component.DocumentationUri))
                                             {
-                                                <a href="@component.DocumentationUri" target="_blank" class="help-link"> <i class="fa fa-external-link-alt"></i> @component.DocumentationUri</a>
+                                                <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, component.Name, nameof(component.DocumentationUri), component.DocumentationUri, "help-link", "fa fa-external-link-alt"))" />
+
                                             }
                                         </div>
                                         <div>
@@ -83,7 +84,7 @@
                                             {
                                                 <span class="component-label description">@property.Key:&nbsp;</span>
                                                 <span class="description">
-                                                    @property.Value
+                                                    <partial name="_InteractiveStringPartial" model="new InteractiveStringModel(Model.Id, component.Name, property.Key, property.Value)" />
                                                 </span>
                                             }
                                         </div>

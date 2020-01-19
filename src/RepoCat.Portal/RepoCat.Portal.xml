@@ -304,6 +304,67 @@
             </summary>
             <value>The properties.</value>
         </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel">
+            <summary>
+            Class TagBadgeViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.ImageClassName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.Text">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.ClassName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="projectId"></param>
+            <param name="componentName"></param>
+            <param name="propertyKey"></param>
+            <param name="text"></param>
+            <param name="className"></param>
+            <param name="imageClassName"></param>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.GetDataType">
+            <summary>
+            Gets the type of data represented by this string
+            </summary>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.DataType">
+            <summary>
+            Type of string 
+            </summary>
+        </member>
+        <member name="F:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.DataType.Text">
+            <summary>
+            Default rendering mode
+            </summary>
+        </member>
+        <member name="F:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.DataType.Url">
+            <summary>
+            Render an anchor tag 
+            </summary>
+        </member>
+        <member name="F:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.DataType.Path">
+            <summary>
+            Render a download action
+            </summary>
+        </member>
+        <member name="F:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.DataType.Email">
+            <summary>
+            Render a mailto tag
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel">
             <summary>
             Contains the result of a query
@@ -662,6 +723,15 @@
             </summary>
             <param name="repositoryManagementService"></param>
             <param name="telemetryClient"></param>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.api.DownloadController.Download(System.String,System.String,System.String)">
+            <summary>
+            Gets the project info with specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="componentName"></param>
+            <param name="propertyKey"></param>
+            <returns>ProjectInfo.</returns>
         </member>
         <member name="M:RepoCat.Portal.Controllers.api.DownloadController.Download(System.String)">
             <summary>

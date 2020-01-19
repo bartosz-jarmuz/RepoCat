@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http;
@@ -36,6 +37,57 @@ namespace RepoCat.Portal.Controllers.api
             this.telemetryClient = telemetryClient;
         }
 
+        /// <summary>
+        /// Gets the project info with specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="componentName"></param>
+        /// <param name="propertyKey"></param>
+        /// <returns>ProjectInfo.</returns>
+        [HttpGet("{id}/{componentName}/{propertyKey}")]
+        public async Task<IActionResult> Download(string id, string componentName, string propertyKey)
+        {
+            var project = await this.service.GetById(id).ConfigureAwait(false);
+            if (project == null)
+            {
+                this.TempData["Error"] = $"Project [{id}] does not exist";
+                return this.RedirectToAction("Error", "Home");
+            }
+
+            if (!string.IsNullOrEmpty(componentName))
+            {
+                var component = project.Components.FirstOrDefault(x => x.Name == componentName);
+                if (component == null)
+                {
+                    this.TempData["Error"] = $"Component [{componentName}] does not exist";
+                    return this.RedirectToAction("Error", "Home");
+                }
+
+                if (propertyKey == nameof(ComponentManifest.DocumentationUri))
+                {
+                    return this.GetLocalFileResult(project, component.DocumentationUri);
+                }
+
+                KeyValuePair<string, string> property = component.Properties.FirstOrDefault(x => x.Key == propertyKey);
+                if (property.Value == null)
+                {
+                    this.TempData["Error"] = $"Property [{propertyKey}] does not exist";
+                    return this.RedirectToAction("Error", "Home");
+                }
+                return this.GetLocalFileResult(project, property.Value);
+            }
+            else
+            {
+                KeyValuePair<string, string> property = project.Properties.FirstOrDefault(x => x.Key == propertyKey);
+                if (property.Value == null)
+                {
+                    this.TempData["Error"] = $"Project property [{propertyKey}] does not exist";
+                    return this.RedirectToAction("Error", "Home");
+                }
+                return this.GetLocalFileResult(project, property.Value);
+            }
+        }
+
 
         /// <summary>
         /// Gets the project info with specified identifier.
@@ -63,7 +115,7 @@ namespace RepoCat.Portal.Controllers.api
 
             if (IsLocalFile(project.DownloadLocation))
             {
-                return this.GetLocalFileResult(project);
+                return this.GetLocalFileResult(project, project.DownloadLocation);
             }
             else
             {
@@ -95,12 +147,12 @@ namespace RepoCat.Portal.Controllers.api
         }
 
 
-        private IActionResult GetLocalFileResult(ProjectInfo project)
+        private IActionResult GetLocalFileResult(ProjectInfo project, string filePath)
         {
-            var file = new FileInfo(project.DownloadLocation);
+            var file = new FileInfo(filePath);
             if (!file.Exists)
             {
-                this.TempData["Error"] = $"File {project.DownloadLocation} is not found or not accessible to RepoCat application. Try local access.";
+                this.TempData["Error"] = $"File {filePath} is not found or not accessible to RepoCat application. Try local access.";
                 return this.RedirectToAction("Error", "Home");
             }
             this.Response.ContentLength = file.Length;
