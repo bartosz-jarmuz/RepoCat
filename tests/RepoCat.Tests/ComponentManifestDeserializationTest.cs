@@ -26,18 +26,33 @@ namespace RepoCat.Tests
             projectInfoDeserialized.Should().BeEquivalentTo(info);
         }
 
+
+
         [Test]
         public void SampleManifest_MultipleComponents_WorksOK()
+        {
+            string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory +
+                                           "\\SampleManifestFiles\\SampleManifest.RepoCat.xml");
+
+            var manifest = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(text));
+            var components = manifest.Components;
+            manifest.ProjectName.Should().Be("OptionallyProvidedProjectName");
+            manifest.Tags.Should().BeEquivalentTo(new[] {"These", "Tags", "Are", "Optional"});
+            manifest.Properties.Should()
+                .Contain(new KeyValuePair<string, string>("EntireProjectProperties", "AreAlsoOptional"));
+
+        }
+
+        [Test]
+        public void SampleManifest_CheckComponents()
         {
             string text = File.ReadAllText(TestContext.CurrentContext.TestDirectory + "\\SampleManifestFiles\\SampleManifest.RepoCat.xml");
 
             var manifest = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(text));
             var components = manifest.Components;
-            manifest.ProjectName.Should().Be("OptionallyProvidedProjectName");
             components.Count.Should().Be(2);
             var first = components[0];
             var second = components[1];
-
 
             first.Name.Should().Be("PneumaticPick");
             first.Description.Should().Be("You don't even know you need it");

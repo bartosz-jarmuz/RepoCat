@@ -22,12 +22,15 @@ namespace RepoCat.Serialization
         {
             if (infoElement == null) throw new ArgumentNullException(nameof(infoElement));
 
-            var xmlSerializer = new XmlSerializer(typeof(ProjectInfo), XmlNames.ProjectManifestNamespace);
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProjectInfo), XmlNames.ProjectManifestNamespace);
 
-            var info = (ProjectInfo)xmlSerializer.Deserialize(infoElement.CreateReader());
+            ProjectInfo info = (ProjectInfo)xmlSerializer.Deserialize(infoElement.CreateReader());
+            
+            LoadTags(infoElement, info.Tags);
+            LoadProperties(infoElement, info.Properties);
 
-            var componentsElement = infoElement.Element(XmlNames.GetComponentXName(XmlNames.Components));
-            var components = DeserializeComponents(componentsElement);
+            XElement componentsElement = infoElement.Element(XmlNames.GetComponentXName(XmlNames.Components));
+            List<ComponentManifest> components = DeserializeComponents(componentsElement);
 
             info.Components.AddRange(components);
             return info;
@@ -40,10 +43,10 @@ namespace RepoCat.Serialization
         /// <returns>List&lt;ComponentManifest&gt;.</returns>
         public static List<ComponentManifest> DeserializeComponents(XElement componentsElement)
         {
-            var list = new List<ComponentManifest>();
+            List<ComponentManifest> list = new List<ComponentManifest>();
             if (componentsElement != null)
             {
-                var xmlSerializer = new XmlSerializer(typeof(ComponentManifest), XmlNames.ProjectManifestNamespace);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ComponentManifest), XmlNames.ProjectManifestNamespace);
 
                 foreach (XElement xElement in componentsElement.Elements())
                 {
@@ -57,42 +60,42 @@ namespace RepoCat.Serialization
 
         private static ComponentManifest Deserialize(XmlSerializer xmlSerializer, XElement xElement)
         {
-            var item = (ComponentManifest)xmlSerializer.Deserialize(xElement.CreateReader());
+            ComponentManifest item = (ComponentManifest)xmlSerializer.Deserialize(xElement.CreateReader());
 
             //do tags manually, bear in mind namespaces
-            LoadTags(xElement, item);
-            LoadProperties(xElement, item);
+            LoadTags(xElement, item.Tags);
+            LoadProperties(xElement, item.Properties);
             return item;
         }
 
-        private static void LoadProperties(XElement xElement, ComponentManifest item)
+        private static void LoadProperties(XElement xElement, Dictionary<string, string> propertiesDictionary)
         {
-            var parent = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.Properties);
+            XElement parent = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.Properties);
             if (parent != null)
             {
-                var properties = parent.Elements();
+                IEnumerable<XElement> properties = parent.Elements();
                 foreach (XElement property in properties)
                 {
-                    var key = property.Attribute(XmlNames.Key)?.Value;
-                    var value = property.Attribute(XmlNames.Value)?.Value;
+                    string key = property.Attribute(XmlNames.Key)?.Value;
+                    string value = property.Attribute(XmlNames.Value)?.Value;
                     if (!string.IsNullOrEmpty(key))
                     {
-                        if (!item.Properties.ContainsKey(key))
+                        if (!propertiesDictionary.ContainsKey(key))
                         {
-                            item.Properties.Add(key, value);
+                            propertiesDictionary.Add(key, value);
                         }
                     }
                 }
             }
         }
 
-        private static void LoadTags(XElement xElement, ComponentManifest item)
+        private static void LoadTags(XElement xElement, List<string> tagsCollection)
         {
-            var tags = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.Tags)?.Attribute(XmlNames.Value)?.Value;
+            string tags = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.Tags)?.Attribute(XmlNames.Value)?.Value;
             if (tags != null)
             {
-                var split = tags.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                item.Tags.AddRange(new List<string>(split));
+                string[] split = tags.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                tagsCollection.AddRange(new List<string>(split));
             }
         }
     }

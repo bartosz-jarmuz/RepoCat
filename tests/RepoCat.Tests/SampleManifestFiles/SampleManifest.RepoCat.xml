@@ -9,6 +9,10 @@ although the primary assumption is that this is a from-human-to-human informatio
                              https://git.io/RepoCat-ProjectInfo.xsd"
                ManifestReadMe="https://git.io/RepoCat-Manifest-Documentation">
   <ProjectName>OptionallyProvidedProjectName</ProjectName>
+  <Tags Value="These;Tags;Are;Optional"/>
+  <Properties>
+    <Add Key="EntireProjectProperties" Value="AreAlsoOptional"/>
+  </Properties>
   <Components>
     <Component>
       <Name>PneumaticPick</Name>

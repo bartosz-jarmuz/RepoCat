@@ -70,7 +70,7 @@ namespace Repocat.Persistence.Tests
 
 
         [Test]
-        public async Task TestGetProjectByQuery_DefaultRepo_VariousRepos_DoNotFilterByRepo_ShouldReturnTwo()
+        public async Task DefaultRepo_VariousRepos_DoNotFilterByRepo_ShouldReturnTwo()
         {
             RepositoryDatabase database = new RepositoryDatabase(Settings);
             
@@ -145,6 +145,7 @@ namespace Repocat.Persistence.Tests
             var prj = new RepoCat.Transmission.Models.ProjectInfo()
             {
                 ProjectName = "AcmeCorp.ValidatorsPack",
+
                 ProjectUri = "SomeLocation/SomeFolder",
                 AssemblyName = "Workers.exe",
                 TargetExtension = "exe",
@@ -161,8 +162,6 @@ namespace Repocat.Persistence.Tests
                         Name = "XmlValidator",
                         Description = "A thing that validates strings",
                         DocumentationUri = "http://google.com",
-
-
                     }
                 },
                 RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
@@ -170,8 +169,9 @@ namespace Repocat.Persistence.Tests
                     RepositoryName = this.testRepoOne.RepositoryName,
                     OrganizationName = this.testRepoOne.OrganizationName
                 }
-                
             };
+            prj.Tags.Add("ProjectTagOne");
+            prj.Properties.Add("ProjectPropertyOneKey", "ProjectPropertyOneValue");
 
             ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
             prj.RepositoryInfo.RepositoryName = this.testRepoTwo.RepositoryName;
@@ -185,6 +185,12 @@ namespace Repocat.Persistence.Tests
 
             result = await GetResult(service, "AcmeCorp");
             AssertProjectFoundBy("ProjectName", result, insertedProject);
+
+            result = await GetResult(service, "ProjectTagOne");
+            AssertProjectFoundBy("ProjectTags", result, insertedProject);
+
+            result = await GetResult(service, "ProjectPropertyOneValue");
+            AssertProjectFoundBy("ProjectProperties", result, insertedProject);
 
             result = await GetResult(service, "Valid");
             AssertProjectFoundBy("Name Part", result, insertedProject);
@@ -218,8 +224,10 @@ namespace Repocat.Persistence.Tests
         }
 
 
+
+
         [Test]
-        public async Task TestGetProjectByQuery_SnapshotRepo_ShouldReturnOnlyLatest()
+        public async Task SnapshotRepo_ShouldReturnOnlyLatest()
         {
             //arrange
             RepositoryDatabase database = new RepositoryDatabase(Settings);
@@ -302,7 +310,7 @@ namespace Repocat.Persistence.Tests
         }
 
         [Test]
-        public async Task TestGetProjectByQuery_DefaultRepo_ShouldReturnAllMatching()
+        public async Task DefaultRepo_ShouldReturnAllMatching()
         {
             //arrange
             RepositoryDatabase database = new RepositoryDatabase(Settings);
@@ -413,7 +421,7 @@ namespace Repocat.Persistence.Tests
 
 
         [Test]
-        public async Task TestGetProjectByQuery_MultipleRepos_ShoulReturnProjectsFromBoth()
+        public async Task MultipleRepos_ShoulReturnProjectsFromBoth()
         {
 
             RepositoryDatabase database = new RepositoryDatabase(Settings);
@@ -459,7 +467,7 @@ namespace Repocat.Persistence.Tests
         }
 
         [Test]
-        public async Task TestGetProjects_MultipleRepos_ShouldReturnProjectsFromCorrectSnapshots()
+        public async Task MultipleRepos_ShouldReturnProjectsFromCorrectSnapshots()
         {
 
             //getting projects is available from multiple repos
@@ -736,7 +744,7 @@ namespace Repocat.Persistence.Tests
         }
 
         [Test]
-        public async Task TestGetProjectByQuery_DefaultRepo_VariousRepos_ShouldOnlyReturnProjectFromOneRepo()
+        public async Task DefaultRepo_VariousRepos_ShouldOnlyReturnProjectFromOneRepo()
         {
             RepositoryDatabase database = new RepositoryDatabase(Settings);
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());

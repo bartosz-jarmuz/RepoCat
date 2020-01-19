@@ -23,7 +23,7 @@ namespace Repocat.Persistence.Tests
 {
 
     [TestFixture]
-    public class UpsertTests
+    public class UpsertProjectTests
     {
         private static readonly IRepoCatDbSettings Settings = GetSettings();
         static IRepoCatDbSettings GetSettings()
@@ -80,112 +80,7 @@ namespace Repocat.Persistence.Tests
         }
 
         [Test]
-        public async Task TestUpsertRepo_CannotAddSameTwice_ShouldReturnTheSameId()
-        {
-            RepositoryDatabase database = new RepositoryDatabase(Settings);
-            string organizationOne = Guid.NewGuid().ToString();
-            string repoOne = Guid.NewGuid().ToString();
-            RepositoryInfo repo = null;
-            RepositoryInfo repo2 = null;
-
-            Task t1 = Task.Run(async () =>
-            {
-                repo = await database.UpsertUpdate(new RepositoryInfo()
-                    {
-                        OrganizationName = organizationOne,
-                        RepositoryName = repoOne
-                    }
-                ).ConfigureAwait(false);
-                
-            });
-            Task t2 = Task.Run(async () =>
-            {
-                repo2 = await database.UpsertUpdate(new RepositoryInfo()
-                    {
-                        OrganizationName = organizationOne,
-                        RepositoryName = repoOne
-                    }
-                ).ConfigureAwait(false);
-            });
-            //add both repos pretty much at the same time
-            await Task.WhenAll(t1, t2);
-
-            repo.Should().NotBeNull("Because it should have been created by the tasks invoke");
-
-            repo.Id.Should().NotBe(ObjectId.Empty);
-            repo.Id.Should().Be(repo2.Id, "because the same repository already exists");
-
-        }
-
-
-        [Test]
-        public async Task TestUpsertRepo_SnapshotModeSetFromStart()
-        {
-            RepositoryDatabase service = new RepositoryDatabase(Settings);
-            string organizationOne = MethodBase.GetCurrentMethod().Name;
-            string repoOne = Guid.NewGuid().ToString();
-
-            //add a new repository with snapshot mode
-            RepositoryInfo repo = await service.UpsertUpdate(
-                new RepositoryInfo()
-                {
-                    OrganizationName = organizationOne,
-                    RepositoryName = repoOne,
-                    RepositoryMode = RepositoryMode.Snapshot
-                }).ConfigureAwait(false);
-            repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
-
-        }
-
-        [Test]
-        public async Task TestUpsertRepo_ShouldReturnProperMode()
-        {
-            RepositoryDatabase service = new RepositoryDatabase(Settings);
-            string organizationOne = MethodBase.GetCurrentMethod().Name;
-            string repoOne = Guid.NewGuid().ToString();
-
-            //first add a new repository to a new organization
-            RepositoryInfo repo = await service.UpsertUpdate(
-                new RepositoryInfo()
-                {
-                    OrganizationName = organizationOne,
-                    RepositoryName = repoOne
-                }).ConfigureAwait(false);
-            repo.RepositoryMode.Should().Be(RepositoryMode.Default);
-
-            //then add it again
-            RepositoryInfo repo2 = await service.UpsertUpdate(new RepositoryInfo()
-            {
-                OrganizationName = organizationOne,
-                RepositoryName = repoOne
-            }).ConfigureAwait(false);
-            repo2.RepositoryMode.Should().Be(RepositoryMode.Default);
-
-            //then change the repo mode (ensure that change worked OK)
-            repo.RepositoryMode = RepositoryMode.Snapshot;
-            await service.UpsertReplace(repo).ConfigureAwait(false);
-            repo = await service.GetRepository(organizationOne, repoOne);
-            repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
-
-            //now perform upsert again and ensure that mode is not overwritten
-            repo = await service.UpsertUpdate(new RepositoryInfo()
-            {
-                OrganizationName = organizationOne,
-                RepositoryName = repoOne
-            }).ConfigureAwait(false);
-            repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
-            
-            //even if added multiple times
-            repo = await service.UpsertUpdate(new RepositoryInfo()
-            {
-                OrganizationName = organizationOne,
-                RepositoryName = repoOne
-            }).ConfigureAwait(false);
-            repo.RepositoryMode.Should().Be(RepositoryMode.Snapshot);
-        }
-
-        [Test]
-        public async Task TestUpsertProject_DefaultRepo_ShouldReturnUpdatedProjects()
+        public async Task DefaultRepo_ShouldReturnUpdatedProjects()
         {
             RepositoryDatabase database = new RepositoryDatabase(Settings);
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), this.telemetryClient);
@@ -247,10 +142,9 @@ namespace Repocat.Persistence.Tests
             prj2ReturnedFromQuery.ProjectInfo.Owner.Should().Be("An Owner");
             prj2ReturnedFromQuery.ProjectInfo.ProjectDescription.Should().Be("A description");
         }
-
      
         [Test]
-        public async Task TestUpsertProject_DefaultRepo_ShouldReturnTheSameIdButNewProperties()
+        public async Task DefaultRepo_ShouldReturnTheSameIdButNewProperties()
         {
             RepositoryDatabase service = new RepositoryDatabase(Settings);
             ProjectInfo prj = new ProjectInfo()
@@ -282,7 +176,7 @@ namespace Repocat.Persistence.Tests
         }
 
         [Test]
-        public async Task TestUpsertProject_SnapshotRepo_ShouldOnlyReturnLastProjects()
+        public async Task SnapshotRepo_ShouldOnlyReturnLastProjects()
         {
             RepositoryDatabase database = new RepositoryDatabase(Settings);
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), this.telemetryClient);
