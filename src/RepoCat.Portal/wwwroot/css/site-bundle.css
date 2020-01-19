@@ -128,6 +128,15 @@
     color: #808080;
 }
 
+.badge-tag {
+    background-color: #ffc107 !important;
+    color: #23282c !important;
+}
+
+.badge-warning {
+    background-color: #ff7910 !important;
+}
+
 .badge-inherit {
     position: inherit !important;
 }
