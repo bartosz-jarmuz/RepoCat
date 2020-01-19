@@ -55,15 +55,7 @@
                   <xs:complexType>
                     <xs:attribute type="xs:string" name="Key" use="optional"/>
                     <xs:attribute type="xs:string" name="Value" use="optional"/>
-                    <xs:attribute name="DataType" use="optional">
-                      <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                          <xs:enumeration value="Email" />
-                          <xs:enumeration value="Url" />
-                          <xs:enumeration value="RelativePath" />
-                        </xs:restriction>
-                      </xs:simpleType>
-                    </xs:attribute>
+                    <xs:attribute type="xs:string" name="IsRelativePath" use="optional"/>
                   </xs:complexType>
                 </xs:element>
               </xs:sequence>
@@ -102,15 +94,7 @@
                               <xs:complexType>
                                 <xs:attribute type="xs:string" name="Key" use="optional"/>
                                 <xs:attribute type="xs:string" name="Value" use="optional"/>
-                                <xs:attribute name="DataType" use="optional">
-                                  <xs:simpleType>
-                                    <xs:restriction base="xs:string">
-                                      <xs:enumeration value="Email" />
-                                      <xs:enumeration value="Url" />
-                                      <xs:enumeration value="RelativePath" />
-                                    </xs:restriction>
-                                  </xs:simpleType>
-                                </xs:attribute>
+                                <xs:attribute type="xs:string" name="IsRelativePath" use="optional"/>
                               </xs:complexType>
                             </xs:element>
                           </xs:sequence>
