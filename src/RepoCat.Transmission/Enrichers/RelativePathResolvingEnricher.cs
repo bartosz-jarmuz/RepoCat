@@ -36,7 +36,11 @@ namespace RepoCat.Transmission
 
         private static string GetAbsolutePath(string manifestFilePath, string valueAttribute)
         {
-
+            if (valueAttribute.StartsWith("http") || valueAttribute.StartsWith("www."))
+            {
+                //assume its not actually a path
+                return valueAttribute;
+            }
             var basePath = Path.GetDirectoryName(manifestFilePath);
             if (basePath == null)
             {
