@@ -27,6 +27,15 @@
               </xs:simpleContent>
             </xs:complexType>
           </xs:element>
+          <xs:element name="DocumentationUri"  minOccurs="0" maxOccurs="1">
+            <xs:complexType>
+              <xs:simpleContent>
+                <xs:extension base="xs:string">
+                  <xs:attribute name="IsRelativePath" type="xs:string" use="optional" />
+                </xs:extension>
+              </xs:simpleContent>
+            </xs:complexType>
+          </xs:element>
           <xs:element type="xs:string" name="OutputType" minOccurs="0" maxOccurs="1"/>
           <xs:element type="xs:string" name="TargetExtension" minOccurs="0" maxOccurs="1"/>
           <xs:element name="RepositoryInfo" minOccurs="0" maxOccurs="1">
