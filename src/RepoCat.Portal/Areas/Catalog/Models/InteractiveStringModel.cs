@@ -14,8 +14,18 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         public string ImageClassName { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string ProjectId { get; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string ComponentName { get; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public string PropertyKey { get; }
 
         /// <summary>

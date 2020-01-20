@@ -62,8 +62,10 @@ namespace RepoCat.Tests
             var scriptOne = infos.Single(x => x.ProjectName == "ScriptOne");
             var scriptTwo = infos.Single(x => x.ProjectName == "ScriptTwo");
             //most properties are the same. Also, we care simply about whether the files exist
-            ValidateProjectInfo(scriptOne);
-            ValidateProjectInfo(scriptTwo);
+            ValidateProjectInfo(scriptOne, ".Script", ".Script", "I_AM_FAKE.Script");
+
+            ValidateProjectInfo(scriptTwo, ".scr", "CustomScript", "I_AM_FAKE_TOO.Script");
+
         }
 
         [Test]
@@ -84,9 +86,12 @@ namespace RepoCat.Tests
         }
 
 
-        private static void ValidateProjectInfo(ProjectInfo scriptOne)
+        private static void ValidateProjectInfo(ProjectInfo scriptOne, string extension, string outputType, string assemblyName)
         {
             Assert.AreEqual("RepoCat Scripts", scriptOne.RepositoryInfo.RepositoryName);
+            Assert.AreEqual(extension, scriptOne.TargetExtension);
+            Assert.AreEqual(outputType, scriptOne.OutputType);
+            Assert.AreEqual(assemblyName, scriptOne.AssemblyName);
             Assert.AreEqual("RepoCat Organization", scriptOne.RepositoryInfo.OrganizationName);
             DirectoryAssert.Exists(scriptOne.ProjectUri);
             FileAssert.Exists(scriptOne.DownloadLocation);

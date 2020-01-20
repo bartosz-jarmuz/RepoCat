@@ -25,6 +25,7 @@ namespace RepoCat.Transmission
             {
                 infoBuilder = new ManifestBasedProjectInfoBuilder(logger);
                 infoBuilder.ProjectInfoEnrichers.Add(new RelativePathResolvingEnricher());
+                infoBuilder.ProjectInfoEnrichers.Add(new AssemblyInfoResolvingEnricher());
             }
             AddGenericEnrichersToProvider(args, infoBuilder, logger);
             return infoBuilder;

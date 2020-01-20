@@ -314,6 +314,21 @@
             
             </summary>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.ProjectId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.ComponentName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.PropertyKey">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.Text">
             <summary>
             

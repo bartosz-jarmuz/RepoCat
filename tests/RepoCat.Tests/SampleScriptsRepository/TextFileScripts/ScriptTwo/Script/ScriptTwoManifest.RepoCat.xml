@@ -6,6 +6,8 @@
                              https://git.io/RepoCat-ProjectInfo.xsd"
               ManifestReadMe="https://git.io/RepoCat-Manifest-Documentation">
   <ProjectName>ScriptTwo</ProjectName>
+  <TargetExtension>.scr</TargetExtension>
+  <OutputType>CustomScript</OutputType>
   <ProjectUri IsRelativePath="True">..</ProjectUri>
   <DownloadLocation IsRelativePath="True">I_AM_FAKE_TOO.Script</DownloadLocation>
   <RepositoryInfo>
