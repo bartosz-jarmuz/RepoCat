@@ -55,6 +55,11 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The project URI.</value>
         public string ProjectUri { get; set; }
+
+        /// <summary>
+        /// URI to general project documentation
+        /// </summary>
+        public string DocumentationUri { get; set; }
         /// <summary>
         /// Gets or sets the name of the project.
         /// </summary>

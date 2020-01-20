@@ -92,6 +92,11 @@
             </summary>
             <value>The project URI.</value>
         </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectInfo.DocumentationUri">
+            <summary>
+            URI to general project documentation
+            </summary>
+        </member>
         <member name="P:RepoCat.Persistence.Models.ProjectInfo.DownloadLocation">
             <summary>
             Gets a location from which the file should be downloadable.

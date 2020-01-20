@@ -9,6 +9,7 @@ although the primary assumption is that this is a from-human-to-human informatio
                              https://git.io/RepoCat-ProjectInfo.xsd"
                ManifestReadMe="https://git.io/RepoCat-Manifest-Documentation">
   <ProjectName>OverridenProjectName</ProjectName>
+  <DocumentationUri>http://google.com/Somewhere</DocumentationUri>
   <Components>
     <Component>
       <Name>SampleNetFrameworkConsoleApp</Name>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FluentAssertions;
 using NUnit.Framework;
 using RepoCat.Portal;
 using RepoCat.Portal.Mapping;
@@ -65,7 +66,7 @@ namespace RepoCat.Tests
             ValidateProjectInfo(scriptOne, ".Script", ".Script", "I_AM_FAKE.Script");
 
             ValidateProjectInfo(scriptTwo, ".scr", "CustomScript", "I_AM_FAKE_TOO.Script");
-
+            Assert.IsTrue(File.Exists(scriptTwo.DocumentationUri));
         }
 
         [Test]

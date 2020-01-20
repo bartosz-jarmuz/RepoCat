@@ -238,6 +238,7 @@ namespace Repocat.Persistence.Tests
             {
                 ProjectName = "Project2",
                 ProjectUri = "SomeLocation",
+                DocumentationUri = "http://google.com/Somewhere",
                 RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
                 {
                     RepositoryName = this.testRepoOne.RepositoryName,

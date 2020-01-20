@@ -486,6 +486,11 @@
             </summary>
             <value>The project URI.</value>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.DocumentationUri">
+            <summary>
+            URI to general project documentation
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.ProjectName">
             <summary>
             Gets or sets the name of the project.

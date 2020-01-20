@@ -79,6 +79,7 @@ namespace RepoCat.ProjectParsers.Tests
             var info = provider.GetInfo(path.FullName);
             info.Should().NotBeNull();
             info.RepositoryInfo.Should().BeEquivalentTo(repo);
+            info.DocumentationUri.Should().BeEquivalentTo("http://google.com/Somewhere");
             info.RepositoryStamp.Should().NotBeNullOrEmpty();
             info.ProjectName.Should().BeEquivalentTo("OverridenProjectName");
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetFramework");

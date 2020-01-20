@@ -49,6 +49,11 @@ namespace RepoCat.Transmission.Models
           /// </summary>
           public string DownloadLocation { get; set; }
 
+          /// <summary>
+          /// URI to general project documentation
+          /// </summary>
+          public string DocumentationUri { get; set; }
+
         /// <summary>
         /// Gets or sets the type of the project output (class library, windows app etc)
         /// </summary>

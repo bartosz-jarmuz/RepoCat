@@ -52,6 +52,11 @@ namespace RepoCat.Persistence.Models
         /// </summary>
         /// <value>The project URI.</value>
         public string ProjectUri { get; set; }
+        
+        /// <summary>
+        /// URI to general project documentation
+        /// </summary>
+        public string DocumentationUri { get; set; }
 
         /// <summary>
         /// Gets a location from which the file should be downloadable.

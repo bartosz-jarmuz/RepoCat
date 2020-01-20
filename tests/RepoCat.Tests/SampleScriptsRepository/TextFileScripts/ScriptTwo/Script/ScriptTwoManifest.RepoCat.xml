@@ -9,6 +9,7 @@
   <TargetExtension>.scr</TargetExtension>
   <OutputType>CustomScript</OutputType>
   <ProjectUri IsRelativePath="True">..</ProjectUri>
+  <DocumentationUri IsRelativePath="True">../Guide/ScriptTwoGuide.txt</DocumentationUri>
   <DownloadLocation IsRelativePath="True">I_AM_FAKE_TOO.Script</DownloadLocation>
   <RepositoryInfo>
     <RepositoryName>RepoCat Scripts</RepositoryName>
