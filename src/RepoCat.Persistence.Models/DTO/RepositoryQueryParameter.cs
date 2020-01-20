@@ -10,7 +10,8 @@ using System.Collections.Generic;
 namespace RepoCat.Persistence.Models
 {
     /// <summary>
-    /// A parameter object for repository queries
+    /// A parameter object for repository queries<br/>
+    /// Stores data about repository and organization
     /// </summary>
     public class RepositoryQueryParameter
     {

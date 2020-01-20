@@ -16,6 +16,10 @@ namespace RepoCat.RepositoryManagement.Service
     /// </summary>
     public class RepositoryQueryParameter
     {
+        public RepositoryQueryParameter()
+        {
+        }
+
         /// <summary>
         /// 
         /// </summary>

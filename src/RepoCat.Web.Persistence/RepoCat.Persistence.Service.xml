@@ -172,6 +172,11 @@
             Name of the repositories collection
             </summary>
         </member>
+        <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.SearchStatisticsCollectionName">
+            <summary>
+            Search statistics
+            </summary>
+        </member>
         <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.ConnectionString">
             <summary>
             Gets or sets the connection string.
@@ -187,6 +192,9 @@
         <member name="T:RepoCat.Persistence.Service.RepoCatDbSettings">
             <inheritdoc />
         </member>
+        <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.SearchStatisticsCollectionName">
+            <inheritdoc />
+        </member>
         <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.RepositoriesCollectionName">
             <inheritdoc />
         </member>
@@ -198,6 +206,32 @@
         </member>
         <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.DatabaseName">
             <inheritdoc />
+        </member>
+        <member name="T:RepoCat.Persistence.Service.StatisticsDatabase">
+            <summary>
+            Allows access to the stored Manifests data
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.#ctor(RepoCat.Persistence.Service.IRepoCatDbSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Persistence.Service.RepositoryDatabase"/> class.
+            </summary>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.Get(RepoCat.Persistence.Models.RepositoryQueryParameter)">
+            <summary>
+            Updates the search statistics 
+            </summary>
+            <param name="repositoryParameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.Update(RepoCat.Persistence.Models.RepositoryQueryParameter,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Updates the search statistics 
+            </summary>
+            <param name="repositoryParameter"></param>
+            <param name="keywords"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

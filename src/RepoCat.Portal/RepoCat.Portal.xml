@@ -145,13 +145,14 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(AutoMapper.IMapper,Microsoft.ApplicationInsights.TelemetryClient,RepoCat.RepositoryManagement.Service.IRepositoryManagementService)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(AutoMapper.IMapper,Microsoft.ApplicationInsights.TelemetryClient,RepoCat.RepositoryManagement.Service.IRepositoryManagementService,RepoCat.RepositoryManagement.Service.IStatisticsService)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Controllers.SearchController"/> class.
             </summary>
             <param name="mapper">The mapper.</param>
             <param name="telemetryClient"></param>
-            <param name="service"></param>
+            <param name="repositoryService"></param>
+            <param name="statisticsService"></param>
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Index">
             <summary>
@@ -167,6 +168,14 @@
             <param name="repo"></param>
             <param name="query"></param>
             <param name="isRegex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.UpdateSearchStatistics(System.Collections.Generic.IReadOnlyCollection{RepoCat.RepositoryManagement.Service.RepositoryQueryParameter},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="parameters"></param>
+            <param name="query"></param>
             <returns></returns>
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String[],System.String[],System.String,System.Boolean)">

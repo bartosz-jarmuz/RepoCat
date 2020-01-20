@@ -30,6 +30,18 @@ namespace RepoCat.Persistence.Service
             return repoNameFilter;
         }
 
+        [SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Predicate building does not support StringComparison enum")]
+        public static FilterDefinition<SearchStatistics> BuildStatisticsRepositoryFilter(string organizationName, string repositoryName)
+        {
+            FilterDefinition<SearchStatistics> repoNameFilter =
+                Builders<SearchStatistics>.Filter.Where(x =>
+                    x.RepositoryName.ToUpperInvariant() == repositoryName.ToUpperInvariant()
+                    && x.OrganizationName.ToUpperInvariant() == organizationName.ToUpperInvariant()
+                );
+            return repoNameFilter;
+        }
+
+
         public static async Task<FilterDefinition<ProjectInfo>> BuildProjectsFilter(IMongoCollection<ProjectInfo> projects, string query, bool isRegex, RepositoryInfo repo, string stamp = null)
         {
             if (projects == null) throw new ArgumentNullException(nameof(projects));

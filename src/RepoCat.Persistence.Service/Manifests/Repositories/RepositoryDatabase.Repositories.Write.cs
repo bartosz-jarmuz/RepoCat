@@ -48,6 +48,7 @@ namespace RepoCat.Persistence.Service
         /// </summary>
         /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Do not use StringComparison in these filter expressions")]
+        
         public async Task<RepositoryInfo> UpsertUpdate(RepositoryInfo repositoryInfo)
         {
             if (repositoryInfo == null) throw new ArgumentNullException(nameof(repositoryInfo));

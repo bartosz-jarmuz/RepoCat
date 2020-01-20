@@ -18,18 +18,7 @@ namespace Repocat.Persistence.Tests
     [TestFixture]
     public class GetProjectTests
     {
-        private static readonly IRepoCatDbSettings Settings = GetSettings();
-
-        static IRepoCatDbSettings GetSettings()
-        {
-            return new RepoCatDbSettings()
-            {
-                ProjectsCollectionName = "Projects",
-                RepositoriesCollectionName = "Repositories",
-                ConnectionString = "mongodb://localhost:27017",
-                DatabaseName = "RepoCatDbTESTS"
-            };
-        }
+        private static readonly IRepoCatDbSettings Settings = TestHelpers.GetSettings();
 
         private readonly RepositoryInfo testRepoOne = new RepositoryInfo()
         {

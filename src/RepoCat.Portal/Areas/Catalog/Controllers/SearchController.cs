@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Hangfire;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Models;
 using RepoCat.RepositoryManagement.Service;
+using RepoCat.Utilities;
 using SmartBreadcrumbs.Attributes;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
@@ -24,7 +26,8 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
     {
         private readonly IMapper mapper;
         private readonly TelemetryClient telemetryClient;
-        private readonly IRepositoryManagementService service;
+        private readonly IRepositoryManagementService repositoryService;
+        private readonly IStatisticsService statisticsService;
 
 
         /// <summary>
@@ -32,12 +35,14 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// </summary>
         /// <param name="mapper">The mapper.</param>
         /// <param name="telemetryClient"></param>
-        /// <param name="service"></param>
-        public SearchController(IMapper mapper, TelemetryClient telemetryClient, IRepositoryManagementService service)
+        /// <param name="repositoryService"></param>
+        /// <param name="statisticsService"></param>
+        public SearchController(IMapper mapper, TelemetryClient telemetryClient, IRepositoryManagementService repositoryService, IStatisticsService statisticsService)
         {
             this.mapper = mapper;
             this.telemetryClient = telemetryClient;
-            this.service = service;
+            this.repositoryService = repositoryService;
+            this.statisticsService = statisticsService;
         }
 
         /// <summary>
@@ -55,7 +60,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
         private async Task<List<SelectListItem>> GetRepositoriesSelectList()
         {
-            IReadOnlyCollection<RepositoryGrouping> groups = await this.service.GetAllRepositoriesGrouped().ConfigureAwait(false);
+            IReadOnlyCollection<RepositoryGrouping> groups = await this.repositoryService.GetAllRepositoriesGrouped().ConfigureAwait(false);
 
             List<SelectListItem> items = new List<SelectListItem>();
 
@@ -94,10 +99,26 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             }
 
             IReadOnlyCollection<RepositoryQueryParameter> parameters = RepositoryQueryParameter.ConvertFromArrays(org, repo);
+            BackgroundJob.Enqueue(() => this.UpdateSearchStatistics(parameters, query));
 
             ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(parameters, query, isRegex).ConfigureAwait(false);
             this.telemetryClient.TrackSearch(parameters, query, isRegex);
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public async Task UpdateSearchStatistics(IReadOnlyCollection<RepositoryQueryParameter> parameters, string query)
+        {
+            var keywords = QueryStringTokenizer.GetTokens(query);
+            foreach (RepositoryQueryParameter repositoryQueryParameter in parameters)
+            {
+                await this.statisticsService.Update(repositoryQueryParameter, keywords);
+            }
         }
 
 
@@ -136,7 +157,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
         private async Task<ManifestQueryResultViewModel> GetQueryResultViewModel(IReadOnlyCollection<RepositoryQueryParameter> parameters, string query, bool isRegex)
         {
-            ManifestQueryResult result = await this.service.GetCurrentProjects(parameters, query, isRegex).ConfigureAwait(false);
+            ManifestQueryResult result = await this.repositoryService.GetCurrentProjects(parameters, query, isRegex).ConfigureAwait(false);
             ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
             return queryResultViewModel;
         }

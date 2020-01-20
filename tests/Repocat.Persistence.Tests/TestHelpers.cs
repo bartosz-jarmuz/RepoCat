@@ -6,12 +6,23 @@
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using RepoCat.Persistence.Service;
 
 namespace Repocat.Persistence.Tests
 {
     public static class TestHelpers
     {
-
+        public static IRepoCatDbSettings GetSettings()
+        {
+            return new RepoCatDbSettings()
+            {
+                ProjectsCollectionName = "Projects",
+                SearchStatisticsCollectionName = "SearchStatistics",
+                RepositoriesCollectionName = "Repositories",
+                ConnectionString = "mongodb://localhost:27017",
+                DatabaseName = "RepoCatDbTESTS"
+            };
+        }
         public static string GetMethodName([CallerMemberName] string caller = "")
         {
             StackTrace stackTrace = new System.Diagnostics.StackTrace();

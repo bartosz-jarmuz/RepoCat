@@ -198,6 +198,47 @@
             This way RepoCat can present a current and previous snapshots of a repository, rather than all projects that are currently or used to be in it.<br/>
             </summary>
         </member>
+        <member name="T:RepoCat.Persistence.Models.SearchKeywordData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.SearchKeywordData.Keyword">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.SearchKeywordData.SearchCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.SearchStatistics">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.SearchStatistics.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.SearchStatistics.RepositoryName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.SearchStatistics.OrganizationName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.SearchStatistics.SearchKeywordData">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:RepoCat.Persistence.Models.CollectionSummary">
             <summary>
             Summary info about a collection
@@ -257,7 +298,8 @@
         </member>
         <member name="T:RepoCat.Persistence.Models.RepositoryQueryParameter">
             <summary>
-            A parameter object for repository queries
+            A parameter object for repository queries<br/>
+            Stores data about repository and organization
             </summary>
         </member>
         <member name="P:RepoCat.Persistence.Models.RepositoryQueryParameter.OrganizationName">

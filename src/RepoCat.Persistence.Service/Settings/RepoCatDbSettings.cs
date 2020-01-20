@@ -4,6 +4,8 @@
     public class RepoCatDbSettings : IRepoCatDbSettings
     {
         /// <inheritdoc />
+        public string SearchStatisticsCollectionName { get; set; }
+        /// <inheritdoc />
         public string RepositoriesCollectionName { get; set; }
         /// <inheritdoc />
         public string ProjectsCollectionName { get; set; }

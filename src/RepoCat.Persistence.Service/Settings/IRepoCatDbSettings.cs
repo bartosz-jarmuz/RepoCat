@@ -15,6 +15,11 @@
         /// Name of the repositories collection
         /// </summary>
         string RepositoriesCollectionName { get; set; }
+        
+        /// <summary>
+        /// Search statistics
+        /// </summary>
+        string SearchStatisticsCollectionName { get; set; }
         /// <summary>
         /// Gets or sets the connection string.
         /// </summary>
