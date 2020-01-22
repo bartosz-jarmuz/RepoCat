@@ -9,7 +9,6 @@ using Microsoft.ApplicationInsights;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using NUnit.Framework;
-using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Mapping;
 using RepoCat.RepositoryManagement.Service;
@@ -18,6 +17,7 @@ using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
 using RepositoryInfo = RepoCat.Persistence.Models.RepositoryInfo;
 using RepositoryMode = RepoCat.Persistence.Models.RepositoryMode;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
+using SearchKeywordData = RepoCat.RepositoryManagement.Service.SearchKeywordData;
 
 namespace Repocat.Persistence.Tests
 {
@@ -65,6 +65,40 @@ namespace Repocat.Persistence.Tests
             {
                 Assert.AreEqual(2, searchKeywordData.SearchCount);
             }
+        }
+
+
+
+        [Test]
+        public async Task AddSameTags_VariousRepos_FlattenedProperly()
+        {
+            //arrange
+            var db = new StatisticsDatabase(Settings);
+            StatisticsService service = new StatisticsService(db, new Mapper(MappingConfigurationFactory.Create()));
+
+            var parameter1 = new RepositoryQueryParameter(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            await service.Update(parameter1, new []{ "FirstTag", "SecondTag", "Third" }).ConfigureAwait(false);
+            await service.Update(parameter1, new[] { "FIRSTTAG", "", "Fourth" }).ConfigureAwait(false);
+            await service.Update(parameter1, new[] { "FIRSTTAG", "SecondTag", "Fourth" }).ConfigureAwait(false);
+
+
+            parameter1 = new RepositoryQueryParameter(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+            await service.Update(parameter1, new[] { "FirstTag", "SecondTag", "Fourth" }).ConfigureAwait(false);
+            await service.Update(parameter1, new[] { "Fifth", "Sixth"}).ConfigureAwait(false);
+
+            //act
+            List<SearchKeywordData> result = (await service.GetFlattened().ConfigureAwait(false)).ToList();
+
+
+            //assert
+            result.Count.Should().Be(6);
+            result.Single(x => x.Keyword == "FirstTag").SearchCount.Should().Be(4);
+            result.Single(x => x.Keyword == "SecondTag").SearchCount.Should().Be(3);
+            result.Single(x => x.Keyword == "Third").SearchCount.Should().Be(1);
+            result.Single(x => x.Keyword == "Fourth").SearchCount.Should().Be(3);
+            result.Single(x => x.Keyword == "Fifth").SearchCount.Should().Be(1);
+            result.Single(x => x.Keyword == "Sixth").SearchCount.Should().Be(1);
+
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using RepoCat.Persistence.Models;
 using RepoCat.Utilities;
@@ -71,7 +72,7 @@ namespace RepoCat.Persistence.Service
         {
             if (!isRegex)
             {
-                return Builders<ProjectInfo>.Filter.Text(query);
+                return Builders<ProjectInfo>.Filter.Text(query, new TextSearchOptions() { CaseSensitive = false, DiacriticSensitive = false});
             }
             else
             {
@@ -121,6 +122,13 @@ namespace RepoCat.Persistence.Service
             }
 
             return filter;
+        }
+        public static bool CheckIfContainsTextFilter<T>(FilterDefinition<T> filter)
+        {
+            var serializerRegistry = BsonSerializer.SerializerRegistry;
+            var documentSerializer = serializerRegistry.GetSerializer<T>();
+            var rendered = filter.Render(documentSerializer, serializerRegistry);
+            return rendered.Elements.Any(x => x.Name == "$text");
         }
 
         private static FilterDefinition<ProjectInfo> AppendTextFilterIfNeeded(string query, bool isRegex, FilterDefinition<ProjectInfo> filter)

@@ -7,6 +7,8 @@ using RepoCat.Transmission;
 using RepoCat.Transmission.Contracts;
 using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
 using RepositoryQueryParameter = RepoCat.Persistence.Models.RepositoryQueryParameter;
+using SearchKeywordData = RepoCat.Persistence.Models.SearchKeywordData;
+using SearchStatistics = RepoCat.Persistence.Models.SearchStatistics;
 
 namespace RepoCat.Portal.Mapping
 {
@@ -48,6 +50,9 @@ namespace RepoCat.Portal.Mapping
         private void MapPersistenceModels()
         {
             this.CreateMap<RepoCat.RepositoryManagement.Service.RepositoryQueryParameter, RepositoryQueryParameter>();
+
+            this.CreateMap<SearchStatistics, RepoCat.RepositoryManagement.Service.SearchStatistics>();
+            this.CreateMap<SearchKeywordData, RepoCat.RepositoryManagement.Service.SearchKeywordData>();
         }
 
 

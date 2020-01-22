@@ -225,6 +225,12 @@
             <param name="repositoryParameter"></param>
             <returns></returns>
         </member>
+        <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.Get">
+            <summary>
+            Gets all the stats
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.Update(RepoCat.Persistence.Models.RepositoryQueryParameter,System.Collections.Generic.IEnumerable{System.String})">
             <summary>
             Updates the search statistics 

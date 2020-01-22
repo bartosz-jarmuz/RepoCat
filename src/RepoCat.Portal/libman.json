@@ -17,7 +17,11 @@
     },
     {
       "library": "codemirror@5.48.4",
-      "destination": "wwwroot/vendors/codemirror/" 
+      "destination": "wwwroot/vendors/codemirror/"
+    },
+    {
+      "library": "wordcloud2.js@1.1.1",
+      "destination": "wwwroot/vendors/word-cloud"
     }
   ]
 }

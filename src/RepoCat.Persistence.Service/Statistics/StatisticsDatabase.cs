@@ -95,6 +95,10 @@ namespace RepoCat.Persistence.Service
 
             foreach (string keyword in keywords)
             {
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    continue;
+                }
                 var existing = statistics.SearchKeywordData.FirstOrDefault(x =>
                     string.Equals(x.Keyword, keyword, StringComparison.OrdinalIgnoreCase));
                 if (existing != null)

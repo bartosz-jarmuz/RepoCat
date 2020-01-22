@@ -40,12 +40,47 @@ namespace RepoCat.Persistence.Service
         private void ConfigureIndexes()
         {
             IndexKeysDefinition<ProjectInfo> keys = Builders<ProjectInfo>.IndexKeys
-                    .Text($"$**");
+                .Text(x => x.ProjectName)
+                .Text(x => x.ProjectDescription)
+                .Text(x => x.AssemblyName)
+                .Text(x => x.ProjectUri)
+                .Text(x=>x.Tags)
+                .Text("Properties.Values")
+                .Text($"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Name)}")
+                .Text($"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Description)}")
+                .Text($"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.DocumentationUri)}")
+                .Text($"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Tags)}")
+                .Text("$**")
+                ;
+            CreateIndexModel<ProjectInfo> indexModel = new CreateIndexModel<ProjectInfo>(keys, new CreateIndexOptions()
+            {
+                Weights = new BsonDocument(
+                    new Dictionary<string, object>()
+                    {
+                        //high priority
+                        {nameof(ProjectInfo.ProjectName), 10},
+                        {nameof(ProjectInfo.AssemblyName), 10},
+                        {nameof(ProjectInfo.Tags), 10},
 
-            CreateIndexModel<ProjectInfo> indexModel = new CreateIndexModel<ProjectInfo>(keys);
-            
+                        { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Name)}",10},
+                        { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Tags)}",10},
+
+                        //medium priority 
+                        {nameof(ProjectInfo.ProjectDescription), 5},
+                        { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Description)}",5},
+
+                        //low priority 
+                        {nameof(ProjectInfo.ProjectUri), 3},
+                        {nameof(ProjectInfo.DocumentationUri), 3},
+                        {nameof(ProjectInfo.DownloadLocation), 3},
+                        { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.DocumentationUri)}",3},
+
+                        {"$**", 1 }
+                    }
+                )
+            });
             this.projects.Indexes.CreateOne(indexModel);
-
+            
             this.repositories.Indexes.CreateOne(
                 new CreateIndexModel<RepositoryInfo>(
                     Builders<RepositoryInfo>.IndexKeys

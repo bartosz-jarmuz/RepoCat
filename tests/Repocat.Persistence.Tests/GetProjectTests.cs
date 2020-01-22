@@ -25,7 +25,6 @@ namespace Repocat.Persistence.Tests
             Id = ObjectId.GenerateNewId(),
             RepositoryName = "TestRepoOne",
             OrganizationName = "TestOrg"
-
         };
 
         private readonly RepositoryInfo testRepoTwo = new RepositoryInfo()
@@ -33,7 +32,6 @@ namespace Repocat.Persistence.Tests
             Id = ObjectId.GenerateNewId(),
             RepositoryName = "TestRepoTwo",
             OrganizationName = "TestOrg"
-
         };
 
 
@@ -48,13 +46,11 @@ namespace Repocat.Persistence.Tests
             Assert.IsNotNull(result);
             RepositoryInfo result2 = database.Create(this.testRepoTwo);
             Assert.IsNotNull(result2);
-
         }
 
         [TearDown]
         public void TearDown()
         {
-
         }
 
 
@@ -62,17 +58,20 @@ namespace Repocat.Persistence.Tests
         public async Task DefaultRepo_VariousRepos_DoNotFilterByRepo_ShouldReturnTwo()
         {
             RepositoryDatabase database = new RepositoryDatabase(Settings);
-            
+
             ProjectInfo prj = new ProjectInfo()
             {
                 ProjectName = "Project1",
                 ProjectUri = "SomeLocation",
                 RepositoryId = this.testRepoOne.Id,
                 TargetExtension = "exe",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"FindMe"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"FindMe"}
+                    }
+                }
             };
             await database.Upsert(prj).ConfigureAwait(false);
             ProjectInfo prj2 = new ProjectInfo()
@@ -81,10 +80,13 @@ namespace Repocat.Persistence.Tests
                 ProjectUri = "SomeLocation",
                 RepositoryId = this.testRepoTwo.Id,
                 TargetExtension = "exe",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"FindMe"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"FindMe"}
+                    }
+                }
             };
             await database.Upsert(prj2).ConfigureAwait(false);
 
@@ -94,10 +96,13 @@ namespace Repocat.Persistence.Tests
                 ProjectUri = "SomeLocation",
                 RepositoryId = this.testRepoTwo.Id,
                 TargetExtension = "dll",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"ButNotMe"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"ButNotMe"}
+                    }
+                }
             };
             await database.Upsert(prj3).ConfigureAwait(false);
 
@@ -108,111 +113,253 @@ namespace Repocat.Persistence.Tests
             returnedPrj1.RepositoryInfo.RepositoryName.Should().Be("TestRepoOne");
             var returnedPrj2 = result.Single(x => x.ProjectInfo.ProjectName == "Project2");
             returnedPrj2.RepositoryInfo.RepositoryName.Should().Be("TestRepoTwo");
-
         }
 
         [Test]
-        public async Task TestGetProject_TextFilter()
+        public async Task TestGetProject_TextFilter_ProjectName()
         {
-            void AssertProjectFoundBy(string @by, ManifestQueryResult result1, ProjectInfo projectInfo)
-            {
-                result1.Projects.Count.Should().Be(1, $"searching by {by} part should work and return a single project");
-                result1.Projects.Single().ProjectInfo.Id.Should().Be(projectInfo.Id, $"searching by {by} part should return the right project");
-            }
-
-            async Task<ManifestQueryResult> GetResult(RepositoryManagementService repositoryManagementService, string query)
-            {
-                ManifestQueryResult manifestQueryResult = await repositoryManagementService.GetCurrentProjects(
-                    new RepositoryQueryParameter(this.testRepoOne.OrganizationName.ToUpperInvariant(), this.testRepoOne.RepositoryName.ToUpperInvariant())
-                    , query, false).ConfigureAwait(false);
-                return manifestQueryResult;
-            }
-
+            //arrange
             RepositoryDatabase database = new RepositoryDatabase(Settings);
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
-
-            var prj = new RepoCat.Transmission.Models.ProjectInfo()
-            {
-                ProjectName = "AcmeCorp.ValidatorsPack",
-
-                ProjectUri = "SomeLocation/SomeFolder",
-                AssemblyName = "Workers.exe",
-                TargetExtension = "exe",
-                Components =
-                {
-                    new RepoCat.Transmission.Models.ComponentManifest(
-                        new List<string>() {"XML", "Schema", "Validity"},
-                        new Dictionary<string, string>()
-                        {
-                            {"ComponentType", "Checker"},
-                            {"Author", "Bjarmuz"}
-                        })
-                    {
-                        Name = "XmlValidator",
-                        Description = "A thing that validates strings",
-                        DocumentationUri = "http://google.com",
-                    }
-                },
-                RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
-                {
-                    RepositoryName = this.testRepoOne.RepositoryName,
-                    OrganizationName = this.testRepoOne.OrganizationName
-                }
-            };
-            prj.Tags.Add("ProjectTagOne");
-            prj.Properties.Add("ProjectPropertyOneKey", "ProjectPropertyOneValue");
-
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.ProjectName = "PinkPanther.ValidatorsPack";
             ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
-            prj.RepositoryInfo.RepositoryName = this.testRepoTwo.RepositoryName;
-            prj.RepositoryInfo.OrganizationName = this.testRepoTwo.OrganizationName;
-            var insertedProject2 = await service.Upsert(prj).ConfigureAwait(false);
-            insertedProject.Id.Should().NotBe(insertedProject2.Id);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
 
-            ManifestQueryResult result = await GetResult(service, "findme");
-            result.Projects.Count.Should().Be(0, "because the query does not match");
-          
+            //act
+            var result = await this.GetResultFromRepoOne(service, "PinkPanther");
 
-            result = await GetResult(service, "AcmeCorp");
-            AssertProjectFoundBy("ProjectName", result, insertedProject);
+            //assert
+            this.AssertOneProjectFoundBy("ProjectName", result, insertedProject);
+        }
 
-            result = await GetResult(service, "ProjectTagOne");
-            AssertProjectFoundBy("ProjectTags", result, insertedProject);
+        [Test]
+        public async Task TestGetProject_TextFilter_ProjectDescription()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.ProjectDescription= "A general overview of a project functionality";
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
 
-            result = await GetResult(service, "ProjectPropertyOneValue");
-            AssertProjectFoundBy("ProjectProperties", result, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "functionality");
 
-            result = await GetResult(service, "Valid");
-            AssertProjectFoundBy("Name Part", result, insertedProject);
+            //assert
+            this.AssertOneProjectFoundBy("ProjectDescription", result, insertedProject);
+        }
 
-            result = await GetResult(service, "Workers");
-            AssertProjectFoundBy("AssemblyName", result, insertedProject);
-
-            result = await GetResult(service, "SomeFolder");
-            AssertProjectFoundBy("ProjectUri", result, insertedProject);
-
-            result = await GetResult(service, "XmlValidator");
-            AssertProjectFoundBy("ComponentName", result, insertedProject);
-
-            result = await GetResult(service, "thing fixes strings");
-            AssertProjectFoundBy("ComponentDescription", result, insertedProject);
-
-            result = await GetResult(service, "google");
-            AssertProjectFoundBy("ComponenDocsUri", result, insertedProject);
-
-            result = await GetResult(service, "Validity");
-            AssertProjectFoundBy("Tags", result, insertedProject);
-
-            result = await GetResult(service, "Bjarmuz");
-            AssertProjectFoundBy("PropertiesValue", result, insertedProject);
-
-            result = await GetResult(service, "Checker");
-            AssertProjectFoundBy("PropertiesValue", result, insertedProject);
-
-
-
+        [Test]
+        public async Task TestGetProject_TextFilter_NamePart()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.ProjectName = "PinkPanther.ValidatorsPack";
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "PinkPanther");
+            //assert
+            this.AssertOneProjectFoundBy("Name Part", result, insertedProject);
         }
 
 
+        [Test]
+        public async Task TestGetProject_TextFilter_ProjectTags()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.Tags.Add("ProjectTagOne");
+
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+
+            //act
+            var result = await this.GetResultFromRepoOne(service, "ProjectTagOne");
+
+            //assert
+            this.AssertOneProjectFoundBy("ProjectTags", result, insertedProject);
+        }
+
+        [Test]
+        public async Task TestGetProject_TextFilter_ProjectProperties()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.Properties.Add("ProjectPropertyOneKey", "ProjectPropertyOneValue");
+
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            ManifestQueryResult result = await this.GetResultFromRepoOne(service, "ProjectPropertyOneValue");
+
+            //assert
+            this.AssertOneProjectFoundBy("ProjectProperties", result, insertedProject);
+        }
+
+        [Test]
+        public async Task TestGetProject_TextFilter_NoMatch()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.ProjectName = "PinkPanther.ValidatorsPack";
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            ManifestQueryResult result = await this.GetResultFromRepoOne(service, "findme");
+
+            //assert
+            result.Projects.Count.Should().Be(0, "because the query does not match");
+        }
+
+        [Test]
+        public async Task TestGetProject_TextFilter_AssemblyName()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.AssemblyName = "Workers.exe";
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "Workers");
+            //assert
+            this.AssertOneProjectFoundBy("AssemblyName", result, insertedProject);
+        }
+
+
+        [Test]
+        public async Task TestGetProject_TextFilter_ProjectUri() //not sure if want to search by this, but ok for now
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.ProjectUri = "SomeLocation/SomeFolder";
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "SomeFolder");
+            //assert
+            this.AssertOneProjectFoundBy("ProjectUri", result, insertedProject);
+        }
+
+        [Test]
+        public async Task TestGetProject_TextFilter_ComponentName()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest()
+            {
+                Name = "XmlValidator",
+            });
+
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "XmlValidator");
+            //assert
+            this.AssertOneProjectFoundBy("ComponentName", result, insertedProject);
+        }
+
+
+        [Test]
+        public async Task TestGetProject_TextFilter_ComponentDescription()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest()
+            {
+                Description = "A thing that validates strings",
+            });
+
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "fixes strings");
+            //assert
+            this.AssertOneProjectFoundBy("ComponentDescription", result, insertedProject);
+        }
+
+        [Test]
+        public async Task TestGetProject_TextFilter_ComponentDocsUri()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest()
+            {
+                DocumentationUri = "http://google.com",
+            });
+
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "google");
+            //assert
+            this.AssertOneProjectFoundBy("ComponenDocsUri", result, insertedProject);
+        }
+
+        [Test]
+        public async Task TestGetProject_TextFilter_ComponentTags()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest()
+            {
+                Tags = {"XML", "Schema", "Validity"},
+            });
+
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "Validity");
+            //assert
+            this.AssertOneProjectFoundBy("Tags", result, insertedProject);
+        }
+
+        [Test]
+        public async Task TestGetProject_TextFilter_ComponentProperties()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest()
+            {
+                Properties ={{"ComponentType", "Checker"},
+                    {"Author", "Bjarmuz"}
+                },
+            });
+
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "Bjarmuz");
+            //assert
+            this.AssertOneProjectFoundBy("PropertiesValue", result, insertedProject);
+
+            result = await this.GetResultFromRepoOne(service, "Checker");
+            this.AssertOneProjectFoundBy("PropertiesValue", result, insertedProject);
+        }
 
 
         [Test]
@@ -220,7 +367,8 @@ namespace Repocat.Persistence.Tests
         {
             //arrange
             RepositoryDatabase database = new RepositoryDatabase(Settings);
-            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
+                TelemetryMock.InitializeMockTelemetryClient());
 
             RepositoryInfo repo = await database.UpsertUpdate(
                 new RepositoryInfo()
@@ -235,10 +383,13 @@ namespace Repocat.Persistence.Tests
                 ProjectName = "Banana Tool",
                 RepositoryId = repo.Id,
                 RepositoryStamp = "1.0",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"TagFromV1"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"TagFromV1"}
+                    }
+                }
             };
             ProjectInfo bananaToolV1 = await database.Upsert(prj).ConfigureAwait(false);
             //add v2 of the same project
@@ -247,10 +398,13 @@ namespace Repocat.Persistence.Tests
                 ProjectName = "Banana Tool",
                 RepositoryId = repo.Id,
                 RepositoryStamp = "2.0",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"VersionTwoTag"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"VersionTwoTag"}
+                    }
+                }
             };
             ProjectInfo bananaToolV2 = await database.Upsert(prj).ConfigureAwait(false);
 
@@ -260,10 +414,13 @@ namespace Repocat.Persistence.Tests
                 ProjectName = "Pineapple Tool",
                 RepositoryId = repo.Id,
                 RepositoryStamp = "1.0",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"Banana"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"Banana"}
+                    }
+                }
             };
             ProjectInfo pineAppleTool = await database.Upsert(prj).ConfigureAwait(false);
             //add a project that does not match query but sits in latest version
@@ -272,18 +429,22 @@ namespace Repocat.Persistence.Tests
                 ProjectName = "Apple Tool",
                 RepositoryId = repo.Id,
                 RepositoryStamp = "2.0",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"Apple"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"Apple"}
+                    }
+                }
             };
             ProjectInfo appleTool = await database.Upsert(prj).ConfigureAwait(false);
 
 
-
             //act
-            var byQueryResult = await service.GetCurrentProjects(new RepositoryQueryParameter(repo), "Banana", false).ConfigureAwait(false);
-            var allProjectsResult = await service.GetAllCurrentProjects(new RepositoryQueryParameter(repo)).ConfigureAwait(false);
+            var byQueryResult = await service.GetCurrentProjects(new RepositoryQueryParameter(repo), "Banana", false)
+                .ConfigureAwait(false);
+            var allProjectsResult = await service.GetAllCurrentProjects(new RepositoryQueryParameter(repo))
+                .ConfigureAwait(false);
 
             //assert by query
             byQueryResult.Projects.Count.Should().Be(1, "because only one project in V2 matches this query");
@@ -294,8 +455,6 @@ namespace Repocat.Persistence.Tests
             allProjectsResult.Projects.Should().OnlyHaveUniqueItems();
             Assert.That(() => allProjectsResult.Projects.Any(x => x.ProjectInfo.Id == appleTool.Id));
             Assert.That(() => allProjectsResult.Projects.Any(x => x.ProjectInfo.Id == bananaToolV2.Id));
-
-                
         }
 
         [Test]
@@ -303,7 +462,8 @@ namespace Repocat.Persistence.Tests
         {
             //arrange
             RepositoryDatabase database = new RepositoryDatabase(Settings);
-            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
+                TelemetryMock.InitializeMockTelemetryClient());
 
             RepositoryInfo repo = await database.UpsertUpdate(
                 new RepositoryInfo()
@@ -318,10 +478,13 @@ namespace Repocat.Persistence.Tests
                 ProjectUri = "LocationOne",
                 RepositoryId = repo.Id,
                 RepositoryStamp = "1.0",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"TagFromV1"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"TagFromV1"}
+                    }
+                }
             };
             ProjectInfo bananaToolV1 = await database.Upsert(prj).ConfigureAwait(false);
 
@@ -333,10 +496,13 @@ namespace Repocat.Persistence.Tests
                 ProjectUri = "LocationOne",
                 RepositoryId = repo.Id,
                 RepositoryStamp = "1.1",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"TagFromV1"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"TagFromV1"}
+                    }
+                }
             };
             ProjectInfo bananaToolV11 = await database.Upsert(prj).ConfigureAwait(false);
             //add similar project in different location (so, a different project for default repo)
@@ -346,10 +512,13 @@ namespace Repocat.Persistence.Tests
                 ProjectUri = "LocationTwo",
                 RepositoryId = repo.Id,
                 RepositoryStamp = "2.0",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"VersionTwoTag"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"VersionTwoTag"}
+                    }
+                }
             };
             ProjectInfo bananaToolV2 = await database.Upsert(prj).ConfigureAwait(false);
 
@@ -359,10 +528,13 @@ namespace Repocat.Persistence.Tests
                 ProjectName = "Pineapple Tool",
                 RepositoryId = repo.Id,
                 RepositoryStamp = "1.0",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"Banana"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"Banana"}
+                    }
+                }
             };
             ProjectInfo pineAppleTool = await database.Upsert(prj).ConfigureAwait(false);
             //add a project that does not match query but sits in latest version
@@ -371,28 +543,30 @@ namespace Repocat.Persistence.Tests
                 ProjectName = "Apple Tool",
                 RepositoryId = repo.Id,
                 RepositoryStamp = "2.0",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"Apple"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"Apple"}
+                    }
+                }
             };
             ProjectInfo appleTool = await database.Upsert(prj).ConfigureAwait(false);
 
 
-
             //act
-            var byQueryResult = await service.GetCurrentProjects(new RepositoryQueryParameter(repo), "Banana", false).ConfigureAwait(false);
-            var allProjectsResult = await service.GetAllCurrentProjects(new RepositoryQueryParameter(repo)).ConfigureAwait(false);
+            var byQueryResult = await service.GetCurrentProjects(new RepositoryQueryParameter(repo), "Banana", false)
+                .ConfigureAwait(false);
+            var allProjectsResult = await service.GetAllCurrentProjects(new RepositoryQueryParameter(repo))
+                .ConfigureAwait(false);
 
             //assert by query
             byQueryResult.Projects.Count.Should().Be(3, "because 3 projects this query");
             byQueryResult.Projects.Should().OnlyHaveUniqueItems();
 
-            Assert.That(()=> byQueryResult.Projects.Any(x=> x.ProjectInfo.Id == bananaToolV11.Id));
-            Assert.That(()=> byQueryResult.Projects.Any(x=> x.ProjectInfo.Id == bananaToolV2.Id));
-            Assert.That(()=> byQueryResult.Projects.Any(x=> x.ProjectInfo.Id == pineAppleTool.Id));
-
-         
+            Assert.That(() => byQueryResult.Projects.Any(x => x.ProjectInfo.Id == bananaToolV11.Id));
+            Assert.That(() => byQueryResult.Projects.Any(x => x.ProjectInfo.Id == bananaToolV2.Id));
+            Assert.That(() => byQueryResult.Projects.Any(x => x.ProjectInfo.Id == pineAppleTool.Id));
 
 
             //assert get all
@@ -404,17 +578,15 @@ namespace Repocat.Persistence.Tests
             Assert.That(() => allProjectsResult.Projects.Any(x => x.ProjectInfo.Id == bananaToolV2.Id));
             Assert.That(() => allProjectsResult.Projects.Any(x => x.ProjectInfo.Id == pineAppleTool.Id));
             Assert.That(() => allProjectsResult.Projects.Any(x => x.ProjectInfo.Id == appleTool.Id));
-
-
         }
 
 
         [Test]
         public async Task MultipleRepos_ShoulReturnProjectsFromBoth()
         {
-
             RepositoryDatabase database = new RepositoryDatabase(Settings);
-            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
+                TelemetryMock.InitializeMockTelemetryClient());
 
             ProjectInfo prj = new ProjectInfo()
             {
@@ -422,10 +594,13 @@ namespace Repocat.Persistence.Tests
                 ProjectUri = "SomeLocation",
                 RepositoryId = this.testRepoOne.Id,
                 TargetExtension = "exe",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"FindMe"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"FindMe"}
+                    }
+                }
             };
 
             //same tags, different repo
@@ -440,14 +615,19 @@ namespace Repocat.Persistence.Tests
                 ProjectUri = "SomeLocation",
                 RepositoryId = this.testRepoOne.Id,
                 TargetExtension = "dll",
-                Components = { new ComponentManifest()
+                Components =
                 {
-                    Tags = new List<string>(){"ButNotMe"}
-                }}
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"ButNotMe"}
+                    }
+                }
             };
             await database.Upsert(prj3).ConfigureAwait(false);
-          
-            ManifestQueryResult result = await service.GetCurrentProjects(new RepositoryQueryParameter(this.testRepoOne.OrganizationName.ToUpperInvariant(), this.testRepoOne.RepositoryName.ToUpperInvariant()),
+
+            ManifestQueryResult result = await service.GetCurrentProjects(
+                new RepositoryQueryParameter(this.testRepoOne.OrganizationName.ToUpperInvariant(),
+                    this.testRepoOne.RepositoryName.ToUpperInvariant()),
                 "findme", false).ConfigureAwait(false);
             result.Projects.Should()
                 .OnlyContain(x => x.RepositoryInfo.RepositoryName == this.testRepoOne.RepositoryName);
@@ -458,7 +638,6 @@ namespace Repocat.Persistence.Tests
         [Test]
         public async Task MultipleRepos_ShouldReturnProjectsFromCorrectSnapshots()
         {
-
             //getting projects is available from multiple repos
             //these repos can have different modes
             //when returning the projects, ensure that you only get the latest matching ones from snapshot repos 
@@ -468,7 +647,8 @@ namespace Repocat.Persistence.Tests
             //seed snapshot repo 1
             //arrange
             RepositoryDatabase database = new RepositoryDatabase(Settings);
-            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
+                TelemetryMock.InitializeMockTelemetryClient());
 
             //one project matches banana by query (and has v2, not v1)
             SeedResult snapshotRepo1Seed = await SeedSnapshotRepoOneForMultiRepoQuery(database);
@@ -500,9 +680,12 @@ namespace Repocat.Persistence.Tests
             byQueryResult.Projects.Should().Contain(x => x.RepositoryInfo.Id == snapshotRepo2Seed.Repository.Id);
             byQueryResult.Projects.Should().Contain(x => x.RepositoryInfo.Id == defaultRepo1Seed.Repository.Id);
 
-            var projectsFromSnapshotRepo1 = byQueryResult.Projects.Where(x => x.RepositoryInfo.Id == snapshotRepo1Seed.Repository.Id).ToList();
-            var projectsFromSnapshotRepo2 = byQueryResult.Projects.Where(x => x.RepositoryInfo.Id == snapshotRepo2Seed.Repository.Id).ToList();
-            var projectsDefaultFromRepo1 = byQueryResult.Projects.Where(x => x.RepositoryInfo.Id == defaultRepo1Seed.Repository.Id).ToList();
+            var projectsFromSnapshotRepo1 = byQueryResult.Projects
+                .Where(x => x.RepositoryInfo.Id == snapshotRepo1Seed.Repository.Id).ToList();
+            var projectsFromSnapshotRepo2 = byQueryResult.Projects
+                .Where(x => x.RepositoryInfo.Id == snapshotRepo2Seed.Repository.Id).ToList();
+            var projectsDefaultFromRepo1 = byQueryResult.Projects
+                .Where(x => x.RepositoryInfo.Id == defaultRepo1Seed.Repository.Id).ToList();
 
             projectsFromSnapshotRepo1.Single().ProjectInfo.RepositoryStamp.Should().Be("2.0");
             projectsFromSnapshotRepo1.Single().ProjectInfo.ProjectName.Should().Be("Banana Tool");
@@ -511,17 +694,74 @@ namespace Repocat.Persistence.Tests
             projectsFromSnapshotRepo2.Single().ProjectInfo.ProjectName.Should().Be("Banana Tool");
 
             Assert.AreEqual(2, projectsDefaultFromRepo1.Count());
-            Assert.AreEqual(1, projectsDefaultFromRepo1.Count(x=>x.ProjectInfo.ProjectName == "Banana Tool" && x.ProjectInfo.ProjectUri == "LocationOne"));
-            Assert.AreEqual(1, projectsDefaultFromRepo1.Count(x=>x.ProjectInfo.ProjectName == "Banana Tool" && x.ProjectInfo.ProjectUri == "LocationTwo"));
+            Assert.AreEqual(1,
+                projectsDefaultFromRepo1.Count(x =>
+                    x.ProjectInfo.ProjectName == "Banana Tool" && x.ProjectInfo.ProjectUri == "LocationOne"));
+            Assert.AreEqual(1,
+                projectsDefaultFromRepo1.Count(x =>
+                    x.ProjectInfo.ProjectName == "Banana Tool" && x.ProjectInfo.ProjectUri == "LocationTwo"));
 
 
-            foreach (ProjectInfo matchingProject in snapshotRepo1Seed.MatchingProjects.Concat(snapshotRepo2Seed.MatchingProjects).Concat(defaultRepo1Seed.MatchingProjects))
+            foreach (ProjectInfo matchingProject in snapshotRepo1Seed.MatchingProjects
+                .Concat(snapshotRepo2Seed.MatchingProjects).Concat(defaultRepo1Seed.MatchingProjects))
             {
                 Assert.That(() => byQueryResult.Projects.Any(x => x.ProjectInfo.Id == matchingProject.Id));
             }
 
-            var result =  await database.GetSummary().ConfigureAwait(false);
+            var result = await database.GetSummary().ConfigureAwait(false);
         }
+
+        [Test]
+        public async Task TestWeights_Project_ShouldReturnOrdered()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
+                TelemetryMock.InitializeMockTelemetryClient());
+
+            var prj2 = GetEmptyProject(this.testRepoOne, "Second");
+            prj2.ProjectDescription = "project description";
+            await service.Upsert(prj2).ConfigureAwait(false);
+
+            var prj = GetEmptyProject(this.testRepoOne, "First");
+            prj.Tags.Add("Tag");
+
+            await service.Upsert(prj).ConfigureAwait(false);
+
+            for (int i = 0; i < 500; i++)
+            {
+                var result = await this.GetResultFromRepoOne(service, "project description tag").ConfigureAwait(false);
+                Assert.AreEqual("First", result.Projects[0].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
+                Assert.AreEqual("Second", result.Projects[1].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
+            }
+        }
+
+        [Test]
+        public async Task TestWeights_Components_ShouldReturnOrdered()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
+                TelemetryMock.InitializeMockTelemetryClient());
+
+            var prj2 = GetEmptyProject(this.testRepoOne, "Second");
+            prj2.Components.Add(new RepoCat.Transmission.Models.ComponentManifest(){Description = "ComponentManifest description" });
+            await service.Upsert(prj2).ConfigureAwait(false);
+
+            var prj = GetEmptyProject(this.testRepoOne, "First");
+            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"tag"},new Dictionary<string, string>()));
+
+            await service.Upsert(prj).ConfigureAwait(false);
+
+            for (int i = 0; i < 500; i++)
+            {
+                var result = await this.GetResultFromRepoOne(service, "ComponentManifest description tag").ConfigureAwait(false);
+                Assert.AreEqual("First", result.Projects[0].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
+                Assert.AreEqual("Second", result.Projects[1].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
+            }
+            
+        }
+
 
         private static async Task<SeedResult> SeedDefaultRepoOneForMultiRepoQuery(RepositoryDatabase database)
         {
@@ -546,7 +786,7 @@ namespace Repocat.Persistence.Tests
                     }
                 }
             };
-           var bananaTool=   await database.Upsert(prj).ConfigureAwait(false);
+            var bananaTool = await database.Upsert(prj).ConfigureAwait(false);
 
             //add similar but different project (so, default repo treats them as separate entities, regardless of stamps)
             prj = new ProjectInfo()
@@ -568,16 +808,71 @@ namespace Repocat.Persistence.Tests
             return new SeedResult()
             {
                 Repository = defaultRepo1,
-                MatchingProjects = new List<ProjectInfo>() { bananaTool, similarBananTool }
+                MatchingProjects = new List<ProjectInfo>() {bananaTool, similarBananTool}
             };
-
         }
 
-        private class SeedResult { 
+        private class SeedResult
+        {
             public RepositoryInfo Repository { get; set; }
             public List<ProjectInfo> MatchingProjects { get; set; }
+        }
 
-       }
+        [Test]
+        public async Task DefaultRepo_VariousRepos_ShouldOnlyReturnProjectFromOneRepo()
+        {
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
+                TelemetryMock.InitializeMockTelemetryClient());
+
+            ProjectInfo prj = new ProjectInfo()
+            {
+                ProjectName = "Project1",
+                ProjectUri = "SomeLocation",
+                RepositoryId = this.testRepoOne.Id,
+                TargetExtension = "exe",
+                Components =
+                {
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"FindMe"}
+                    }
+                }
+            };
+
+            //same tags, different repo
+            await database.Upsert(prj).ConfigureAwait(false);
+            prj.RepositoryId = this.testRepoTwo.Id;
+            await database.Upsert(prj).ConfigureAwait(false);
+
+
+            ProjectInfo prj3 = new ProjectInfo()
+            {
+                ProjectName = "Project3",
+                ProjectUri = "SomeLocation",
+                RepositoryId = this.testRepoOne.Id,
+                TargetExtension = "dll",
+                Components =
+                {
+                    new ComponentManifest()
+                    {
+                        Tags = new List<string>() {"ButNotMe"}
+                    }
+                }
+            };
+            await database.Upsert(prj3).ConfigureAwait(false);
+
+            ManifestQueryResult result = await service
+                .GetCurrentProjects(
+                    new RepositoryQueryParameter(this.testRepoOne.OrganizationName.ToUpperInvariant(),
+                        this.testRepoOne.RepositoryName.ToUpperInvariant()), "findme", false).ConfigureAwait(false);
+
+            result.Projects.Should()
+                .OnlyContain(x => x.RepositoryInfo.RepositoryName == this.testRepoOne.RepositoryName);
+            result.Projects.Count.Should().Be(1, "because the other project is in a different repo");
+            result.Projects[0].ProjectInfo.ProjectName.Should().Be("Project1");
+        }
+
         private static async Task<SeedResult> SeedSnapshotRepoOneForMultiRepoQuery(RepositoryDatabase database)
         {
             RepositoryInfo snapshotRepo1 = await database.UpsertUpdate(
@@ -651,9 +946,93 @@ namespace Repocat.Persistence.Tests
             return new SeedResult()
             {
                 Repository = snapshotRepo1,
-                MatchingProjects = new List<ProjectInfo>() { bananaToolV2}
+                MatchingProjects = new List<ProjectInfo>() {bananaToolV2}
             };
         }
+
+        void AssertOneProjectFoundBy(string @by, ManifestQueryResult result1, ProjectInfo projectInfo)
+        {
+            result1.Projects.Count.Should().Be(1, $"searching by {by} part should work and return a single project");
+            result1.Projects.Single().ProjectInfo.Id.Should().Be(projectInfo.Id,
+                $"searching by {by} part should return the right project");
+        }
+
+        async Task<ManifestQueryResult> GetResultFromRepoOne(RepositoryManagementService repositoryManagementService, string query)
+        {
+            ManifestQueryResult manifestQueryResult = await repositoryManagementService.GetCurrentProjects(
+                new RepositoryQueryParameter(this.testRepoOne.OrganizationName.ToUpperInvariant(),
+                    this.testRepoOne.RepositoryName.ToUpperInvariant())
+                , query, false).ConfigureAwait(false);
+            return manifestQueryResult;
+        }
+
+        private async Task AddMoreProjectsToEnsureNotTooMuchIsReturned(RepoCat.Transmission.Models.ProjectInfo prj, RepositoryManagementService service,
+         ProjectInfo insertedProject)
+        {
+            //add another project to the repo - this is in order to ensure that the 'get' method actually filters and not returns everything
+            //which in case of a repo with one project would be a false test
+            var anotherPrj = new RepoCat.Transmission.Models.ProjectInfo()
+            {
+
+                AssemblyName = "SomeAssemblyName",
+                RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
+                {
+                    RepositoryName = prj.RepositoryInfo.RepositoryName,
+                    OrganizationName = prj.RepositoryInfo.OrganizationName
+                },
+                ProjectName = "SomeProjectName",
+                DownloadLocation = "SomeDownloadLocation",
+                RepositoryStamp = "23.23.12.5",
+                ProjectUri = "SomeProjectUri",
+                Autogenerated = false,
+                DocumentationUri = "SomeDocsUri",
+                OutputType = "Library",
+                Owner = "SomeGuy",
+                ProjectDescription = "Project That Does Something",
+                TargetExtension = ".dll",
+                Tags = { "Some", "Cool", "Features" },
+                Properties = { { "ProjectProp", "PropVal" } },
+                Components =
+                {
+                    new RepoCat.Transmission.Models.ComponentManifest(
+                        new List<string>() {"Some", "Project", "Tags"},
+                        new Dictionary<string, string>()
+                        {
+                            {"ComponentType", "SomeType"},
+                            {"Author", "SomeGuy"}
+                        })
+                    {
+                        Name = "SomeComponent",
+                        Description = "Some component does something",
+                        DocumentationUri = "SomeFakeComponentURI",
+
+                    },
+                },
+            };
+
+            await service.Upsert(anotherPrj).ConfigureAwait(false);
+
+            //add same project to different repo
+            prj.RepositoryInfo.RepositoryName = this.testRepoTwo.RepositoryName;
+            prj.RepositoryInfo.OrganizationName = this.testRepoTwo.OrganizationName;
+            var insertedProject2 = await service.Upsert(prj).ConfigureAwait(false);
+            insertedProject.Id.Should().NotBe(insertedProject2.Id);
+
+        }
+
+        private static RepoCat.Transmission.Models.ProjectInfo GetEmptyProject(RepositoryInfo repositoryInfo, string name = null)
+        {
+            return new RepoCat.Transmission.Models.ProjectInfo()
+            {
+                ProjectName = name,
+                RepositoryInfo = new RepoCat.Transmission.Models.RepositoryInfo()
+                {
+                    RepositoryName = repositoryInfo.RepositoryName,
+                    OrganizationName = repositoryInfo.OrganizationName
+                }
+            };
+        }
+
 
         private static async Task<SeedResult> SeedSnapshotRepoTwoForMultiRepoQuery(RepositoryDatabase database)
         {
@@ -728,52 +1107,8 @@ namespace Repocat.Persistence.Tests
             return new SeedResult()
             {
                 Repository = snapshotRepo2,
-                MatchingProjects = new List<ProjectInfo>() { bananaToolV2 }
+                MatchingProjects = new List<ProjectInfo>() {bananaToolV2}
             };
-        }
-
-        [Test]
-        public async Task DefaultRepo_VariousRepos_ShouldOnlyReturnProjectFromOneRepo()
-        {
-            RepositoryDatabase database = new RepositoryDatabase(Settings);
-            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
-
-            ProjectInfo prj = new ProjectInfo()
-            {
-                ProjectName = "Project1",
-                ProjectUri = "SomeLocation",
-                RepositoryId = this.testRepoOne.Id,
-                TargetExtension = "exe",
-                Components = { new ComponentManifest()
-                {
-                    Tags = new List<string>(){"FindMe"}
-                }}
-            };
-
-            //same tags, different repo
-            await database.Upsert(prj).ConfigureAwait(false);
-            prj.RepositoryId = this.testRepoTwo.Id;
-            await database.Upsert(prj).ConfigureAwait(false);
-
-
-            ProjectInfo prj3 = new ProjectInfo()
-            {
-                ProjectName = "Project3",
-                ProjectUri = "SomeLocation",
-                RepositoryId = this.testRepoOne.Id,
-                TargetExtension = "dll",
-                Components = { new ComponentManifest()
-                {
-                    Tags = new List<string>(){"ButNotMe"}
-                }}
-            };
-            await database.Upsert(prj3).ConfigureAwait(false);
-
-            ManifestQueryResult result = await service.GetCurrentProjects(new RepositoryQueryParameter(this.testRepoOne.OrganizationName.ToUpperInvariant(), this.testRepoOne.RepositoryName.ToUpperInvariant()), "findme", false).ConfigureAwait(false);
-
-            result.Projects.Should().OnlyContain(x=>x.RepositoryInfo.RepositoryName == this.testRepoOne.RepositoryName);
-            result.Projects.Count.Should().Be(1, "because the other project is in a different repo");
-            result.Projects[0].ProjectInfo.ProjectName.Should().Be("Project1");
         }
     }
 }

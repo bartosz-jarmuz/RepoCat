@@ -601,6 +601,11 @@
             </summary>
             <value><c>true</c> if this instance is regex; otherwise, <c>false</c>.</value>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel.TopSearchedTags">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel">
             <summary>
             Class TagBadgeViewModel.

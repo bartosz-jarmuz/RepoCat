@@ -14,6 +14,6 @@ namespace RepoCat.RepositoryManagement.Service
     {
         Task<SearchStatistics> Get(RepositoryQueryParameter repositoryParameter);
         Task<SearchStatistics> Update(RepositoryQueryParameter repositoryParameter, IEnumerable<string> keywords);
-        Task<IEnumerable<SearchStatistics>> Get();
+        Task<IEnumerable<SearchKeywordData>> GetFlattened();
     }
 }

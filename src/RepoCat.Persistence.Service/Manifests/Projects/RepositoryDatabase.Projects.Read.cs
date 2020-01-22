@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using RepoCat.Persistence.Models;
@@ -106,17 +107,36 @@ namespace RepoCat.Persistence.Service
             FilterDefinition<ProjectInfo> filter = await RepoCatFilterBuilder.BuildProjectsFilter(this.projects, query, isRegex, repository, stamp).ConfigureAwait(false);
             return await this.ExecuteFilter(filter).ConfigureAwait(false);
         }
+   
 
         private async Task<IEnumerable<Project>> ExecuteFilter(FilterDefinition<ProjectInfo> filter)
         {
-            IAggregateFluent<ProjectWithRepos> aggr = this.projects.Aggregate()
-                .Match(filter)
-                .Lookup(
-                    foreignCollection: this.repositories,
-                    localField: prj => prj.RepositoryId,
-                    foreignField: repo => repo.Id,
-                    @as: (ProjectWithRepos pr) => pr.RepositoryInfo
-                );
+            var containsTextFilter = RepoCatFilterBuilder.CheckIfContainsTextFilter(filter);
+            IAggregateFluent<ProjectWithRepos> aggr;
+            if (containsTextFilter)
+            {
+
+                aggr = this.projects.Aggregate()
+                    .Match(filter)
+                    .Sort(Builders<ProjectInfo>.Sort.MetaTextScore("textScore"))
+                    .Lookup(
+                        foreignCollection: this.repositories,
+                        localField: prj => prj.RepositoryId,
+                        foreignField: repo => repo.Id,
+                        @as: (ProjectWithRepos pr) => pr.RepositoryInfo
+                    );
+            }
+            else
+            { 
+                aggr = this.projects.Aggregate()
+                    .Match(filter)
+                    .Lookup(
+                        foreignCollection: this.repositories,
+                        localField: prj => prj.RepositoryId,
+                        foreignField: repo => repo.Id,
+                        @as: (ProjectWithRepos pr) => pr.RepositoryInfo
+                    );
+            }
 
             IEnumerable<Project> projected = (await aggr.ToListAsync().ConfigureAwait(false)).Select(x => new Project()
                 {ProjectInfo = x, RepositoryInfo = x.RepositoryInfo.First()});

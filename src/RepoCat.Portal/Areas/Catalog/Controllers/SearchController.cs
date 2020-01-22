@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using AutoMapper;
 using Hangfire;
 using Microsoft.ApplicationInsights;
@@ -13,6 +14,7 @@ using RepoCat.Portal.Models;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Utilities;
 using SmartBreadcrumbs.Attributes;
+using Enumerable = System.Linq.Enumerable;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
@@ -53,10 +55,14 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         public async Task<IActionResult> Index()
         {
             SearchIndexViewModel model = new SearchIndexViewModel();
+            var searchStatsTask = this.statisticsService.GetFlattened();
             model.Repositories = await this.GetRepositoriesSelectList().ConfigureAwait(false);
-
+            await searchStatsTask.ConfigureAwait(false);
+            model.TopSearchedTags = searchStatsTask.Result.ToList();
             return this.View(model);
         }
+
+        
 
         private async Task<List<SelectListItem>> GetRepositoriesSelectList()
         {

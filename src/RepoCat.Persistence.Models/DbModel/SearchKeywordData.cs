@@ -1,4 +1,6 @@
-﻿namespace RepoCat.Persistence.Models
+﻿using System.Collections.Generic;
+
+namespace RepoCat.Persistence.Models
 {
     /// <summary>
     /// 
@@ -15,4 +17,6 @@
         /// </summary>
         public int SearchCount { get; set; }
     }
+
+
 }

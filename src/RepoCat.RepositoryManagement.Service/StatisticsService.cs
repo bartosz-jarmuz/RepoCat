@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using AutoMapper;
 using Microsoft.ApplicationInsights;
@@ -25,19 +24,50 @@ namespace RepoCat.RepositoryManagement.Service
 
         public async Task<SearchStatistics> Get(RepositoryQueryParameter repositoryParameter)
         {
-            return await this.database.Get(
+            Persistence.Models.SearchStatistics result = await this.database.Get(
                 this.mapper.Map<Persistence.Models.RepositoryQueryParameter>(repositoryParameter));
+            return this.mapper.Map<SearchStatistics>(result);
         }
 
-        public async Task<IEnumerable<SearchStatistics>> Get()
+        public async Task<IEnumerable<SearchKeywordData>> GetFlattened()
         {
-            return await this.database.Get();
+            var result = await this.database.Get();
+            return this.FlattenStats(result);
+        }
+
+        private List<SearchKeywordData> FlattenStats(IEnumerable<Persistence.Models.SearchStatistics> result)
+        {
+            var list = new List<SearchKeywordData>();
+            foreach (Persistence.Models.SearchStatistics searchStatisticse in result)
+            {
+                foreach (var data in searchStatisticse.SearchKeywordData)
+                {
+                    var existing = list.FirstOrDefault(x => string.Equals(data.Keyword, x.Keyword));
+                    if (existing == null)
+                    {
+                        list.Add(
+                            new SearchKeywordData()
+                            {
+                                Keyword = data.Keyword,
+                                SearchCount = data.SearchCount
+                            }
+                        );
+                    }
+                    else
+                    {
+                        existing.SearchCount += data.SearchCount;
+                    }
+                }
+            }
+
+            return list;
         }
 
         public async Task<SearchStatistics> Update(RepositoryQueryParameter repositoryParameter, IEnumerable<string> keywords)
         {
-            return await this.database.Update(
+            var result = await this.database.Update(
                 this.mapper.Map<Persistence.Models.RepositoryQueryParameter>(repositoryParameter), keywords);
+            return this.mapper.Map<SearchStatistics>(result);
         }
 
     }

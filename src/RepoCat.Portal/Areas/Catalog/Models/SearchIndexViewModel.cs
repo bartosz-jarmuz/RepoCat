@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using RepoCat.RepositoryManagement.Service;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
 {
@@ -33,5 +34,11 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value><c>true</c> if this instance is regex; otherwise, <c>false</c>.</value>
         public bool IsRegex { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<SearchKeywordData> TopSearchedTags { get; set; } = new List<SearchKeywordData>();
     }
+
 }
