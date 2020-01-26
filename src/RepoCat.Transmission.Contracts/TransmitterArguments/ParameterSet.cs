@@ -188,7 +188,10 @@ namespace RepoCat.Transmission.Contracts
             }
             else
             {
-                property.SetValue(objectToAssign, TypeDescriptor.GetConverter(theType).ConvertFromInvariantString(value));
+                if (!string.IsNullOrEmpty(value))
+                {
+                    property.SetValue(objectToAssign, TypeDescriptor.GetConverter(theType).ConvertFromInvariantString(value));
+                }
             }
         }
         /// <summary>
