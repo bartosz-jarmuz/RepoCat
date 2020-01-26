@@ -32,6 +32,7 @@
     <link href="~/vendors/select2/themes/select2-bootstrap4.min.css" rel="stylesheet" />
 
     <link href="~/vendors/regex-colorizer/themes/regexpal.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/sc-2.0.1/sp-1.0.1/sl-1.3.1/datatables.min.css" />
 
     <environment include="Development">
         <!-- Template styles -->
@@ -50,6 +51,18 @@
         <!-- styles tweaks -->
         <link href="~/css/site-bundle.min.css" rel="stylesheet" asp-append-version="true">
     </environment>
+
+    <script type="text/javascript">
+        function docReady(fn) {
+            // see if DOM is already available
+            if (document.readyState === "complete" || document.readyState === "interactive") {
+                // call on next available tick
+                setTimeout(fn, 1);
+            } else {
+                document.addEventListener("DOMContentLoaded", fn);
+            }
+        }
+    </script>
 
     @Html.Raw(JavaScriptSnippet.FullScript)
 </head>
@@ -73,7 +86,7 @@
         <main class="main">
 
             <!-- VIEW-BREADCRUMBS -->
-           <partial name="_breadcrumb-menu"/>
+            <partial name="_breadcrumb-menu" />
             <!-- /VIEW-BREADCRUMBS -->
 
             <div class="container-fluid">
@@ -133,13 +146,15 @@
     <script src="~/lib/@@coreui/coreui/dist/js/coreui.min.js"></script>
     <script src="~/vendors/select2/js/select2.full.min.js"></script>
     <script src="~/vendors/regex-colorizer/regex-colorizer.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/sc-2.0.1/sp-1.0.1/sl-1.3.1/datatables.min.js"></script>
+
 
     <environment include="Development">
         <script src="~/js/site-bundle.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/js/site-bundle.min.js" asp-append-version="true"></script>
-    </environment>  
+    </environment>
 
 
     <!-- VIEW-SCRIPTS -->

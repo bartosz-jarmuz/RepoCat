@@ -1,6 +1,6 @@
 @using RepoCat.Portal.Areas.Catalog.Models
 @model ManifestQueryResultViewModel
-<input type="hidden" id="RepositoryQueryParameters" value="@(string.Join(",", Model.RepositoryQueryParameters.Select(x=>$"{x.OrganizationName}:{x.RepositoryName}")))"/>
+<input type="hidden" id="RepositoryQueryParameters" value="@(string.Join(",", Model.RepositoryQueryParameters.Select(x=>$"{x.OrganizationName}:{x.RepositoryName}")))" />
 @if (Model.Projects.Count > 0)
 {
     <div class="row mb-1">
@@ -23,17 +23,17 @@
                     <span>
                         @if (Model.IsRegex)
                         {
-                        <span>for RegEx: </span>
-                        <span class="regex">@Model.QueryString</span>
+                            <span>for RegEx: </span>
+                            <span class="regex">@Model.QueryString</span>
                         }
                         else
                         {
-                        @if (@Model.SearchTokens.Any())
+                            @if (@Model.SearchTokens.Any())
                             {
-                        <span>for </span>
-                        @foreach (var token in Model.SearchTokens)
+                                <span>for </span>
+                                @foreach (var token in Model.SearchTokens)
                                 {
-                        <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
+                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
 
                                 }
                             }
@@ -46,11 +46,13 @@
         </div>
     </div>
     <div class="row">
-        @foreach (ProjectInfoViewModel manifest in Model.Projects)
-        {
-            manifest.DisplayRepositoryName = Model.RepositoryQueryParameters.Count > 1;
-            <partial name="_ProjectViewPartial" for="@manifest" />
-        }
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <partial name="_ProjectsTablePartial" model="@Model.Projects"/>
+                </div>
+            </div>
+        </div>
     </div>
 
 }
@@ -92,3 +94,5 @@ else
         </div>
     </div>
 }
+
+

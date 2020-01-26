@@ -2,17 +2,26 @@
 
 @{
     ViewData["Title"] = "Home Page";
-    string initialDisplay = Model?.Result != null ?"" : "display: none;";
+    string initialDisplay = Model?.Result != null ? "" : "display: none;";
 
 }
+@section Styles
+{
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+}
 
-<partial name="_SearchFormPartial" for="@Model" />
+<div class="row">
+    <div class="col-md-12">
+        <partial name="_SearchFormPartial" for="@Model" />
+    </div>
+</div>
 
 <div id="searchResults" style="@initialDisplay">
-@if (Model.Result != null)
-{
-    await Html.RenderPartialAsync("_SearchResultPartial", Model.Result);
-}
+    @if (Model.Result != null)
+    {
+        await Html.RenderPartialAsync("_SearchResultPartial", Model.Result);
+    }
 </div>
 
 
@@ -38,9 +47,9 @@
                  setCookie("selectedRepo", $('#selectedRepo').val());
             })
 
-           
 
-            
+            $('#ResultsTable').DataTable();
+
             $('#searchQuery').keypress(function (e) {
                 var key = e.which;
                 if(key === 13)  // the enter key code
@@ -57,7 +66,7 @@
                 $(overlay).fadeIn();
 
                 var queryString ='&query=' + encodeURIComponent($('#searchQuery').val()) + '&isRegex=' + $('#isRegex').is(':checked');
-                var url = '@Url.Action("Search")' 
+                var url = '@Url.Action("Search")'
                 var selectedOptions = $('#selectedRepo').val();
                 var reposParam= "";
                 selectedOptions.forEach(function (item, index) {

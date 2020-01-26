@@ -8,7 +8,7 @@
 }
 
 .project-card {
-    background: #fff;
+    
 }
 
 .project-card .header {
@@ -35,16 +35,15 @@
 }
 
 .project-card .component .component-label {
-    font-weight: bold;  
+    font-weight: bold !important;
 }
-
-.project-card .title {
-    font-weight: 700
-}
-
 
 .project-card .component .description {
     font-size: 13px
+}
+
+.project-card .title {
+    font-weight: 700 !important;
 }
 
 .project-info {
@@ -65,7 +64,7 @@
 
 .project-info .project-path {
     font-size: 12px;
-}
+}   
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 
 /* Make .svg files in the carousel display properly in older browsers */
@@ -139,4 +138,39 @@
 
 .badge-inherit {
     position: inherit !important;
+}
+td.details-control {
+    background: url('../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    background: url('../images/details_close.png') no-repeat center center;
+}
+
+div.slider {
+    display: none;
+}
+
+#ResultsTable_wrapper div.dtsp-columns-5 div.dtsp-topRow {
+    flex-direction: inherit !important;
+}
+#ResultsTable_wrapper div.dtsp-columns-5{
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+.t {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    color: #fff;
+    background-color: #4dbd74;
 }

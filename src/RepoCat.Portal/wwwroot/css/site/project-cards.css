@@ -1,5 +1,5 @@
 ﻿.project-card {
-    background: #fff;
+    
 }
 
 .project-card .header {
@@ -26,16 +26,15 @@
 }
 
 .project-card .component .component-label {
-    font-weight: bold;  
+    font-weight: bold !important;
 }
-
-.project-card .title {
-    font-weight: 700
-}
-
 
 .project-card .component .description {
     font-size: 13px
+}
+
+.project-card .title {
+    font-weight: 700 !important;
 }
 
 .project-info {
@@ -56,4 +55,4 @@
 
 .project-info .project-path {
     font-size: 12px;
-}
+}   

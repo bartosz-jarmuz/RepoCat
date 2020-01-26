@@ -3,122 +3,126 @@
 
 @{
     ViewData["Title"] = "Repository overview";
-string cardClass = "card text-white bg-info";
+    string cardClass = "card text-white bg-info";
 }
 
 @if (!@Model.ProjectManifestViewModels.Any())
 {
 
-<div class="row">
-    <div class="col-md-6 offset-3">
-        <div class="text-center">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <div class="text-center">
 
-            <h2 class="text-dark">Sorry, nothing to show in '@Model.RepositoryName'</h2>
-            <img src="~/images/cats/cat_hungry256.png" class="mx-auto d-block" alt="No results">
-            <br />
-            <span class="text-dark">The repository looks empty</span>
+                <h2 class="text-dark">Sorry, nothing to show in '@Model.RepositoryName'</h2>
+                <img src="~/images/cats/cat_hungry256.png" class="mx-auto d-block" alt="No results">
+                <br />
+                <span class="text-dark">The repository looks empty</span>
+            </div>
         </div>
     </div>
-</div>
 }
 else
 {
-<span class="small " style="color: #73818f; margin-top: -15px !important;position: absolute;">
-    Repository name:
-</span>
-<div class="h2" style="margin-top: 0px;">
-    @Model.RepositoryName
-</div>
-
-
-<div class="row">
-    <div class="col-sm-6 col-md-2">
-        <div class="@cardClass">
-            <div class="card-body">
-                <div class="h1 text-muted text-right mb-4">
-                    <i class="fab fa-codepen"></i>
-                </div>
-                <div class="text-value">@Model.NumberOfProjects</div>
-                <small class="text-muted text-uppercase font-weight-bold">Projects</small>
-            </div>
-        </div>
+    <span class="small " style="color: #73818f; margin-top: -15px !important;position: absolute;">
+        Repository name:
+    </span>
+    <div class="h2" style="margin-top: 0px;">
+        @Model.RepositoryName
     </div>
 
-    <div class="col-sm-6 col-md-2">
-        <div class="@cardClass">
-            <div class="card-body">
-                <div class="h1 text-muted text-right mb-4">
-                    <i class="fas fa-microchip"></i>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-2">
+            <div class="@cardClass">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fab fa-codepen"></i>
+                    </div>
+                    <div class="text-value">@Model.NumberOfProjects</div>
+                    <small class="text-muted text-uppercase font-weight-bold">Projects</small>
                 </div>
-                <div class="text-value">@Model.NumberOfComponents</div>
-                <small class="text-muted text-uppercase font-weight-bold">Components</small>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-6 col-md-2">
-        <div class="@cardClass">
-            <div class="card-body">
-                <div class="h1 text-muted text-right mb-4">
-                    <i class="fas fa-tag"></i>
+        <div class="col-sm-6 col-md-2">
+            <div class="@cardClass">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="text-value">@Model.NumberOfComponents</div>
+                    <small class="text-muted text-uppercase font-weight-bold">Components</small>
                 </div>
-                <div class="text-value">@Model.NumberOfTags</div>
-                <small class="text-muted text-uppercase font-weight-bold">Tags</small>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-6 col-md-2">
-        <div class="@cardClass">
-            <div class="card-body">
-                <div class="h1 text-muted text-right mb-4">
-                    <i class="icon-calendar"></i>
+        <div class="col-sm-6 col-md-2">
+            <div class="@cardClass">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="text-value">@Model.NumberOfTags</div>
+                    <small class="text-muted text-uppercase font-weight-bold">Tags</small>
                 </div>
-                <div class="text-value">@Model.ImportedDate</div>
-                <small class="text-muted text-uppercase font-weight-bold">Imported date</small>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-6 col-md-2">
-        <div class="@cardClass">
-            <div class="card-body">
-                <div class="h1 text-muted text-right mb-4">
-                    <i class="icon-speedometer"></i>
+        <div class="col-sm-6 col-md-2">
+            <div class="@cardClass">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="icon-calendar"></i>
+                    </div>
+                    <div class="text-value">@Model.ImportedDate</div>
+                    <small class="text-muted text-uppercase font-weight-bold">Imported date</small>
                 </div>
-                <div class="text-value">@Model.ImportDuration</div>
-                <small class="text-muted text-uppercase font-weight-bold">Import duration</small>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-6 col-md-2">
-        <div class="@cardClass">
-            <div class="card-body">
-                <div class="h1 text-muted text-right mb-4">
-                    <i class="fa fa-stamp"></i>
+        <div class="col-sm-6 col-md-2">
+            <div class="@cardClass">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="icon-speedometer"></i>
+                    </div>
+                    <div class="text-value">@Model.ImportDuration</div>
+                    <small class="text-muted text-uppercase font-weight-bold">Import duration</small>
                 </div>
-                <div class="text-value small">@Model.NumberOfStamps</div>
-                <small class="text-muted text-uppercase font-weight-bold">Number of repository stamps</small>
             </div>
         </div>
+
+        <div class="col-sm-6 col-md-2">
+            <div class="@cardClass">
+                <div class="card-body">
+                    <div class="h1 text-muted text-right mb-4">
+                        <i class="fa fa-stamp"></i>
+                    </div>
+                    <div class="text-value small">@Model.NumberOfStamps</div>
+                    <small class="text-muted text-uppercase font-weight-bold">Number of repository stamps</small>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-</div>
+    <div class="mb-2">
+        <h2 style="display: inline;">
+            Projects list
+        </h2>
+        <a class="badge badge-light collapseAllToggle open" href="#" onclick="collapseAllToggle(this)">Collapse all</a>
+    </div>
 
-<div class="mb-2">
-    <h2 style="display: inline;">
-        Projects list
-    </h2>
-    <a class="badge badge-light collapseAllToggle open" href="#" onclick="collapseAllToggle(this)">Collapse all</a>
-</div>
+    <div class="row">
+        <div class="col-md-12">
 
-<div class="row">
-    @foreach (ProjectInfoViewModel manifest in @Model.ProjectManifestViewModels)
-        {
-    <partial name="_ProjectViewPartial" for="@manifest" />
-        }
-</div>
+        <div class="card">
+            <div class="card-body">
+                <partial name="_ProjectsTablePartial" model="@Model.ProjectManifestViewModels" />
+            </div>
+        </div>
+        </div>
+    </div>
 }
 
 <span id="RepositoryInfo" style="display: none; color: #73818f;">
@@ -134,8 +138,8 @@ else
 
 @section Scripts{
     <script type="text/javascript">
-        $(document).ready(function(){
-             $('#LeftBreadcrumbsMenu').append($('#RepositoryInfo'));
+        $(document).ready(function () {
+            $('#LeftBreadcrumbsMenu').append($('#RepositoryInfo'));
             $('#RepositoryInfo').show();
         });
 

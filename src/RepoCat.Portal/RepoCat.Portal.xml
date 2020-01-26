@@ -566,6 +566,34 @@
             </summary>
             <returns>System.String.</returns>
         </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.#ctor(System.String,System.String,System.Collections.Generic.KeyValuePair{System.String,System.String})">
+            <summary>
+            
+            </summary>
+            <param name="projectId"></param>
+            <param name="componentName"></param>
+            <param name="property"></param>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.ProjectId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.ComponentName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.Property">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel">
             <summary>
             Class SearchIndexViewModel.
