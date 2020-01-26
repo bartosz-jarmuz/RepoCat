@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.ApplicationInsights;
 using RepoCat.Persistence.Models;
 using RepoCat.Telemetry;
@@ -16,7 +17,7 @@ namespace RepoCat.RepositoryManagement.Service
             });
         } 
         
-        public static void TrackSearch(this TelemetryClient telemetryClient, IReadOnlyCollection<RepositoryQueryParameter> parameters, string query, bool isRegex)
+        public static void TrackSearch(this TelemetryClient telemetryClient, IReadOnlyCollection<RepositoryQueryParameter> parameters, string query, bool isRegex, int resultsCount, TimeSpan elapsed)
         {
             foreach (RepositoryQueryParameter repositoryQueryParameter in parameters)
             {
@@ -26,6 +27,8 @@ namespace RepoCat.RepositoryManagement.Service
                     {PropertyKeys.RepositoryName, repositoryQueryParameter.RepositoryName},
                     {PropertyKeys.Query, query },
                     {PropertyKeys.IsRegex, isRegex.ToString()},
+                    {PropertyKeys.ResultsCount, resultsCount.ToString()},
+                    {PropertyKeys.QueryExecutionTime, elapsed.TotalMilliseconds.ToString()},
                 });
             }
             

@@ -108,7 +108,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             BackgroundJob.Enqueue(() => this.UpdateSearchStatistics(parameters, query));
 
             ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(parameters, query, isRegex).ConfigureAwait(false);
-            this.telemetryClient.TrackSearch(parameters, query, isRegex);
+            this.telemetryClient.TrackSearch(parameters, query, isRegex, queryResultViewModel.Projects.Count, queryResultViewModel.Elapsed);
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
 

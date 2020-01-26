@@ -10,6 +10,8 @@ namespace RepoCat.Telemetry
     {
         public static string FileSize => "FileSize";
         public static string IsRegex => "IsRegex";
+        public static string ResultsCount => "ResultsCount";
+        public static string QueryExecutionTime => "QueryExecutionTime";
         public static string Query => "Query";
         public static string IsLocal => "IsLocal";
         public static string RepositoryName => "RepositoryName";
