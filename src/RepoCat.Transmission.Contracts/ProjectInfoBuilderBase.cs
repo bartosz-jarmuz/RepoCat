@@ -20,7 +20,7 @@ namespace RepoCat.Transmission.Contracts
         }
 
         public IList<IProjectInfoEnricher> ProjectInfoEnrichers { get; } = new List<IProjectInfoEnricher>();
-        public abstract ProjectInfo GetInfo(string projectUri);
+        protected internal abstract ProjectInfo GetInfo(string projectUri);
 
         public virtual IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris)
         {

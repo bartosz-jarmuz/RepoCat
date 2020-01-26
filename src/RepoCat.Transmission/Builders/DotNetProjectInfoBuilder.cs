@@ -21,7 +21,7 @@ namespace RepoCat.Transmission
             this.args = args;
         }
 
-        public override ProjectInfo GetInfo(string projectUri)
+        protected  override ProjectInfo GetInfo(string projectUri)
         {
             Project project = this.LoadProject(projectUri);
             if (project == null)

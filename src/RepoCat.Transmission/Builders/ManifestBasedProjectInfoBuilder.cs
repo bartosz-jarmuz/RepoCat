@@ -24,7 +24,7 @@ namespace RepoCat.Transmission
             this.logger = logger;
         }
 
-        public override ProjectInfo GetInfo(string projectUri)
+        protected override ProjectInfo GetInfo(string projectUri)
         {
             try
             {
