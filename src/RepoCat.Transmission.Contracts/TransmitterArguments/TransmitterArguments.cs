@@ -86,5 +86,10 @@ namespace RepoCat.Transmission.Contracts
         /// </summary>
         public bool ManifestCanOverrideRepositoryInfo { get; set; }
 
+        /// <summary>
+        /// A mapping of custom values to a ProjectInfo property name
+        /// </summary>
+        public Dictionary<string, string> PropertyMappings { get; set; } = new Dictionary<string, string>();
+
     }
 }

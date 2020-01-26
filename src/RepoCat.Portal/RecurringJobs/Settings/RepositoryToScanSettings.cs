@@ -1,4 +1,5 @@
-﻿using RepoCat.Transmission;
+﻿using System.Collections.Generic;
+using RepoCat.Transmission;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
@@ -62,6 +63,11 @@ namespace RepoCat.Portal.RecurringJobs
         /// Optional
         /// </summary>
         public bool ManifestCanOverrideRepositoryInfo { get; set; }
+
+        /// <summary>
+        /// A mapping of custom values to a ProjectInfo property name
+        /// </summary>
+        public Dictionary<string, string> PropertyMappings { get; set; } = new Dictionary<string, string>();
 
     }
 }

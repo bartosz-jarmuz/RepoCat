@@ -1061,6 +1061,11 @@
             Optional
             </summary>
         </member>
+        <member name="P:RepoCat.Portal.RecurringJobs.RepositoryToScanSettings.PropertyMappings">
+            <summary>
+            A mapping of custom values to a ProjectInfo property name
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.TelemetryExtensions">
             <summary>
             

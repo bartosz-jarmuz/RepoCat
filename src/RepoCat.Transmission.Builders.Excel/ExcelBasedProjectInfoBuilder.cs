@@ -40,11 +40,15 @@ namespace RepoCat.Transmission.Builders.Excel
         {
             foreach (string uri in uris)
             {
-                if (IsExcelFile(uri))
+                if (IsExcelChecker.IsExcelFile(uri))
                 {
                     DataSet dataSet = this.GetExcelData(uri);
                     foreach (ProjectInfo projectInfo in this.GetInfoFromRows(dataSet))
                     {
+                        foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
+                        {
+                            projectInfoEnricher.Enrich(projectInfo, uri, uri);
+                        }
                         yield return projectInfo;
                     }
                 }
@@ -128,20 +132,7 @@ namespace RepoCat.Transmission.Builders.Excel
             return project;
         }
 
-        private static bool IsExcelFile(string path)
-        {
-            if (
-                path.EndsWith(".xls", StringComparison.OrdinalIgnoreCase) ||
-                path.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase) ||
-                path.EndsWith(".xlsm", StringComparison.OrdinalIgnoreCase)
-            )
-            {
-                return true;
-            }
-
-            return false;
-        }
-
+        
         protected override ProjectInfo GetInfo(string projectUri)
         {
             throw new NotImplementedException($"Excel builder expects the data to be accessed with the {nameof(this.GetInfos)} method");

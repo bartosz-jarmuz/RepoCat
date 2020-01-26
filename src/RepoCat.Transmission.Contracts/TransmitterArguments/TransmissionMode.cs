@@ -21,6 +21,12 @@ namespace RepoCat.Transmission.Contracts
         /// Use when there are no 'projects' (like .csproj files), e.g. for scripts, excel macros etc.<br/>
         /// In this case, the transmitter will look for Manifest files directly, rather than analyze the projects
         /// </summary>
-        LocalManifestBased
+        LocalManifestBased,
+
+        /// <summary>
+        /// Get data from an excel file which contains info about multiple projects
+        /// </summary>
+        ExcelDatabaseBased,
+
     }
 }

@@ -21,8 +21,9 @@ namespace RepoCat.Portal.RecurringJobs
             {
                 if (telemetryClient == null) throw new ArgumentNullException(nameof(telemetryClient));
 
-                foreach (var repositorySetting in monitoringSettings.RepositorySettings)
+                for (int index = 0; index < monitoringSettings.RepositorySettings.Count; index++)
                 {
+                    var repositorySetting = monitoringSettings.RepositorySettings[index];
                     var expression = repositorySetting.JobExecutionCron ?? "0 * * * *";
                     try
                     {
@@ -36,8 +37,9 @@ namespace RepoCat.Portal.RecurringJobs
                             $"Error while trying to convert expression {expression} as CRON", ex));
                         continue;
                     }
-                    RecurringJob.RemoveIfExists(nameof(ScanRepositoryJob));
-                    RecurringJob.AddOrUpdate<ScanRepositoryJob>(nameof(ScanRepositoryJob)
+
+                    RecurringJob.RemoveIfExists(nameof(ScanRepositoryJob)+index);
+                    RecurringJob.AddOrUpdate<ScanRepositoryJob>(nameof(ScanRepositoryJob) + index
                         , job => job.Run(repositorySetting), expression);
                     telemetryClient.TrackRecurringJobScheduled(repositorySetting);
                 }

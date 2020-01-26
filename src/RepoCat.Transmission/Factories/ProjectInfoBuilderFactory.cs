@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using RepoCat.Transmission.Builders.Excel;
 using RepoCat.Transmission.Contracts;
 
 namespace RepoCat.Transmission
@@ -20,6 +21,10 @@ namespace RepoCat.Transmission
             if (args.TransmissionMode == TransmissionMode.LocalDotNetProjects)
             {
                 infoBuilder = new DotNetProjectInfoBuilder(logger, args);
+            }
+            else if (args.TransmissionMode == TransmissionMode.ExcelDatabaseBased)
+            {
+                infoBuilder = new ExcelBasedProjectInfoBuilder(logger, args.PropertyMappings);
             }
             else
             {

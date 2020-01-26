@@ -97,6 +97,10 @@
       <Project>{C827E239-236E-4DF0-8A8C-4E26AED8E70A}</Project>
       <Name>RepoCat.Serialization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RepoCat.Transmission.Builders.Excel\RepoCat.Transmission.Builders.Excel.csproj">
+      <Project>{861AFFDA-E698-4446-BAC5-5D2F3B5D88BD}</Project>
+      <Name>RepoCat.Transmission.Builders.Excel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RepoCat.Transmission.Contracts\RepoCat.Transmission.Contracts.csproj">
       <Project>{36054728-E7C6-46B3-B120-A4646A67115E}</Project>
       <Name>RepoCat.Transmission.Contracts</Name>
