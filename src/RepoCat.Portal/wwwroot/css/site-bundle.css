@@ -174,3 +174,9 @@ div.slider {
     color: #fff;
     background-color: #4dbd74;
 }
+
+#ResultsTable td {
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+}

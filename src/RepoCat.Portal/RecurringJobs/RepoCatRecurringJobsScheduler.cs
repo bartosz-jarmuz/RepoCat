@@ -38,8 +38,8 @@ namespace RepoCat.Portal.RecurringJobs
                         continue;
                     }
 
-                    RecurringJob.RemoveIfExists(nameof(ScanRepositoryJob)+index);
-                    RecurringJob.AddOrUpdate<ScanRepositoryJob>(nameof(ScanRepositoryJob) + index
+                    RecurringJob.RemoveIfExists(nameof(ScanRepositoryJob)+ repositorySetting.JobName);
+                    RecurringJob.AddOrUpdate<ScanRepositoryJob>(nameof(ScanRepositoryJob) + repositorySetting.JobName
                         , job => job.Run(repositorySetting), expression);
                     telemetryClient.TrackRecurringJobScheduled(repositorySetting);
                 }

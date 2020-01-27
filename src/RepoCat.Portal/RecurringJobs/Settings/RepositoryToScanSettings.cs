@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RepoCat.Transmission;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
@@ -9,8 +10,12 @@ namespace RepoCat.Portal.RecurringJobs
     /// <summary>
     /// Settings of the repo to scan
     /// </summary>
-    public class RepositoryToScanSettings 
+    public class RepositoryToScanSettings
     {
+        /// <summary>
+        /// If the list of paths is too long (over 32k chars, which is max for cmd line argument) you can save the paths to a file and read from there
+        /// </summary>
+        public string JobName { get; set; } = Guid.NewGuid().ToString().Remove(5);
         /// <summary>
         /// If the list of paths is too long (over 32k chars, which is max for cmd line argument) you can save the paths to a file and read from there
         /// </summary>
