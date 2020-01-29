@@ -1,0 +1,8 @@
+@using RepoCat.RepositoryManagement.Service;
+@model RepositoryQueryParameter
+<a class="badge badge-primary tag badge-large" data-toggle="tooltip" data-placement="top" title="View repository content" data-delay='{"show":"500"}'
+    href="@Url.Action("Index", "Repository", new { organizationName = Model.OrganizationName, repositoryName = Model.RepositoryName })">
+    <i class="fab fa-codepen font-weight-light"></i>&nbsp;@Model.OrganizationName - @Model.RepositoryName
+</a>
+
+

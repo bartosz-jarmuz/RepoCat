@@ -566,6 +566,29 @@
             </summary>
             <returns>System.String.</returns>
         </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.#ctor(System.Collections.Generic.List{RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel},System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="projects"></param>
+            <param name="isMultipleRepositories"></param>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.Projects">
+            <summary>
+            Gets or sets the manifests.
+            </summary>
+            <value>The manifests.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.IsMultipleRepositories">
+            <summary>
+            Specifies whther the table contains projects from multiple repos
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel">
             <summary>
             

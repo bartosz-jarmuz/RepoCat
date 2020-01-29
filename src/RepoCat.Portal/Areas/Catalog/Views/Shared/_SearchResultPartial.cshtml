@@ -49,7 +49,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <partial name="_ProjectsTablePartial" model="@Model.Projects"/>
+                    <partial name="_ProjectsTablePartial" model="new ProjectsTableModel(@Model.Projects, Model.RepositoryQueryParameters.Count > 1)"/>
                 </div>
             </div>
         </div>

@@ -118,7 +118,7 @@ else
 
         <div class="card">
             <div class="card-body">
-                <partial name="_ProjectsTablePartial" model="@Model.ProjectManifestViewModels" />
+                <partial name="_ProjectsTablePartial" model="@(new ProjectsTableModel(Model.ProjectManifestViewModels, false))" />
             </div>
         </div>
         </div>
