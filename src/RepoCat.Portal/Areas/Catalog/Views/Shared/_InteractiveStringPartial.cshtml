@@ -2,6 +2,14 @@
 @model RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel
 @{
     var type = Model.GetDataType();
+    var displayText = Model.Text;
+    if (Model.Text != null &&  Model.Text.Length > 45) {
+        var middlePoint = Model.Text.Length / 2;
+        var firstPart = Model.Text.Substring(0, middlePoint);
+        var secondPart = Model.Text.Substring(middlePoint);
+        displayText = firstPart.Substring(0, 20) + "(...)" + secondPart.Substring(secondPart.Length - 20);
+    }
+
     string imageTag = "";
     if (!string.IsNullOrEmpty(Model.ImageClassName))
     {
@@ -10,16 +18,22 @@
     switch (type)
     {
         case InteractiveStringModel.DataType.Text:
-            @Model.Text
+            @displayText
             break;
         case InteractiveStringModel.DataType.Url:
-            <a href="@Model.Text" target="_blank" class="@Model.ClassName">@Html.Raw(@imageTag) @Model.Text</a>
+            <a href="@Model.Text" target="_blank" class="@Model.ClassName"
+               data-toggle="tooltip" title="@Model.Text"
+               >@Html.Raw(@imageTag) @displayText</a>
             break;
         case InteractiveStringModel.DataType.Path:
-            <a href="@Url.Action("Download", "Download", new { id = Model.ProjectId, componentName = Model.ComponentName, Model.PropertyKey })">@Html.Raw(@imageTag) @Model.Text</a>
+            <a href="@Url.Action("Download", "Download", new { id = Model.ProjectId, componentName = Model.ComponentName, Model.PropertyKey })"
+               data-toggle="tooltip" title="@Model.Text"
+               >@Html.Raw(@imageTag) @displayText</a>
             break;
         case InteractiveStringModel.DataType.Email:
-            <a target="_blank" href="mailto:@(Model.Text)" class="@Model.ClassName">@Html.Raw(@imageTag) @Model.Text</a>
+            <a target="_blank" href="mailto:@(Model.Text)" class="@Model.ClassName"
+               data-toggle="tooltip" title="@Model.Text"
+               >@Html.Raw(@imageTag) @displayText</a>
             break;
         default:
             break;

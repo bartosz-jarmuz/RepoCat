@@ -1,3 +1,45 @@
+.tag a{
+    color: #000;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.badge-large {
+    font-size: 100% !important;
+    font-weight: 600;
+}
+
+.badge-tag {
+    background-color: #ffc107 !important;
+    color: #23282c !important;
+}
+
+.badge-warning {
+    background-color: #ff7910 !important;
+}
+
+.badge-inherit {
+    position: inherit !important;
+}
+
+
+.t {
+    /* this short class name is for for a tag to workaround the datatables.net bug with searchpanes counting innerhtml as content of search pane value*/
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    color: #fff;
+    background-color: #4dbd74;
+}
+
+
 .cm-tag, .cm-bracket, .cm-string, .cm-attribute {
     font-weight: 100 !important;
 }
@@ -5,6 +47,10 @@
 .CodeMirror pre {
     font-weight: 900 !important;
     font-family: monospace !important;
+}
+
+.card.condensed {
+    margin-bottom: 0.3rem;
 }
 
 .project-card {
@@ -65,6 +111,52 @@
 .project-info .project-path {
     font-size: 12px;
 }   
+td.details-control {
+    background: url('../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    background: url('../images/details_close.png') no-repeat center center;
+}
+
+div.slider {
+    display: none;
+}
+
+#ResultsTable_wrapper div.dtsp-columns-4 div.dtsp-topRow {
+    flex-direction: inherit !important;
+}
+#ResultsTable_wrapper div.dtsp-columns-4{
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+#ResultsTable td.break-word {
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
+
+#ResultsTable td.break-all {
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+}
+
+#ResultsTable dt {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#ResultsTable dd {
+    color: #23282c;
+    margin-bottom: 10px;
+}
+
+.search-panes.card {
+    margin-bottom: 0.2rem;
+}
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 
 /* Make .svg files in the carousel display properly in older browsers */
@@ -83,13 +175,6 @@
 
 .container-fluid > .animated {
     margin-top: 24px !important;
-}
-
-
-.tag a{
-    color: #000;
-    font-weight: normal;
-    text-decoration: none;
 }
 
 .overlay {
@@ -113,70 +198,9 @@
     font-size: 30px;
 }
 
-.card.condensed{
-    margin-bottom: 0.3rem;
-}
-
-.badge-large {
-    font-size: 100% !important;
-    font-weight: 600;
-}
 
 .collapseAllToggle {
     font-size: 75% !important;
     color: #808080;
 }
 
-.badge-tag {
-    background-color: #ffc107 !important;
-    color: #23282c !important;
-}
-
-.badge-warning {
-    background-color: #ff7910 !important;
-}
-
-.badge-inherit {
-    position: inherit !important;
-}
-td.details-control {
-    background: url('../images/details_open.png') no-repeat center center;
-    cursor: pointer;
-}
-
-tr.shown td.details-control {
-    background: url('../images/details_close.png') no-repeat center center;
-}
-
-div.slider {
-    display: none;
-}
-
-#ResultsTable_wrapper div.dtsp-columns-4 div.dtsp-topRow {
-    flex-direction: inherit !important;
-}
-#ResultsTable_wrapper div.dtsp-columns-4{
-    padding-left: 0%;
-    padding-right: 0%;
-}
-
-.t {
-    display: inline-block;
-    padding: 0.25em 0.4em;
-    font-size: 75%;
-    font-weight: 700;
-    font-style: normal;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: 0.25rem;
-    color: #fff;
-    background-color: #4dbd74;
-}
-
-#ResultsTable td {
-    word-wrap: break-word;
-    word-break: break-word;
-    white-space: normal;
-}

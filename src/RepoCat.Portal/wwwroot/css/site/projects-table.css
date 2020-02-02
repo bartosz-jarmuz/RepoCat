@@ -1,0 +1,46 @@
+﻿td.details-control {
+    background: url('../../images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    background: url('../../images/details_close.png') no-repeat center center;
+}
+
+div.slider {
+    display: none;
+}
+
+#ResultsTable_wrapper div.dtsp-columns-4 div.dtsp-topRow {
+    flex-direction: inherit !important;
+}
+#ResultsTable_wrapper div.dtsp-columns-4{
+    padding-left: 0%;
+    padding-right: 0%;
+}
+
+#ResultsTable td.break-word {
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+}
+
+#ResultsTable td.break-all {
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+}
+
+#ResultsTable dt {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+#ResultsTable dd {
+    color: #23282c;
+    margin-bottom: 10px;
+}
+
+.search-panes.card {
+    margin-bottom: 0.2rem;
+}

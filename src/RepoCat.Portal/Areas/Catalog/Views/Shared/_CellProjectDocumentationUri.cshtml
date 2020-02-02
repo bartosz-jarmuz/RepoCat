@@ -1,0 +1,40 @@
+@using RepoCat.Portal.Areas.Catalog.Models
+@model ProjectInfoViewModel
+
+
+
+@if (!Model.Components.Any())
+{
+    <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DocumentationUri), Model.DocumentationUri, "help-link", "fa fa-external-link-alt"))" />
+}
+else
+{
+<dl>
+    @if (!string.IsNullOrEmpty(Model.DocumentationUri))
+    {
+        <dt>@Model.ProjectName</dt>
+        <dd>
+            <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DocumentationUri), Model.DocumentationUri, "help-link", "fa fa-external-link-alt"))" />
+        </dd>
+    }
+
+    @if (string.IsNullOrEmpty(Model.DocumentationUri) && Model.Components.Count == 1)
+    {
+        var component = Model.Components[0];
+            <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, component.Name, nameof(component.DocumentationUri), component.DocumentationUri, "help-link", "fa fa-external-link-alt"))" />
+    }
+    else
+    {
+        @foreach (var component in Model.Components)
+        {
+            if (!string.IsNullOrEmpty(component.DocumentationUri))
+            {
+                <dt>@component.Name</dt>
+                <dd>
+                    <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, component.Name, nameof(component.DocumentationUri), component.DocumentationUri, "help-link", "fa fa-external-link-alt"))" />
+                </dd>
+            }
+        }
+    }
+</dl>
+}

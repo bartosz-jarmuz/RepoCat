@@ -1,0 +1,41 @@
+﻿.tag a{
+    color: #000;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.badge-large {
+    font-size: 100% !important;
+    font-weight: 600;
+}
+
+.badge-tag {
+    background-color: #ffc107 !important;
+    color: #23282c !important;
+}
+
+.badge-warning {
+    background-color: #ff7910 !important;
+}
+
+.badge-inherit {
+    position: inherit !important;
+}
+
+
+.t {
+    /* this short class name is for for a tag to workaround the datatables.net bug with searchpanes counting innerhtml as content of search pane value*/
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    color: #fff;
+    background-color: #4dbd74;
+}
+

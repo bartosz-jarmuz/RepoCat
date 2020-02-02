@@ -1,0 +1,23 @@
+@using RepoCat.Portal.Areas.Catalog.Models
+
+@model ProjectInfoViewModel
+
+@if (!Model.Components.Any())
+{
+    <div class="text">
+        @Model.ProjectDescription
+    </div>
+}
+else
+{
+    <div class="text">
+        @Model.ProjectDescription
+    </div>
+    <dl>
+        @foreach (var component in Model.Components)
+        {
+            <dt>@component.Name</dt>
+            <dd>@component.Description</dd>
+        }
+    </dl>
+}
