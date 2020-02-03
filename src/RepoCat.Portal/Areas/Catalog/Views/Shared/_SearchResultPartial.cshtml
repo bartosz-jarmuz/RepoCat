@@ -1,7 +1,7 @@
 @using RepoCat.Portal.Areas.Catalog.Models
 @model ManifestQueryResultViewModel
 <input type="hidden" id="RepositoryQueryParameters" value="@(string.Join(",", Model.RepositoryQueryParameters.Select(x=>$"{x.OrganizationName}:{x.RepositoryName}")))" />
-@if (Model.Projects.Count > 0)
+@if (Model.ProjectsTable.Projects.Count > 0)
 {
     <div class="row mb-1">
         <div class="col-md-12">
@@ -18,7 +18,7 @@
                 </div>
                 <div>
 
-                    <span>Found <strong>@Model.Projects.Count</strong> matches</span>
+                    <span>Found <strong>@Model.ProjectsTable.Projects.Count</strong> matches</span>
 
                     <span>
                         @if (Model.IsRegex)
@@ -33,7 +33,7 @@
                                 <span>for </span>
                                 @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
+                                    <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
 
                                 }
                             }
@@ -46,7 +46,7 @@
         </div>
     </div>
     
-                    <partial name="_ProjectsTablePartial" model="new ProjectsTableModel(@Model.Projects, Model.RepositoryQueryParameters.Count > 1)"/>
+    <partial name="_ProjectsTablePartial" model="@Model.ProjectsTable" />
     
 }
 else
@@ -71,7 +71,7 @@ else
                                 <span>for </span>
                                 @foreach (var token in Model.SearchTokens)
                                 {
-                                    <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
+                                    <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
                                 }
                             }
                         }

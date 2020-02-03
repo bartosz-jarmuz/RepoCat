@@ -57,7 +57,7 @@
                                     <span class="component-label">Tags:&nbsp;</span>
                                     @foreach (var tag in @component.Tags)
                                     {
-                                        <partial name="_TagBadgePartial" model="@(new TagBadgeViewModel(@Model.OrganizationName, @Model.RepositoryName, tag))" />
+                                        <partial name="_BadgeTag" model="@(new TagBadgeViewModel(@Model.OrganizationName, @Model.RepositoryName, tag))" />
                                     }
                                 </div>
                             </div>

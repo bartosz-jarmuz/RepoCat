@@ -86,7 +86,6 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
            List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects);
             if (manifests.Any())
             {
-                model.ProjectManifestViewModels = manifests;
                 model.RepositoryStamp = StampSorter.GetNewestStamp(manifests.Select(x => x.RepositoryStamp).ToList());
                 var orderedTimes = manifests.OrderByDescending(x => x.AddedDateTime).ToList();
                 model.ImportedDate = orderedTimes.First().AddedDateTime;
@@ -95,29 +94,38 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
                 model.NumberOfComponents = manifests.Sum(x=>x.Components.Count);
                 model.NumberOfTags = manifests.Sum(prj => prj.Components.Sum(cmp=> cmp.Tags.Count));
             }
+            ProjectsTableModel projectsTableModel = new ProjectsTableModel(manifests, false);
 
+            model.ProjectsTable = projectsTableModel;
+
+
+
+            MvcBreadcrumbNode breadcrumb = PrepareIndexBreadcrumb(organizationName, repositoryName);
+
+            ViewData["BreadcrumbNode"] = breadcrumb;
+            return this.View(model);
+
+        }
+
+        private static MvcBreadcrumbNode PrepareIndexBreadcrumb(string organizationName, string repositoryName)
+        {
             var breadCrumb = new MvcBreadcrumbNode(nameof(RepositoryController.Index), "Repository",
                 organizationName, areaName: "Catalog")
             {
-                
-                RouteValues = new { organizationName = organizationName, repositoryName = repositoryName}
+                RouteValues = new {organizationName = organizationName, repositoryName = repositoryName}
             };
             var breadCrumb2 = new MvcBreadcrumbNode(nameof(RepositoryController.Index), "Repository",
                 repositoryName)
             {
-                RouteValues = new { organizationName = organizationName, repositoryName = repositoryName },
+                RouteValues = new {organizationName = organizationName, repositoryName = repositoryName},
                 Parent = breadCrumb
-                
             };
             var breadCrumb3 = new MvcBreadcrumbNode(nameof(RepositoryController.Index), "Repository",
                 "Repository overview")
             {
                 Parent = breadCrumb2
             };
-
-            ViewData["BreadcrumbNode"] = breadCrumb3;
-            return this.View(model);
-
+            return breadCrumb3;
         }
 
         /// <summary>

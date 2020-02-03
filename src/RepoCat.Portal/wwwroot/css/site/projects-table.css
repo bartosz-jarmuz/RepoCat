@@ -11,10 +11,10 @@ div.slider {
     display: none;
 }
 
-#ResultsTable_wrapper div.dtsp-columns-4 div.dtsp-topRow {
+#SearchPanesHost div.dtsp-columns-4 div.dtsp-topRow {
     flex-direction: inherit !important;
 }
-#ResultsTable_wrapper div.dtsp-columns-4{
+#SearchPanesHost div.dtsp-columns-4 {
     padding-left: 0%;
     padding-right: 0%;
 }
@@ -42,5 +42,9 @@ div.slider {
 }
 
 .search-panes.card {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0;
+}
+
+.inline-filter {
+    margin: 3px 1px;
 }

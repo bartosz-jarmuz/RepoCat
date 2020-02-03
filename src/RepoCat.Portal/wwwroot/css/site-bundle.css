@@ -12,6 +12,14 @@
 .badge-tag {
     background-color: #ffc107 !important;
     color: #23282c !important;
+    font-size: smaller;
+}
+
+.badge-property-name {
+    background-color: #f0f3fb !important;
+    color: #000 !important;
+    border: 1px solid #999;
+    font-size: smaller;
 }
 
 .badge-warning {
@@ -124,10 +132,10 @@ div.slider {
     display: none;
 }
 
-#ResultsTable_wrapper div.dtsp-columns-4 div.dtsp-topRow {
+#SearchPanesHost div.dtsp-columns-4 div.dtsp-topRow {
     flex-direction: inherit !important;
 }
-#ResultsTable_wrapper div.dtsp-columns-4{
+#SearchPanesHost div.dtsp-columns-4 {
     padding-left: 0%;
     padding-right: 0%;
 }
@@ -155,7 +163,11 @@ div.slider {
 }
 
 .search-panes.card {
-    margin-bottom: 0.2rem;
+    margin-bottom: 0;
+}
+
+.inline-filter {
+    margin: 3px 1px;
 }
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 
@@ -203,4 +215,3 @@ div.slider {
     font-size: 75% !important;
     color: #808080;
 }
-

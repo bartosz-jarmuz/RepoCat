@@ -95,7 +95,7 @@ $(document).ready(function () {
             return $(data).hide().fadeIn(500);
         });
     });
-
+    
     $('.select2').each(function () {
         var css = {};
         if ($(this).hasClass('form-control-lg')) {
@@ -104,7 +104,6 @@ $(document).ready(function () {
                 'font-size': 'large'
             }
         }
-
         $(this).select2({
             theme: 'bootstrap4',
             placeholder: $(this).attr('placeholder'),
@@ -114,6 +113,7 @@ $(document).ready(function () {
         });
     });
 
+    $('.select2-inline').parent().find('.select2-container').addClass('inline-filter');
 });
 
 

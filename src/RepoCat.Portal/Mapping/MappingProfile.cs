@@ -43,7 +43,10 @@ namespace RepoCat.Portal.Mapping
                 ;
 
             this.CreateMap<RepoCat.Persistence.Models.ComponentManifest, ComponentManifestViewModel>();
-            this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>().ForMember(x => x.SearchTokens, o=>o.Ignore());
+            this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>()
+                .ForMember(x => x.SearchTokens, o=>o.Ignore())
+                .ForMember(x => x.ProjectsTable, o=> o.Ignore())
+                ;
             this.CreateMap<RepoCat.Persistence.Models.CollectionSummary, RepoCat.Portal.Areas.Admin.Models.CollectionSummary>();
         }
 

@@ -6,7 +6,7 @@
     string cardClass = "card text-white bg-info";
 }
 
-@if (!@Model.ProjectManifestViewModels.Any())
+@if (!@Model.ProjectsTable.Projects.Any())
 {
 
     <div class="row">
@@ -113,7 +113,7 @@ else
         <a class="badge badge-light collapseAllToggle open" href="#" onclick="collapseAllToggle(this)">Collapse all</a>
     </div>
 
-    <partial name="_ProjectsTablePartial" model="@(new ProjectsTableModel(Model.ProjectManifestViewModels, false))" />
+    <partial name="_ProjectsTablePartial" model="@Model.ProjectsTable" />
 }
 
 <span id="RepositoryInfo" style="display: none; color: #73818f;">

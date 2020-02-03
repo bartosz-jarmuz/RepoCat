@@ -44,11 +44,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The duration of the import.</value>
         public TimeSpan ImportDuration { get; set; }
-        /// <summary>
-        /// Gets or sets the project manifest view models.
-        /// </summary>
-        /// <value>The project manifest view models.</value>
-        public List<ProjectInfoViewModel> ProjectManifestViewModels { get; internal set; } = new List<ProjectInfoViewModel>();
+        
         /// <summary>
         /// Gets or sets the number of components.
         /// </summary>
@@ -69,5 +65,10 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Number of repository stamps in this repo
         /// </summary>
         public int NumberOfStamps { get; set; }
+
+        /// <summary>
+        /// Model of the projects table
+        /// </summary>
+        public ProjectsTableModel ProjectsTable { get; set; }
     }
 }

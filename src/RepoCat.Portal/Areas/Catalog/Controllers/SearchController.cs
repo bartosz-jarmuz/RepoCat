@@ -108,7 +108,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             BackgroundJob.Enqueue(() => this.UpdateSearchStatistics(parameters, query));
 
             ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(parameters, query, isRegex).ConfigureAwait(false);
-            this.telemetryClient.TrackSearch(parameters, query, isRegex, queryResultViewModel.Projects.Count, queryResultViewModel.Elapsed);
+            this.telemetryClient.TrackSearch(parameters, query, isRegex, queryResultViewModel.ProjectsTable.Projects.Count, queryResultViewModel.Elapsed);
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
 
@@ -165,6 +165,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         {
             ManifestQueryResult result = await this.repositoryService.GetCurrentProjects(parameters, query, isRegex).ConfigureAwait(false);
             ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
+            queryResultViewModel.ProjectsTable = new ProjectsTableModel(this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects), parameters.Count > 1);
             return queryResultViewModel;
         }
     }

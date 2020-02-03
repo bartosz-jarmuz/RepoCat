@@ -63,10 +63,9 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         }
 
         /// <summary>
-        /// Gets or sets the manifests.
+        /// Projects table
         /// </summary>
-        /// <value>The manifests.</value>
-        public List<ProjectInfoViewModel> Projects { get; internal set; } = new List<ProjectInfoViewModel>();
+public ProjectsTableModel ProjectsTable { get; set; }
         /// <summary>
         /// Gets or sets the elapsed.
         /// </summary>

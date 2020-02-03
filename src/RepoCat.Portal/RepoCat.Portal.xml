@@ -250,12 +250,6 @@
             </summary>
             <value>The duration of the import.</value>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.ProjectManifestViewModels">
-            <summary>
-            Gets or sets the project manifest view models.
-            </summary>
-            <value>The project manifest view models.</value>
-        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.NumberOfComponents">
             <summary>
             Gets or sets the number of components.
@@ -276,6 +270,11 @@
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.NumberOfStamps">
             <summary>
             Number of repository stamps in this repo
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.ProjectsTable">
+            <summary>
+            Model of the projects table
             </summary>
         </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel">
@@ -423,11 +422,10 @@
             </summary>
             <value>The search tokens.</value>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.Projects">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.ProjectsTable">
             <summary>
-            Gets or sets the manifests.
+            Projects table
             </summary>
-            <value>The manifests.</value>
         </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.Elapsed">
             <summary>
@@ -587,6 +585,72 @@
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.IsMultipleRepositories">
             <summary>
             Specifies whther the table contains projects from multiple repos
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.Properties">
+            <summary>
+            Collection of all properties and their values to be used in extra filters
+            </summary>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterBadgeViewModel">
+            <summary>
+            Class TagBadgeViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterBadgeViewModel.PropertyFilter">
+            <summary>
+            The filter
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterBadgeViewModel.AdditionalClass">
+            <summary>
+            Extra css to add
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterBadgeViewModel.#ctor(RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel"/> class.
+            </summary>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel">
+            <summary>
+            Represents a single project property
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel.Key">
+            <summary>
+            The name of the property
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel.Values">
+            <summary>
+            The collection of values for this property across all projects
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel.OccurenceCount">
+            <summary>
+            How many of the projects have this property defined
+            </summary>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterValue">
+            <summary>
+            Represents a single property value
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterValue.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterValue.Value">
+            <summary>
+            The value
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterValue.OccurenceCount">
+            <summary>
+            How many of the projects have this property value
             </summary>
         </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel">

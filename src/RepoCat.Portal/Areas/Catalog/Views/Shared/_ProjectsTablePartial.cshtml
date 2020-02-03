@@ -6,9 +6,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card search-panes">
-            <div class="card-header" style="cursor: pointer; padding: 0.5rem 1.25rem" data-toggle="collapse" data-target="#SearchPanesCard" id="SearchPanesCollapser" aria-expanded="true">
-                <div data-toggle="tooltip" title="Apply additional filtering on the projects table" >
-                    <span class="btn btn-sm btn-primary">Table filters</span>
+            <div class="card-header" style="cursor: pointer;" data-toggle="collapse" data-target="#SearchPanesCard" id="SearchPanesCollapser" aria-expanded="true">
+                <div data-toggle="tooltip" title="Search and filter the projects table">
+                    <span class="">Table search</span>
                     <div class="card-header-actions">
                         <a class="card-header-action btn-minimize" href="#">
                             <i class="icon-arrow-up toggler-icon align-bottom"></i>
@@ -16,14 +16,47 @@
                     </div>
                 </div>
             </div>
-            <div class="collapse show" id="SearchPanesCard"></div>
+            <div class="collapse show" id="SearchPanesCard">
+            </div>
         </div>
     </div>
 
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12" id="PropertyFilters">
 
+                    </div>
+                </div>
+                <div id="HiddenPropertyFilters" class="row">
+                    <div class="col-md-12">
+                        @foreach (var property in Model.Properties)
+                        {
+                            <span style="display:none;" class="filter-host">
+                                <span style="display:inline-block;">
+                                    <partial name="_BadgePropertyFilter" model="@(new PropertyFilterBadgeViewModel(property, "filter-label"))" />
+                                    <select class="form-control select2 select2-inline property-filter" multiple="multiple" data-toggle="tooltip" style="width: 20em;" data-property="@property.Key"
+                                            title="Filter by @property.Key" placeholder="Click to add a new filter">
+                                        @foreach (var value in property.Values)
+                                        {
+                                            <option value="@value.Value">@value.Value</option>
+                                        }
+                                    </select>
+                                </span>
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div id="PropertyFilterButtons" style="margin-bottom: 1em;">
+                    <span class="text text-sm-left font-weight-bold font-sm">Filter by properties:&nbsp;</span>
+                    <span>
+                        @foreach (var property in Model.Properties)
+                        {
+                            <partial name="_BadgePropertyFilter" model="@(new PropertyFilterBadgeViewModel(property, "add-filter"))" />
+                        }
+                    </span>
+                </div>
 
                 <table id="ResultsTable" class="table table-striped table-bordered wrap  project-card" width="100%">
                     <thead>
@@ -49,9 +82,9 @@
                                 <td></td>
                                 <!--Hidden content for expanded row-->
                                 <td class="break-all"><div class="details-view" style="display:none;"><partial name="_ProjectViewPartial" for="@project" /></div></td>
-                                <td class="break-all"><div class="repository-name"><partial name="_RepositoryTag" model="@(new RepositoryQueryParameter(project.OrganizationName, project.RepositoryName))" /></div></td>
+                                <td class="break-all"><div class="repository-name"><partial name="_BadgeRepository" model="@(new RepositoryQueryParameter(project.OrganizationName, project.RepositoryName))" /></div></td>
                                 <td class="break-all" data-order="@project.ProjectName"><partial name="_CellProjectName" for="@project" /></td>
-                                <td class="break-all"><partial name="_ProjectTypeBadgePartial" for="@project" /></td>
+                                <td class="break-all"><partial name="_BadgeProjectType" for="@project" /></td>
                                 <td class="break-word"><partial name="_CellProjectDescription" for="@project" /></td>
                                 <td class="break-all"><partial name="_CellProjectDocumentationUri" for="@project" /></td>
                                 <td class="break-all"><partial name="_CellProjectTags" for="@project" /></td>
@@ -77,12 +110,22 @@
             showRepositoryColumn = true;
         }
 
-
-        function format(d) {
-            var arr = Object.values(d);
-            var details = $(arr[0]);
-            return details.html();
-        }
+        
+        $.fn.dataTable.ext.search.push(
+            function (settings, searchData, index, rowData, counter) {
+                var cell = $(rowData[8]);
+                cell.each(function (index) {
+                    if (this.tagName !== 'DIV') {
+                        return ;
+                    }
+                    var key = $(this).find('.badge-property-name').text();
+                    var val = $(this).find('.description').text();
+                        
+                    });
+                
+                return true;
+            }
+        );
 
         var table = $('#ResultsTable').DataTable({
             pageLength: 100,
@@ -210,19 +253,26 @@
             ],
 
             dom: "<'#SearchPanesHost'P>"
-                +"<'row'<'col-md-1'l><'col-md-11'f>>" 
+                +"<'row'<'col-md-1'l><'col-md-11'f>>"
                + "<rtip> ",
 
         });
 
+
         $("#SearchPanesHost").appendTo("#SearchPanesCard");
+
+        $('#SearchPanesCollapser').on('click', function () {
+            if ($('#SearchPanesCard').hasClass('show')) {
+                setCookie('searchPanesOpen', 'false');
+            } else {
+                setCookie('searchPanesOpen', 'true');
+            }
+        });
 
         $('#ResultsTable tbody').on('click', 'td.details-control', function () {
             var tr = $(this).closest('tr');
             var row = table.row(tr);
-
             if (row.child.isShown()) {
-                // This row is already open - close it
                 $('div.slider', row.child()).slideUp(function () {
                     row.child.hide();
                     tr.removeClass('shown');
@@ -235,19 +285,53 @@
             }
         });
 
-        $('#SearchPanesCollapser').on('click', function () {
-            if ($('#SearchPanesCard').hasClass('show')) {
-                setCookie('searchPanesOpen', 'false');
-            } else {
-                setCookie('searchPanesOpen', 'true');
+
+        alignSearchPanel();
+
+
+        $('.property-filter').on('change', function () {
+            if ($(this).hasClass('filter-active')) {
+                table.draw();
             }
         });
 
-        var input = $('#ResultsTable_filter label input').appendTo($('#ResultsTable_filter')).wrap( "<div class='col'></div>" );;
+
+        $('.filter-toggle').on('click', function () {
+            var data = $(this).data('property');
+            if ($(this).hasClass('add-filter')) {
+                var filterHost = $('.property-filter[data-property="' + data + '"').closest('.filter-host');
+                filterHost.appendTo($('#PropertyFilters'))
+                filterHost.find('.property-filter').addClass('filter-active');
+                filterHost.fadeIn();
+                filterHost.find('i').removeClass('fa-plus').addClass('fa-minus');
+                $(this).hide();
+                filterHost.find('input').attr('style', 'width: inherit;')
+                filterHost.find('.badge-property-name').attr('title', 'Remove filtering option');
+                filterHost.find('.property-filter').trigger("change");
+            }
+            if ($(this).hasClass('filter-label')) {
+                var $host = $($(this).closest('.filter-host'));
+                $host.hide();
+                $host.find('.property-filter').removeClass('filter-active');
+                $host.appendTo('#HiddenPropertyFilters');
+                $('.add-filter[data-property="' + data + '"').show();
+                table.draw();
+            }
+
+
+        });
+
+    });
+
+    function format(d) {
+        var arr = Object.values(d);
+        var details = $(arr[0]);
+        return details.html();
+    }
+    function alignSearchPanel() {
+        var input = $('#ResultsTable_filter label input').appendTo($('#ResultsTable_filter')).wrap( "<div class='col'></div>" );
         $('#ResultsTable_filter label').remove();
         $(input).attr('style', 'width: 100%; margin-left: 1rem; margin-right: 1rem;');
         $(input).attr('placeholder', 'Search table content...');
-        
-
-    });
+    }
 </script>
