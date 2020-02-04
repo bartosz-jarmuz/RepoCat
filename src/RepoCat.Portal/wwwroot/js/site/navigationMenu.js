@@ -2,8 +2,8 @@
     $('.nav-dropdown-toggle').click(function () {
         var itemText = $(this).text().trim();
         var cookie = getCookie('openNavItems');
-
-        if (!$(this).parent().hasClass('open')) {
+        var dropdown = $(this).parent();
+        if (!dropdown.hasClass('open')) {
             if (cookie) {
                 if (!isItemInArray(cookie, '_', itemText)) {
                     cookie += "_" + itemText
@@ -23,8 +23,6 @@
                 }
                 var joint = split.join('_');
                 setCookie('openNavItems', joint);
-            } else {
-                //setCookie('openNavItems', itemText);
             }
         }
     });
@@ -39,12 +37,5 @@
         });
     }
 
-    function isItemInArray(input, separator, itemToFind) {
-        if (input) {
-            var split = input.split(separator);
-            var exists = split.includes(itemToFind);
-            return exists;
-        }
-        return false;
-    }
+    
 });

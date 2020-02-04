@@ -71,12 +71,59 @@ function setupFiltering(table) {
         var data = $(this).data('property');
         if ($(this).hasClass('add-filter')) {
             showFilter(this, data);
+            addToActiveFilters(data);
         }
         if ($(this).hasClass('filter-label')) {
-            hideFilter(this, data);
+            hideFilter(this, data, table);
+            removeFromActiveFilters(data);
         }
     });
 }
+
+function showActiveFilters() {
+    var cookie = getCookie('activeFilters');
+    if (cookie) {
+        var split = cookie.split('_');
+        $('.filter-toggle').each(function (index, toggler) {
+            var data = $(toggler).data('property');
+            for (var i = 0; i < split.length; i++) {
+                if (split[i] === data) {
+                    showFilter(toggler, data);
+                }
+            }
+        });
+    }
+}
+
+function addToActiveFilters(filterKey) {
+    var cookie = getCookie('activeFilters');
+
+    if (cookie) {
+        if (!isItemInArray(cookie, '_', filterKey)) {
+            cookie += "_" + filterKey
+            setCookie('activeFilters', cookie);
+        }
+    } else {
+        setCookie('activeFilters', filterKey);
+    }
+}
+
+function removeFromActiveFilters(filterKey) {
+    var cookie = getCookie('activeFilters');
+
+    if (cookie) {
+        var split = cookie.split('_');
+        for (var i = 0; i < split.length; i++) {
+            if (split[i] === filterKey) {
+                split.splice(i, 1);
+                i--;
+            }
+        }
+        var joint = split.join('_');
+        setCookie('activeFilters', joint);
+    } 
+}
+
 
 function showFilter(filterToggle, data) {
     var filterHost = $('.property-filter[data-property="' + data + '"').closest('.filter-host');
@@ -86,12 +133,13 @@ function showFilter(filterToggle, data) {
     filterHost.find('i').removeClass('fa-plus').addClass('fa-minus');
     $(filterToggle).hide();
     filterHost.find('input').attr('style', 'width: inherit;')
+    filterHost.find('.badge-property-name').show();
     filterHost.find('.badge-property-name').attr('title', 'Remove filtering option');
     filterHost.find('.property-filter').trigger("change");
 }
 
-function hideFilter(filterToggle) {
-    var $host = $($(this).closest('.filter-host'));
+function hideFilter(filterToggle, data, table) {
+    var $host = $($(filterToggle).closest('.filter-host'));
     $host.hide();
     $host.find('.property-filter').removeClass('filter-active');
     $host.appendTo('#HiddenPropertyFilters');

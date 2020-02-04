@@ -10,9 +10,9 @@
 
     $('.sidebar-minimizer').on('click', function () {
         if ($('body').hasClass('brand-minimized sidebar-minimized')) {
-            setCookie('sidebarOpen', 'true');
-        } else {
             setCookie('sidebarOpen', 'false');
+        } else {
+            setCookie('sidebarOpen', 'true');
         }
     });
 });
@@ -23,6 +23,15 @@ function getOrganizationFromKey(key) {
 }
 function getRepositoryFromKey(key) {
     return key.split(":")[1];
+}
+
+function isItemInArray(input, separator, itemToFind) {
+    if (input) {
+        var split = input.split(separator);
+        var exists = split.includes(itemToFind);
+        return exists;
+    }
+    return false;
 }
 
 function trimStringMidsection(text) {

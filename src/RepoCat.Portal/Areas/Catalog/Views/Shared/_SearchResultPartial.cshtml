@@ -45,9 +45,9 @@
             </div>
         </div>
     </div>
-    
+
     <partial name="_ProjectsTablePartial" model="@Model.ProjectsTable" />
-    
+
 }
 else
 {
@@ -89,3 +89,8 @@ else
 }
 
 
+<script type="text/javascript">
+    docReady(function () {
+        intializeSelect2();
+    });
+</script>

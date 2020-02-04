@@ -109,6 +109,8 @@
         if ('@Model.IsMultipleRepositories' === '@true.ToString()') {
             showRepositoryColumn = true;
         }
+
+        showActiveFilters();
         
         $.fn.dataTable.ext.search.push(
             function (settings, searchData, index, rowData, counter) {
@@ -125,6 +127,7 @@
         setupSearchPanes();
 
         setupFiltering(table);
+
     });
 
 </script>
