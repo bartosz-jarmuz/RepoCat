@@ -2,7 +2,7 @@
 @model PropertyViewModel
 
 <div>
-    <span class="badge badge-property-name" >@Model.Property.Key:&nbsp;</span>
+    <span class="badge badge-property-name" ><span class="property-name">@Model.Property.Key</span>:&nbsp;</span>
     <span class="description">
         <partial name="_InteractiveStringPartial" model="new InteractiveStringModel(Model.ProjectId, Model.ComponentName, Model.Property.Key, Model.Property.Value)" />
     </span>

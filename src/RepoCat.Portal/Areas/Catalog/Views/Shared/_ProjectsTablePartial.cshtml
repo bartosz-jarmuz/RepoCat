@@ -113,17 +113,56 @@
         
         $.fn.dataTable.ext.search.push(
             function (settings, searchData, index, rowData, counter) {
-                var cell = $(rowData[8]);
-                cell.each(function (index) {
-                    if (this.tagName !== 'DIV') {
-                        return ;
+                var activeFilters = $('.filter-active');
+                if (!activeFilters) {
+                    return true;
+                }
+                var filters = [];
+                activeFilters.each(function () {
+                    var value = $(this).val();
+                    if (value.length > 0) {
+                        var filter = { key: $(this).data('property'), value: value}
+                        filters.push(filter);
                     }
-                    var key = $(this).find('.badge-property-name').text();
-                    var val = $(this).find('.description').text();
-                        
-                    });
+                });
+
+                if (filters.length === 0) {
+                    return true;
+                }
+
+                var properties = [];
+                var propertyPairs = $($(rowData[8]).filter(function (tag) { return this.tagName === 'DIV' }));
+                propertyPairs.each(function () {
+                    var propertyName = $(this).find('.property-name').text();
+                    var val = $(this).find('.description').text().trim();
+                    var property = { key: propertyName, value: val };
+                    properties.push(property);
+                });
+
+
+
+                var shouldBeVisible = true;
+                var numberOfMatchedProperties = 0;
+                filters.forEach(function (filter) {
+                    //find a property for the given filter
+                    var property = properties.filter(function (p) { return p.key === filter.key }).find(function () { return true;});
+                    if (property) {
+                        var propertyMatched = false;
+                        filter.value.forEach(function (filterValue) {
+                            if (filterValue === property.value) {
+                                propertyMatched = true;
+                            }
+                        });
+                        if (!propertyMatched) {
+                            shouldBeVisible = false;
+                            return;
+                        }
+                    } else {
+                        //the project row does not contain this property.
+                    }
+                });
                 
-                return true;
+                return shouldBeVisible;
             }
         );
 
