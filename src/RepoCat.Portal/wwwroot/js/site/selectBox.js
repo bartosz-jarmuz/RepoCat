@@ -14,12 +14,13 @@
                 'font-size': 'large'
             }
         }
+      
         $(this).select2({
             theme: 'bootstrap4',
             placeholder: $(this).attr('placeholder'),
             width: 'style',
             allowClear: Boolean($(this).data('allow-clear')),
-            containerCss: css
+            containerCss: css,
         });
     });
 

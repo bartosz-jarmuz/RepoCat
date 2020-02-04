@@ -27,7 +27,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
 
         private void BuildPropertiesDictionary()
         {
-            foreach (Dictionary<string, string> propertiesInProjects in this.Projects.Select(x => x.Properties))
+            foreach (Dictionary<string, string> propertiesInProjects in this.Projects.Select(x => x.Properties).Concat(this.Projects.SelectMany(x=>x.Components.Select(c=>c.Properties))))
             {
                 foreach (KeyValuePair<string, string> propertyInProject in propertiesInProjects)
                 {
