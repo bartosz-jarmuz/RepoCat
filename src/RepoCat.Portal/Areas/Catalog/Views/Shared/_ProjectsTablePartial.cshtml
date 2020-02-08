@@ -5,28 +5,10 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class="card search-panes">
-            <div class="card-header" style="cursor: pointer;" data-toggle="collapse" data-target="#SearchPanesCard" id="SearchPanesCollapser" aria-expanded="true">
-                <div data-toggle="tooltip" title="Search and filter the projects table">
-                    <span class="">Column search</span>
-                    <div class="card-header-actions">
-                        <a class="card-header-action btn-minimize" href="#">
-                            <i class="icon-arrow-up toggler-icon align-bottom"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="collapse show" id="SearchPanesCard">
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12" id="PropertyFilters">
-
                     </div>
                 </div>
                 <div id="HiddenPropertyFilters" class="row">
@@ -49,6 +31,7 @@
                     </div>
                 </div>
                 <div id="PropertyFilterButtons" style="margin-bottom: 1em;">
+                    <span class="btn btn-sm btn-outline-secondary" data-toggle="collapse" data-target="#SearchPanesCard" id="SearchPanesCollapser" style="margin-right: 5px;">Table filters</span>
                     <span class="text text-sm-left font-weight-bold font-sm">Filter by properties:&nbsp;</span>
                     <span>
                         @foreach (var property in Model.Properties)
@@ -57,7 +40,8 @@
                         }
                     </span>
                 </div>
-
+                <div class="collapse" id="SearchPanesCard">
+                </div>
                 <table id="ResultsTable" class="table table-striped table-bordered wrap  project-card" width="100%">
                     <thead>
                         <tr>
@@ -122,11 +106,13 @@
 
         setupRowExpanding(table);
 
-        alignSearchPanel();
-
         setupSearchPanes();
 
+        alignSearchPanel();
+
         setupFiltering(table);
+
+        alignTopButtonsRow();
 
     });
 

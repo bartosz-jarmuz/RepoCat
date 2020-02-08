@@ -123,8 +123,8 @@
             },
         ],
 
-        dom: "<'#SearchPanesHost'P>"
-            + "<'row'<'col-md-1'l><'col-md-11'f>>"
+        dom: "R<'#SearchPanesHost'P>"
+            + "<'#TopButtonsRow.row'<'col-md-3'l><'col-md-9'if>>"
             + "<rtip> ",
 
     });
@@ -154,10 +154,18 @@ function setupRowExpanding(table) {
     });
 }
 
+function alignTopButtonsRow() {
+    $('#SearchPanesCollapser').prependTo('#TopButtonsRow > div:first');
+
+}
+
 function alignSearchPanel() {
-    var input = $('#ResultsTable_filter label input').appendTo($('#ResultsTable_filter')).wrap("<div class='col'></div>");
+    var spContainer = $('.dtsp-panes.dtsp-container');
+    var input = $('#ResultsTable_filter label input').appendTo(spContainer).wrap("<div class='col'></div>");
     $('#ResultsTable_filter label').remove();
-    $(input).attr('style', 'width: 100%; margin-left: 1rem; margin-right: 1rem;');
+    $(input).attr('style', 'width: 100%;');
+    $(input).removeClass('form-control-sm');
+    $(input).addClass('form-control-lg');
     $(input).attr('placeholder', 'Search table content...');
 }
 

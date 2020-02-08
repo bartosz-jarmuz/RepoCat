@@ -169,6 +169,23 @@ div.slider {
 .inline-filter {
     margin: 3px 1px;
 }
+
+#ResultsTable_length{
+    display: inline;
+    
+}
+
+
+#ResultsTable_length > label{
+    display: inline;
+    margin-bottom: 0px;
+}
+
+#ResultsTable_info {
+    vertical-align: middle;
+    padding-top: 0px;
+    float: right;
+}
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 
 /* Make .svg files in the carousel display properly in older browsers */
@@ -215,4 +232,3 @@ div.slider {
     font-size: 75% !important;
     color: #808080;
 }
-
