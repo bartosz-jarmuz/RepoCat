@@ -146,3 +146,4 @@ function hideFilter(filterToggle, data, table) {
     $('.add-filter[data-property="' + data + '"').show();
     table.draw();
 }
+

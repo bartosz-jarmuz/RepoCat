@@ -22,6 +22,13 @@
     font-size: smaller;
 }
 
+.badge-button {
+    color: #000 !important;
+    cursor: pointer;    
+    border: 1px solid #999;
+    font-size: smaller;
+}
+
 .badge-warning {
     background-color: #ff7910 !important;
 }
