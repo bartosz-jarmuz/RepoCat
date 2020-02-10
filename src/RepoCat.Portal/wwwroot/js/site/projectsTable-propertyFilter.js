@@ -1,4 +1,4 @@
-﻿function propertyFilter (settings, searchData, index, rowData, counter) {
+﻿function propertyFilter(settings, searchData, index, rowData, counter) {
 
     var filters = getFilters();
 
@@ -61,17 +61,29 @@ function getFilters() {
 }
 
 function setupFiltering(table) {
+    $('.property-filter').off('change');
     $('.property-filter').on('change', function () {
         if ($(this).hasClass('filter-active')) {
-            table.draw();
+            if ($(this).data('inactive') !== 'TRUE') {
+                if ($(this).val() !== '') {
+                    showOverlay();
+                    setTimeout(function () {
+                        table.draw();
+                        hideOverlay();
+                    }, 10);
+                }
+            }
         }
     });
-
+    $('.filter-toggle').off('click');
     $('.filter-toggle').on('click', function () {
         var data = $(this).data('property');
         if ($(this).hasClass('add-filter')) {
-            showFilter(this, data);
+            var selectBox = $('.property-filter[data-property="' + data + '"');
+            selectBox.data('inactive', 'TRUE');
+            showFilter(selectBox, this, data);
             addToActiveFilters(data);
+            selectBox.data('inactive', 'FALSE');
         }
         if ($(this).hasClass('filter-label')) {
             hideFilter(this, data, table);
@@ -88,7 +100,8 @@ function showActiveFilters() {
             var data = $(toggler).data('property');
             for (var i = 0; i < split.length; i++) {
                 if (split[i] === data) {
-                    showFilter(toggler, data);
+                    var selectBox = $('.property-filter[data-property="' + data + '"');
+                    showFilter(selectBox, $(toggler), data);
                 }
             }
         });
@@ -121,16 +134,16 @@ function removeFromActiveFilters(filterKey) {
         }
         var joint = split.join('_');
         setCookie('activeFilters', joint);
-    } 
+    }
 }
 
 
-function showFilter(filterToggle, data) {
-    var filterHost = $('.property-filter[data-property="' + data + '"').closest('.filter-host');
+function showFilter(selectBox, filterToggle, data) {
+    var filterHost = $(selectBox.closest('.filter-host'));
     filterHost.appendTo($('#PropertyFilters'))
     filterHost.find('.property-filter').addClass('filter-active');
     filterHost.fadeIn();
-    filterHost.find('i').removeClass('fa-plus').addClass('fa-minus');
+    filterHost.find('i.add-remove-icon').removeClass('icon-plus').addClass('icon-minus');
     $(filterToggle).hide();
     filterHost.find('input').attr('style', 'width: inherit;')
     filterHost.find('.badge-property-name').show();
@@ -144,6 +157,11 @@ function hideFilter(filterToggle, data, table) {
     $host.find('.property-filter').removeClass('filter-active');
     $host.appendTo('#HiddenPropertyFilters');
     $('.add-filter[data-property="' + data + '"').show();
-    table.draw();
+
+    showOverlay();
+    setTimeout(function () {
+        table.draw();
+        hideOverlay();
+    }, 10);
 }
 

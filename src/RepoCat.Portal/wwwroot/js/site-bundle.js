@@ -86,7 +86,7 @@ function getProjectsTable() {
     var showRepositoryColumn = $('#ResultsTableData').data('showrepositorycolumn');
     var numberOfExtraColumns = $('#ResultsTableData').data('numberofextracolumns');
     var table = $('#ResultsTable').DataTable({
-        pageLength: 100,
+        pageLength: 50,
         stateSave: false,
         "autoWidth": true,
         "processing": true,
@@ -318,13 +318,12 @@ function setupAddingColumns(table) {
 
 
 function addColumn(filterToggle, propertyName, table) {
-    var overlay = $('#ResultsTable').closest('.card').find('.overlay');
-    $(overlay).show().fadeIn();
+    showOverlay();
     $(filterToggle).hide();
 
     setTimeout(function () {
         var numberOfExtraColumns = $('#ResultsTableData').data('numberofextracolumns');
-        $('#ResultsTableData').data('numberofextracolumns', numberOfExtraColumns + 1);
+            $('#ResultsTableData').data('numberofextracolumns', numberOfExtraColumns + 1);
         var t0 = performance.now();
         table.destroy();
         var t1 = performance.now();
@@ -353,13 +352,23 @@ function addColumn(filterToggle, propertyName, table) {
         var t1 = performance.now();
         console.log("Table setup: " + (t1 - t0) + " milliseconds.");
 
+        hideOverlay();
+
     }, 10);
 
-    $(overlay).fadeOut();
 
 }
 
-function propertyFilter (settings, searchData, index, rowData, counter) {
+function showOverlay() {
+    var overlay = $('#ResultsTable').closest('.card').find('.overlay');
+    $(overlay).show().fadeIn();
+}
+
+function hideOverlay() {
+    var overlay = $('#ResultsTable').closest('.card').find('.overlay');
+    $(overlay).fadeOut();
+}
+function propertyFilter(settings, searchData, index, rowData, counter) {
 
     var filters = getFilters();
 
@@ -422,17 +431,29 @@ function getFilters() {
 }
 
 function setupFiltering(table) {
+    $('.property-filter').off('change');
     $('.property-filter').on('change', function () {
         if ($(this).hasClass('filter-active')) {
-            table.draw();
+            if ($(this).data('inactive') !== 'TRUE') {
+                if ($(this).val() !== '') {
+                    showOverlay();
+                    setTimeout(function () {
+                        table.draw();
+                        hideOverlay();
+                    }, 10);
+                }
+            }
         }
     });
-
+    $('.filter-toggle').off('click');
     $('.filter-toggle').on('click', function () {
         var data = $(this).data('property');
         if ($(this).hasClass('add-filter')) {
-            showFilter(this, data);
+            var selectBox = $('.property-filter[data-property="' + data + '"');
+            selectBox.data('inactive', 'TRUE');
+            showFilter(selectBox, this, data);
             addToActiveFilters(data);
+            selectBox.data('inactive', 'FALSE');
         }
         if ($(this).hasClass('filter-label')) {
             hideFilter(this, data, table);
@@ -449,7 +470,8 @@ function showActiveFilters() {
             var data = $(toggler).data('property');
             for (var i = 0; i < split.length; i++) {
                 if (split[i] === data) {
-                    showFilter(toggler, data);
+                    var selectBox = $('.property-filter[data-property="' + data + '"');
+                    showFilter(selectBox, $(toggler), data);
                 }
             }
         });
@@ -482,16 +504,16 @@ function removeFromActiveFilters(filterKey) {
         }
         var joint = split.join('_');
         setCookie('activeFilters', joint);
-    } 
+    }
 }
 
 
-function showFilter(filterToggle, data) {
-    var filterHost = $('.property-filter[data-property="' + data + '"').closest('.filter-host');
+function showFilter(selectBox, filterToggle, data) {
+    var filterHost = $(selectBox.closest('.filter-host'));
     filterHost.appendTo($('#PropertyFilters'))
     filterHost.find('.property-filter').addClass('filter-active');
     filterHost.fadeIn();
-    filterHost.find('i').removeClass('fa-plus').addClass('fa-minus');
+    filterHost.find('i.add-remove-icon').removeClass('icon-plus').addClass('icon-minus');
     $(filterToggle).hide();
     filterHost.find('input').attr('style', 'width: inherit;')
     filterHost.find('.badge-property-name').show();
@@ -505,7 +527,12 @@ function hideFilter(filterToggle, data, table) {
     $host.find('.property-filter').removeClass('filter-active');
     $host.appendTo('#HiddenPropertyFilters');
     $('.add-filter[data-property="' + data + '"').show();
-    table.draw();
+
+    showOverlay();
+    setTimeout(function () {
+        table.draw();
+        hideOverlay();
+    }, 10);
 }
 
 

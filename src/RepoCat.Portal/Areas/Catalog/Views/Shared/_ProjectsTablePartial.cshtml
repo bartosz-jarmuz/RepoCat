@@ -19,7 +19,7 @@
                         {
                             <span style="display:none;" class="filter-host">
                                 <span style="display:inline-block; vertical-align: top;">
-                                    <partial name="_BadgePropertyFilter" model="@(new PropertyFilterBadgeViewModel(property, "filter-toggle filter-label"))" />
+                                    <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(property, "filter-toggle filter-label", "fas fa-filter"))" />
                                     <select class="form-control select2 select2-inline property-filter" multiple="multiple" data-toggle="tooltip" style="width: 20em;" data-property="@property.Key"
                                             title="Filter by @property.Key" placeholder="Click to add a new filter">
                                         @foreach (var value in property.Values)
@@ -56,7 +56,7 @@
                                 <span>
                                     @foreach (var property in Model.Properties)
                                     {
-                                        <partial name="_BadgePropertyFilter" model="@(new PropertyFilterBadgeViewModel(property, "filter-toggle add-filter"))" />
+                                        <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(property, "filter-toggle add-filter", "fas fa-filter"))" />
                                     }
                                 </span>
                             </div>
@@ -72,7 +72,7 @@
                             <span>
                                 @foreach (var property in Model.Properties)
                                 {
-                                    <partial name="_BadgePropertyFilter" model="@(new PropertyFilterBadgeViewModel(property, "add-column"))" />
+                                    <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(property, "add-column", "fas fa-columns"))" />
                                 }
                             </span>
                         </div>
@@ -138,9 +138,13 @@
             }
         );
 
-        var table = getProjectsTable();
+        showOverlay();
+        setTimeout(function () {
+            var table = getProjectsTable();
+            setupTableFeatures(table);
+            hideOverlay();
+        }, 10);
 
-        setupTableFeatures(table);
     });
 
 </script>

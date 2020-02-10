@@ -5,7 +5,7 @@
     var showRepositoryColumn = $('#ResultsTableData').data('showrepositorycolumn');
     var numberOfExtraColumns = $('#ResultsTableData').data('numberofextracolumns');
     var table = $('#ResultsTable').DataTable({
-        pageLength: 100,
+        pageLength: 50,
         stateSave: false,
         "autoWidth": true,
         "processing": true,
@@ -237,13 +237,12 @@ function setupAddingColumns(table) {
 
 
 function addColumn(filterToggle, propertyName, table) {
-    var overlay = $('#ResultsTable').closest('.card').find('.overlay');
-    $(overlay).show().fadeIn();
+    showOverlay();
     $(filterToggle).hide();
 
     setTimeout(function () {
         var numberOfExtraColumns = $('#ResultsTableData').data('numberofextracolumns');
-        $('#ResultsTableData').data('numberofextracolumns', numberOfExtraColumns + 1);
+            $('#ResultsTableData').data('numberofextracolumns', numberOfExtraColumns + 1);
         var t0 = performance.now();
         table.destroy();
         var t1 = performance.now();
@@ -272,8 +271,19 @@ function addColumn(filterToggle, propertyName, table) {
         var t1 = performance.now();
         console.log("Table setup: " + (t1 - t0) + " milliseconds.");
 
+        hideOverlay();
+
     }, 10);
 
-    $(overlay).fadeOut();
 
+}
+
+function showOverlay() {
+    var overlay = $('#ResultsTable').closest('.card').find('.overlay');
+    $(overlay).show().fadeIn();
+}
+
+function hideOverlay() {
+    var overlay = $('#ResultsTable').closest('.card').find('.overlay');
+    $(overlay).fadeOut();
 }

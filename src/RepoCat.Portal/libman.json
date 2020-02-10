@@ -26,6 +26,10 @@
     {
       "library": "bootstrap-toggle@2.2.2",
       "destination": "wwwroot/vendors/bootstrap-toggle"
+    },
+    {
+      "library": "simple-line-icons@2.4.1",
+      "destination": "wwwroot/vendors/simple-line-icons"
     }
   ]
 }

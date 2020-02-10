@@ -592,22 +592,32 @@
             Collection of all properties and their values to be used in extra filters
             </summary>
         </member>
-        <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterBadgeViewModel">
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel">
             <summary>
             Class TagBadgeViewModel.
             </summary>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterBadgeViewModel.PropertyFilter">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel.PropertyFilter">
             <summary>
             The filter
             </summary>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterBadgeViewModel.AdditionalClass">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel.AdditionalClass">
             <summary>
             Extra css to add
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterBadgeViewModel.#ctor(RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel,System.String)">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel.ImageClass">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel.InludeAddRemoveIcon">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel.#ctor(RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel,System.String,System.String,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel"/> class.
             </summary>
