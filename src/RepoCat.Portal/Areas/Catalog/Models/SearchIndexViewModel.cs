@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="SearchIndexViewModel.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RepoCat.RepositoryManagement.Service;
 

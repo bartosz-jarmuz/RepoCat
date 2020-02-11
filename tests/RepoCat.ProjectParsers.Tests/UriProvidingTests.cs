@@ -1,6 +1,6 @@
-// -----------------------------------------------------------------------
-//  <copyright file="UriProvidingTests.cs" company="SDL plc">
-//   Copyright (c) SDL plc. All rights reserved.
+﻿// -----------------------------------------------------------------------
+//  <copyright file="UriProvidingTests.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
 //  </copyright>
 // -----------------------------------------------------------------------
 

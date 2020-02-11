@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="Class1.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
 
 namespace RepoCat.TestApps.NetFramework.NoManifest
 {

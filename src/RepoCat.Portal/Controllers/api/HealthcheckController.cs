@@ -1,14 +1,12 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="HealthcheckController.cs" company="SDL plc">
-//   Copyright (c) SDL plc. All rights reserved.
+//  <copyright file="HealthcheckController.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
 //  </copyright>
 // -----------------------------------------------------------------------
 
 using System;
 using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Mvc;
-using RepoCat.Telemetry;
 
 namespace RepoCat.Portal.Controllers.api
 {

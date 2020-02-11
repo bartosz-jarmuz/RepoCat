@@ -1,8 +1,13 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="RepoCatRecurringJobsScheduler.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using Cronos;
 using Hangfire;
 using Microsoft.ApplicationInsights;
-using RepoCat.RepositoryManagement.Service;
 
 namespace RepoCat.Portal.RecurringJobs
 {

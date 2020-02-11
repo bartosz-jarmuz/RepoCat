@@ -1,4 +1,10 @@
-﻿namespace RepoCat.Telemetry
+﻿// -----------------------------------------------------------------------
+//  <copyright file="Names.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+namespace RepoCat.Telemetry
 {
     public static class Names
     {

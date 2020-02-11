@@ -1,11 +1,14 @@
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ManifestBasedTransmissionTests.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FluentAssertions;
 using NUnit.Framework;
-using RepoCat.Portal;
-using RepoCat.Portal.Mapping;
 using RepoCat.Transmission;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;

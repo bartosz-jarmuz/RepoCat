@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ProjectInfoBuildingTests.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.Linq;
 using FluentAssertions;
 using Moq;
-using System.Xml.Linq;
 using NUnit.Framework;
 using RepoCat.Transmission;
 using RepoCat.Transmission.Contracts;

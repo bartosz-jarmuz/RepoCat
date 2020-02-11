@@ -1,3 +1,9 @@
+﻿// -----------------------------------------------------------------------
+//  <copyright file="GetProjectTests.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,17 +12,11 @@ using FluentAssertions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Mapping;
 using RepoCat.RepositoryManagement.Service;
-using RepoCat.Transmission.Models;
-using ComponentManifest = RepoCat.Persistence.Models.ComponentManifest;
-using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
-using Property = RepoCat.Transmission.Models.Property;
-using RepositoryInfo = RepoCat.Persistence.Models.RepositoryInfo;
-using RepositoryMode = RepoCat.Persistence.Models.RepositoryMode;
+using PropertiesCollection = RepoCat.Transmission.Models.PropertiesCollection;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace Repocat.Persistence.Tests
@@ -774,7 +774,7 @@ namespace Repocat.Persistence.Tests
             await service.Upsert(prj2).ConfigureAwait(false);
 
             var prj = GetEmptyProject(this.testRepoOne, "First");
-            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"tag"},new RepoCat.Transmission.Models.PropertiesCollection()));
+            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"tag"},new PropertiesCollection()));
 
             await service.Upsert(prj).ConfigureAwait(false);
 
@@ -1021,7 +1021,7 @@ namespace Repocat.Persistence.Tests
                 {
                     new RepoCat.Transmission.Models.ComponentManifest(
                         new List<string>() {"Some", "Project", "Tags"},
-                        new RepoCat.Transmission.Models.PropertiesCollection()
+                        new PropertiesCollection()
                         {
                             ("ComponentType", "SomeType"),
                             ("Author", "SomeGuy")

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="RepositoryDatabase.Repositories.Read.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using RepoCat.Persistence.Models;
-using RepoCat.Utilities;
 
 namespace RepoCat.Persistence.Service
 {

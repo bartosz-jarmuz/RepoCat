@@ -1,4 +1,8 @@
 ﻿// -----------------------------------------------------------------------
+//  <copyright file="CollectionSummary.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
 
 using MongoDB.Bson.Serialization.Attributes;
 

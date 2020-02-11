@@ -1,15 +1,15 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="RepositoryDatabase.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using RepoCat.Persistence.Models;
-using RepoCat.Utilities;
 
 namespace RepoCat.Persistence.Service
 {

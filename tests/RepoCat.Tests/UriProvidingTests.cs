@@ -1,6 +1,6 @@
-// -----------------------------------------------------------------------
-//  <copyright file="UriProvidingTests.cs" company="SDL plc">
-//   Copyright (c) SDL plc. All rights reserved.
+﻿// -----------------------------------------------------------------------
+//  <copyright file="UriProvidingTests.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
 //  </copyright>
 // -----------------------------------------------------------------------
 
@@ -16,7 +16,8 @@ namespace RepoCat.Tests
     [TestFixture]
     public class UriProvidingTests
     {
-        private static DirectoryInfo RepoRoot => new DirectoryInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, "SampleScriptsRepository"));
+        private static DirectoryInfo RepoRoot =>
+            new DirectoryInfo(Path.Combine(TestContext.CurrentContext.TestDirectory, "SampleScriptsRepository"));
 
 
         [Test]
@@ -37,9 +38,10 @@ namespace RepoCat.Tests
             ManifestBasedUriProvider uriProvider = new ManifestBasedUriProvider(new TraceLogger(LogLevel.Debug));
             List<string> uris = uriProvider.GetUris(RepoRoot.FullName).ToList();
             Assert.AreEqual(2, uris.Count);
-            Assert.IsTrue(uris.Any(x => x.Contains("ScriptOneManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
-            Assert.IsTrue(uris.Any(x => x.Contains("ScriptTwoManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(
+                uris.Any(x => x.Contains("ScriptOneManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
+            Assert.IsTrue(
+                uris.Any(x => x.Contains("ScriptTwoManifest.RepoCat.xml", StringComparison.OrdinalIgnoreCase)));
         }
-
     }
 }

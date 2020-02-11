@@ -1,20 +1,23 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="SearchController.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Hangfire;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RepoCat.Persistence.Models;
-using RepoCat.Persistence.Service;
 using RepoCat.Portal.Areas.Catalog.Models;
-using RepoCat.Portal.Models;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Utilities;
 using SmartBreadcrumbs.Attributes;
-using Enumerable = System.Linq.Enumerable;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers

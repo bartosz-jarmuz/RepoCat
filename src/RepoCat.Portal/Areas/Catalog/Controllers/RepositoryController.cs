@@ -1,25 +1,29 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="RepositoryController.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using AutoMapper;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
-using RepoCat.Persistence.Service;
-using RepoCat.Portal.Areas.Catalog.Models;
-using RepoCat.Portal.Utilities;
-using RepoCat.Schemas;
 using RepoCat.Persistence.Models;
+using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Controllers;
+using RepoCat.Portal.Utilities;
 using RepoCat.RepositoryManagement.Service;
+using RepoCat.Schemas;
 using RepoCat.Serialization;
-using RepoCat.Telemetry;
-using RepoCat.Transmission;
 using RepoCat.Utilities;
 using SmartBreadcrumbs.Attributes;
 using SmartBreadcrumbs.Nodes;
+using ProjectInfo = RepoCat.Transmission.Models.ProjectInfo;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
@@ -155,7 +159,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         [HttpPost]
         [Route("AddProject")]
         [Breadcrumb("Add Project")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Whatever is wrong, just display the error")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Whatever is wrong, just display the error")]
 #pragma warning disable 1998
         public async Task<IActionResult> AddProject([FromBody] AddProjectModel project)
 #pragma warning restore 1998
@@ -180,7 +184,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
                 }
                 else
                 {
-                    Transmission.Models.ProjectInfo projectInfo = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(project.EmptyManifestXml));
+                    ProjectInfo projectInfo = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(project.EmptyManifestXml));
 
                     var upsertedProject = await this.service.Upsert(projectInfo).ConfigureAwait(false);
 

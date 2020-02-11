@@ -1,4 +1,10 @@
-﻿using RepoCat.Transmission.Contracts;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="RepositoryInfoAddingEnricher.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission

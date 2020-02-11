@@ -1,4 +1,10 @@
-﻿namespace RepoCat.Persistence.Service
+﻿// -----------------------------------------------------------------------
+//  <copyright file="IRepoCatDbSettings.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+namespace RepoCat.Persistence.Service
 {
     /// <summary>
     /// Interface IRepoCatDbSettings

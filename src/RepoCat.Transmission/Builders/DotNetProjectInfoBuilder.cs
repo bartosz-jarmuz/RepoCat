@@ -1,7 +1,12 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="DotNetProjectInfoBuilder.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Xml.Linq;
 using DotNetProjectParser;
 using RepoCat.Serialization;

@@ -1,7 +1,11 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ManifestQueryResultViewModel.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Utilities;
 

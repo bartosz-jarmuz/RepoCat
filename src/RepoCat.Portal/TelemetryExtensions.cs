@@ -1,10 +1,15 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="TelemetryExtensions.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.ApplicationInsights;
 using RepoCat.Portal.RecurringJobs;
 using RepoCat.Telemetry;
-using RepoCat.Transmission;
 using RepoCat.Transmission.Contracts;
 
 namespace RepoCat.Portal
@@ -24,7 +29,7 @@ namespace RepoCat.Portal
         public static void TrackRecurringJobStarted(this TelemetryClient telemetryClient, RepositoryToScanSettings settings)
         {
             if (telemetryClient == null) throw new ArgumentNullException(nameof(telemetryClient));
-            telemetryClient.TrackTrace(Telemetry.Names.RecurringJobStarted, GetProperties(settings));
+            telemetryClient.TrackTrace(Names.RecurringJobStarted, GetProperties(settings));
         }
 
         /// <summary>
@@ -40,7 +45,7 @@ namespace RepoCat.Portal
             var props = GetProperties(arguments);
             props.Add(PropertyKeys.SuccessCount, result?.SuccessCount.ToString(CultureInfo.InvariantCulture));
             props.Add(PropertyKeys.FailedCount, result?.FailedCount.ToString(CultureInfo.InvariantCulture));
-            telemetryClient.TrackEvent(Telemetry.Names.RecurringJobFinished, props);
+            telemetryClient.TrackEvent(Names.RecurringJobFinished, props);
         }
 
         private static IDictionary<string, string> GetProperties(TransmitterArguments arguments)
@@ -65,7 +70,7 @@ namespace RepoCat.Portal
         public static void TrackRecurringJobScheduled(this TelemetryClient telemetryClient, RepositoryToScanSettings settings)
         {
             if (telemetryClient == null) throw new ArgumentNullException(nameof(telemetryClient));
-            telemetryClient.TrackEvent(Telemetry.Names.RecurringJobScheduled, GetProperties(settings));
+            telemetryClient.TrackEvent(Names.RecurringJobScheduled, GetProperties(settings));
         }
 
 

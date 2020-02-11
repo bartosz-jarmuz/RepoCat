@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ComponentManifest.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 
 namespace RepoCat.Persistence.Models
 {

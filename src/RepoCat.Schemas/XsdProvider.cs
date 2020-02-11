@@ -1,6 +1,11 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="XsdProvider.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;

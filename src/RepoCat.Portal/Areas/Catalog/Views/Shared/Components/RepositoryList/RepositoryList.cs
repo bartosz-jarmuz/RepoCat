@@ -1,7 +1,12 @@
-﻿using System.Linq;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="RepositoryList.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RepoCat.Persistence.Service;
 using RepoCat.RepositoryManagement.Service;
 
 namespace RepoCat.Portal.Areas.Catalog.Views.Components

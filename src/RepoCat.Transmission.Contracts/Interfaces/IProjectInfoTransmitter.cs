@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="IProjectInfoTransmitter.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RepoCat.Transmission.Contracts

@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Xml;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="SampleXmlProvider.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.Xml.Linq;
 using RepoCat.Serialization;
-using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Portal.Utilities

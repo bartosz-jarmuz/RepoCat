@@ -998,13 +998,13 @@
         </member>
         <member name="T:RepoCat.Portal.Mapping.MappingProfile">
             <summary>
-            Class MappingProfile.
+                Class MappingProfile.
             </summary>
             <seealso cref="T:AutoMapper.Profile" />
         </member>
         <member name="M:RepoCat.Portal.Mapping.MappingProfile.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:RepoCat.Portal.Mapping.MappingProfile"/> class.
+                Initializes a new instance of the <see cref="T:RepoCat.Portal.Mapping.MappingProfile" /> class.
             </summary>
         </member>
         <member name="T:RepoCat.Portal.Models.ErrorViewModel">

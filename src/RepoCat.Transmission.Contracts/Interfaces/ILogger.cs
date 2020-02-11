@@ -1,4 +1,11 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ILogger.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
+using System.Diagnostics.CodeAnalysis;
 
 // ReSharper disable once CheckNamespace
 namespace RepoCat.Transmission.Contracts
@@ -23,13 +30,13 @@ namespace RepoCat.Transmission.Contracts
         /// </summary>
         /// <param name="message"></param>
         /// <param name="exception"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "Standard naming")]
+        [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "Standard naming")]
         void Error(string message, Exception exception);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="message"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "Standard naming")]
+        [SuppressMessage("Naming", "CA1716:Identifiers should not match keywords", Justification = "Standard naming")]
         void Error(string message);
 
         ///

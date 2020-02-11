@@ -1,5 +1,12 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="VersionStringExtensions.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace RepoCat.Utilities
 {
@@ -14,7 +21,7 @@ namespace RepoCat.Utilities
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Doesn't matter what happens, just don't throw.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Doesn't matter what happens, just don't throw.")]
         public static string GetAssemblyFileVersion(this Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));

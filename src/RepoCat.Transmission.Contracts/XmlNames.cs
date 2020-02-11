@@ -1,4 +1,10 @@
-﻿using System.Xml.Linq;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="XmlNames.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Xml.Linq;
 
 namespace RepoCat.Transmission.Contracts
 {

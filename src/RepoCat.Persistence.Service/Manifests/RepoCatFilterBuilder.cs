@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="FilterBuilder.cs" company="SDL plc">
-//   Copyright (c) SDL plc. All rights reserved.
+//  <copyright file="RepoCatFilterBuilder.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
 //  </copyright>
 // -----------------------------------------------------------------------
 
@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -76,8 +77,8 @@ namespace RepoCat.Persistence.Service
             }
             else
             {
-                BsonRegularExpression regex = new BsonRegularExpression(new System.Text.RegularExpressions.Regex(query,
-                    System.Text.RegularExpressions.RegexOptions.IgnoreCase));
+                BsonRegularExpression regex = new BsonRegularExpression(new Regex(query,
+                    RegexOptions.IgnoreCase));
                 return Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Tags)),
                            regex)
                        | Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Name)),

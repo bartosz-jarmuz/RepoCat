@@ -1,7 +1,12 @@
+﻿// -----------------------------------------------------------------------
+//  <copyright file="UpsertProjectTests.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
@@ -13,10 +18,8 @@ using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Mapping;
 using RepoCat.RepositoryManagement.Service;
-using RepoCat.Transmission.Models;
-using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
-using RepositoryInfo = RepoCat.Persistence.Models.RepositoryInfo;
-using RepositoryMode = RepoCat.Persistence.Models.RepositoryMode;
+using ComponentManifest = RepoCat.Transmission.Models.ComponentManifest;
+using PropertiesCollection = RepoCat.Transmission.Models.PropertiesCollection;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace Repocat.Persistence.Tests
@@ -100,7 +103,7 @@ namespace Repocat.Persistence.Tests
                 AssemblyName = "Project2AssName_NEW",
                 Components =
                 {
-                    new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"Three", "Four"}, new RepoCat.Transmission.Models.PropertiesCollection()
+                    new ComponentManifest(new List<string>(){"Three", "Four"}, new PropertiesCollection()
                         {
                             {"KeyTwo","ValueTwo" }
                         }
@@ -241,7 +244,7 @@ namespace Repocat.Persistence.Tests
                 AssemblyName = "Project2AssName",
                 Components =
                 {
-                    new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"One", "Two"}, new RepoCat.Transmission.Models.PropertiesCollection()
+                    new ComponentManifest(new List<string>(){"One", "Two"}, new PropertiesCollection()
                     {
                         ("KeyOne","ValueOne" )
                     } 

@@ -1,5 +1,12 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="Program.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using log4net;
 using RepoCat.Transmission.Contracts;
 
@@ -29,7 +36,7 @@ namespace RepoCat.Transmission.ConsoleClient
             }
         }
         
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Doesn't matter what happens, just don't throw.")]
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Doesn't matter what happens, just don't throw.")]
         private static string GetAssemblyFileVersion()
         {
             try

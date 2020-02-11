@@ -1,4 +1,10 @@
-﻿using RepoCat.Transmission.Contracts;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="LocalDotNetProjectUriProvider.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using RepoCat.Transmission.Contracts;
 
 namespace RepoCat.Transmission
 {

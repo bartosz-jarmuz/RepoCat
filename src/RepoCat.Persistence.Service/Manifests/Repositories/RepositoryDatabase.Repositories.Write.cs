@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="RepositoryDatabase.Repositories.Write.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using RepoCat.Persistence.Models;
-using RepoCat.Utilities;
 
 namespace RepoCat.Persistence.Service
 {
@@ -47,7 +48,7 @@ namespace RepoCat.Persistence.Service
         /// Adds a repository if it did not exist. 
         /// </summary>
         /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Do not use StringComparison in these filter expressions")]
+        [SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Do not use StringComparison in these filter expressions")]
         
         public async Task<RepositoryInfo> UpsertUpdate(RepositoryInfo repositoryInfo)
         {

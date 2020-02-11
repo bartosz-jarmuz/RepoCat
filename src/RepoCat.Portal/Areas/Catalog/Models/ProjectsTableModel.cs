@@ -1,9 +1,11 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ProjectsTableModel.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using RepoCat.RepositoryManagement.Service;
-using RepoCat.Utilities;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
 {

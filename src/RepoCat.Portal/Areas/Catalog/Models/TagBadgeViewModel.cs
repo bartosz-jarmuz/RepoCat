@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="TagBadgeViewModel.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using RepoCat.RepositoryManagement.Service;
 
 namespace RepoCat.Portal.Areas.Catalog.Models

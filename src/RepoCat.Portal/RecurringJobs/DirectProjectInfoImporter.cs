@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="DirectProjectInfoImporter.cs" company="SDL plc">
-//   Copyright (c) SDL plc. All rights reserved.
+//  <copyright file="DirectProjectInfoImporter.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
 //  </copyright>
 // -----------------------------------------------------------------------
 
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using RepoCat.RepositoryManagement.Service;
-using RepoCat.Transmission;
+using RepoCat.Telemetry;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
@@ -42,8 +42,8 @@ namespace RepoCat.Portal.RecurringJobs
             {
                 this.telemetryClient.TrackTrace(data.Message, new Dictionary<string, string>()
                 {
-                    {Telemetry.PropertyKeys.Verbosity, data.Verbosity.ToString()},
-                    {Telemetry.PropertyKeys.Exception, data.Exception?.ToString()??""}
+                    {PropertyKeys.Verbosity, data.Verbosity.ToString()},
+                    {PropertyKeys.Exception, data.Exception?.ToString()??""}
                 });
             });
 

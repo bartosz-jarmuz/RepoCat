@@ -1,4 +1,10 @@
-﻿namespace RepoCat.Portal.Areas.Catalog.Models
+﻿// -----------------------------------------------------------------------
+//  <copyright file="PropertyFilterValue.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+namespace RepoCat.Portal.Areas.Catalog.Models
 {
     /// <summary>
     /// Represents a single property value

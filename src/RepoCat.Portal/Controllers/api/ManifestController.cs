@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ManifestController.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.Threading.Tasks;
 using Hangfire;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
-using RepoCat.Persistence.Models;
-using RepoCat.Persistence.Service;
 using RepoCat.RepositoryManagement.Service;
-using RepoCat.Telemetry;
-using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Portal.Controllers.api
 {
@@ -40,7 +41,7 @@ namespace RepoCat.Portal.Controllers.api
         /// <param name="projectInfo">The project information.</param>
         /// <returns>IActionResult.</returns>
         [HttpPost]
-        public IActionResult Post(Transmission.Models.ProjectInfo projectInfo)
+        public IActionResult Post(ProjectInfo projectInfo)
         {
             if (projectInfo == null)
             {
@@ -60,7 +61,7 @@ namespace RepoCat.Portal.Controllers.api
         /// <param name="id">The identifier.</param>
         /// <returns>ProjectInfo.</returns>
         [HttpGet]
-        public Task<ProjectInfo> Get(string id)
+        public Task<Persistence.Models.ProjectInfo> Get(string id)
         {
             return this.service.GetById(id);
         }

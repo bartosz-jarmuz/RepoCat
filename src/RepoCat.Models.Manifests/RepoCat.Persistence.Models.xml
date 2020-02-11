@@ -349,19 +349,19 @@
         </member>
         <member name="T:RepoCat.Persistence.Models.Project">
             <summary>
-            Project component which contains a reference to it's repository and project details.<br/>
-            It does not correspond to a specific database collection.<br/>
-            It is assembled by performing a join during a query.
+                Project component which contains a reference to it's repository and project details.<br />
+                It does not correspond to a specific database collection.<br />
+                It is assembled by performing a join during a query.
             </summary>
         </member>
         <member name="P:RepoCat.Persistence.Models.Project.ProjectInfo">
             <summary>
-            Details about the project
+                Details about the project
             </summary>
         </member>
         <member name="P:RepoCat.Persistence.Models.Project.RepositoryInfo">
             <summary>
-            Repository reference
+                Repository reference
             </summary>
         </member>
         <member name="T:RepoCat.Persistence.Models.RepositoryQueryParameter">

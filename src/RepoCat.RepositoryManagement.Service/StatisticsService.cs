@@ -1,13 +1,14 @@
-﻿using System;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="StatisticsService.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using RepoCat.Persistence.Service;
 using AutoMapper;
-using Microsoft.ApplicationInsights;
-using MongoDB.Driver;
-using RepoCat.Telemetry;
+using RepoCat.Persistence.Service;
 
 namespace RepoCat.RepositoryManagement.Service
 {

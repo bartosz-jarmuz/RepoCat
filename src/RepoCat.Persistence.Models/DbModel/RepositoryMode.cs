@@ -1,4 +1,10 @@
-﻿namespace RepoCat.Persistence.Models
+﻿// -----------------------------------------------------------------------
+//  <copyright file="RepositoryMode.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+namespace RepoCat.Persistence.Models
 {
     /// <summary>
     /// Specifies how the repository data should be collected.

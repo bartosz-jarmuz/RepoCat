@@ -1,11 +1,12 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="InputUriProviderBase.cs" company="SDL plc">
-//   Copyright (c) SDL plc. All rights reserved.
+//  <copyright file="InputUriProviderBase.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
 //  </copyright>
 // -----------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -24,7 +25,7 @@ namespace RepoCat.Transmission
             this.logger = logger;
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "It's a suffix")]
+        [SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "It's a suffix")]
         protected abstract string InputUriSuffix { get; }
 
         public virtual IEnumerable<string> GetUris(string rootUri,  Regex ignoredPathsRegex = null)
@@ -52,7 +53,7 @@ namespace RepoCat.Transmission
         {
             try
             {
-                var control = System.IO.FileSystemAclExtensions.GetAccessControl(new DirectoryInfo(path));
+                var control = FileSystemAclExtensions.GetAccessControl(new DirectoryInfo(path));
                 var securityIdentifierRules = control.GetAccessRules(true, true, typeof(SecurityIdentifier));
                 var nTAccountRules = control.GetAccessRules(true, true, typeof(NTAccount));
                 

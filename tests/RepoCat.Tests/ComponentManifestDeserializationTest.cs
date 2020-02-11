@@ -1,12 +1,15 @@
-using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ComponentManifestDeserializationTest.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.IO;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using FluentAssertions;
 using NUnit.Framework;
 using RepoCat.Portal.Utilities;
 using RepoCat.Serialization;
-using RepoCat.Transmission;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Tests

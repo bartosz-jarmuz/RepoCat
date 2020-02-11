@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="AssemblyInfoResolvingEnricher.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.IO;
-using System.Linq;
-using System.Xml.Linq;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 

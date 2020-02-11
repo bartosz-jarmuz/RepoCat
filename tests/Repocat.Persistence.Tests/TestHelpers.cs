@@ -1,6 +1,6 @@
-// -----------------------------------------------------------------------
-//  <copyright file="TestHelpers.cs" company="SDL plc">
-//   Copyright (c) SDL plc. All rights reserved.
+﻿// -----------------------------------------------------------------------
+//  <copyright file="TestHelpers.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
 //  </copyright>
 // -----------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ namespace Repocat.Persistence.Tests
         }
         public static string GetMethodName([CallerMemberName] string caller = "")
         {
-            StackTrace stackTrace = new System.Diagnostics.StackTrace();
+            StackTrace stackTrace = new StackTrace();
             var frames = stackTrace.GetFrames();
             for (int index = 1; index < frames.Length; index++)
             {

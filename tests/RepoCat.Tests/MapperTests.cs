@@ -1,9 +1,11 @@
-using AutoMapper;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="MapperTests.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using NUnit.Framework;
-using RepoCat.Portal;
 using RepoCat.Portal.Mapping;
-using RepoCat.Portal.Utilities;
-using RepoCat.Transmission.Models;
 
 namespace RepoCat.Tests
 {

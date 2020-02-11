@@ -1,6 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="Startup.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using AutoMapper;
 using Hangfire;
 using Hangfire.Dashboard;
@@ -23,7 +27,6 @@ using RepoCat.RepositoryManagement.Service;
 using RepoCat.Telemetry;
 using RepoCat.Transmission;
 using RepoCat.Transmission.Contracts;
-using RepoCat.Transmission.Models;
 using SmartBreadcrumbs.Extensions;
 
 #pragma warning disable 1591
@@ -160,7 +163,7 @@ namespace RepoCat.Portal
 
         private void UseHangfire(IApplicationBuilder app)
         {
-            Hangfire.Dashboard.IDashboardAuthorizationFilter filter = new HangfireCustomBasicAuthenticationFilter()
+            IDashboardAuthorizationFilter filter = new HangfireCustomBasicAuthenticationFilter()
             {
                 User = "admin", 
                 Pass = "reset",

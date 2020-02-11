@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ExcelProjectInfoBuilderTests.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using FluentAssertions;
-using Moq;
-using System.Xml.Linq;
 using NUnit.Framework;
 using RepoCat.Transmission;
 using RepoCat.Transmission.Builders.Excel;
-using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.ProjectParsers.Tests

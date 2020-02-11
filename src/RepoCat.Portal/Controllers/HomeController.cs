@@ -1,6 +1,10 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-using Microsoft.AspNetCore.Http;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="HomeController.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using RepoCat.Portal.Models;

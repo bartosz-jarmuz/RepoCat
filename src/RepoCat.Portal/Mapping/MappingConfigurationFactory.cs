@@ -1,4 +1,10 @@
-﻿using AutoMapper;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="MappingConfigurationFactory.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using AutoMapper;
 
 namespace RepoCat.Portal.Mapping
 {

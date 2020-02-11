@@ -1,12 +1,14 @@
-﻿using System;
-using System.Diagnostics;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ScanRepositoryJob.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.ApplicationInsights;
-using RepoCat.RepositoryManagement.Service;
-using RepoCat.Transmission;
 using RepoCat.Transmission.Contracts;
-using RepoCat.Transmission.Models;
 
 namespace RepoCat.Portal.RecurringJobs
 {

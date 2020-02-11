@@ -1,8 +1,11 @@
 ﻿// -----------------------------------------------------------------------
+//  <copyright file="CollectionSummary.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
 
 using System.Globalization;
 using Humanizer;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace RepoCat.Portal.Areas.Admin.Models
 {

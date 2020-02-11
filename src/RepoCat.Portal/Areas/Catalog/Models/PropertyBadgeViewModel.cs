@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
-using RepoCat.RepositoryManagement.Service;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="PropertyBadgeViewModel.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
 
 namespace RepoCat.Portal.Areas.Catalog.Models
 {

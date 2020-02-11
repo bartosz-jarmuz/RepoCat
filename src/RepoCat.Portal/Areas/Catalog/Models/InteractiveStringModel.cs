@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="InteractiveStringModel.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.Text.RegularExpressions;
-using RepoCat.RepositoryManagement.Service;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
 {

@@ -1,3 +1,9 @@
+﻿// -----------------------------------------------------------------------
+//  <copyright file="ErrorViewModel.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 namespace RepoCat.Portal.Models
 {
     /// <summary>

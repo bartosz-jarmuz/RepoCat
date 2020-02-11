@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="DownloadController.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Models;
-using RepoCat.Persistence.Service;
 using RepoCat.RepositoryManagement.Service;
-using RepoCat.Telemetry;
-using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
 
 namespace RepoCat.Portal.Controllers.api
 {

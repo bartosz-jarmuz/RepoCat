@@ -1,4 +1,10 @@
-﻿namespace RepoCat.Transmission.Models
+﻿// -----------------------------------------------------------------------
+//  <copyright file="RepositoryInfo.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+namespace RepoCat.Transmission.Models
 {
     /// <summary>
     /// Info about repository

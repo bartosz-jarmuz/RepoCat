@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-//  <copyright file="SearchKeywordData.cs" company="SDL plc">
-//   Copyright (c) SDL plc. All rights reserved.
+//  <copyright file="SearchKeywordData.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
 //  </copyright>
 // -----------------------------------------------------------------------
 

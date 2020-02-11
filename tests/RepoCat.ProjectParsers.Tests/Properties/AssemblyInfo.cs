@@ -1,5 +1,10 @@
+// -----------------------------------------------------------------------
+//  <copyright file="AssemblyInfo.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("RepoCat.ProjectParsers.Tests")]

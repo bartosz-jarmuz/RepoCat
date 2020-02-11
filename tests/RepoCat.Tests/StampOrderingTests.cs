@@ -1,3 +1,9 @@
+﻿// -----------------------------------------------------------------------
+//  <copyright file="StampOrderingTests.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;

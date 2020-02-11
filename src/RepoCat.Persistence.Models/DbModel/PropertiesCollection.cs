@@ -1,4 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿// -----------------------------------------------------------------------
+//  <copyright file="PropertiesCollection.cs" company="bartosz.jarmuz@gmail.com">
+//   Copyright (c) Bartosz Jarmuż. All rights reserved.
+//  </copyright>
+// -----------------------------------------------------------------------
+
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace RepoCat.Persistence.Models
