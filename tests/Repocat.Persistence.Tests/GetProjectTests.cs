@@ -11,6 +11,12 @@ using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Mapping;
 using RepoCat.RepositoryManagement.Service;
+using RepoCat.Transmission.Models;
+using ComponentManifest = RepoCat.Persistence.Models.ComponentManifest;
+using ProjectInfo = RepoCat.Persistence.Models.ProjectInfo;
+using Property = RepoCat.Transmission.Models.Property;
+using RepositoryInfo = RepoCat.Persistence.Models.RepositoryInfo;
+using RepositoryMode = RepoCat.Persistence.Models.RepositoryMode;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace Repocat.Persistence.Tests
@@ -131,6 +137,24 @@ namespace Repocat.Persistence.Tests
 
             //assert
             this.AssertOneProjectFoundBy("ProjectName", result, insertedProject);
+        }
+
+        [Test, Ignore("Not time to do that yet")]
+        public async Task TestGetProject_TextFilter_ProjectNamePart()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.ProjectName = "PinkPanther.ValidatorsPack";
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+
+            //act
+            var partialResult = await this.GetResultFromRepoOne(service, "PinkPant");
+
+            //assert
+            this.AssertOneProjectFoundBy("Partial ProjectName", partialResult, insertedProject);
         }
 
         [Test]
@@ -345,8 +369,9 @@ namespace Repocat.Persistence.Tests
             var prj = GetEmptyProject(this.testRepoOne);
             prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest()
             {
-                Properties ={{"ComponentType", "Checker"},
-                    {"Author", "Bjarmuz"}
+                Properties ={
+                    ("ComponentType", "Checker"),
+                    ("Author", "Bjarmuz")
                 },
             });
 
@@ -749,7 +774,7 @@ namespace Repocat.Persistence.Tests
             await service.Upsert(prj2).ConfigureAwait(false);
 
             var prj = GetEmptyProject(this.testRepoOne, "First");
-            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"tag"},new Dictionary<string, string>()));
+            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"tag"},new RepoCat.Transmission.Models.PropertiesCollection()));
 
             await service.Upsert(prj).ConfigureAwait(false);
 
@@ -991,15 +1016,15 @@ namespace Repocat.Persistence.Tests
                 ProjectDescription = "Project That Does Something",
                 TargetExtension = ".dll",
                 Tags = { "Some", "Cool", "Features" },
-                Properties = { { "ProjectProp", "PropVal" } },
+                Properties = { ("ProjectProp", "PropVal") },
                 Components =
                 {
                     new RepoCat.Transmission.Models.ComponentManifest(
                         new List<string>() {"Some", "Project", "Tags"},
-                        new Dictionary<string, string>()
+                        new RepoCat.Transmission.Models.PropertiesCollection()
                         {
-                            {"ComponentType", "SomeType"},
-                            {"Author", "SomeGuy"}
+                            ("ComponentType", "SomeType"),
+                            ("Author", "SomeGuy")
                         })
                     {
                         Name = "SomeComponent",

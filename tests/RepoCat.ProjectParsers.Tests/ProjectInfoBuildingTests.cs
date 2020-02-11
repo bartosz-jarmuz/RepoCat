@@ -108,7 +108,7 @@ namespace RepoCat.ProjectParsers.Tests
             info.RepositoryStamp.Should().NotBeNullOrEmpty();
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetCore");
             info.Tags.Should().BeEquivalentTo(new[] { "These", "Tags", "Are", "Optional"});
-            info.Properties.Should().Contain(new KeyValuePair<string, string>("EntireProjectProperties", "AreAlsoOptional"));
+            info.Properties.Should().ContainEquivalentOf(new Property("EntireProjectProperties", "AreAlsoOptional"));
             
             info.Components.Single().Name.Should().Be("SampleNetCoreConsoleApp");
             info.Components.Single().Tags.Count.Should().Be(3);

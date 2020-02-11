@@ -154,6 +154,74 @@
             </summary>
             <value>The components.</value>
         </member>
+        <member name="T:RepoCat.Persistence.Models.PropertiesCollection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Models.PropertiesCollection.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Models.PropertiesCollection.op_Implicit(System.ValueTuple{System.String,System.Object}[])~RepoCat.Persistence.Models.PropertiesCollection">
+            <summary>
+            Create from key value pair
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="M:RepoCat.Persistence.Models.PropertiesCollection.GetKeyForItem(RepoCat.Persistence.Models.Property)">
+            <summary>
+            Gets the key
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Models.PropertiesCollection.Add(System.String,System.Object)">
+            <summary>
+            Adds a new item
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.PropertiesCollection.Item(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.Property">
+            <summary>
+            Holds a single property data
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Models.Property.#ctor">
+            <summary>
+            New instance
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Models.Property.#ctor(System.String,System.Object)">
+            <summary>
+            New instance
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Models.Property.op_Implicit(System.ValueTuple{System.String,System.Object})~RepoCat.Persistence.Models.Property">
+            <summary>
+            Create from key value pair
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.Property.Key">
+            <summary>
+            Name of the property
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.Property.Value">
+            <summary>
+            Value of the property
+            </summary>
+        </member>
         <member name="T:RepoCat.Persistence.Models.RepositoryInfo">
             <summary>
             Info about repository

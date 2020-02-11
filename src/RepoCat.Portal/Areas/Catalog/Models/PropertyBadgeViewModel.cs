@@ -29,7 +29,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         public bool InludeAddRemoveIcon { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TagBadgeViewModel"/> class.
+        /// Initializes a new instance of the <see cref="PropertyBadgeViewModel"/> class.
         /// </summary>
         public PropertyBadgeViewModel(PropertyFilterModel propertyFilter, string additionalClass, string imageClass, bool inludeAddRemoveIcon = true)
         {

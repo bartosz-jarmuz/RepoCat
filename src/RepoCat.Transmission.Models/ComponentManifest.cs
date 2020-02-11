@@ -17,16 +17,12 @@ namespace RepoCat.Transmission.Models
         {
         }
 
-
-
-
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="tags"></param>
         /// <param name="properties"></param>
-        public ComponentManifest(List<string> tags, Dictionary<string, string> properties)
+        public ComponentManifest(List<string> tags, PropertiesCollection properties)
         {
             this.Tags = tags;
             this.Properties = properties;
@@ -62,6 +58,6 @@ namespace RepoCat.Transmission.Models
         /// </summary>
         /// <value>The properties.</value>
         [XmlIgnore]
-        public Dictionary<string, string> Properties { get;  } = new Dictionary<string, string>();
+        public PropertiesCollection Properties { get; internal set; } = new PropertiesCollection();
     }
 }

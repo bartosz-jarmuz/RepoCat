@@ -35,11 +35,10 @@ namespace RepoCat.Tests
                                            "\\SampleManifestFiles\\SampleManifest.RepoCat.xml");
 
             var manifest = ManifestDeserializer.DeserializeProjectInfo(XElement.Parse(text));
-            var components = manifest.Components;
             manifest.ProjectName.Should().Be("OptionallyProvidedProjectName");
             manifest.Tags.Should().BeEquivalentTo(new[] {"These", "Tags", "Are", "Optional"});
             manifest.Properties.Should()
-                .Contain(new KeyValuePair<string, string>("EntireProjectProperties", "AreAlsoOptional"));
+                .ContainEquivalentOf(new Property("EntireProjectProperties", "AreAlsoOptional"));
 
         }
 

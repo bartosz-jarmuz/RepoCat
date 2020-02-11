@@ -68,7 +68,7 @@ namespace RepoCat.Serialization
             return item;
         }
 
-        private static void LoadProperties(XElement xElement, Dictionary<string, string> propertiesDictionary)
+        private static void LoadProperties(XElement xElement, PropertiesCollection propertiesDictionary)
         {
             XElement parent = xElement.Elements().FirstOrDefault(x => x.Name.LocalName == XmlNames.Properties);
             if (parent != null)

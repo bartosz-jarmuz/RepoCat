@@ -111,7 +111,7 @@ namespace RepoCat.Serialization
 
             if (manifest.Properties != null)
             {
-                foreach (KeyValuePair<string, string> manifestProperty in manifest.Properties)
+                foreach (var manifestProperty in manifest.Properties)
                 {
                     XElement propertyElement = new XElement(XmlNames.GetComponentXName(XmlNames.Add));
                     propertyElement.Add(new XAttribute(XmlNames.Key, manifestProperty.Key));

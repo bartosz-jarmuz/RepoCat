@@ -1,6 +1,9 @@
+using AutoMapper;
 using NUnit.Framework;
 using RepoCat.Portal;
 using RepoCat.Portal.Mapping;
+using RepoCat.Portal.Utilities;
+using RepoCat.Transmission.Models;
 
 namespace RepoCat.Tests
 {
@@ -13,6 +16,7 @@ namespace RepoCat.Tests
         {
             var mappingConfig = MappingConfigurationFactory.Create();
             mappingConfig.AssertConfigurationIsValid();
+
         }
     }
 }

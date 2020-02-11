@@ -66,9 +66,9 @@ namespace RepoCat.Portal.Utilities
                     {
                         "",
                     },
-                    new Dictionary<string, string>()
+                    new PropertiesCollection()
                     {
-                        {"", ""}
+                        new Property("","")
                     }
                 )
                 {
@@ -109,9 +109,9 @@ namespace RepoCat.Portal.Utilities
                         "Or",
                         "More",
                         "Keywords"
-                    }, new Dictionary<string, string>()
+                    }, new PropertiesCollection()
                     {
-                        {"OtherProjectMetadata", "As key and value pairs"}
+                        ("OtherProjectMetadata", "As key and value pairs")
                     }
                 )
                 {
@@ -125,11 +125,11 @@ namespace RepoCat.Portal.Utilities
                     "Validation",
                     "Schema"
                 },
-                    new Dictionary<string, string>()
+                    new PropertiesCollection()
                     {
-                        {"ComponentType", "Plugin"},
-                        {"HostApplication", "Notepad++"},
-                        {"AgeRestriction", "18+"},
+                        ("ComponentType", "Plugin"),
+                        ("HostApplication", "Notepad++"),
+                        ("AgeRestriction", "18+"),
                     }
                     )
                 {

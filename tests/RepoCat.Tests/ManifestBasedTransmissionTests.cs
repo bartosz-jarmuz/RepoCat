@@ -83,7 +83,7 @@ namespace RepoCat.Tests
             //assert
             var scriptTwo = infos.Single(x => x.ProjectName == "ScriptTwo");
             var samplePath = scriptTwo.Components.Single().Properties["SamplePath"];
-            FileAssert.Exists(samplePath);
+            FileAssert.Exists(samplePath.ToString());
         }
 
 

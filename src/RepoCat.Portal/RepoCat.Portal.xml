@@ -619,7 +619,7 @@
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel.#ctor(RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel,System.String,System.String,System.Boolean)">
             <summary>
-            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel"/> class.
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel"/> class.
             </summary>
         </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel">

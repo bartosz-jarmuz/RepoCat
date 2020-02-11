@@ -68,7 +68,7 @@ namespace RepoCat.Portal.Controllers.api
                     return this.GetLocalFileResult(project, component.DocumentationUri);
                 }
 
-                KeyValuePair<string, string> property = component.Properties.FirstOrDefault(x => x.Key == propertyKey);
+                Property property = component.Properties.FirstOrDefault(x => x.Key == propertyKey);
                 if (property.Value == null)
                 {
                     this.TempData["Error"] = $"Property [{propertyKey}] does not exist";
@@ -78,7 +78,7 @@ namespace RepoCat.Portal.Controllers.api
             }
             else
             {
-                KeyValuePair<string, string> property = project.Properties.FirstOrDefault(x => x.Key == propertyKey);
+                Property property = project.Properties.FirstOrDefault(x => x.Key == propertyKey);
                 if (property.Value == null)
                 {
                     this.TempData["Error"] = $"Project property [{propertyKey}] does not exist";

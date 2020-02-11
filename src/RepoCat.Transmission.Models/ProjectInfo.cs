@@ -95,7 +95,7 @@ namespace RepoCat.Transmission.Models
         /// </summary>
         /// <value>The properties.</value>
         [XmlIgnore]
-        public Dictionary<string, string> Properties { get; internal set; } = new Dictionary<string, string>();
+        public PropertiesCollection Properties { get; internal set; } = new PropertiesCollection();
 
         /// <summary>
         /// Gets or sets the components manifests

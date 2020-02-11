@@ -15,7 +15,7 @@
             
             </summary>
         </member>
-        <member name="M:RepoCat.Transmission.Models.ComponentManifest.#ctor(System.Collections.Generic.List{System.String},System.Collections.Generic.Dictionary{System.String,System.String})">
+        <member name="M:RepoCat.Transmission.Models.ComponentManifest.#ctor(System.Collections.Generic.List{System.String},RepoCat.Transmission.Models.PropertiesCollection)">
             <summary>
             
             </summary>
@@ -152,6 +152,81 @@
             Gets or sets the components manifests
             </summary>
             <value>The components.</value>
+        </member>
+        <member name="T:RepoCat.Transmission.Models.PropertiesCollection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Models.PropertiesCollection.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Models.PropertiesCollection.op_Implicit(System.ValueTuple{System.String,System.Object}[])~RepoCat.Transmission.Models.PropertiesCollection">
+            <summary>
+            Create from key value pair
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="M:RepoCat.Transmission.Models.PropertiesCollection.GetKeyForItem(RepoCat.Transmission.Models.Property)">
+            <summary>
+            Gets the key
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Transmission.Models.PropertiesCollection.Add(System.String,System.Object)">
+            <summary>
+            Adds a new item
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:RepoCat.Transmission.Models.PropertiesCollection.ContainsKey(System.String)">
+            <summary>
+            Checks if any property with this name is added into collection
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.PropertiesCollection.Item(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RepoCat.Transmission.Models.Property">
+            <summary>
+            Holds a single property data
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Models.Property.#ctor">
+            <summary>
+            New instance
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Models.Property.#ctor(System.String,System.Object)">
+            <summary>
+            New instance
+            </summary>
+        </member>
+        <member name="M:RepoCat.Transmission.Models.Property.op_Implicit(System.ValueTuple{System.String,System.Object})~RepoCat.Transmission.Models.Property">
+            <summary>
+            Create from key value pair
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.Property.Key">
+            <summary>
+            Name of the property
+            </summary>
+        </member>
+        <member name="P:RepoCat.Transmission.Models.Property.Value">
+            <summary>
+            Value of the property
+            </summary>
         </member>
         <member name="T:RepoCat.Transmission.Models.RepositoryInfo">
             <summary>

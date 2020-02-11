@@ -50,7 +50,7 @@ namespace RepoCat.ProjectParsers.Tests
             Assert.AreEqual("ACME",projectInfo.Properties["Name of client?"]);
             Assert.AreEqual("ENG",projectInfo.Properties["Which department it supports?"]);
             Assert.AreEqual(@"\\mhdfiler03\fs_mhd\scripts\TD\APPS\XML\Add_and_Remove_MyCompanyComment",projectInfo.Properties["Path to App"]);
-            Assert.IsNotEmpty( projectInfo.Properties["Add date"]);
+            Assert.IsNotNull( projectInfo.Properties["Add date"]);
 
             projectInfo = infos[1];
             Assert.AreEqual("ADJUST_FONT_SIZES", projectInfo.ProjectName);
@@ -65,7 +65,7 @@ namespace RepoCat.ProjectParsers.Tests
             Assert.AreEqual("", projectInfo.Properties["Name of client?"]);
             Assert.AreEqual("DTP", projectInfo.Properties["Which department it supports?"]);
             Assert.AreEqual(@"\\mhdfiler03\fs_mhd\scripts\TD\APPS\MICROSOFT_WORD\Adjust_Font_Sizes", projectInfo.Properties["Path to App"]);
-            Assert.IsNotEmpty(projectInfo.Properties["Add date"]);
+            Assert.IsNotNull(projectInfo.Properties["Add date"]);
 
         }
     }

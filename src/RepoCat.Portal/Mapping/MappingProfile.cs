@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.ObjectModel;
+using AutoMapper;
 using RepoCat.Persistence.Models;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.RecurringJobs;
@@ -40,9 +41,26 @@ namespace RepoCat.Portal.Mapping
                 .ForMember(x => x.RepositoryName, o => o.Ignore())
                 .ForMember(x => x.DisplayRepositoryName, o=>o.Ignore())
                 .ForMember(x=>x.OrganizationName, o=>o.Ignore())
+                .ForMember(x=>x.Properties, o=>o.Ignore())
+                .AfterMap((src, dest, rc) =>
+                {
+                    foreach (var prop in src.Properties)
+                    {
+                        dest.Properties.Add(prop.Key, prop.Value);
+                    }
+                })
                 ;
-
-            this.CreateMap<RepoCat.Persistence.Models.ComponentManifest, ComponentManifestViewModel>();
+            
+            this.CreateMap<RepoCat.Persistence.Models.ComponentManifest, ComponentManifestViewModel>()
+                .ForMember(x => x.Properties, o => o.Ignore())
+                .AfterMap((src, dest, rc) =>
+                {
+                    foreach (var prop in src.Properties)
+                    {
+                        dest.Properties.Add(prop.Key, prop.Value);
+                    }
+                })
+                ;
             this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>()
                 .ForMember(x => x.SearchTokens, o=>o.Ignore())
                 .ForMember(x => x.ProjectsTable, o=> o.Ignore())
@@ -61,11 +79,33 @@ namespace RepoCat.Portal.Mapping
 
         private void MapTransmitterModels()
         {
+            this.CreateMap<Transmission.Models.Property, Property>();
+
             this.CreateMap<Transmission.Models.ProjectInfo, ProjectInfo>()
                 .ForMember(x=>x.Id, o=>o.Ignore())
                 .ForMember(x=>x.RepositoryId, o=>o.Ignore())
-                .ForMember(x=>x.AddedDateTime, o=>o.Ignore());
-            this.CreateMap<Transmission.Models.ComponentManifest, ComponentManifest>();
+                .ForMember(x=>x.AddedDateTime, o=>o.Ignore())
+                .ForMember(dest => dest.Properties, opt => opt.Ignore())
+                .AfterMap((src, dest, rc) =>
+                {
+                    foreach (var prop in src.Properties)
+                    {
+                        dest.Properties.Add(rc.Mapper.Map<Property>(prop));
+                    }
+                });
+
+            this.CreateMap<Transmission.Models.ComponentManifest, ComponentManifest>()
+                .ForMember(dest => dest.Properties, opt => opt.Ignore())
+                .AfterMap((src, dest, rc) =>
+                {
+                    foreach (var prop in src.Properties)
+                    {
+                        dest.Properties.Add(rc.Mapper.Map<Property>(prop));
+                    }
+                })
+                ;
+
+
             this.CreateMap<Transmission.Models.RepositoryInfo, RepositoryInfo>()
                 .ForMember(x => x.Id, o => o.Ignore())
                 ;

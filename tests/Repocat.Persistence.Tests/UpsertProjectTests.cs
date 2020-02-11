@@ -100,7 +100,7 @@ namespace Repocat.Persistence.Tests
                 AssemblyName = "Project2AssName_NEW",
                 Components =
                 {
-                    new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"Three", "Four"}, new Dictionary<string, string>()
+                    new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"Three", "Four"}, new RepoCat.Transmission.Models.PropertiesCollection()
                         {
                             {"KeyTwo","ValueTwo" }
                         }
@@ -241,9 +241,9 @@ namespace Repocat.Persistence.Tests
                 AssemblyName = "Project2AssName",
                 Components =
                 {
-                    new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"One", "Two"}, new Dictionary<string, string>()
+                    new RepoCat.Transmission.Models.ComponentManifest(new List<string>(){"One", "Two"}, new RepoCat.Transmission.Models.PropertiesCollection()
                     {
-                        {"KeyOne","ValueOne" }
+                        ("KeyOne","ValueOne" )
                     } 
                     )
                 }

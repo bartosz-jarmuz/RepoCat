@@ -658,3 +658,4 @@ function trimStringMidsection(text) {
         return firstPart.substring(0, 20) + '(...)' + secondPart.substring(secondPart.length - 20);
     }
 }
+
