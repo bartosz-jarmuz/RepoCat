@@ -8,16 +8,12 @@
 
     intializeSelect2();
 
-
-
-
     $('.select2-inline').parent().find('.select2-container').addClass('inline-filter');
 });
 
 
 function intializeSelect2() {
     $('.select2').each(function () {
-
 
         var css = {};
         if ($(this).hasClass('form-control-lg')) {

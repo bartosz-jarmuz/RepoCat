@@ -61,8 +61,8 @@ function getFilters() {
 }
 
 function setupFiltering(table) {
-    $('.property-filter').off('change');
-    $('.property-filter').on('change', function () {
+    $('.property-filter').off('change.rc.filter');
+    $('.property-filter').on('change.rc.filter', function () {
         if ($(this).hasClass('filter-active')) {
             if ($(this).data('inactive') !== 'TRUE') {
                 if ($(this).val() !== '') {
@@ -75,8 +75,8 @@ function setupFiltering(table) {
             }
         }
     });
-    $('.filter-toggle').off('click');
-    $('.filter-toggle').on('click', function () {
+    $('.filter-toggle').off('click.rc.filter');
+    $('.filter-toggle').on('click.rc.filter', function () {
         var data = $(this).data('property');
         if ($(this).hasClass('add-filter')) {
             var selectBox = $('.property-filter[data-property="' + data + '"');

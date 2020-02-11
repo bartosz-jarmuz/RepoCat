@@ -1,9 +1,24 @@
-﻿function getProjectsTable() {
+﻿function getProjectsTable(activeColumnsCookie) {
 
     var t0 = performance.now();
 
     var showRepositoryColumn = $('#ResultsTableData').data('showrepositorycolumn');
-    var numberOfExtraColumns = $('#ResultsTableData').data('numberofextracolumns');
+    var numberOfExtraColumns = 0;
+    if (activeColumnsCookie) {
+        var split = activeColumnsCookie.split('_');
+        numberOfExtraColumns = split.length;
+        for (i = 0; i < split.length; i++) {
+            var propertyName = split[i];
+            $('#ResultsTable > thead > tr').append('<th>' + propertyName + '</th>');
+            $('#ResultsTable > tbody > tr').each(function (index, row) {
+                insertCell(propertyName, row);
+            });
+        }
+    } else {
+        numberOfExtraColumns = $('#ResultsTableData').data('numberofextracolumns');
+    }
+
+
     var table = $('#ResultsTable').DataTable({
         pageLength: 50,
         stateSave: false,
@@ -173,8 +188,8 @@ function format(d) {
 }
 
 function setupRowExpanding(table) {
-    $('#ResultsTable tbody').off('click');
-    $('#ResultsTable tbody').on('click', 'td.details-control', function () {
+    $('#ResultsTable tbody').off('click.rc.rows');
+    $('#ResultsTable tbody').on('click.rc.rows', 'td.details-control', function () {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
         if (row.child.isShown()) {
@@ -210,8 +225,8 @@ function alignSearchPanel() {
 function setupSearchPanes() {
     $("#SearchPanesCard").empty();
     $("#SearchPanesHost").appendTo("#SearchPanesCard");
-    $('#SearchPanesCollapser').off('click');
-    $('#SearchPanesCollapser').on('click', function () {
+    $('#SearchPanesCollapser').off('click.rc.panes');
+    $('#SearchPanesCollapser').on('click.rc.panes', function () {
         if ($('#SearchPanesCard').hasClass('show')) {
             $('#SearchPanesCollapser').text('Show filters');
             setCookie('searchPanesOpen', 'false');
@@ -223,8 +238,8 @@ function setupSearchPanes() {
 }
 
 function setupAddingColumns(table) {
-    $('.add-column').off('click');
-    $('.add-column').on('click', function () {
+    $('.add-column').off('click.rc.columns');
+    $('.add-column').on('click.rc.columns', function () {
         var data = $(this).data('property');
 
         addColumn(this, data, table);
@@ -241,41 +256,32 @@ function addColumn(filterToggle, propertyName, table) {
     $(filterToggle).hide();
 
     setTimeout(function () {
+        addToActiveColumns(propertyName);
         var numberOfExtraColumns = $('#ResultsTableData').data('numberofextracolumns');
             $('#ResultsTableData').data('numberofextracolumns', numberOfExtraColumns + 1);
-        var t0 = performance.now();
         table.destroy();
-        var t1 = performance.now();
-
-        console.log("Destroy table: " + (t1 - t0) + " milliseconds.");
-
-        var t0 = performance.now();
 
         $('#ResultsTable > thead > tr').append('<th>' + propertyName + '</th>');
         table.rows().nodes().to$().each(function (index, row) {
-            var propertyCell = $(row).find('.properties');
-            var propertyDiv = $(propertyCell).find('.property-name').filter(function () { return this.textContent == propertyName }).parent().parent();
-            if (propertyDiv[0] !== undefined) {
-                $($.parseHTML('<td>' + propertyDiv.find('.description').text() + '</td>')).appendTo(row);
-            } else {
-                $($.parseHTML('<td></td>')).appendTo(row);
-            }
+            insertCell(propertyName, row);
         });
-        var t1 = performance.now();
-
-        console.log("Adding cells: " + (t1 - t0) + " milliseconds.");
-
+    
         table = getProjectsTable();
-        var t0 = performance.now();
         setupTableFeatures(table);
-        var t1 = performance.now();
-        console.log("Table setup: " + (t1 - t0) + " milliseconds.");
 
         hideOverlay();
 
     }, 10);
+}
 
-
+function insertCell(propertyName, row) {
+    var propertyCell = $(row).find('.properties');
+    var propertyDiv = $(propertyCell).find('.property-name').filter(function () { return this.textContent == propertyName }).parent().parent();
+    if (propertyDiv[0] !== undefined) {
+        $($.parseHTML('<td>' + propertyDiv.find('.description').text() + '</td>')).appendTo(row);
+    } else {
+        $($.parseHTML('<td></td>')).appendTo(row);
+    }
 }
 
 function showOverlay() {
@@ -286,4 +292,33 @@ function showOverlay() {
 function hideOverlay() {
     var overlay = $('#ResultsTable').closest('.card').find('.overlay');
     $(overlay).fadeOut();
+}
+
+function addToActiveColumns(columnKey) {
+    var cookie = getCookie('activeColumns');
+
+    if (cookie) {
+        if (!isItemInArray(cookie, '_', columnKey)) {
+            cookie += "_" + columnKey
+            setCookie('activeColumns', cookie);
+        }
+    } else {
+        setCookie('activeColumns', columnKey);
+    }
+}
+
+function removeFromActiveColumns(columnKey) {
+    var cookie = getCookie('activeColumns');
+
+    if (cookie) {
+        var split = cookie.split('_');
+        for (var i = 0; i < split.length; i++) {
+            if (split[i] === columnKey) {
+                split.splice(i, 1);
+                i--;
+            }
+        }
+        var joint = split.join('_');
+        setCookie('activeColumns', joint);
+    }
 }

@@ -20,7 +20,8 @@
                             <span style="display:none;" class="filter-host">
                                 <span style="display:inline-block; vertical-align: top;">
                                     <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(property, "filter-toggle filter-label", "fas fa-filter"))" />
-                                    <select class="form-control select2 select2-inline property-filter" multiple="multiple" data-toggle="tooltip" style="width: 20em;" data-property="@property.Key"
+                                    <select class="form-control select2 select2-inline property-filter" multiple="multiple" data-allow-clear="1" data-toggle="tooltip" 
+                                            style="width: 20em;" data-property="@property.Key"
                                             title="Filter by @property.Key" placeholder="Click to add a new filter">
                                         @foreach (var value in property.Values)
                                         {
@@ -137,6 +138,9 @@
                 return propertyFilter(settings, searchData, index, rowData, counter);
             }
         );
+
+
+        //var activeColumnsCookie = getCookie('activeColumns');
 
         showOverlay();
         setTimeout(function () {
