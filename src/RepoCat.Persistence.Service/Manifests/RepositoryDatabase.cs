@@ -45,12 +45,10 @@ namespace RepoCat.Persistence.Service
                 .Text(x => x.AssemblyName)
                 .Text(x => x.ProjectUri)
                 .Text(x=>x.Tags)
-                .Text("Properties.Values")
                 .Text($"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Name)}")
                 .Text($"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Description)}")
                 .Text($"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.DocumentationUri)}")
                 .Text($"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Tags)}")
-                .Text("$**")
                 ;
             CreateIndexModel<ProjectInfo> indexModel = new CreateIndexModel<ProjectInfo>(keys, new CreateIndexOptions()
             {
@@ -68,6 +66,8 @@ namespace RepoCat.Persistence.Service
                         //medium priority 
                         {nameof(ProjectInfo.ProjectDescription), 5},
                         { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Description)}",5},
+                        { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Properties)}.{nameof(Property.Value)}",5},
+                        { $"{nameof(ProjectInfo.Properties)}.{nameof(Property.Value)}",5},
 
                         //low priority 
                         {nameof(ProjectInfo.ProjectUri), 3},
@@ -75,7 +75,6 @@ namespace RepoCat.Persistence.Service
                         {nameof(ProjectInfo.DownloadLocation), 3},
                         { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.DocumentationUri)}",3},
 
-                        {"$**", 1 }
                     }
                 )
             });
