@@ -131,6 +131,7 @@ namespace RepoCat.Portal
 
             if (env.IsDevelopment())
             {
+                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -158,7 +159,6 @@ namespace RepoCat.Portal
                     pattern: "{area=Catalog}/{controller=Search}/{action=Index}/{id?}");
               
             });
-
         }
 
         private void UseHangfire(IApplicationBuilder app)
