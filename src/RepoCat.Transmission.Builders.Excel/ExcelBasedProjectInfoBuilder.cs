@@ -24,15 +24,15 @@ namespace RepoCat.Transmission.Builders.Excel
         private readonly ILogger logger;
         private readonly Dictionary<string, string> settings;
         private readonly List<PropertyInfo> projectInfoProperties = typeof(ProjectInfo).GetProperties().ToList();
-        
-        
-        
+
+
         /// <summary>
         /// Creates new instance
         /// </summary>
         /// <param name="logger"></param>
+        /// <param name="projectEnrichers"></param>
         /// <param name="settings">Mapping of Excel column header to ProjectInfo class property name</param>
-        public ExcelBasedProjectInfoBuilder(ILogger logger, Dictionary<string, string> settings) : base(logger)
+        public ExcelBasedProjectInfoBuilder(ILogger logger, IProjectEnrichersFunnel projectEnrichers, Dictionary<string, string> settings) : base(logger, projectEnrichers)
         {
             this.logger = logger;
             this.settings = settings;
@@ -47,10 +47,7 @@ namespace RepoCat.Transmission.Builders.Excel
                     DataSet dataSet = this.GetExcelData(uri);
                     foreach (ProjectInfo projectInfo in this.GetInfoFromRows(dataSet))
                     {
-                        foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
-                        {
-                            projectInfoEnricher.Enrich(projectInfo, uri, uri);
-                        }
+                        this.ProjectEnrichers.EnrichProject(uri, projectInfo, uri);
                         yield return projectInfo;
                     }
                 }
@@ -135,7 +132,7 @@ namespace RepoCat.Transmission.Builders.Excel
         }
 
         
-        protected override ProjectInfo GetInfo(string projectUri)
+        protected override ProjectInfo GetInfo(string inputUri)
         {
             throw new NotImplementedException($"Excel builder expects the data to be accessed with the {nameof(this.GetInfos)} method");
         }

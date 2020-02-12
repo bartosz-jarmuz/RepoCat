@@ -16,7 +16,7 @@ namespace RepoCat.Transmission
     public class RelativePathResolvingEnricher : EnricherBase
     {
 
-        public override void Enrich(XDocument manifestXmlDocument, string manifestFilePath, string inputUri)
+        public override void Enrich(string inputUri, XDocument manifestXmlDocument, string manifestFilePath)
         {
             //these are paths relative to the location of the manifest
             var elementsWithRelativePath = manifestXmlDocument?.Root?.Descendants()?.Attributes(XmlNames.IsRelativePath).Where(x => string.Equals(x.Value, "True", StringComparison.OrdinalIgnoreCase))??new List<XAttribute>();

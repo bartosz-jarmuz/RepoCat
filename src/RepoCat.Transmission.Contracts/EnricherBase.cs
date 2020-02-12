@@ -11,12 +11,12 @@ namespace RepoCat.Transmission.Contracts
 {
     public abstract class EnricherBase : IProjectInfoEnricher
     {
-        public virtual void Enrich(ProjectInfo projectInfo, string manifestFilePath, string inputUri)
+        public virtual void Enrich(string inputUri, ProjectInfo projectInfo, string manifestFilePath)
         {
             //no-op
         }
 
-        public virtual void Enrich(XDocument manifestXmlDocument, string manifestFilePath, string inputUri)
+        public virtual void Enrich(string inputUri, XDocument manifestXmlDocument, string manifestFilePath)
         {
             //no-op
         }

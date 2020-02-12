@@ -40,6 +40,7 @@ namespace RepoCat.Portal.Mapping
                 .ForMember(x => x.RepositoryName, o => o.MapFrom(p => p.RepositoryInfo.RepositoryName))
                 .ForMember(x => x.OrganizationName, o => o.MapFrom(p => p.RepositoryInfo.OrganizationName))
                 .ForMember(x => x.DisplayRepositoryName, o => o.Ignore())
+                .ForMember(x => x.Properties, o => o.Ignore())
                 ;
             ;
             this.CreateMap<ProjectInfo, ProjectInfoViewModel>()

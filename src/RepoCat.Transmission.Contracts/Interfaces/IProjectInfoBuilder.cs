@@ -11,7 +11,7 @@ namespace RepoCat.Transmission.Contracts
 {
     public interface IProjectInfoBuilder
     {
-        IList<IProjectInfoEnricher> ProjectInfoEnrichers { get; }
+        IProjectEnrichersFunnel ProjectEnrichers { get; }
         IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris);
     }
 }

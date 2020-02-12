@@ -86,11 +86,11 @@ namespace RepoCat.Transmission
         {
             this.logger.Debug(
                 $"Adding {additionalProjectInfoEnricher.GetType().Name} to {projectInfoBuilder.GetType().Name}");
-            projectInfoBuilder.ProjectInfoEnrichers.Add(additionalProjectInfoEnricher);
+            projectInfoBuilder.ProjectEnrichers.Add(additionalProjectInfoEnricher);
         }
 
         this.logger.Info($"Enrichers added to {projectInfoBuilder.GetType().Name}: " +
-                         $"[{string.Join(", ", projectInfoBuilder.ProjectInfoEnrichers.Select(x => x.GetType().Name))}]");
+                         $"[{string.Join(", ", projectInfoBuilder.ProjectEnrichers.GetNames())}]");
     }
 
 

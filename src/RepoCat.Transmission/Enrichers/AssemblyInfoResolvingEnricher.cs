@@ -12,7 +12,7 @@ namespace RepoCat.Transmission
 {
     public class AssemblyInfoResolvingEnricher : EnricherBase
     {
-        public override void Enrich(ProjectInfo projectInfo, string manifestFilePath, string inputUri)
+        public override void Enrich(string inputUri, ProjectInfo projectInfo, string manifestFilePath)
         {
             if (projectInfo == null) return;
             if (string.IsNullOrEmpty(projectInfo.DownloadLocation)) return;
@@ -33,11 +33,6 @@ namespace RepoCat.Transmission
             {
                 projectInfo.OutputType = projectInfo.TargetExtension;
             }
-
-
-
-
-
         }
     }
 }

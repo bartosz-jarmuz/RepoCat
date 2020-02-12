@@ -14,13 +14,15 @@ namespace RepoCat.Transmission.Contracts
     {
         private readonly ILogger logger;
 
-        protected ProjectInfoBuilderBase(ILogger logger)
+        protected ProjectInfoBuilderBase(ILogger logger, IProjectEnrichersFunnel projectEnrichers)
         {
             this.logger = logger;
+            this.ProjectEnrichers = projectEnrichers??new ProjectEnrichersFunnel();
         }
 
-        public IList<IProjectInfoEnricher> ProjectInfoEnrichers { get; } = new List<IProjectInfoEnricher>();
-        protected internal abstract ProjectInfo GetInfo(string projectUri);
+        public IProjectEnrichersFunnel ProjectEnrichers { get; }
+
+        protected internal abstract ProjectInfo GetInfo(string inputUri);
 
         public virtual IEnumerable<ProjectInfo> GetInfos(IEnumerable<string> uris)
         {

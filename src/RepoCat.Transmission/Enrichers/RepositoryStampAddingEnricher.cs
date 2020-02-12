@@ -30,7 +30,7 @@ namespace RepoCat.Transmission
         }
 
         ///<inheritdoc cref="IProjectInfoEnricher"/>
-        public override void Enrich(ProjectInfo projectInfo, string manifestFilePath, string inputUri)
+        public override void Enrich(string inputUri, ProjectInfo projectInfo, string manifestFilePath)
         {
             if (projectInfo != null)
             {

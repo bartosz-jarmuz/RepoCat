@@ -30,7 +30,7 @@ namespace RepoCat.ProjectParsers.Tests
                 { "Purpose of Tool", nameof(ProjectInfo.ProjectDescription) },
                 { "MyCompany Developed or External", nameof(ProjectInfo.Owner) },
             };
-            var builder = new ExcelBasedProjectInfoBuilder(new TraceLogger(LogLevel.Debug), mapping);
+            var builder = new ExcelBasedProjectInfoBuilder(new TraceLogger(LogLevel.Debug),null, mapping);
             
             //act
             var infos = builder.GetInfos(new[] {file.FullName}).ToList();

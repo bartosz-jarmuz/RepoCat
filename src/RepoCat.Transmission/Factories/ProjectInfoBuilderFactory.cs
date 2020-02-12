@@ -16,21 +16,21 @@ namespace RepoCat.Transmission
         public static IProjectInfoBuilder Get(TransmitterArguments args, ILogger logger)
         {
             if (args == null) throw new ArgumentNullException(nameof(args));
-
+            IProjectEnrichersFunnel enrichersFunnel = new ProjectEnrichersFunnel();
             IProjectInfoBuilder infoBuilder;
             if (args.TransmissionMode == TransmissionMode.LocalDotNetProjects)
             {
-                infoBuilder = new DotNetProjectInfoBuilder(logger, args);
+                infoBuilder = new DotNetProjectInfoBuilder(logger, enrichersFunnel, args);
             }
             else if (args.TransmissionMode == TransmissionMode.ExcelDatabaseBased)
             {
-                infoBuilder = new ExcelBasedProjectInfoBuilder(logger, args.PropertyMappings);
+                infoBuilder = new ExcelBasedProjectInfoBuilder(logger, enrichersFunnel, args.PropertyMappings);
             }
             else
             {
-                infoBuilder = new ManifestBasedProjectInfoBuilder(logger);
-                infoBuilder.ProjectInfoEnrichers.Add(new RelativePathResolvingEnricher());
-                infoBuilder.ProjectInfoEnrichers.Add(new AssemblyInfoResolvingEnricher());
+                infoBuilder = new ManifestBasedProjectInfoBuilder(logger, enrichersFunnel);
+                infoBuilder.ProjectEnrichers.Add(new RelativePathResolvingEnricher());
+                infoBuilder.ProjectEnrichers.Add(new AssemblyInfoResolvingEnricher());
             }
             AddGenericEnrichersToProvider(args, infoBuilder, logger);
             return infoBuilder;
@@ -38,8 +38,8 @@ namespace RepoCat.Transmission
 
         private static void AddGenericEnrichersToProvider(TransmitterArguments args, IProjectInfoBuilder infoBuilder, ILogger logger)
         {
-            infoBuilder.ProjectInfoEnrichers.Add(new RepositoryStampAddingEnricher(args.RepositoryStamp, logger));
-            infoBuilder.ProjectInfoEnrichers.Add(new RepositoryInfoAddingEnricher(args));
+            infoBuilder.ProjectEnrichers.Add(new RepositoryStampAddingEnricher(args.RepositoryStamp, logger));
+            infoBuilder.ProjectEnrichers.Add(new RepositoryInfoAddingEnricher(args));
         }
     }
 }

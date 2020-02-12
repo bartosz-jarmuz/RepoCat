@@ -19,38 +19,33 @@ namespace RepoCat.Transmission
     {
         private readonly ILogger logger;
 
-        public ManifestBasedProjectInfoBuilder(ILogger logger) : base(logger)
+        public ManifestBasedProjectInfoBuilder(ILogger logger, IProjectEnrichersFunnel projectEnrichers) : base(logger, projectEnrichers)
         {
             this.logger = logger;
         }
 
-        protected override ProjectInfo GetInfo(string projectUri)
+        protected override ProjectInfo GetInfo(string manifestFilePath)
         {
             try
             {
-                this.logger.Debug($"Reading Project Info - {projectUri}");
-                XDocument document = XDocument.Load(projectUri);
-                foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
-                {
-                    projectInfoEnricher.Enrich(document, projectUri, projectUri);
-                }
+                this.logger.Debug($"Reading Project Info from manifest - {manifestFilePath}");
+                XDocument document = XDocument.Load(manifestFilePath);
+                
+                this.ProjectEnrichers.EnrichManifestXml(manifestFilePath, document, manifestFilePath);
 
                 ProjectInfo info = ManifestDeserializer.DeserializeProjectInfo(document.Root);
                 if (info != null)
                 {
-                    foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
-                    {
-                        projectInfoEnricher.Enrich(info, projectUri, projectUri);
-                    }
+                    this.ProjectEnrichers.EnrichProject(manifestFilePath, info, manifestFilePath);
 
-                    this.logger.Debug($"Loaded project info. {projectUri}.");
+                    this.logger.Debug($"Loaded project info. {manifestFilePath}.");
                     return info;
                 }
 
             }
             catch (Exception ex)
             {
-                this.logger.Error($"Unexpected error while loading project info for [{projectUri}] {ex.Message}. Details in DEBUG mode.");
+                this.logger.Error($"Unexpected error while loading project info for [{manifestFilePath}] {ex.Message}. Details in DEBUG mode.");
                 this.logger.Debug($"Error details: {ex}.");
             }
             return null;
