@@ -19,16 +19,16 @@ In this case, there is no info to be 'extracted' from a project file (.csproj / 
   It is advisable to treat each separate functionality as a different component. 
   For example, if a CustomerFileProcessor tool can perform file validation, file extraction, file delivery and schedule management, then these should be specified as separate components.
   -->
-  <Components>
+  <Components> 
     <Component>
       <Name>FileValidator</Name>
       <Description>Validates that the files are compliant with Business Rules.</Description>
       <DocumentationUri>http://google.com</DocumentationUri>
       <Tags Value="File;Validation;Customer;Json"/>
-      <Properties>
-        <Add Key="Author" Value="JimBeam"/>
-        <Add Key="Format" Value="json"/>
-      </Properties>
+      <Properties> 
+        <Property Key="Author">JimBeam</Property> 
+        <Property Key="Format">json</Property>
+      </Properties> 
     </Component>
     <Component>
       <Name>FileExtractor</Name>
@@ -36,8 +36,8 @@ In this case, there is no info to be 'extracted' from a project file (.csproj / 
       <DocumentationUri>http://google.com</DocumentationUri>
       <Tags Value="File;Extraction;Customer;Folder;Structure"/>
       <Properties>
-        <Add Key="Author" Value="Jack Black"/>
-        <Add Key="Format" Value="tar"/>
+        <Property Key="Author" >Jack Black</Property>
+        <Property Key="Format" >tar</Property>
       </Properties>
     </Component>
   </Components>

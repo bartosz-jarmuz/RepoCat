@@ -21,14 +21,15 @@ namespace RepoCat.Transmission.Contracts
         /// <param name="manifest">Manifest XDocument </param>
         /// <param name="manifestFilePath">Path to the manifest file</param>
         void EnrichManifestXml(string inputUri, XDocument manifest, string manifestFilePath);
-       
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="inputUri">Path to the file based on which the project info was identified so far</param>
         /// <param name="projectInfo">An instance of the project info created so far</param>
         /// <param name="manifestFilePath">Path to the manifest file</param>
-        void EnrichProject(string inputUri, ProjectInfo projectInfo, string manifestFilePath);
+        /// <param name="inputObject">Object based on which the project info was created</param>
+        void EnrichProject(string inputUri, ProjectInfo projectInfo, string manifestFilePath, object inputObject);
 
 
         IEnumerable<string> GetNames();

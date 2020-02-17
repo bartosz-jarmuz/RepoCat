@@ -23,8 +23,10 @@
       <DocumentationUri IsRelativePath="True">../Guide/ScriptTwoGuide.txt</DocumentationUri>
       <Tags Value="Lorem;Ipsum"/>
       <Properties>
-        <Add Key="Usability" Value="Useless"/>
-        <Add Key="SamplePath" Value="../Guide/Sample/Ex1.txt" IsRelativePath="True"/>
+        <Property Key="Usability">Useless</Property>
+        <Property Key="SamplePath" IsRelativePath="True">
+          ../Guide/Sample/Ex1.txt
+        </Property>
       </Properties>
     </Component>
    </Components>

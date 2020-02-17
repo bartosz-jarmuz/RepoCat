@@ -4,6 +4,7 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 using FluentAssertions;
@@ -20,7 +21,9 @@ namespace RepoCat.Tests
         public void Serialization_BackAndForth()
         {
             ProjectInfo info = SampleManifestXmlProvider.GetSampleProjectInfo();
-
+            info.Properties.Add("Collection", new List<string>(){"First", "Second"});
+            info.Components[0].Properties.Add("ComponentCollection", new List<string>() { "Third", "Second" });
+           
             XElement projectInfoSerialized = ManifestSerializer.SerializeProjectInfo(info);
 
             ProjectInfo projectInfoDeserialized = ManifestDeserializer.DeserializeProjectInfo(projectInfoSerialized);

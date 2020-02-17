@@ -83,12 +83,23 @@ namespace RepoCat.Serialization
                 foreach (XElement property in properties)
                 {
                     string key = property.Attribute(XmlNames.Key)?.Value;
-                    string value = property.Attribute(XmlNames.Value)?.Value;
                     if (!string.IsNullOrEmpty(key))
                     {
-                        if (!propertiesDictionary.ContainsKey(key))
+                        if (property.HasElements)
                         {
-                            propertiesDictionary.Add(key, value);
+                            var valueElements = property.Elements().Where(x=>x.Name.LocalName == XmlNames.Value );
+                            if (!propertiesDictionary.ContainsKey(key))
+                            {
+                                propertiesDictionary.Add(key, valueElements.Select(x => Json.Deserialize(x.Value)));
+                            }
+                        }
+                        else
+                        {
+                            string value = property.Value;
+                            if (!propertiesDictionary.ContainsKey(key))
+                            {
+                                propertiesDictionary.Add(key, Json.Deserialize(value));
+                            }
                         }
                     }
                 }

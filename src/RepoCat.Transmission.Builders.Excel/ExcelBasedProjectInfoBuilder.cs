@@ -47,7 +47,7 @@ namespace RepoCat.Transmission.Builders.Excel
                     DataSet dataSet = this.GetExcelData(uri);
                     foreach (ProjectInfo projectInfo in this.GetInfoFromRows(dataSet))
                     {
-                        this.ProjectEnrichers.EnrichProject(uri, projectInfo, uri);
+                        this.ProjectInfoEnrichers.EnrichProject(uri, projectInfo, uri, dataSet);
                         yield return projectInfo;
                     }
                 }

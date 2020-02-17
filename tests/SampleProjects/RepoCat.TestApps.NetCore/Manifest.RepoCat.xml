@@ -11,7 +11,12 @@ although the primary assumption is that this is a from-human-to-human informatio
   <Owner>Jim The Beam</Owner>
   <Tags Value="These;Tags;Are;Optional"/>
   <Properties>
-    <Add Key="EntireProjectProperties" Value="AreAlsoOptional"/>
+    <Property Key="EntireProjectProperties"><![CDATA[AreAlsoOptional]]></Property> 
+    <Property Key="ManualCollection">
+      <Value>Value 1</Value>
+      <Value>Val2</Value>
+      <Value>V3</Value>
+    </Property> 
   </Properties> 
   <ProjectDescription>Description is optional</ProjectDescription>
   <Components>
@@ -21,8 +26,13 @@ although the primary assumption is that this is a from-human-to-human informatio
       <DocumentationUri>http://google.com</DocumentationUri>
       <Tags Value="Sample;Test;Project"/>
       <Properties>
-        <Add Key="Author" Value="JimBeam"/>
-        <Add Key="Weight" Value="25kg"/>
+        <Property Key="Author">JimBeam</Property>
+        <Property Key="Weight">25kg</Property>
+        <Property Key="ComponentManualCollection">
+          <Value>Value 1</Value>
+          <Value>Val2</Value>
+          <Value>V3</Value>
+        </Property> 
       </Properties>
     </Component>
   </Components>

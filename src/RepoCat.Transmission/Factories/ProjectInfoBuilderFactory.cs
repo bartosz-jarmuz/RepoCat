@@ -21,6 +21,7 @@ namespace RepoCat.Transmission
             if (args.TransmissionMode == TransmissionMode.LocalDotNetProjects)
             {
                 infoBuilder = new DotNetProjectInfoBuilder(logger, enrichersFunnel, args);
+                infoBuilder.ProjectInfoEnrichers.Add(new FileListPropertyEnricher());
             }
             else if (args.TransmissionMode == TransmissionMode.ExcelDatabaseBased)
             {
@@ -29,8 +30,8 @@ namespace RepoCat.Transmission
             else
             {
                 infoBuilder = new ManifestBasedProjectInfoBuilder(logger, enrichersFunnel);
-                infoBuilder.ProjectEnrichers.Add(new RelativePathResolvingEnricher());
-                infoBuilder.ProjectEnrichers.Add(new AssemblyInfoResolvingEnricher());
+                infoBuilder.ProjectInfoEnrichers.Add(new RelativePathResolvingEnricher());
+                infoBuilder.ProjectInfoEnrichers.Add(new AssemblyInfoResolvingEnricher());
             }
             AddGenericEnrichersToProvider(args, infoBuilder, logger);
             return infoBuilder;
@@ -38,8 +39,8 @@ namespace RepoCat.Transmission
 
         private static void AddGenericEnrichersToProvider(TransmitterArguments args, IProjectInfoBuilder infoBuilder, ILogger logger)
         {
-            infoBuilder.ProjectEnrichers.Add(new RepositoryStampAddingEnricher(args.RepositoryStamp, logger));
-            infoBuilder.ProjectEnrichers.Add(new RepositoryInfoAddingEnricher(args));
+            infoBuilder.ProjectInfoEnrichers.Add(new RepositoryStampAddingEnricher(args.RepositoryStamp, logger));
+            infoBuilder.ProjectInfoEnrichers.Add(new RepositoryInfoAddingEnricher(args));
         }
     }
 }

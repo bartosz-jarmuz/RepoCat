@@ -20,7 +20,8 @@ namespace RepoCat.Transmission.Contracts
         /// <param name="inputUri">Path to the file based on which the project info was identified so far</param>
         /// <param name="projectInfo">An instance of the project info created so far</param>
         /// <param name="manifestFilePath">Path to the manifest file</param>
-        void Enrich(string inputUri, ProjectInfo projectInfo, string manifestFilePath);
+        /// <param name="inputObject">Object based on which the project info was created</param>
+        void EnrichProjectInfo(string inputUri, ProjectInfo projectInfo, string manifestFilePath, object inputObject);
 
         /// <summary>
         /// 
@@ -28,6 +29,6 @@ namespace RepoCat.Transmission.Contracts
         /// <param name="inputUri">Path to the file based on which the project info was identified so far</param>
         /// <param name="manifest">Manifest XDocument </param>
         /// <param name="manifestFilePath">Path to the manifest file</param>
-        void Enrich(string inputUri, XDocument manifest, string manifestFilePath);
+        void EnrichManifestXml(string inputUri, XDocument manifest, string manifestFilePath);
     }
 }

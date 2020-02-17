@@ -9,14 +9,15 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission.Contracts
 {
-    public abstract class EnricherBase : IProjectInfoEnricher
+    public abstract class ProjectInfoEnricherBase : IProjectInfoEnricher
     {
-        public virtual void Enrich(string inputUri, ProjectInfo projectInfo, string manifestFilePath)
+        public virtual void EnrichProjectInfo(string inputUri, ProjectInfo projectInfo, string manifestFilePath,
+            object inputObject)
         {
             //no-op
         }
 
-        public virtual void Enrich(string inputUri, XDocument manifestXmlDocument, string manifestFilePath)
+        public virtual void EnrichManifestXml(string inputUri, XDocument manifestXmlDocument, string manifestFilePath)
         {
             //no-op
         }

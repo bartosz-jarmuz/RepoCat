@@ -31,12 +31,12 @@ namespace RepoCat.Transmission
                 this.logger.Debug($"Reading Project Info from manifest - {manifestFilePath}");
                 XDocument document = XDocument.Load(manifestFilePath);
                 
-                this.ProjectEnrichers.EnrichManifestXml(manifestFilePath, document, manifestFilePath);
+                this.ProjectInfoEnrichers.EnrichManifestXml(manifestFilePath, document, manifestFilePath);
 
                 ProjectInfo info = ManifestDeserializer.DeserializeProjectInfo(document.Root);
                 if (info != null)
                 {
-                    this.ProjectEnrichers.EnrichProject(manifestFilePath, info, manifestFilePath);
+                    this.ProjectInfoEnrichers.EnrichProject(manifestFilePath, info, manifestFilePath, document);
 
                     this.logger.Debug($"Loaded project info. {manifestFilePath}.");
                     return info;

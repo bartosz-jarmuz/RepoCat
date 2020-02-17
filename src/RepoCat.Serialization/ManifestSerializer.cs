@@ -33,6 +33,9 @@ namespace RepoCat.Serialization
             {
                 xmlSerializer.Serialize(sw, info);
                 XElement projectInfoElement = XElement.Parse(sw.ToString());
+                //do tags manually, bear in mind namespaces
+                SaveTags(info.Tags, projectInfoElement);
+                SaveProperties(info.Properties, projectInfoElement);
 
                 var componentsElement = SerializeComponents(info.Components);
 
@@ -56,7 +59,7 @@ namespace RepoCat.Serialization
 
             foreach (ComponentManifest manifest in manifests)
             {
-                XElement item = Serialize(xmlSerializer, manifest);
+                XElement item = SerializeComponent(xmlSerializer, manifest);
                 list.Add(item);
             }
 
@@ -97,31 +100,32 @@ namespace RepoCat.Serialization
             }
         }
 
-        private static XElement Serialize(XmlSerializer xmlSerializer, ComponentManifest manifest)
+        private static XElement SerializeComponent(XmlSerializer xmlSerializer, ComponentManifest manifest)
         {
             using (StringWriter sw = new StringWriter())
             {
                 xmlSerializer.Serialize(sw, manifest);
                 XElement element = XElement.Parse(sw.ToString());
                 //do tags manually, bear in mind namespaces
-                SaveTags(manifest, element);
-                SaveProperties(manifest, element);
+                SaveTags(manifest.Tags, element);
+                SaveProperties(manifest.Properties, element);
               
                 return element;
             }
         }
 
-        private static void SaveProperties(ComponentManifest manifest, XElement element)
+
+        private static void SaveProperties(PropertiesCollection properties, XElement element)
         {
             XElement props = new XElement(XmlNames.GetComponentXName(XmlNames.Properties));
 
-            if (manifest.Properties != null)
+            if (properties != null)
             {
-                foreach (var manifestProperty in manifest.Properties)
+                foreach (var manifestProperty in properties)
                 {
-                    XElement propertyElement = new XElement(XmlNames.GetComponentXName(XmlNames.Add));
+                    XElement propertyElement = new XElement(XmlNames.GetComponentXName(XmlNames.Property));
                     propertyElement.Add(new XAttribute(XmlNames.Key, manifestProperty.Key));
-                    propertyElement.Add(new XAttribute(XmlNames.Value, manifestProperty.Value));
+                    propertyElement.Value =Json.Serialize(manifestProperty.Value);
                     props.Add(propertyElement);
                 }
             }
@@ -129,14 +133,12 @@ namespace RepoCat.Serialization
             element.Add(props);
         }
 
-        private static void SaveTags(ComponentManifest manifest, XElement componentElement)
+        private static void SaveTags(List<string> tags, XElement componentElement)
         {
-            string tags = string.Join(";", manifest.Tags);
+            string tagsString = string.Join(";", tags);
             XElement tagsElement = new XElement(XmlNames.GetComponentXName(XmlNames.Tags));
-            tagsElement.Add(new XAttribute(XmlNames.Value, tags));
+            tagsElement.Add(new XAttribute(XmlNames.Value, tagsString));
             componentElement.Add(tagsElement);
-
         }
-
     }
 }

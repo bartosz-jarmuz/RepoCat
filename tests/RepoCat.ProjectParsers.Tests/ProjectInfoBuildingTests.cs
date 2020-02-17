@@ -11,6 +11,7 @@ using NUnit.Framework;
 using RepoCat.Transmission;
 using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
+using System.Collections.Generic;
 
 namespace RepoCat.ProjectParsers.Tests
 {
@@ -44,6 +45,8 @@ namespace RepoCat.ProjectParsers.Tests
             info.ProjectName.Should().BeEquivalentTo("RepoCat.TestApps.NetFramework.NoManifest");
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetFramework.NoManifest");
             info.Components.Count.Should().Be(0);
+            info.Properties.Should()
+                .ContainEquivalentOf(new Property("ProjectFiles", new List<string>() {"Class1.cs", "AssemblyInfo.cs" }));
         }
 
         [Test]
@@ -113,11 +116,17 @@ namespace RepoCat.ProjectParsers.Tests
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetCore");
             info.Tags.Should().BeEquivalentTo(new[] { "These", "Tags", "Are", "Optional"});
             info.Properties.Should().ContainEquivalentOf(new Property("EntireProjectProperties", "AreAlsoOptional"));
-            
+            info.Properties.Should()
+                .ContainEquivalentOf(new Property("ProjectFiles", new List<string>() { "OtherClass.cs", "Program.cs" }));
+            info.Properties.Should()
+                .ContainEquivalentOf(new Property("ManualCollection", new List<string>() { "Value 1", "Val2", "V3" }));
+
             info.Components.Single().Name.Should().Be("SampleNetCoreConsoleApp");
             info.Components.Single().Tags.Count.Should().Be(3);
 
 
+            info.Components.First().Properties.Should()
+                .ContainEquivalentOf(new Property("ComponentManualCollection", new List<string>() { "Value 1", "Val2", "V3" }));
         }
     }
 }

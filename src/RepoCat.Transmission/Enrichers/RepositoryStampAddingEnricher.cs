@@ -11,7 +11,7 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission
 {
-    public class RepositoryStampAddingEnricher : EnricherBase
+    public class RepositoryStampAddingEnricher : ProjectInfoEnricherBase
     {
         private readonly string stamp;
 
@@ -30,7 +30,8 @@ namespace RepoCat.Transmission
         }
 
         ///<inheritdoc cref="IProjectInfoEnricher"/>
-        public override void Enrich(string inputUri, ProjectInfo projectInfo, string manifestFilePath)
+        public override void EnrichProjectInfo(string inputUri, ProjectInfo projectInfo, string manifestFilePath,
+            object inputObject)
         {
             if (projectInfo != null)
             {

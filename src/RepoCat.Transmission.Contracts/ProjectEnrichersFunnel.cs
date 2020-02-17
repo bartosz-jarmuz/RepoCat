@@ -24,15 +24,21 @@ namespace RepoCat.Transmission.Contracts
         {
             foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
             {
-                projectInfoEnricher.Enrich(inputUri, manifest, manifestFilePath);
+                if (manifest != null)
+                {
+                    projectInfoEnricher.EnrichManifestXml(inputUri, manifest, manifestFilePath);
+                }
             }
         }
 
-        public void EnrichProject(string projectUri, ProjectInfo projectInfoFromManifest, string manifestFilePath)
+        public void EnrichProject(string projectUri, ProjectInfo projectInfo, string manifestFilePath, object inputObject)
         {
             foreach (IProjectInfoEnricher projectInfoEnricher in this.ProjectInfoEnrichers)
             {
-                projectInfoEnricher.Enrich(projectUri, projectInfoFromManifest, manifestFilePath);
+                if (projectInfo != null)
+                {
+                    projectInfoEnricher.EnrichProjectInfo(projectUri, projectInfo, manifestFilePath, inputObject);
+                }
             }
         }
 

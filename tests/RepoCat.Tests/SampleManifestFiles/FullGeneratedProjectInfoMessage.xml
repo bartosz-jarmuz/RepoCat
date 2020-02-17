@@ -29,9 +29,9 @@ The component elements *might* get enriched by a transmitter plugin-->
       <Description>You don't even know you need it</Description>
       <DocumentationUri>http://google.com</DocumentationUri>
       <Tags Value="Mining;Teeth;Hygiene"/>
-      <Properties>
-        <Add Key="Author" Value="JimBeam"/>
-        <Add Key="Weight" Value="25kg"/>
+      <Properties> 
+        <Property Key="Author">JimBeam</Property> 
+        <Property Key="Weight">25kg</Property>
       </Properties>
     </Component>
     <Component>
@@ -40,8 +40,8 @@ The component elements *might* get enriched by a transmitter plugin-->
       <DocumentationUri>http://google.com</DocumentationUri>
       <Tags Value="Coal;Steam;Injury"/>
       <Properties>
-        <Add Key="Author" Value="Jack Black"/>
-        <Add Key="Fuel" Value="Coal"/>
+        <Property Key="Author" >Jack Black</Property>
+        <Property Key="Fuel" >Coal</Property>
       </Properties>
     </Component>
   </Components>

@@ -13,10 +13,10 @@ using RepoCat.Transmission.Contracts;
 
 namespace RepoCat.Transmission
 {
-    public class RelativePathResolvingEnricher : EnricherBase
+    public class RelativePathResolvingEnricher : ProjectInfoEnricherBase
     {
 
-        public override void Enrich(string inputUri, XDocument manifestXmlDocument, string manifestFilePath)
+        public override void EnrichManifestXml(string inputUri, XDocument manifestXmlDocument, string manifestFilePath)
         {
             //these are paths relative to the location of the manifest
             var elementsWithRelativePath = manifestXmlDocument?.Root?.Descendants()?.Attributes(XmlNames.IsRelativePath).Where(x => string.Equals(x.Value, "True", StringComparison.OrdinalIgnoreCase))??new List<XAttribute>();
@@ -26,17 +26,9 @@ namespace RepoCat.Transmission
                 {
                     throw new InvalidOperationException($"{isRelativePathAttribute} does not have a parent!");
                 }
-                var valueAttribute = isRelativePathAttribute.Parent.Attribute(XmlNames.Value);
-                if (valueAttribute != null)
-                {
-                    //it's a custom property key
-                    valueAttribute.Value = GetAbsolutePath(manifestFilePath, valueAttribute.Value);
-                }
-                else
-                {
-                    //its an element
-                    isRelativePathAttribute.Parent.Value = GetAbsolutePath(manifestFilePath, isRelativePathAttribute.Parent.Value);
-                }
+              
+                isRelativePathAttribute.Parent.Value = GetAbsolutePath(manifestFilePath, isRelativePathAttribute.Parent.Value);
+              
             }
         }
 
@@ -52,7 +44,7 @@ namespace RepoCat.Transmission
             {
                 throw new InvalidOperationException($"Failed to find directory of {manifestFilePath}.");
             }
-            var path = Path.Combine(basePath , valueAttribute.TrimStart(new []{'\\', '/'}));
+            var path = Path.Combine(basePath , valueAttribute.TrimStart(new []{'\\', '/'}).Trim(new[] { ' ', '\r', '\n' }));
             var fullPath = Path.GetFullPath(path);//resolve any \..\.. bits
             return fullPath;
         }

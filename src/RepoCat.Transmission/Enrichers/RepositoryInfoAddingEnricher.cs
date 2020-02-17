@@ -9,7 +9,7 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission
 {
-    public class RepositoryInfoAddingEnricher : EnricherBase
+    public class RepositoryInfoAddingEnricher : ProjectInfoEnricherBase
     {
         private readonly TransmitterArguments arguments;
 
@@ -19,7 +19,8 @@ namespace RepoCat.Transmission
         }
 
         ///<inheritdoc cref="IProjectInfoEnricher"/>
-        public override void Enrich(string inputUri, ProjectInfo projectInfo, string manifestFilePath)
+        public override void EnrichProjectInfo(string inputUri, ProjectInfo projectInfo, string manifestFilePath,
+            object inputObject)
         {
             if (projectInfo == null) return;
             

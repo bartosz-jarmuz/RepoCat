@@ -21,8 +21,8 @@ In this case, there is no info to be 'extracted' from a project file (.csproj / 
       <DocumentationUri>http://google.com</DocumentationUri>
       <Tags Value="File;Validation;Customer;Json"/>
       <Properties>
-        <Add Key="Author" Value="JimBeam"/>
-        <Add Key="Format" Value="json"/>
+        <Property Key="Author" >JimBeam</Property>
+        <Property Key="Format" >json</Property>
       </Properties>
     </Component>
   </Components>

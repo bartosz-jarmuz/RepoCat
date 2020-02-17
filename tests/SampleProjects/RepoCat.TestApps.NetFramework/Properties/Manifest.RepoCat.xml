@@ -17,8 +17,8 @@ although the primary assumption is that this is a from-human-to-human informatio
       <DocumentationUri>http://google.com</DocumentationUri>
       <Tags Value="Sample;Test;Project"/>
       <Properties>
-        <Add Key="Author" Value="JimBeam"/>
-        <Add Key="Weight" Value="25kg"/>
+        <Property Key="Author">JimBeam</Property>
+        <Property Key="Weight">25kg</Property>
       </Properties>
     </Component>
   </Components>

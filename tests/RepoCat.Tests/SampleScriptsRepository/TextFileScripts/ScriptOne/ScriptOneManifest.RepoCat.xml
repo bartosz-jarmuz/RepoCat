@@ -20,7 +20,7 @@
       <DocumentationUri IsRelativePath="True">/Guide/ScriptOneGuide.txt</DocumentationUri>
       <Tags Value="Lorem;Ipsum"/>
       <Properties>
-        <Add Key="Usability" Value="Useless"/>
+        <Property Key="Usability" >Useless</Property>
       </Properties>
     </Component>
    </Components>

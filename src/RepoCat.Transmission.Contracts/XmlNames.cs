@@ -42,7 +42,7 @@ namespace RepoCat.Transmission.Contracts
         /// <summary>
         /// Component property element name
         /// </summary>
-        public static string Add { get; } = "Add";
+        public static string Property { get; } = "Property";
 
         /// <summary>
         /// 

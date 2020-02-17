@@ -11,7 +11,7 @@ although the primary assumption is that this is a from-human-to-human informatio
   <ProjectName>OptionallyProvidedProjectName</ProjectName>
   <Tags Value="These;Tags;Are;Optional"/>
   <Properties>
-    <Add Key="EntireProjectProperties" Value="AreAlsoOptional"/>
+    <Property Key="EntireProjectProperties">AreAlsoOptional</Property>
   </Properties>
   <Components>
     <Component>
@@ -20,18 +20,18 @@ although the primary assumption is that this is a from-human-to-human informatio
       <DocumentationUri>http://google.com</DocumentationUri>
       <Tags Value="Mining;Teeth;Hygiene"/>
       <Properties>
-        <Add Key="Author" Value="JimBeam"/>
-        <Add Key="Weight" Value="25kg"/>
+        <Property Key="Author">JimBeam</Property>
+        <Property Key="Weight">25kg</Property>
       </Properties>
-    </Component>
+    </Component> 
     <Component>
       <Name>SteamPick</Name>
       <Description>You know you don't need it</Description>
       <DocumentationUri>http://google.com</DocumentationUri>
       <Tags Value="Coal;Steam;Injury"/>
       <Properties>
-        <Add Key="Author" Value="Jack Black"/>
-        <Add Key="Fuel" Value="Coal"/>
+        <Property Key="Author" >Jack Black</Property>
+        <Property Key="Fuel" >Coal</Property>
       </Properties>
     </Component>
   </Components>

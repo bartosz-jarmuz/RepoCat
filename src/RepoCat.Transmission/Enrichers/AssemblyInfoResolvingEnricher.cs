@@ -10,9 +10,10 @@ using RepoCat.Transmission.Models;
 
 namespace RepoCat.Transmission
 {
-    public class AssemblyInfoResolvingEnricher : EnricherBase
+    public class AssemblyInfoResolvingEnricher : ProjectInfoEnricherBase
     {
-        public override void Enrich(string inputUri, ProjectInfo projectInfo, string manifestFilePath)
+        public override void EnrichProjectInfo(string inputUri, ProjectInfo projectInfo, string manifestFilePath,
+            object inputObject)
         {
             if (projectInfo == null) return;
             if (string.IsNullOrEmpty(projectInfo.DownloadLocation)) return;

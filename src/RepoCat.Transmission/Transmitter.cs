@@ -44,7 +44,7 @@ namespace RepoCat.Transmission
 
         ///<inheritdoc cref="IProjectInfoTransmitter"/>
 
-        public IList<IProjectInfoEnricher> AdditionalProjectInfoEnrichers { get; } = new List<IProjectInfoEnricher>();
+        public IList<IProjectInfoEnricher> ProjectInfoEnrichers { get; } = new List<IProjectInfoEnricher>();
 
     ///<inheritdoc cref="IProjectInfoTransmitter"/>
         public async Task<RepositoryImportResult> Work(TransmitterArguments args, IInputUriProvider uriProvider = null, IProjectInfoBuilder projectInfoBuilder = null)
@@ -82,15 +82,15 @@ namespace RepoCat.Transmission
 
     private void AddEnrichersToBuilder(IProjectInfoBuilder projectInfoBuilder)
     {
-        foreach (IProjectInfoEnricher additionalProjectInfoEnricher in this.AdditionalProjectInfoEnrichers)
+        foreach (IProjectInfoEnricher additionalProjectInfoEnricher in this.ProjectInfoEnrichers)
         {
             this.logger.Debug(
                 $"Adding {additionalProjectInfoEnricher.GetType().Name} to {projectInfoBuilder.GetType().Name}");
-            projectInfoBuilder.ProjectEnrichers.Add(additionalProjectInfoEnricher);
+            projectInfoBuilder.ProjectInfoEnrichers.Add(additionalProjectInfoEnricher);
         }
 
         this.logger.Info($"Enrichers added to {projectInfoBuilder.GetType().Name}: " +
-                         $"[{string.Join(", ", projectInfoBuilder.ProjectEnrichers.GetNames())}]");
+                         $"[{string.Join(", ", projectInfoBuilder.ProjectInfoEnrichers.GetNames())}]");
     }
 
 

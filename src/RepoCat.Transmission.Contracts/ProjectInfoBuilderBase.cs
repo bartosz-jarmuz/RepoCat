@@ -17,10 +17,10 @@ namespace RepoCat.Transmission.Contracts
         protected ProjectInfoBuilderBase(ILogger logger, IProjectEnrichersFunnel projectEnrichers)
         {
             this.logger = logger;
-            this.ProjectEnrichers = projectEnrichers??new ProjectEnrichersFunnel();
+            this.ProjectInfoEnrichers = projectEnrichers??new ProjectEnrichersFunnel();
         }
 
-        public IProjectEnrichersFunnel ProjectEnrichers { get; }
+        public IProjectEnrichersFunnel ProjectInfoEnrichers { get; }
 
         protected internal abstract ProjectInfo GetInfo(string inputUri);
 

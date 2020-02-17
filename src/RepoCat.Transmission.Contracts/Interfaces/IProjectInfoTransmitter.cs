@@ -18,7 +18,7 @@ namespace RepoCat.Transmission.Contracts
         /// Additional enrichers can be added to the pipeline of ProjectInfo creation, so that newly created project info can be updated with some extra properties<br/>
         /// E.g. assembly size, last contributor, last commit date etc.
         /// </summary>
-        IList<IProjectInfoEnricher> AdditionalProjectInfoEnrichers { get; }
+        IList<IProjectInfoEnricher> ProjectInfoEnrichers { get; }
 
         /// <summary>
         /// Performs the transmission - first gathers the manifest files, then builds the project info, then sends that over to the API.<br/>
