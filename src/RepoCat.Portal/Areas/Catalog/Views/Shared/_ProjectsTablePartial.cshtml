@@ -20,7 +20,7 @@
                             <span style="display:none;" class="filter-host">
                                 <span style="display:inline-block; vertical-align: top;">
                                     <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(property, "filter-toggle filter-label", "fas fa-filter"))" />
-                                    <select class="form-control select2 select2-inline property-filter" multiple="multiple" data-allow-clear="1" data-toggle="tooltip" 
+                                    <select class="form-control select2 select2-inline property-filter" multiple="multiple" data-allow-clear="1" data-toggle="tooltip"
                                             style="width: 20em;" data-property="@property.Key"
                                             title="Filter by @property.Key" placeholder="Click to add a new filter">
                                         @foreach (var value in property.Values)
@@ -69,18 +69,22 @@
                     <div class="col-12">
 
                         <small class="help-block text-secondary">Add /Remove custom columns</small>
-                        <div id="PropertyColumnsButtons" style="margin-bottom: 0.1em;">
+                        <div id="PropertyColumnsButtons" style="margin-bottom: 0.5em;">
                             <span>
                                 @foreach (var property in Model.Properties)
                                 {
-                                    <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(property, "add-column", "fas fa-columns"))" />
+                                    <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(property, "add-column", "fas fa-columns", showCount: false))" />
                                 }
                             </span>
                         </div>
                     </div>
                 </div>
 
-                <input type="hidden" id="ResultsTableData" data-showrepositorycolumn="@(Model.IsMultipleRepositories)" data-numberofextracolumns="0" />
+                <span style="display: none;">
+                    <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(new PropertyFilterModel(), "hide-default-column", "fas fa-columns", showCount: false))" />
+                </span>
+
+                <input type="hidden" id="ResultsTableData" data-showrepositorycolumn="@(Model.IsMultipleRepositories)" data-numberofextracolumns="0" data-repositories="@Model.Repositories" />
                 <table id="ResultsTable" class="table table-striped table-bordered wrap  project-card" width="100%">
                     <thead>
                         <tr>
@@ -88,13 +92,13 @@
                             <th></th>
                             <!--Hidden content for expanded row-->
                             <th style="display:none;"></th>
-                            <th class="repository-name">Repository</th>
-                            <th style="min-width: 10%;">Project Name</th>
-                            <th>Type</th>
-                            <th>Description</th>
-                            <th>Documentation</th>
-                            <th>Tags</th>
-                            <th style="min-width: 20%;">Properties</th>
+                            <th data-column-id="rc_Repository" class="repository-name">Repository</th>
+                            <th data-column-id="rc_Project Name" style="min-width: 10%;">Project Name</th>
+                            <th data-column-id="rc_Type">Type</th>
+                            <th data-column-id="rc_Description">Description</th>
+                            <th data-column-id="rc_Documentation">Documentation</th>
+                            <th data-column-id="rc_Tags">Tags</th>
+                            <th data-column-id="rc_Properties" style="min-width: 20%;">Properties</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,8 +133,6 @@
             setArrowDown($('#SearchPanesCollapser').find('.toggler-icon'));
         }
 
-
-
         showActiveFilters();
 
         $.fn.dataTable.ext.search.push(
@@ -140,11 +142,11 @@
         );
 
 
-        //var activeColumnsCookie = getCookie('activeColumns');
+        var activeColumnsCookie = getCookie('activeColumns');
 
         showOverlay();
         setTimeout(function () {
-            var table = getProjectsTable();
+            var table = getProjectsTable(activeColumnsCookie);
             setupTableFeatures(table);
             hideOverlay();
         }, 10);

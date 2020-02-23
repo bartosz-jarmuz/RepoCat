@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "lib": [ "es6", "dom", "es2017" ],
+    "target": "es5",
+    "allowJs": true,
+    "checkJs": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "outDir": "./wwwroot/scripts/built"
+  },
+  "include": [
+    "./wwwroot/js/site"
+  ],
+  "compileOnSave": true 
+}

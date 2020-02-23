@@ -193,6 +193,10 @@ div.slider {
     padding-top: 0px;
     float: right;
 }
+
+.column-hide:hover {
+    background-color: #e4e5e6;
+}
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 
 /* Make .svg files in the carousel display properly in older browsers */
@@ -240,3 +244,6 @@ div.slider {
     color: #808080;
 }
 
+.text-secondary {
+    color: #717171 !important;
+}

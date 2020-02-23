@@ -47,6 +47,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.10.0" />
@@ -71,6 +75,7 @@
   <ItemGroup>
     <Folder Include="Connected Services\Application Insights\" />
     <Folder Include="Data\RepoCatDb\" />
+    <Folder Include="wwwroot\scripts\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\comment\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\dialog\" />
     <Folder Include="wwwroot\vendors\codemirror\addon\display\" />

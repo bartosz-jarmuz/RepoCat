@@ -1,5 +1,4 @@
 @model RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel
-
 <span class="badge badge-property-name @Model.AdditionalClass" style="cursor: pointer" data-property="@Model.PropertyFilter.Key" data-toggle="tooltip"
       title="Click to add a '@Model.PropertyFilter.Key' filter">
     @if (Model.InludeAddRemoveIcon)
@@ -7,6 +6,5 @@
         <i class="icons icon-plus add-remove-icon"></i>@Html.Raw("&nbsp;")
     }
     <i class="@Model.ImageClass"></i>&nbsp;
-    @Model.PropertyFilter.Key (@Model.PropertyFilter.Values.Count)
+    <span>@Model.PropertyFilter.Key @(Model.ShowCount == true ? "(" + Model.PropertyFilter.Values.Count + ")" : "")</span>
 </span>
-

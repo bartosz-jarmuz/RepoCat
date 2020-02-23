@@ -5,27 +5,24 @@
     var showRepositoryColumn = $('#ResultsTableData').data('showrepositorycolumn');
     var numberOfExtraColumns = 0;
     if (activeColumnsCookie) {
-        var split = activeColumnsCookie.split('_');
-        numberOfExtraColumns = split.length;
-        for (i = 0; i < split.length; i++) {
-            var propertyName = split[i];
-            $('#ResultsTable > thead > tr').append('<th>' + propertyName + '</th>');
-            $('#ResultsTable > tbody > tr').each(function (index, row) {
-                insertCell(propertyName, row);
-            });
-        }
+        numberOfExtraColumns = showColumnsFromCookies(activeColumnsCookie);
     } else {
-        numberOfExtraColumns = $('#ResultsTableData').data('numberofextracolumns');
+        numberOfExtraColumns = parseInt($('#ResultsTableData').attr('data-numberofextracolumns'));
     }
+
+ 
 
 
     var table = $('#ResultsTable').DataTable({
+
         pageLength: 50,
         stateSave: false,
         "autoWidth": true,
         "processing": true,
         "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         order: [[3, 'asc']],
+
+        // @ts-ignore
         searchPanes: {
             layout: "columns-4",
             columns: [3, 4, 7, 8],
@@ -53,27 +50,64 @@
             },
             {
                 "targets": [3],
-                "max-width": "15%"
             },
             {
                 "targets": [5],
-                "max-width": "25%"
             },
         ],
 
         columns: getColumns(numberOfExtraColumns),
 
         dom: "R<'#SearchPanesHost'P>"
-            + "<'#TopButtonsRow.row'<'col-md-3'l><'col-md-9'if>>"
+            + "<'#TopButtonsRow.row'<'col-md-1 first'l><'col-md-10 restore-columns-row'><'col-md-1 third'if>>"
             + "<rtip> ",
 
     });
 
+  
+
+    setupHideButtons(table);
+    
+    hideDefaultColumnsFromCookies(table);
     var t1 = performance.now();
     console.log("Drawing table: " + (t1 - t0) + " milliseconds.");
 
     return table;
 
+}
+
+function showColumnsFromCookies(activeColumnsCookie) {
+    var numberOfExtraColumns = 0;
+    var repos = getRepositoriesKey();
+
+    var columnsPerRepo = JSON.parse(activeColumnsCookie);
+    var columns = columnsPerRepo[repos];
+    if (columns) {
+        numberOfExtraColumns = columns.length;
+        for (var i = 0; i < columns.length; i++) {
+            var propertyName = columns[i];
+            $('#ResultsTable > thead > tr').append('<th data-column-id="' + propertyName + '">' + propertyName + '</th>');
+            $('#ResultsTable > tbody > tr').each(function (index, row) {
+                insertCell(propertyName, row);
+            });
+            var button = $('.add-column[data-property="' + propertyName + '"');
+            button.hide(); 
+        }
+        $('#ResultsTableData').attr('data-numberofextracolumns', numberOfExtraColumns);
+    }
+    
+    return numberOfExtraColumns; 
+}
+
+function hideDefaultColumnsFromCookies(table) {
+    var columns = getFromCollectionDictionaryCookie('hiddenDefaultColumns', getRepositoriesKey()) 
+    if (columns) {
+        for (var i = 0; i < columns.length; i++) {
+            var column = table.column('[data-column-id="' + columns[i] + '"]');
+            addHideDefaultColumnButton(column, columns[i], columns[i].replace("rc_", "")); 
+            column.visible(false);
+        }
+    }
 }
 
 function getColumns(numberOfExtraColumns) {
@@ -122,7 +156,7 @@ function getColumns(numberOfExtraColumns) {
             render: function (data, type, row) {
                 if (type === 'sp') {
                     var tags = [];
-                    $($(data), "i").each(function (index) {
+                    $(data, "i").each(function (index) {
                         var val = $(this).text();
                         val = val.trim();
                         if (val.length > 0) {
@@ -159,7 +193,7 @@ function getColumns(numberOfExtraColumns) {
     ];
 
     if (numberOfExtraColumns !== undefined) {
-        for (i = 0; i < numberOfExtraColumns; i++) {
+        for (var i = 0; i < numberOfExtraColumns; i++) {
             columns.push(null);
         }
     }
@@ -178,14 +212,61 @@ function setupTableFeatures(table) {
     alignTopButtonsRow();
 
     setupAddingColumns(table);
-}
 
+    
+}
 
 function format(d) {
     var arr = Object.values(d);
     var details = $(arr[0]);
-    return details.html();
+    return details.html(); 
 }
+
+function addHideButtonToHeader(headerCell) {
+    if (!$(headerCell).find('.column-hide').length && $(headerCell).data('column-id')) {
+        !$(headerCell).append('&nbsp;<i class="column-hide icons icon-minus" data-toggle="tooltip" title="Click to hide the column"></i>');
+    }
+}  
+
+function setupHideButtons(table) { 
+    $('#ResultsTable th').each(function () {
+        addHideButtonToHeader($(this));
+    });
+
+    $('.column-hide').off('click.rc.column-hide');
+    $('.column-hide').on('click.rc.column-hide', function (e) {
+        e.preventDefault();
+        var columnId = $(this).parent().data('column-id');
+        var column = table.column('[data-column-id="' + columnId + '"]');
+        column.visible(false);
+
+        if (columnId.startsWith("rc_")) {
+            var columnName = $(this).parent().text();
+            addHideDefaultColumnButton(column, columnId, columnName); 
+        } else {
+            $('.add-column[data-property="' + columnId + '"').show();
+            removeFromCollectionDictionaryCookie('activeColumns', getRepositoriesKey(), columnId);
+        }
+
+    });
+}
+
+function addHideDefaultColumnButton(column, columnId, columnName) {
+    var $cloned = $('.hide-default-column').first().clone();
+    $cloned.attr('style', 'margin: 0px 2px; cursor: pointer;')
+    $cloned.attr('data-property', columnId);
+    $cloned.attr('title', 'Click to restore column: ' + columnName);
+    var span = $cloned.children('span').first();
+    span.text(columnName);
+    $('.restore-columns-row').append($cloned.show());
+    addToCollectionDictionaryCookie('hiddenDefaultColumns', getRepositoriesKey(), columnId);
+    $cloned.click(function () {
+        column.visible(true);
+        $cloned.remove();
+        removeFromCollectionDictionaryCookie('hiddenDefaultColumns', getRepositoriesKey(), columnId);
+    });
+}
+
 
 function setupRowExpanding(table) {
     $('#ResultsTable tbody').off('click.rc.rows');
@@ -203,22 +284,22 @@ function setupRowExpanding(table) {
             tr.addClass('shown');
             $('div.slider', row.child()).slideDown();
         }
-    });
-}
-
+    });  
+} 
+ 
 function alignTopButtonsRow() {
-    //var collapser = $('#SearchPanesCollapser');
-    //collapser.prependTo('#TopButtonsRow > div:first');
+    $('#TopButtonsRow').children('.first').attr('style', 'margin-right: 10px;')
+    $('#TopButtonsRow').children('.third').attr('style', 'margin-left: -10px;')
 
 }
 
 function alignSearchPanel() {
     var spContainer = $('.dtsp-panes.dtsp-container');
     var input = $('#ResultsTable_filter label input').appendTo(spContainer).wrap("<div class='col'></div>");
-    $('#ResultsTable_filter label').remove();
+    $('#ResultsTable_filter label').remove(); 
     $(input).attr('style', 'width: 100%;');
     $(input).removeClass('form-control-sm');
-    $(input).addClass('form-control-lg');
+    $(input).addClass('form-control-lg'); 
     $(input).attr('placeholder', 'Search table content...');
 }
 
@@ -243,7 +324,6 @@ function setupAddingColumns(table) {
         var data = $(this).data('property');
 
         addColumn(this, data, table);
-        removeFromActiveFilters(data);
 
     });
 }
@@ -251,27 +331,36 @@ function setupAddingColumns(table) {
 
 
 
-function addColumn(filterToggle, propertyName, table) {
-    showOverlay();
-    $(filterToggle).hide();
+function addColumn(columnToggle, propertyName, table) {
 
-    setTimeout(function () {
-        addToActiveColumns(propertyName);
-        var numberOfExtraColumns = $('#ResultsTableData').data('numberofextracolumns');
-            $('#ResultsTableData').data('numberofextracolumns', numberOfExtraColumns + 1);
-        table.destroy();
+    var column = table.column('[data-column-id="' + propertyName + '"]');
+    if (column.length === 0) {
+        showOverlay();
 
-        $('#ResultsTable > thead > tr').append('<th>' + propertyName + '</th>');
-        table.rows().nodes().to$().each(function (index, row) {
-            insertCell(propertyName, row);
-        });
-    
-        table = getProjectsTable();
-        setupTableFeatures(table);
+        setTimeout(function () {
+            var numberOfExtraColumns = $('#ResultsTableData').attr('data-numberofextracolumns');
+            $('#ResultsTableData').attr('data-numberofextracolumns', parseInt(numberOfExtraColumns) + 1);
+            table.destroy();
 
-        hideOverlay();
+            $('#ResultsTable > thead > tr').append('<th data-column-id="' + propertyName + '">' + propertyName + '</th>');
+            table.rows().nodes().to$().each(function (index, row) {
+                insertCell(propertyName, row);
+            });
 
-    }, 10);
+            table = getProjectsTable();
+            setupTableFeatures(table);
+            $(columnToggle).hide();
+            hideOverlay();
+            addToCollectionDictionaryCookie('activeColumns', getRepositoriesKey(), propertyName);
+            
+
+        }, 10);
+    } else {
+        $(columnToggle).hide();
+        column.visible(true);
+        addToCollectionDictionaryCookie('activeColumns', getRepositoriesKey(), propertyName);
+    }
+
 }
 
 function insertCell(propertyName, row) {
@@ -294,31 +383,15 @@ function hideOverlay() {
     $(overlay).fadeOut();
 }
 
-function addToActiveColumns(columnKey) {
-    var cookie = getCookie('activeColumns');
 
-    if (cookie) {
-        if (!isItemInArray(cookie, '_', columnKey)) {
-            cookie += "_" + columnKey
-            setCookie('activeColumns', cookie);
-        }
-    } else {
-        setCookie('activeColumns', columnKey);
-    }
+function addToActiveColumns(columnKey) {
+    addToCollectionDictionaryCookie('activeColumns', getRepositoriesKey(), columnKey);
 }
 
 function removeFromActiveColumns(columnKey) {
-    var cookie = getCookie('activeColumns');
+    removeFromCollectionDictionaryCookie('activeColumns', getRepositoriesKey(), columnKey);
+}
 
-    if (cookie) {
-        var split = cookie.split('_');
-        for (var i = 0; i < split.length; i++) {
-            if (split[i] === columnKey) {
-                split.splice(i, 1);
-                i--;
-            }
-        }
-        var joint = split.join('_');
-        setCookie('activeColumns', joint);
-    }
+function getRepositoriesKey() {
+    return $('#ResultsTableData').attr('data-repositories');
 }

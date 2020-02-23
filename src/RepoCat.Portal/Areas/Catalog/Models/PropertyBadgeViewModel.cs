@@ -32,14 +32,20 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         public bool InludeAddRemoveIcon { get; set; }
 
         /// <summary>
+        /// Show the count of 
+        /// </summary>
+        public bool ShowCount { get; }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PropertyBadgeViewModel"/> class.
         /// </summary>
-        public PropertyBadgeViewModel(PropertyFilterModel propertyFilter, string additionalClass, string imageClass, bool inludeAddRemoveIcon = true)
+        public PropertyBadgeViewModel(PropertyFilterModel propertyFilter, string additionalClass, string imageClass, bool inludeAddRemoveIcon = true, bool showCount = true)
         {
             this.PropertyFilter = propertyFilter;
             this.AdditionalClass = additionalClass;
             this.ImageClass = imageClass;
             this.InludeAddRemoveIcon = inludeAddRemoveIcon;
+            this.ShowCount = showCount;
         }
       
     }

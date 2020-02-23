@@ -1,0 +1,16 @@
+# Installation
+> `npm install --save @types/datatables.net-buttons`
+
+# Summary
+This package contains type definitions for JQuery DataTables Buttons extension (http://datatables.net/extensions/buttons/).
+
+# Details
+Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/datatables.net-buttons
+
+Additional Details
+ * Last updated: Tue, 05 Nov 2019 00:51:27 GMT
+ * Dependencies: @types/jquery, @types/datatables.net
+ * Global values: none
+
+# Credits
+These definitions were written by Kiarash Ghiaseddin <https://github.com/Silver-Connection>, Sam Germano <https://github.com/SammyG4Free>, and Jim Hartford <https://github.com/jimhartford>.

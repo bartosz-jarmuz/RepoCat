@@ -576,6 +576,11 @@
             <param name="projects"></param>
             <param name="isMultipleRepositories"></param>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.Repositories">
+            <summary>
+            Repos in this table
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.Projects">
             <summary>
             Gets or sets the manifests.
@@ -617,7 +622,12 @@
             
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel.#ctor(RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel,System.String,System.String,System.Boolean)">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel.ShowCount">
+            <summary>
+            Show the count of 
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel.#ctor(RepoCat.Portal.Areas.Catalog.Models.PropertyFilterModel,System.String,System.String,System.Boolean,System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel"/> class.
             </summary>

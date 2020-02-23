@@ -26,9 +26,9 @@
   {
     "outputFileName": "wwwroot/js/site-bundle.js",
     "inputFiles": [
-      "wwwroot/js/site/!(*.min).js"
-    ]
-  },
+      "wwwroot/scripts/built/!(*.map).js"
+    ] 
+  }, 
   {
     "outputFileName": "wwwroot/vendors/busy-spinner/busy-spinner.min.css",
     "inputFiles": [

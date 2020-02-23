@@ -24,8 +24,13 @@ namespace RepoCat.Portal.Areas.Catalog.Models
             this.Projects = projects;
             this.IsMultipleRepositories = isMultipleRepositories;
             this.BuildPropertiesDictionary();
-            
+            this.Repositories = string.Join("_+_", this.Projects.Select(x => $"{x.OrganizationName}_{x.RepositoryName}").Distinct());
         }
+
+        /// <summary>
+        /// Repos in this table
+        /// </summary>
+        public string Repositories { get;  }
 
         private void BuildPropertiesDictionary()
         {

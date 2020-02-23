@@ -52,7 +52,7 @@ function getFilters() {
 
     activeFilters.each(function () {
         var value = $(this).val();
-        if (value.length > 0) {
+        if (value.toString().length > 0) {
             var filter = { key: $(this).data('property'), value: value }
             filters.push(filter);
         }
@@ -82,24 +82,23 @@ function setupFiltering(table) {
             var selectBox = $('.property-filter[data-property="' + data + '"');
             selectBox.data('inactive', 'TRUE');
             showFilter(selectBox, this, data);
-            addToActiveFilters(data);
+            addToCollectionDictionaryCookie('activeFilters', getRepositoriesKey(), data);
             selectBox.data('inactive', 'FALSE');
         }
         if ($(this).hasClass('filter-label')) {
             hideFilter(this, data, table);
-            removeFromActiveFilters(data);
+            removeFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey(), data);
         }
     });
 }
 
 function showActiveFilters() {
-    var cookie = getCookie('activeFilters');
-    if (cookie) {
-        var split = cookie.split('_');
+    var columns = getFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey()) 
+    if (columns) {
         $('.filter-toggle').each(function (index, toggler) {
             var data = $(toggler).data('property');
-            for (var i = 0; i < split.length; i++) {
-                if (split[i] === data) {
+            for (var i = 0; i < columns.length; i++) {
+                if (columns[i] === data) {
                     var selectBox = $('.property-filter[data-property="' + data + '"');
                     showFilter(selectBox, $(toggler), data);
                 }
@@ -107,36 +106,6 @@ function showActiveFilters() {
         });
     }
 }
-
-function addToActiveFilters(filterKey) {
-    var cookie = getCookie('activeFilters');
-
-    if (cookie) {
-        if (!isItemInArray(cookie, '_', filterKey)) {
-            cookie += "_" + filterKey
-            setCookie('activeFilters', cookie);
-        }
-    } else {
-        setCookie('activeFilters', filterKey);
-    }
-}
-
-function removeFromActiveFilters(filterKey) {
-    var cookie = getCookie('activeFilters');
-
-    if (cookie) {
-        var split = cookie.split('_');
-        for (var i = 0; i < split.length; i++) {
-            if (split[i] === filterKey) {
-                split.splice(i, 1);
-                i--;
-            }
-        }
-        var joint = split.join('_');
-        setCookie('activeFilters', joint);
-    }
-}
-
 
 function showFilter(selectBox, filterToggle, data) {
     var filterHost = $(selectBox.closest('.filter-host'));
