@@ -367,7 +367,7 @@ function insertCell(propertyName, row) {
     var propertyCell = $(row).find('.properties');
     var propertyDiv = $(propertyCell).find('.property-name').filter(function () { return this.textContent == propertyName }).parent().parent();
     if (propertyDiv[0] !== undefined) {
-        $($.parseHTML('<td>' + propertyDiv.find('.description').text() + '</td>')).appendTo(row);
+        $($.parseHTML('<td class="break-word">' + propertyDiv.find('.description').text() + '</td>')).appendTo(row);
     } else {
         $($.parseHTML('<td></td>')).appendTo(row);
     }
