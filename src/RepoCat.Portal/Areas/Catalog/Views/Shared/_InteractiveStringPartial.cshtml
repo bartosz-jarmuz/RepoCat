@@ -3,12 +3,7 @@
 @{
     var type = Model.GetDataType();
     var displayText = Model.Text;
-    if (Model.Text != null &&  Model.Text.Length > 45) {
-        var middlePoint = Model.Text.Length / 2;
-        var firstPart = Model.Text.Substring(0, middlePoint);
-        var secondPart = Model.Text.Substring(middlePoint);
-        displayText = firstPart.Substring(0, 20) + "(...)" + secondPart.Substring(secondPart.Length - 20);
-    }
+
 
     string imageTag = "";
     if (!string.IsNullOrEmpty(Model.ImageClassName))
