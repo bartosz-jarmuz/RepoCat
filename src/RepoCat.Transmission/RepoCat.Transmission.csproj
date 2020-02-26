@@ -5,9 +5,9 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\RepoCatKey.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    
     <PackageId>RepoCat.Transmission</PackageId>
-    <IncludeReferencedProjects>true</IncludeReferencedProjects>
+    
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
     <PackageProjectUrl>https://github.com/bartosz-jarmuz/RepoCat</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bartosz-jarmuz/RepoCat</RepositoryUrl>
@@ -17,20 +17,25 @@
     <Copyright>Bartosz Jarmuż</Copyright>
     <Authors>Bartosz Jarmuż</Authors>
     <Description>A library of components allowing to generate and send project manifests to the repository catalog (RepoCat) web application.</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RepoCat.Serialization\RepoCat.Serialization.csproj">
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <PrivateAssets>all</PrivateAssets>
     </ProjectReference>
     <ProjectReference Include="..\RepoCat.Transmission.Builders.Excel\RepoCat.Transmission.Builders.Excel.csproj">
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <PrivateAssets>all</PrivateAssets>
     </ProjectReference>
     <ProjectReference Include="..\RepoCat.Transmission.Contracts\RepoCat.Transmission.Contracts.csproj">
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <PrivateAssets>all</PrivateAssets>
     </ProjectReference>
     <ProjectReference Include="..\RepoCat.Transmission.Models\RepoCat.Transmission.Models.csproj">
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <PrivateAssets>all</PrivateAssets>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
