@@ -35,13 +35,14 @@ function isItemInArray(input, separator, itemToFind) {
 }
 
 function trimStringMidsection(text) {
-    if (text.length > 45) {
-        var middlePoint = text.length / 2;
-        var firstPart = text.substring(0, middlePoint);
-        var secondPart = text.substring(middlePoint);
-        return firstPart.substring(0, 20) + '(...)' + secondPart.substring(secondPart.length - 20);
-    }
-    return undefined;
+    return text;
+    //if (text.length > 45) {
+    //    var middlePoint = text.length / 2;
+    //    var firstPart = text.substring(0, middlePoint);
+    //    var secondPart = text.substring(middlePoint);
+    //    return firstPart.substring(0, 20) + '(...)' + secondPart.substring(secondPart.length - 20);
+    //}
+    //return undefined;
 }
 
 
