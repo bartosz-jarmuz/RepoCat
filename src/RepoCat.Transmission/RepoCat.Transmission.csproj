@@ -11,7 +11,7 @@
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
     <PackageProjectUrl>https://github.com/bartosz-jarmuz/RepoCat</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bartosz-jarmuz/RepoCat</RepositoryUrl>
-    <PackageIcon>cat_laptop.ico</PackageIcon>
+    <PackageIcon>cat_laptop128.png</PackageIcon>
     <PackageIconUrl />
     <PackageTags>repository catalog sending project manifest</PackageTags>
     <Copyright>Bartosz Jarmuż</Copyright>
@@ -34,7 +34,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\RepoCat.Portal\wwwroot\images\cats\cat_laptop.ico">
+    <None Include="..\RepoCat.Portal\wwwroot\images\cats\cat_laptop128.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
