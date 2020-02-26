@@ -17,7 +17,7 @@
     <Copyright>Bartosz Jarmuż</Copyright>
     <Authors>Bartosz Jarmuż</Authors>
     <Description>A library of components allowing to generate and send project manifests to the repository catalog (RepoCat) web application.</Description>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetProjectParser" Version="1.0.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.IO.FileSystem.AccessControl" Version="4.7.0" />
     <PackageReference Include="System.Security.AccessControl" Version="4.7.0" />
     <PackageReference Include="System.Security.Principal.Windows" Version="4.7.0" />
