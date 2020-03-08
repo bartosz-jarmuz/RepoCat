@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using RepoCat.Serialization;
+using RepoCat.Transmission.Contracts;
 using RepoCat.Transmission.Models;
 
 namespace RepoCat.Portal.Utilities
@@ -34,9 +35,14 @@ namespace RepoCat.Portal.Utilities
         public static string GetEmptyProjectInfoSerialized()
         {
             ProjectInfo info = GetEmptyProjectInfo();
+            info.RepositoryInfo.RepositoryName = "MISC";
+            info.RepositoryInfo.OrganizationName = "MISC";
             XElement xElement = ManifestSerializer.SerializeProjectInfo(info);
             return xElement.ToString();
         }
+
+
+     
 
         /// <summary>
         /// Gets a sample pre-filled project info

@@ -40,6 +40,12 @@ namespace RepoCat.Serialization
                 var componentsElement = SerializeComponents(info.Components);
 
                 projectInfoElement.Add(componentsElement);
+
+                if (projectInfoElement.Attribute(XmlNames.ManifestReadMe) == null)
+                {
+                    projectInfoElement.Add(new XAttribute(XmlNames.ManifestReadMe, XmlNames.ManifestReadMeLocation));
+                }
+
                 var final = ClearNamespaces(projectInfoElement);
                 return final;
             }

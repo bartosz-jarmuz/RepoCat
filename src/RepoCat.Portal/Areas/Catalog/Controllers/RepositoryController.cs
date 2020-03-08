@@ -141,13 +141,11 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         [Breadcrumb("Add Project", FromAction = "Index", FromController = typeof(HomeController))]
         public ViewResult AddProject()
         {
-            var empty = SampleManifestXmlProvider.GetEmptyProjectInfo();
-            empty.RepositoryInfo.RepositoryName = "MISC";
-            empty.RepositoryInfo.OrganizationName = "MISC";
+         
             return this.View(new AddProjectModel()
             {
-                SampleManifestXml = SampleManifestXmlProvider.GetSampleProjectInfoSerialized()
-                ,EmptyManifestXml = ManifestSerializer.SerializeProjectInfo(empty).ToString()
+                SampleManifestXml = SampleManifestXmlProvider.GetSampleProjectInfoSerialized(),
+                EmptyManifestXml = SampleManifestXmlProvider.GetEmptyProjectInfoSerialized()
             });
         }
 
