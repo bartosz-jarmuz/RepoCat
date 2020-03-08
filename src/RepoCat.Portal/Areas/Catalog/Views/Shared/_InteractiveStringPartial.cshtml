@@ -10,6 +10,18 @@
     {
         imageTag = " <i class=\"" + Model.ImageClassName + "\"></i> ";
     }
+    else
+    {
+        if (type == InteractiveStringModel.DataType.Url
+            || type == InteractiveStringModel.DataType.Path)
+        {
+            imageTag = " <i class=\"fa fa-external-link-alt\"></i> ";
+        }
+        if (type == InteractiveStringModel.DataType.Email)
+        {
+            imageTag = " <i class=\"fa fa-envelope\"></i> ";
+        }
+    }
     switch (type)
     {
         case InteractiveStringModel.DataType.Text:
@@ -18,17 +30,17 @@
         case InteractiveStringModel.DataType.Url:
             <a href="@Model.Text" target="_blank" class="@Model.ClassName"
                data-toggle="tooltip" title="@Model.Text"
-               >@Html.Raw(@imageTag) @displayText</a>
+               >@displayText @Html.Raw(@imageTag)</a>
             break;
         case InteractiveStringModel.DataType.Path:
             <a href="@Url.Action("Download", "Download", new { id = Model.ProjectId, componentName = Model.ComponentName, Model.PropertyKey })"
                data-toggle="tooltip" title="@Model.Text"
-               >@Html.Raw(@imageTag) @displayText</a>
+               >@displayText @Html.Raw(@imageTag)</a>
             break;
         case InteractiveStringModel.DataType.Email:
             <a target="_blank" href="mailto:@(Model.Text)" class="@Model.ClassName"
                data-toggle="tooltip" title="@Model.Text"
-               >@Html.Raw(@imageTag) @displayText</a>
+               >@displayText @Html.Raw(@imageTag)</a>
             break;
         default:
             break;
