@@ -1,11 +1,3 @@
 @using RepoCat.Portal.Areas.Catalog.Models
 @model ProjectInfoViewModel
 
-@foreach (var tag in Model.Tags)
-{
-    <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.OrganizationName, Model.RepositoryName, tag))" />
-}
-@foreach (var tag in Model.Components.SelectMany(x => x.Tags))
-{
-    <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.OrganizationName, Model.RepositoryName, tag))" />
-}

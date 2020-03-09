@@ -1,7 +1,7 @@
 @using RepoCat.Portal.Areas.Catalog.Models
 @model PropertyViewModel
 
-<div>
+<div class="property">
     <span class="badge badge-property-name" ><span class="property-name">@Model.Property.Key</span>:&nbsp;</span>
     <span class="description">
         <partial name="_InteractiveStringPartial" model="new InteractiveStringModel(Model.ProjectId, Model.ComponentName, Model.Property.Key, Model.Property.Value)" />

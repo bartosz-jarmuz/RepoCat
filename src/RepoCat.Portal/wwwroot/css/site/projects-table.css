@@ -1,9 +1,9 @@
-﻿td.details-control {
+﻿td.expand-table-row {
     background: url('../../images/details_open.png') no-repeat center center;
     cursor: pointer;
 }
 
-tr.shown td.details-control {
+tr.shown td.expand-table-row {
     background: url('../../images/details_close.png') no-repeat center center;
 }
 
@@ -68,4 +68,8 @@ div.slider {
 
 .column-hide:hover {
     background-color: #e4e5e6;
+}
+
+.name-cell dd {
+    font-size: smaller;
 }

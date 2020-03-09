@@ -48,3 +48,13 @@
 .text-secondary {
     color: #717171 !important;
 }
+
+.show-more-link {
+    cursor: pointer;
+    font-size: smaller;
+    color: #63c2de;
+}
+.show-more-link:before {
+     content: "\00a0 ";
+}
+

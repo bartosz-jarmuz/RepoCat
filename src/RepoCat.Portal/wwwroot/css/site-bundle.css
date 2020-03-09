@@ -10,8 +10,8 @@
 }
 
 .badge-tag {
-    background-color: #ffc107 !important;
-    color: #23282c !important;
+    background-color: #fff !important;
+    color: #00579c !important;
     font-size: smaller;
 }
 
@@ -126,12 +126,12 @@
 .project-info .project-path {
     font-size: 12px;
 }   
-td.details-control {
+td.expand-table-row {
     background: url('../images/details_open.png') no-repeat center center;
     cursor: pointer;
 }
 
-tr.shown td.details-control {
+tr.shown td.expand-table-row {
     background: url('../images/details_close.png') no-repeat center center;
 }
 
@@ -197,6 +197,10 @@ div.slider {
 .column-hide:hover {
     background-color: #e4e5e6;
 }
+
+.name-cell dd {
+    font-size: smaller;
+}
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 
 /* Make .svg files in the carousel display properly in older browsers */
@@ -247,3 +251,13 @@ div.slider {
 .text-secondary {
     color: #717171 !important;
 }
+
+.show-more-link {
+    cursor: pointer;
+    font-size: smaller;
+    color: #63c2de;
+}
+.show-more-link:before {
+     content: "\00a0 ";
+}
+

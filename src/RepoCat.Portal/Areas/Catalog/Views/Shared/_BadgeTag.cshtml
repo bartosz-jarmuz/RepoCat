@@ -3,5 +3,5 @@
 <a class="badge badge-tag tag" data-toggle="tooltip" data-placement="top" 
    title="Search for this tag in @string.Join("\r\n", Model.RepositoryQueryParameters.Select(x=> $"{x.OrganizationName} - {x.RepositoryName}"))" data-delay='{"show":"500"}' 
    href="@Url.Action("GetSearchResultPage", "Search")@RepoCat.RepositoryManagement.Service.RepositoryQueryParameter.ConvertToQueryString(Model.RepositoryQueryParameters)&query=@Model.TagText">
-    <i class="fa fa-tag"></i>&nbsp;@Model.TagText
+    <i class="fa fa-hashtag"></i>&nbsp;@Model.TagText
 </a>

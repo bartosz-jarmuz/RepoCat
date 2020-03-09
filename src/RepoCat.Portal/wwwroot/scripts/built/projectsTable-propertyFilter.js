@@ -27,8 +27,15 @@ function propertyFilter(settings, searchData, index, rowData, counter) {
     return shouldBeVisible;
 }
 function getProperties(rowData) {
+    var propCell;
+    for (var i = 0; i < Object.keys(rowData).length; i++) {
+        if ($(rowData[i]).hasClass('property')) {
+            propCell = rowData[i];
+            break;
+        }
+    }
     var properties = [];
-    var propertyPairs = $($(rowData[8]).filter(function (tag) { return this.tagName === 'DIV'; }));
+    var propertyPairs = $($(propCell).filter(function (tag) { return this.tagName === 'DIV'; }));
     propertyPairs.each(function () {
         var propertyName = $(this).find('.property-name').text();
         var val = $(this).find('.description').text().trim();
