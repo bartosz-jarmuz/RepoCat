@@ -19,7 +19,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// <param name="projectId"></param>
         /// <param name="componentName"></param>
         /// <param name="property"></param>
-        public PropertyViewModel(string projectId, string componentName, KeyValuePair<string, string> property)
+        public PropertyViewModel(string projectId, string componentName, KeyValuePair<string, object> property)
         {
             this.ProjectId = projectId;
             this.ComponentName = componentName;
@@ -38,6 +38,6 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// <summary>
         /// 
         /// </summary>
-        public KeyValuePair<string, string> Property { get; set; }
+        public KeyValuePair<string, object> Property { get; set; }
     }
 }

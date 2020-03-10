@@ -2,7 +2,7 @@
 @model RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel
 @{
     var type = Model.GetDataType();
-    var displayText = Model.Text;
+    var displayText = Model.PropertyValue;
 
 
     string imageTag = "";
@@ -22,25 +22,36 @@
             imageTag = " <i class=\"fa fa-envelope\"></i> ";
         }
     }
+
+
+
     switch (type)
     {
         case InteractiveStringModel.DataType.Text:
             @displayText
             break;
         case InteractiveStringModel.DataType.Url:
-            <a href="@Model.Text" target="_blank" class="@Model.ClassName"
-               data-toggle="tooltip" title="@Model.Text"
+            <a href="@Model.PropertyValue" target="_blank" class="@Model.ClassName"
+               data-toggle="tooltip" title="@Model.PropertyValue"
                >@displayText @Html.Raw(@imageTag)</a>
             break;
         case InteractiveStringModel.DataType.Path:
             <a href="@Url.Action("Download", "Download", new { id = Model.ProjectId, componentName = Model.ComponentName, Model.PropertyKey })"
-               data-toggle="tooltip" title="@Model.Text"
+               data-toggle="tooltip" title="@Model.PropertyValue"
                >@displayText @Html.Raw(@imageTag)</a>
             break;
         case InteractiveStringModel.DataType.Email:
-            <a target="_blank" href="mailto:@(Model.Text)" class="@Model.ClassName"
-               data-toggle="tooltip" title="@Model.Text"
+            <a target="_blank" href="mailto:@(Model.PropertyValue)" class="@Model.ClassName"
+               data-toggle="tooltip" title="@Model.PropertyValue"
                >@displayText @Html.Raw(@imageTag)</a>
+            break;
+            case InteractiveStringModel.DataType.Collection:
+                <select class="font-sm">
+                    @foreach (var item in Model.PropertyValue as IEnumerable<string>)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
             break;
         default:
             break;

@@ -74,7 +74,7 @@ namespace RepoCat.Portal.Controllers.api
                     this.TempData["Error"] = $"Property [{propertyKey}] does not exist";
                     return this.RedirectToAction("Error", "Home");
                 }
-                return this.GetLocalFileResult(project, property.Value);
+                return this.GetLocalFileResult(project, property.Value?.ToString());
             }
             else
             {
@@ -84,7 +84,7 @@ namespace RepoCat.Portal.Controllers.api
                     this.TempData["Error"] = $"Project property [{propertyKey}] does not exist";
                     return this.RedirectToAction("Error", "Home");
                 }
-                return this.GetLocalFileResult(project, property.Value);
+                return this.GetLocalFileResult(project, property.Value?.ToString());
             }
         }
 

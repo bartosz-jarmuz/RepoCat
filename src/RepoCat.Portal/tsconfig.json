@@ -12,7 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "outDir": "./wwwroot/scripts/built"
+    "outDir": "./wwwroot/scripts/built" 
   },
   "include": [
     "./wwwroot/js/site"

@@ -54,7 +54,7 @@ namespace RepoCat.RepositoryManagement.Service
                 ProjectInfo project;
                 if (repo.RepositoryMode == RepositoryMode.Snapshot)
                 {
-                    project= await this.database.Create(mappedProject).ConfigureAwait(false);
+                    project= await this.database. Create(mappedProject).ConfigureAwait(false);
                 }
                 else
                 {

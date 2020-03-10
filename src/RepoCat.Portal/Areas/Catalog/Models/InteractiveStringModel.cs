@@ -4,6 +4,7 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections;
 using System.Text.RegularExpressions;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
@@ -35,7 +36,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// <summary>
         /// 
         /// </summary>
-        public string Text { get; set; }
+        public object PropertyValue { get; set; }
 
         /// <summary>
         /// 
@@ -48,15 +49,15 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// <param name="projectId"></param>
         /// <param name="componentName"></param>
         /// <param name="propertyKey"></param>
-        /// <param name="text"></param>
+        /// <param name="propertyValue"></param>
         /// <param name="className"></param>
         /// <param name="imageClassName"></param>
-        public InteractiveStringModel(string projectId, string componentName, string propertyKey, string text, string className = "", string imageClassName = "")
+        public InteractiveStringModel(string projectId, string componentName, string propertyKey, object propertyValue, string className = "", string imageClassName = "")
         {
             this.ProjectId = projectId;
             this.ComponentName = componentName;
             this.PropertyKey = propertyKey;
-            this.Text = text;
+            this.PropertyValue = propertyValue;
             this.ImageClassName = imageClassName;
             this.ClassName = className;
         }
@@ -64,7 +65,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
 
         private bool IsEmail()
         {
-            if (Regex.IsMatch(this.Text, @"^\S+@\S+\.\S+$"))//simplified but not as huge as it could be
+            if (Regex.IsMatch(this.PropertyValue.ToString(), @"^\S+@\S+\.\S+$"))//simplified but not as huge as it could be
             {
                 return true;
             }
@@ -77,17 +78,22 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         public DataType GetDataType()
         {
-            if (string.IsNullOrEmpty(this.Text))
+            if (string.IsNullOrEmpty(this.PropertyValue?.ToString()))
             {
                 return DataType.Text;
             }
 
-            if (this.Text.StartsWith("http") || this.Text.StartsWith("www."))
+            if (this.PropertyValue.GetType() != typeof(string) && this.PropertyValue is IEnumerable)
+            {
+                return DataType.Collection;
+            }
+
+            if (this.PropertyValue.ToString().StartsWith("http") || this.PropertyValue.ToString().StartsWith("www."))
             {
                 return DataType.Url;
             }
 
-            if (this.Text.StartsWith("\\\\"))
+            if (this.PropertyValue.ToString().StartsWith("\\\\"))
             {
                 return DataType.Path;
             }
@@ -120,6 +126,10 @@ namespace RepoCat.Portal.Areas.Catalog.Models
             /// Render a mailto tag
             /// </summary>
             Email,
+            /// <summary>
+            /// Render a collection control
+            /// </summary>
+            Collection
         }
     }
 }

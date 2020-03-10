@@ -9,13 +9,22 @@ function propertyFilter(settings, searchData, index, rowData, counter) {
         //find a property for the given filter
         var property = properties.filter(function (p) { return p.key === filter.key; }).find(function () { return true; });
         if (property) {
-            var propertyMatched = false;
-            filter.value.forEach(function (filterValue) {
-                if (filterValue === property.value) {
-                    propertyMatched = true;
-                }
-            });
-            if (!propertyMatched) {
+            var propertyMatched_1 = false;
+            if (Array.isArray(property.value)) {
+                filter.value.forEach(function (filterValue) {
+                    if (property.value.includes(filterValue)) {
+                        propertyMatched_1 = true;
+                    }
+                });
+            }
+            else {
+                filter.value.forEach(function (filterValue) {
+                    if (filterValue === property.value) {
+                        propertyMatched_1 = true;
+                    }
+                });
+            }
+            if (!propertyMatched_1) {
                 shouldBeVisible = false;
                 return;
             }
@@ -28,7 +37,7 @@ function propertyFilter(settings, searchData, index, rowData, counter) {
 }
 function getProperties(rowData) {
     var propCell;
-    for (var i = 0; i < Object.keys(rowData).length; i++) {
+    for (var i = 1; i <= Object.keys(rowData).length; i++) {
         if ($(rowData[i]).hasClass('property')) {
             propCell = rowData[i];
             break;
@@ -38,9 +47,21 @@ function getProperties(rowData) {
     var propertyPairs = $($(propCell).filter(function (tag) { return this.tagName === 'DIV'; }));
     propertyPairs.each(function () {
         var propertyName = $(this).find('.property-name').text();
-        var val = $(this).find('.description').text().trim();
-        var property = { key: propertyName, value: val };
-        properties.push(property);
+        var select = $(this).find('select');
+        if (select.length) {
+            var values_1 = [];
+            $(select).children('option').each(function () {
+                var val = $(this).text().trim();
+                values_1.push(val);
+            });
+            var property = { key: propertyName, value: values_1 };
+            properties.push(property);
+        }
+        else {
+            var val = $(this).find('.description').text().trim();
+            var property = { key: propertyName, value: val };
+            properties.push(property);
+        }
     });
     return properties;
 }

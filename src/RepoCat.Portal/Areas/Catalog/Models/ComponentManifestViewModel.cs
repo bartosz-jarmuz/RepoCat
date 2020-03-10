@@ -37,6 +37,6 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets or sets the properties.
         /// </summary>
         /// <value>The properties.</value>
-        public Dictionary<string, string> Properties { get; internal set; } = new Dictionary<string, string>();
+        public Dictionary<string, object> Properties { get; internal set; } = new Dictionary<string, object>();
     }
 }

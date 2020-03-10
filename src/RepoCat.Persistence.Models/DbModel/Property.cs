@@ -43,6 +43,6 @@ namespace RepoCat.Persistence.Models
         /// <summary>
         /// Value of the property
         /// </summary>
-        public string Value { get; set; }
+        public object Value { get; set; }
     }
 }

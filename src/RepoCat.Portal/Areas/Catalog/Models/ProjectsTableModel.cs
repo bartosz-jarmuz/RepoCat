@@ -4,6 +4,7 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,37 +33,40 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         public string Repositories { get;  }
 
+        private static bool IsList(object propertyValue, out List<string> list)
+        {
+            list = null;
+            if (propertyValue.GetType() != typeof(string))
+            {
+                if (propertyValue is IEnumerable enumerable)
+                {
+                    list = new List<string>();
+                    foreach (object o in enumerable)
+                    {
+                        list.Add(o.ToString());
+                    }
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void BuildPropertiesDictionary()
         {
-            foreach (Dictionary<string, string> propertiesInProjects in this.Projects.Select(x => x.Properties).Concat(this.Projects.SelectMany(x=>x.Components.Select(c=>c.Properties))))
+            foreach (Dictionary<string, object> propertiesInProjects in this.Projects.Select(x => x.Properties).Concat(this.Projects.SelectMany(x=>x.Components.Select(c=>c.Properties))))
             {
-                foreach (KeyValuePair<string, string> propertyInProject in propertiesInProjects)
+                foreach (KeyValuePair<string, object> propertyInProject in propertiesInProjects)
                 {
                     var propertyInViewModel = this.Properties.FirstOrDefault(p => p.Key == propertyInProject.Key);
+                    
                     if (propertyInViewModel == null)
                     {
-                        var prop = new PropertyFilterModel()
-                        {
-                            Key = propertyInProject.Key,
-                            Values = new List<PropertyFilterValue>() {new PropertyFilterValue(propertyInProject.Value)},
-                            OccurenceCount = 1,
-                        };
-
-                        this.Properties.Add(prop);
+                        this.AddNewProperty(propertyInProject);
                     }
                     else
                     {
-                        propertyInViewModel.OccurenceCount++;
-                        var existingValue =
-                            propertyInViewModel.Values.FirstOrDefault(x => x.Value == propertyInProject.Value);
-                        if (existingValue == null)
-                        {
-                            propertyInViewModel.Values.Add(new PropertyFilterValue(propertyInProject.Value));
-                        }
-                        else
-                        {
-                            existingValue.OccurenceCount++;
-                        }
+                        UpdateExistingProperty(propertyInViewModel, propertyInProject);
                     }
                 }
             }
@@ -73,6 +77,57 @@ namespace RepoCat.Portal.Areas.Catalog.Models
             {
                 propertyModel.Values = propertyModel.Values.OrderByDescending(x => x.OccurenceCount).ToList();
             }
+        }
+
+        private static void UpdateExistingProperty(PropertyFilterModel propertyInViewModel, KeyValuePair<string, object> propertyInProject)
+        {
+            propertyInViewModel.OccurenceCount++;
+            if (IsList(propertyInProject.Value, out List<string> list))
+            {
+                foreach (string propertyValue in list)
+                {
+                    IncrementValueInExistingProperty(propertyInViewModel, propertyValue);
+                }
+            }
+            else
+            {
+                IncrementValueInExistingProperty(propertyInViewModel, propertyInProject.Value.ToString());
+            }
+        }
+
+        private static void IncrementValueInExistingProperty(PropertyFilterModel propertyInViewModel, string propertyValue)
+        {
+            var existingValue = propertyInViewModel.Values.FirstOrDefault(x => x.Value == propertyValue);
+            if (existingValue == null)
+            {
+                propertyInViewModel.Values.Add(new PropertyFilterValue(propertyValue));
+            }
+            else
+            {
+                existingValue.OccurenceCount++;
+            }
+        }
+
+        private void AddNewProperty(KeyValuePair<string, object> propertyInProject)
+        {
+            var values = new List<PropertyFilterValue>();
+            if (IsList(propertyInProject.Value, out List<string> list))
+            {
+                values.AddRange(list.Select(x => new PropertyFilterValue(x)));
+            }
+            else
+            {
+                values.Add(new PropertyFilterValue(propertyInProject.Value.ToString()));
+            }
+
+            var prop = new PropertyFilterModel()
+            {
+                Key = propertyInProject.Key,
+                Values = values,
+                OccurenceCount = 1,
+            };
+
+            this.Properties.Add(prop);
         }
 
         /// <summary>

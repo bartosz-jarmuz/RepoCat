@@ -1,5 +1,5 @@
 ﻿function propertyFilter(settings, searchData, index, rowData, counter) {
-    
+
     var filters = getFilters();
 
     if (filters.length === 0) {
@@ -7,17 +7,28 @@
     }
     var properties = getProperties(rowData);
 
-    var shouldBeVisible = true;
+    let shouldBeVisible = true;
     filters.forEach(function (filter) {
         //find a property for the given filter
-        var property = properties.filter(function (p) { return p.key === filter.key }).find(function () { return true; });
+        let property = properties.filter(function (p) { return p.key === filter.key }).find(function () { return true; });
         if (property) {
-            var propertyMatched = false;
-            filter.value.forEach(function (filterValue) {
-                if (filterValue === property.value) {
-                    propertyMatched = true;
-                }
-            });
+            let propertyMatched = false;
+
+            if (Array.isArray(property.value)) {
+                filter.value.forEach(function (filterValue) {
+                    if (property.value.includes(filterValue)) {
+                        propertyMatched = true;
+                    }
+                });
+
+            } else {
+                filter.value.forEach(function (filterValue) {
+                    if (filterValue === property.value) {
+                        propertyMatched = true;
+                    }
+                });
+            }
+
             if (!propertyMatched) {
                 shouldBeVisible = false;
                 return;
@@ -28,11 +39,11 @@
     });
 
     return shouldBeVisible;
-} 
+}
 
 function getProperties(rowData) {
     let propCell;
-    for (var i = 0; i < Object.keys(rowData).length; i++) {
+    for (var i = 1; i <= Object.keys(rowData).length; i++) {
         if ($(rowData[i]).hasClass('property')) {
             propCell = rowData[i];
             break;
@@ -42,10 +53,21 @@ function getProperties(rowData) {
     var properties = [];
     var propertyPairs = $($(propCell).filter(function (tag) { return this.tagName === 'DIV' }));
     propertyPairs.each(function () {
-        var propertyName = $(this).find('.property-name').text();
-        var val = $(this).find('.description').text().trim();
-        var property = { key: propertyName, value: val };
-        properties.push(property);
+        let propertyName = $(this).find('.property-name').text();
+        let select = $(this).find('select');
+        if (select.length) {
+            let values = [];
+            $(select).children('option').each(function () {
+                let val = $(this).text().trim();
+                values.push(val);
+            });
+            let property = { key: propertyName, value: values };
+            properties.push(property);
+        } else {
+            let val = $(this).find('.description').text().trim();
+            let property = { key: propertyName, value: val };
+            properties.push(property);
+        }
     });
     return properties;
 }
@@ -101,7 +123,7 @@ function setupFiltering(table) {
 }
 
 function showActiveFilters() {
-    var columns = getFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey()) 
+    var columns = getFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey())
     if (columns) {
         $('.filter-toggle').each(function (index, toggler) {
             var data = $(toggler).data('property');

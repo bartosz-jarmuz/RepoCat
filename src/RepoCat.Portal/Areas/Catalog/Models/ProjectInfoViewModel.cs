@@ -104,7 +104,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// (e.g. if a transmitter plugin uses reflection to scan through code for some extra info)
         /// </summary>
         /// <value>The properties.</value>
-        public Dictionary<string, string> Properties { get; internal set; } = new Dictionary<string, string>();
+        public Dictionary<string, object> Properties { get; internal set; } = new Dictionary<string, object>();
 
         /// <summary>
         /// The download location

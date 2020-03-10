@@ -4,6 +4,8 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections;
+using System.Collections.Generic;
 using AutoMapper;
 using RepoCat.Persistence.Models;
 using RepoCat.Portal.Areas.Catalog.Models;
@@ -76,10 +78,26 @@ namespace RepoCat.Portal.Mapping
             this.CreateMap<SearchKeywordData, RepositoryManagement.Service.SearchKeywordData>();
         }
 
-
         private void MapTransmitterModels()
         {
-            this.CreateMap<Transmission.Models.Property, Property>();
+            this.CreateMap<Transmission.Models.Property, Property>()
+                .ForMember(dest => dest.Value, opt => opt.MapFrom((src, dest) =>
+                {
+                    
+                    if (src.Value.GetType() != typeof(string) && src.Value is IEnumerable enumerable)
+                    {
+                        var list = new List<string>();
+
+                        foreach (object o in enumerable)
+                        {
+                            list.Add(o.ToString());    
+                        }
+                        return list;
+                    }
+
+                    return src.Value;
+                }));
+                ;
 
             this.CreateMap<Transmission.Models.ProjectInfo, ProjectInfo>()
                 .ForMember(x => x.Id, o => o.Ignore())

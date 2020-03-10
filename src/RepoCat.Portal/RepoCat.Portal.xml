@@ -337,7 +337,7 @@
             
             </summary>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.Text">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.PropertyValue">
             <summary>
             
             </summary>
@@ -347,14 +347,14 @@
             
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.#ctor(System.String,System.String,System.String,System.Object,System.String,System.String)">
             <summary>
             
             </summary>
             <param name="projectId"></param>
             <param name="componentName"></param>
             <param name="propertyKey"></param>
-            <param name="text"></param>
+            <param name="propertyValue"></param>
             <param name="className"></param>
             <param name="imageClassName"></param>
         </member>
@@ -386,6 +386,11 @@
         <member name="F:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.DataType.Email">
             <summary>
             Render a mailto tag
+            </summary>
+        </member>
+        <member name="F:RepoCat.Portal.Areas.Catalog.Models.InteractiveStringModel.DataType.Collection">
+            <summary>
+            Render a collection control
             </summary>
         </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel">
@@ -678,7 +683,7 @@
             
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.#ctor(System.String,System.String,System.Collections.Generic.KeyValuePair{System.String,System.String})">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.#ctor(System.String,System.String,System.Collections.Generic.KeyValuePair{System.String,System.Object})">
             <summary>
             
             </summary>
