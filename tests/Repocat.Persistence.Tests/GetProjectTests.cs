@@ -139,7 +139,7 @@ namespace Repocat.Persistence.Tests
             this.AssertOneProjectFoundBy("ProjectName", result, insertedProject);
         }
 
-        [Test, Ignore("Not time yet")]
+        [Test]
         public async Task TestGetProject_TextFilter_ProjectNamePart()
         {
             //arrange
@@ -157,7 +157,7 @@ namespace Repocat.Persistence.Tests
             this.AssertOneProjectFoundBy("Partial ProjectName", partialResult, insertedProject);
         }
 
-        [Test, Ignore("Not time yet")]
+        [Test]
         public async Task TestGetProject_TextFilter_ProjectNameToken()
         {
             //arrange
@@ -175,25 +175,7 @@ namespace Repocat.Persistence.Tests
             this.AssertOneProjectFoundBy("Partial ProjectName (Token)", partialResult, insertedProject);
         }
 
-        [Test, Ignore("Not time yet")]
-        public async Task TestGetProject_TextFilter_ListPropertyToken()
-        {
-            //arrange
-            RepositoryDatabase database = new RepositoryDatabase(Settings);
-            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
-            var prj = GetEmptyProject(this.testRepoOne);
-            prj.ProjectName = "PinkPanther.ValidatorsPack";
-            prj.Properties.Add("Files", new List<string>(){"FileNumberOne.cs", "FileNumberTwo.cs"});
-            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
-            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
-
-            //act
-            var partialResult = await this.GetResultFromRepoOne(service, "FileNumberTwo");
-
-            //assert
-            this.AssertOneProjectFoundBy("Partial ListProperty (Token)", partialResult, insertedProject);
-        }
-
+       
         [Test]
         public async Task TestGetProject_TextFilter_ProjectDescription()
         {
@@ -228,7 +210,6 @@ namespace Repocat.Persistence.Tests
             this.AssertOneProjectFoundBy("Name Part", result, insertedProject);
         }
 
-
         [Test]
         public async Task TestGetProject_TextFilter_ProjectTags()
         {
@@ -249,6 +230,25 @@ namespace Repocat.Persistence.Tests
         }
 
         [Test]
+        public async Task TestGetProject_TextFilter_ListPropertyToken()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.ProjectName = "PinkPanther.ValidatorsPack";
+            prj.Properties.Add("Files", new List<string>() { "FileNumberOne.cs", "FileNumberTwo.cs" });
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+
+            //act
+            var partialResult = await this.GetResultFromRepoOne(service, "Number");
+
+            //assert
+            this.AssertOneProjectFoundBy("Partial ListProperty (Token)", partialResult, insertedProject);
+        }
+
+        [Test]
         public async Task TestGetProject_TextFilter_ProjectProperties()
         {
             //arrange
@@ -266,20 +266,20 @@ namespace Repocat.Persistence.Tests
             this.AssertOneProjectFoundBy("ProjectProperties", result, insertedProject);
         }
 
-        [Test, Ignore("Not time yet")]
+        [Test]
         public async Task TestGetProject_TextFilter_ProjectPropertiesList()
         {
             //arrange
             RepositoryDatabase database = new RepositoryDatabase(Settings);
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
             var prj = GetEmptyProject(this.testRepoOne);
-            prj.Properties.Add("Files", new List<string>() { "FileNumberOne.cs", "FileNumberTwo.cs" });
+            prj.Properties.Add("Files", new List<string>() { "FileNumberOne.cs", "FileNumberTwo" });
 
 
             ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
             await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
             //act
-            ManifestQueryResult result = await this.GetResultFromRepoOne(service, "FileNumberTwo.cs");
+            ManifestQueryResult result = await this.GetResultFromRepoOne(service, "FileNumberTwo");
 
             //assert
             this.AssertOneProjectFoundBy("ProjectPropertiesList", result, insertedProject);
@@ -440,6 +440,29 @@ namespace Repocat.Persistence.Tests
 
             result = await this.GetResultFromRepoOne(service, "Checker");
             this.AssertOneProjectFoundBy("PropertiesValue", result, insertedProject);
+        }
+
+        [Test]
+        public async Task TestGetProject_TextFilter_ComponentPropertiesList()
+        {
+            //arrange
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
+            var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), TelemetryMock.InitializeMockTelemetryClient());
+            var prj = GetEmptyProject(this.testRepoOne);
+            prj.Components.Add(new RepoCat.Transmission.Models.ComponentManifest()
+            {
+                Properties ={
+                    ("ListProperty", new []{"ItemOne, SecondItem"}),
+                },
+            });
+
+            ProjectInfo insertedProject = await service.Upsert(prj).ConfigureAwait(false);
+            await this.AddMoreProjectsToEnsureNotTooMuchIsReturned(prj, service, insertedProject);
+            //act
+            var result = await this.GetResultFromRepoOne(service, "SecondItem");
+            //assert
+            this.AssertOneProjectFoundBy("ComponentProperties ListValue", result, insertedProject);
+
         }
 
 
