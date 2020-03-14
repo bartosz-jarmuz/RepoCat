@@ -67,7 +67,9 @@ namespace RepoCat.Persistence.Service
                         {nameof(ProjectInfo.ProjectDescription), 5},
                         { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Description)}",5},
                         { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Properties)}.{nameof(Property.Value)}",5},
+                        { $"{nameof(ProjectInfo.Components)}.{nameof(ComponentManifest.Properties)}.{nameof(Property.Value)}._v",5},
                         { $"{nameof(ProjectInfo.Properties)}.{nameof(Property.Value)}",5},
+                        { $"{nameof(ProjectInfo.Properties)}.{nameof(Property.Value)}._v",5},
 
                         //low priority 
                         {nameof(ProjectInfo.ProjectUri), 3},
