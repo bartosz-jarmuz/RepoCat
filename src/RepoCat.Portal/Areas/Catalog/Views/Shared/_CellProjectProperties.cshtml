@@ -3,12 +3,12 @@
 
 @foreach (var property in Model.Properties)
 {
-    <partial name="_PropertyPartial" model="@(new PropertyViewModel(Model.Id, null, property))" />
+    <partial name="_PropertyPartial" model="@(new PropertyPartialViewModel(Model.Id, null, property))" />
 }
 @foreach (var component in Model.Components)
 {
     foreach (var property in component.Properties)
     {
-        <partial name="_PropertyPartial" model="@(new PropertyViewModel(Model.Id, component.Name, property))" />
+        <partial name="_PropertyPartial" model="@(new PropertyPartialViewModel(Model.Id, component.Name, property))" />
     }
 }

@@ -33,30 +33,12 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         public string Repositories { get;  }
 
-        private static bool IsList(object propertyValue, out List<string> list)
-        {
-            list = null;
-            if (propertyValue.GetType() != typeof(string))
-            {
-                if (propertyValue is IEnumerable enumerable)
-                {
-                    list = new List<string>();
-                    foreach (object o in enumerable)
-                    {
-                        list.Add(o.ToString());
-                    }
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
+        
         private void BuildPropertiesDictionary()
         {
-            foreach (Dictionary<string, object> propertiesInProjects in this.Projects.Select(x => x.Properties).Concat(this.Projects.SelectMany(x=>x.Components.Select(c=>c.Properties))))
+            foreach (var propertiesInProjects in this.Projects.Select(x => x.Properties).Concat(this.Projects.SelectMany(x=>x.Components.Select(c=>c.Properties))))
             {
-                foreach (KeyValuePair<string, object> propertyInProject in propertiesInProjects)
+                foreach (var propertyInProject in propertiesInProjects)
                 {
                     var propertyInViewModel = this.Properties.FirstOrDefault(p => p.Key == propertyInProject.Key);
                     
@@ -79,25 +61,25 @@ namespace RepoCat.Portal.Areas.Catalog.Models
             }
         }
 
-        private static void UpdateExistingProperty(PropertyFilterModel propertyInViewModel, KeyValuePair<string, object> propertyInProject)
+        private static void UpdateExistingProperty(PropertyFilterModel propertyInViewModel, PropertyViewModel propertyInProject)
         {
             propertyInViewModel.OccurenceCount++;
-            if (IsList(propertyInProject.Value, out List<string> list))
+            if (propertyInProject.ValueList != null && propertyInProject.ValueList.Any())
             {
-                foreach (string propertyValue in list)
+                foreach (string propertyValue in propertyInProject.ValueList.Distinct())
                 {
                     IncrementValueInExistingProperty(propertyInViewModel, propertyValue);
                 }
             }
             else
             {
-                IncrementValueInExistingProperty(propertyInViewModel, propertyInProject.Value.ToString());
+                IncrementValueInExistingProperty(propertyInViewModel, propertyInProject.Value);
             }
         }
 
         private static void IncrementValueInExistingProperty(PropertyFilterModel propertyInViewModel, string propertyValue)
         {
-            var existingValue = propertyInViewModel.Values.FirstOrDefault(x => x.Value == propertyValue);
+            PropertyFilterValue existingValue = propertyInViewModel.Values.FirstOrDefault(x => x.Value == propertyValue);
             if (existingValue == null)
             {
                 propertyInViewModel.Values.Add(new PropertyFilterValue(propertyValue));
@@ -108,16 +90,16 @@ namespace RepoCat.Portal.Areas.Catalog.Models
             }
         }
 
-        private void AddNewProperty(KeyValuePair<string, object> propertyInProject)
+        private void AddNewProperty(PropertyViewModel propertyInProject)
         {
             var values = new List<PropertyFilterValue>();
-            if (IsList(propertyInProject.Value, out List<string> list))
+            if (propertyInProject.ValueList != null && propertyInProject.ValueList.Any())
             {
-                values.AddRange(list.Select(x => new PropertyFilterValue(x)));
+                values.AddRange(propertyInProject.ValueList.Distinct().Select(x => new PropertyFilterValue(x)));
             }
             else
             {
-                values.Add(new PropertyFilterValue(propertyInProject.Value.ToString()));
+                values.Add(new PropertyFilterValue(propertyInProject.Value));
             }
 
             var prop = new PropertyFilterModel()

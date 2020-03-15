@@ -228,6 +228,11 @@
             Value of the property
             </summary>
         </member>
+        <member name="P:RepoCat.Transmission.Models.Property.ValueList">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:RepoCat.Transmission.Models.RepositoryInfo">
             <summary>
             Info about repository

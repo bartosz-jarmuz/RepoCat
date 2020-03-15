@@ -222,6 +222,11 @@
             Value of the property
             </summary>
         </member>
+        <member name="P:RepoCat.Persistence.Models.Property.ValueList">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:RepoCat.Persistence.Models.RepositoryInfo">
             <summary>
             Info about repository

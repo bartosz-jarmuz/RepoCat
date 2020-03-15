@@ -4,6 +4,9 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections;
+using System.Collections.Generic;
+
 namespace RepoCat.Transmission.Models
 {
     /// <summary>
@@ -26,7 +29,21 @@ namespace RepoCat.Transmission.Models
         public Property(string key, object value)
         {
             this.Key = key;
-            this.Value = value;
+
+            if (value != null)
+            {
+                if (value.GetType() != typeof(string) && value is IEnumerable enumerable)
+                {
+                    foreach (object o in enumerable)
+                    {
+                        this.ValueList.Add(o?.ToString());
+                    }
+                }
+                else
+                {
+                    this.Value = value?.ToString();
+                }
+            }
         }
 
         /// <summary>
@@ -46,6 +63,11 @@ namespace RepoCat.Transmission.Models
         /// <summary>
         /// Value of the property
         /// </summary>
-        public object Value { get; set; }
+        public string Value { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<string>ValueList { get; set; } = new List<string>();
     }
 }

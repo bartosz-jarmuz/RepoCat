@@ -69,7 +69,7 @@ namespace RepoCat.Portal.Controllers.api
                 }
 
                 Property property = component.Properties.FirstOrDefault(x => x.Key == propertyKey);
-                if (property.Value == null)
+                if (property?.Value == null)
                 {
                     this.TempData["Error"] = $"Property [{propertyKey}] does not exist";
                     return this.RedirectToAction("Error", "Home");
@@ -79,7 +79,7 @@ namespace RepoCat.Portal.Controllers.api
             else
             {
                 Property property = project.Properties.FirstOrDefault(x => x.Key == propertyKey);
-                if (property.Value == null)
+                if (property?.Value == null)
                 {
                     this.TempData["Error"] = $"Project property [{propertyKey}] does not exist";
                     return this.RedirectToAction("Error", "Home");

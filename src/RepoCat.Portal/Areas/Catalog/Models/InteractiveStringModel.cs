@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System.Collections;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
@@ -57,9 +58,28 @@ namespace RepoCat.Portal.Areas.Catalog.Models
             this.ProjectId = projectId;
             this.ComponentName = componentName;
             this.PropertyKey = propertyKey;
-            this.PropertyValue = propertyValue;
+            this.SetPropertyValue(propertyValue);
             this.ImageClassName = imageClassName;
             this.ClassName = className;
+        }
+
+        private void SetPropertyValue(object propertyValue)
+        {
+            if (propertyValue is PropertyViewModel vm)
+            {
+                if (vm.ValueList != null && vm.ValueList.Any())
+                {
+                    this.PropertyValue = vm.ValueList;
+                }
+                else
+                {
+                    this.PropertyValue = vm.Value;
+                }
+            }
+            else
+            {
+                this.PropertyValue = propertyValue;
+            }
         }
 
 

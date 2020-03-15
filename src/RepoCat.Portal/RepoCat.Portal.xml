@@ -678,12 +678,12 @@
             How many of the projects have this property value
             </summary>
         </member>
-        <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel">
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyPartialViewModel">
             <summary>
-            
+            Constains property plus a bit of extra contextual info
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.#ctor(System.String,System.String,System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.PropertyPartialViewModel.#ctor(System.String,System.String,RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel)">
             <summary>
             
             </summary>
@@ -691,17 +691,37 @@
             <param name="componentName"></param>
             <param name="property"></param>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.ProjectId">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyPartialViewModel.ProjectId">
             <summary>
             
             </summary>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.ComponentName">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyPartialViewModel.ComponentName">
             <summary>
             
             </summary>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.Property">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyPartialViewModel.Property">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.Key">
+            <summary>
+            Name of the property
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.Value">
+            <summary>
+            Value of the property
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.PropertyViewModel.ValueList">
             <summary>
             
             </summary>

@@ -16,6 +16,13 @@
             <param name="queryString">The query string.</param>
             <returns>List&lt;System.String&gt;.</returns>
         </member>
+        <member name="M:RepoCat.Utilities.QueryStringTokenizer.GetTokensUppercase(System.String)">
+            <summary>
+             Gets tokens converted to upper case with invariant culture
+            </summary>
+            <param name="queryString">The query string.</param>
+            <returns>List&lt;System.String&gt;.</returns>
+        </member>
         <member name="T:RepoCat.Utilities.StampSorter">
             <summary>
             Sorts the repository stamps

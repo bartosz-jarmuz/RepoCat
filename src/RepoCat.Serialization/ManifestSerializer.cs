@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using RepoCat.Transmission.Contracts;
@@ -131,7 +132,15 @@ namespace RepoCat.Serialization
                 {
                     XElement propertyElement = new XElement(XmlNames.GetComponentXName(XmlNames.Property));
                     propertyElement.Add(new XAttribute(XmlNames.Key, manifestProperty.Key));
-                    propertyElement.Value =Json.Serialize(manifestProperty.Value);
+                    if (manifestProperty.ValueList != null && manifestProperty.ValueList.Any())
+                    {
+                        propertyElement.Value = Json.Serialize(manifestProperty.ValueList);
+
+                    }
+                    else
+                    {
+                        propertyElement.Value = Json.Serialize(manifestProperty.Value);
+                    }
                     props.Add(propertyElement);
                 }
             }

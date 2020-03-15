@@ -66,7 +66,7 @@
                                     <div class="component-label">Properties&nbsp;</div>
                                     @foreach (var property in @component.Properties)
                                     {
-                                        <partial name="_PropertyPartial" model="@(new PropertyViewModel(Model.Id, component.Name, property))" />
+                                        <partial name="_PropertyPartial" model="@(new PropertyPartialViewModel(Model.Id, component.Name, property))" />
                                     }
                                 </div>
                             </div>

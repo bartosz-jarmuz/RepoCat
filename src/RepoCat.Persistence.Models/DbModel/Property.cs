@@ -4,6 +4,9 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
+using System.Collections;
+using System.Collections.Generic;
+
 namespace RepoCat.Persistence.Models
 {
     /// <summary>
@@ -24,7 +27,21 @@ namespace RepoCat.Persistence.Models
         public Property(string name, object value)
         {
             this.Key = name;
-            this.Value = value?.ToString();
+
+            if (value != null)
+            {
+                if (value.GetType() != typeof(string) && value is IEnumerable enumerable)
+                {
+                    foreach (object o in enumerable)
+                    {
+                        this.ValueList.Add(o?.ToString());
+                    }
+                }
+                else
+                {
+                    this.Value = value?.ToString();
+                }
+            }
         }
 
         /// <summary>
@@ -43,6 +60,11 @@ namespace RepoCat.Persistence.Models
         /// <summary>
         /// Value of the property
         /// </summary>
-        public object Value { get; set; }
+        public string Value { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<string> ValueList { get; set; } = new List<string>();
     }
 }

@@ -5,11 +5,13 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -46,15 +48,27 @@ namespace RepoCat.Persistence.Service
 
         public static async Task<FilterDefinition<ProjectInfo>> BuildProjectsFilter(IMongoCollection<ProjectInfo> projects, string query, bool isRegex, RepositoryInfo repo, string stamp = null)
         {
+            if (isRegex)
+            {
+                return await BuildProjectFilterBase(projects, query, repo, (s,f)=>AppendTextFilterIfNeeded(s, isRegex, f), stamp);
+            }
+            else
+            {
+                return await BuildProjectFilterBase(projects, query, repo, AppendFuzzyTextFilterIfNeeded, stamp);
+            }
+        }
+
+        private static async Task<FilterDefinition<ProjectInfo>> BuildProjectFilterBase(IMongoCollection<ProjectInfo> projects, string query, RepositoryInfo repo, Func<string, FilterDefinition<ProjectInfo>, FilterDefinition<ProjectInfo>> textFilter, string stamp = null )
+        {
             if (projects == null) throw new ArgumentNullException(nameof(projects));
 
             FilterDefinition<ProjectInfo> respositoryFilter = Builders<ProjectInfo>.Filter.Empty;
-                
+
             respositoryFilter = AppendRepositoryFilterIfNeeded(respositoryFilter, repo);
 
             respositoryFilter = await AppendNewestStampFilterIfNeeded(projects, respositoryFilter, repo, stamp).ConfigureAwait(false);
 
-            respositoryFilter = AppendTextFilterIfNeeded(query, isRegex, respositoryFilter);
+            respositoryFilter = textFilter(query, respositoryFilter);
 
             return respositoryFilter;
         }
@@ -69,6 +83,47 @@ namespace RepoCat.Persistence.Service
             return filter;
         }
 
+        public static FilterDefinition<ProjectInfo> BuildProjectsFuzzyTextFilter(string query)
+        {
+            var tokensUppercase = QueryStringTokenizer.GetTokens(query, true);
+            FilterDefinition<ProjectInfo> filter = null;
+            foreach (string token in tokensUppercase)
+            {
+                if (filter == null)
+                {
+                    filter = BuildProjectsFuzzyTextFilterForToken(token);
+                }
+                else
+                {
+                    filter = filter | BuildProjectsFuzzyTextFilterForToken(token);
+                }
+            }
+            
+            return filter;
+        }
+
+        private static FilterDefinition<ProjectInfo> BuildProjectsFuzzyTextFilterForToken(string token)
+        {
+            return Builders<ProjectInfo>.Filter.Or(
+                Builders<ProjectInfo>.Filter.Where(prj => prj.ProjectName.ToUpperInvariant().Contains(token))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.ProjectDescription.ToUpperInvariant().Contains(token))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.AssemblyName.ToUpperInvariant().Contains(token))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Owner.ToUpperInvariant().Contains(token))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.DocumentationUri.ToUpperInvariant().Contains(token))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.ProjectUri.ToUpperInvariant().Contains(token))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Tags.Any(tag=>tag.ToUpperInvariant().Contains(token)))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Properties.Any(property => property.Value.ToUpperInvariant().Contains(token)))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Properties.Any(property => property.ValueList.Any(item=> item.ToUpperInvariant().Contains(token))))
+
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Components.Any(cmp => cmp.Name.ToUpperInvariant().Contains(token)))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Components.Any(cmp => cmp.Description.ToUpperInvariant().Contains(token)))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Components.Any(cmp => cmp.DocumentationUri.ToUpperInvariant().Contains(token)))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Components.Any(cmp => cmp.Tags.Any(tag=>tag.ToUpperInvariant().Contains(token))))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Components.Any(cmp => cmp.Properties.Any(property => property.Value.ToUpperInvariant().Contains(token))))
+                    , Builders<ProjectInfo>.Filter.Where(prj => prj.Components.Any(cmp => cmp.Properties.Any(property => property.ValueList.Any(item => item.ToUpperInvariant().Contains(token)))))
+            );
+        }
+
         public static FilterDefinition<ProjectInfo> BuildProjectsTextFilter(string query, bool isRegex)
         {
             if (!isRegex)
@@ -79,10 +134,8 @@ namespace RepoCat.Persistence.Service
             {
                 BsonRegularExpression regex = new BsonRegularExpression(new Regex(query,
                     RegexOptions.IgnoreCase));
-                return Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Tags)),
-                           regex)
-                       | Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Name)),
-                           regex)
+                return Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Tags)), regex)
+                       | Builders<ProjectInfo>.Filter.Regex(GetComponentFieldName(nameof(ComponentManifest.Name)), regex)
                        | Builders<ProjectInfo>.Filter.Regex(x => x.AssemblyName, regex)
                        | Builders<ProjectInfo>.Filter.Regex(x => x.ProjectName, regex)
                        | Builders<ProjectInfo>.Filter.Regex(x => x.TargetExtension, regex);
@@ -131,6 +184,17 @@ namespace RepoCat.Persistence.Service
             var rendered = filter.Render(documentSerializer, serializerRegistry);
             return rendered.Elements.Any(x => x.Name == "$text");
         }
+
+        private static FilterDefinition<ProjectInfo> AppendFuzzyTextFilterIfNeeded(string query, FilterDefinition<ProjectInfo> filter)
+        {
+            if (!string.IsNullOrEmpty(query) && query != "*")
+            {
+                filter = filter & BuildProjectsFuzzyTextFilter(query);
+            }
+
+            return filter;
+        }
+
 
         private static FilterDefinition<ProjectInfo> AppendTextFilterIfNeeded(string query, bool isRegex, FilterDefinition<ProjectInfo> filter)
         {

@@ -52,7 +52,7 @@ namespace RepoCat.Portal.Mapping
                 .ForMember(x => x.Properties, o => o.Ignore())
                 .AfterMap((src, dest, rc) =>
                 {
-                    foreach (Property prop in src.Properties) dest.Properties.Add(prop.Key, prop.Value);
+                    foreach (Property prop in src.Properties) dest.Properties.Add(new PropertyViewModel(){Key = prop.Key, Value = prop.Value, ValueList = prop.ValueList});
                 })
                 ;
 
@@ -60,13 +60,15 @@ namespace RepoCat.Portal.Mapping
                 .ForMember(x => x.Properties, o => o.Ignore())
                 .AfterMap((src, dest, rc) =>
                 {
-                    foreach (Property prop in src.Properties) dest.Properties.Add(prop.Key, prop.Value);
+                    foreach (Property prop in src.Properties) dest.Properties.Add(new PropertyViewModel(){Key = prop.Key, Value = prop.Value, ValueList = prop.ValueList});
                 })
                 ;
             this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>()
                 .ForMember(x => x.SearchTokens, o => o.Ignore())
                 .ForMember(x => x.ProjectsTable, o => o.Ignore())
                 ;
+
+
             this.CreateMap<CollectionSummary, Areas.Admin.Models.CollectionSummary>();
         }
 
@@ -80,24 +82,7 @@ namespace RepoCat.Portal.Mapping
 
         private void MapTransmitterModels()
         {
-            this.CreateMap<Transmission.Models.Property, Property>()
-                .ForMember(dest => dest.Value, opt => opt.MapFrom((src, dest) =>
-                {
-                    
-                    if (src.Value.GetType() != typeof(string) && src.Value is IEnumerable enumerable)
-                    {
-                        var list = new List<string>();
-
-                        foreach (object o in enumerable)
-                        {
-                            list.Add(o.ToString());    
-                        }
-                        return list;
-                    }
-
-                    return src.Value;
-                }));
-                ;
+            this.CreateMap<Transmission.Models.Property, Property>();
 
             this.CreateMap<Transmission.Models.ProjectInfo, ProjectInfo>()
                 .ForMember(x => x.Id, o => o.Ignore())

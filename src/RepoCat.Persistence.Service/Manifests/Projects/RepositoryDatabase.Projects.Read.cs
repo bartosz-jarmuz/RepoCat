@@ -99,7 +99,15 @@ namespace RepoCat.Persistence.Service
         /// <returns></returns>
         public Task<IEnumerable<Project>> GetProjectsByQuery(string query, bool isRegex)
         {
-            FilterDefinition<ProjectInfo> filter = RepoCatFilterBuilder.BuildProjectsTextFilter(query, isRegex);
+            FilterDefinition<ProjectInfo> filter;
+            if (isRegex)
+            {
+                filter = RepoCatFilterBuilder.BuildProjectsTextFilter(query, isRegex);
+            }
+            else
+            {
+                filter = RepoCatFilterBuilder.BuildProjectsFuzzyTextFilter(query);
+            }
             return this.ExecuteFilter(filter);
         }
 
@@ -107,6 +115,7 @@ namespace RepoCat.Persistence.Service
         private async Task<IEnumerable<Project>> GetProjects(RepositoryInfo repository, string query, bool isRegex, string stamp = null)
         {
             FilterDefinition<ProjectInfo> filter = await RepoCatFilterBuilder.BuildProjectsFilter(this.projects, query, isRegex, repository, stamp).ConfigureAwait(false);
+
             return await this.ExecuteFilter(filter).ConfigureAwait(false);
         }
    
@@ -117,7 +126,6 @@ namespace RepoCat.Persistence.Service
             IAggregateFluent<ProjectWithRepos> aggr;
             if (containsTextFilter)
             {
-
                 aggr = this.projects.Aggregate()
                     .Match(filter)
                     .Sort(Builders<ProjectInfo>.Sort.MetaTextScore("textScore"))
@@ -139,7 +147,7 @@ namespace RepoCat.Persistence.Service
                         @as: (ProjectWithRepos pr) => pr.RepositoryInfo
                     );
             }
-
+            
             IEnumerable<Project> projected = (await aggr.ToListAsync().ConfigureAwait(false)).Select(x => new Project()
                 {ProjectInfo = x, RepositoryInfo = x.RepositoryInfo.First()});
 

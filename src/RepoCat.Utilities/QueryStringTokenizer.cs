@@ -31,14 +31,22 @@ namespace RepoCat.Utilities
         }
 
         /// <summary>
-        ///  Gets tokens converted to upper case with invariant culture
+        ///  Gets tokens optionally converted to upper case with invariant culture
         /// </summary>
         /// <param name="queryString">The query string.</param>
+        /// <param name="toUpper"></param>
         /// <returns>List&lt;System.String&gt;.</returns>
-        public static List<string> GetTokensUppercase(string queryString)
+        public static List<string> GetTokens(string queryString, bool toUpper)
         {
             var tokens = GetTokens(queryString);
-            return tokens.Select(x => x.ToUpperInvariant()).ToList();
+            if (toUpper)
+            {
+                return tokens.Select(x => x.ToUpperInvariant()).ToList();
+            }
+            else
+            {
+                return tokens;
+            }
         }
 
     }

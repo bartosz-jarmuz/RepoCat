@@ -14,30 +14,18 @@ namespace RepoCat.Portal.Areas.Catalog.Models
     public class PropertyViewModel
     {
         /// <summary>
-        /// 
+        /// Name of the property
         /// </summary>
-        /// <param name="projectId"></param>
-        /// <param name="componentName"></param>
-        /// <param name="property"></param>
-        public PropertyViewModel(string projectId, string componentName, KeyValuePair<string, object> property)
-        {
-            this.ProjectId = projectId;
-            this.ComponentName = componentName;
-            this.Property = property;
-        }
+        public string Key { get; set; }
+
+        /// <summary>
+        /// Value of the property
+        /// </summary>
+        public string Value { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string ProjectId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ComponentName { get; set; }
-    
-        /// <summary>
-        /// 
-        /// </summary>
-        public KeyValuePair<string, object> Property { get; set; }
+        public List<string> ValueList { get; set; } = new List<string>();
     }
 }
