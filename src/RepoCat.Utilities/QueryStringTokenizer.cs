@@ -30,6 +30,16 @@ namespace RepoCat.Utilities
             return new List<string>();
         }
 
-       
+        /// <summary>
+        ///  Gets tokens converted to upper case with invariant culture
+        /// </summary>
+        /// <param name="queryString">The query string.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
+        public static List<string> GetTokensUppercase(string queryString)
+        {
+            var tokens = GetTokens(queryString);
+            return tokens.Select(x => x.ToUpperInvariant()).ToList();
+        }
+
     }
 }
