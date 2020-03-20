@@ -46,7 +46,7 @@
                >@displayText @Html.Raw(@imageTag)</a>
             break;
             case InteractiveStringModel.DataType.Collection:
-                <select class="font-sm">
+                <select class="font-sm select2 condensed"  >
                     @foreach (var item in Model.PropertyValue as IEnumerable<string>)
                     {
                         <option>@item</option>

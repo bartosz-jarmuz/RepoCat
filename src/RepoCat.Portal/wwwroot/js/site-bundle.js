@@ -517,16 +517,24 @@ $(document).ready(function () {
 function intializeSelect2() {
     $('.select2').each(function () {
         var css = {};
+        var width = 'style';
         if ($(this).hasClass('form-control-lg')) {
             css = {
                 color: '#4d555d',
                 'font-size': 'large'
             };
         }
+        if ($(this).hasClass('condensed')) {
+            width = 'element';
+            css = {
+                display: 'inline-block',
+                'font-size': 'small',
+            };
+        }
         $(this).select2({
             theme: 'bootstrap4',
             placeholder: $(this).attr('placeholder'),
-            width: 'style',
+            width: width,
             allowClear: Boolean($(this).data('allow-clear')),
             containerCss: css,
         });
