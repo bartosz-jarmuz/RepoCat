@@ -797,6 +797,31 @@
             </summary>
             <value>The tag text.</value>
         </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.TagsListViewModel">
+            <summary>
+            Class TagBadgeViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.TagsListViewModel.OrganizationName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.TagsListViewModel.RepositoryName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.TagsListViewModel.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.TagsListViewModel.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.String}[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel"/> class.
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStats">
             <summary>
             Class NavHeaderStats.

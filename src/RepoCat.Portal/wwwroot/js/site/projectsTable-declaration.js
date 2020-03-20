@@ -14,7 +14,7 @@
 
 
     var table = $('#ResultsTable').DataTable({
-
+         
         pageLength: 50,
         stateSave: false,
         "autoWidth": true, 
@@ -40,9 +40,12 @@
             },
             {
                 "targets": [3],
+                "width": "25%"
+
             },
             {
-                "targets": [5],
+                "targets": [4],
+                "width": "2%"
             },
         ],
 

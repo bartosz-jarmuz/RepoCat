@@ -16,11 +16,12 @@
             <param name="queryString">The query string.</param>
             <returns>List&lt;System.String&gt;.</returns>
         </member>
-        <member name="M:RepoCat.Utilities.QueryStringTokenizer.GetTokensUppercase(System.String)">
+        <member name="M:RepoCat.Utilities.QueryStringTokenizer.GetTokens(System.String,System.Boolean)">
             <summary>
-             Gets tokens converted to upper case with invariant culture
+             Gets tokens optionally converted to upper case with invariant culture
             </summary>
             <param name="queryString">The query string.</param>
+            <param name="toUpper"></param>
             <returns>List&lt;System.String&gt;.</returns>
         </member>
         <member name="T:RepoCat.Utilities.StampSorter">

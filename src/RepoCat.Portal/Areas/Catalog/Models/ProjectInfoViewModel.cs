@@ -124,10 +124,17 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         {
             if (!string.IsNullOrEmpty(this.AssemblyName))
             {
-                return this.AssemblyName + "." + this.TargetExtension?.Trim('.').ToLower(CultureInfo.CurrentUICulture);
-            }
+                if (!string.IsNullOrEmpty(this.TargetExtension) && !this.AssemblyName.EndsWith(this.TargetExtension, StringComparison.OrdinalIgnoreCase))
+                {
+                    return this.AssemblyName + "." + this.TargetExtension?.Trim('.').ToLower(CultureInfo.InvariantCulture);
+                }
 
-            return "";
+                return this.AssemblyName;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         /// <summary>

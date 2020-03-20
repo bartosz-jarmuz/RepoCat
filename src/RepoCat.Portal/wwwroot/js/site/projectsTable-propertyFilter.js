@@ -1,44 +1,66 @@
 ﻿function propertyFilter(settings, searchData, index, rowData, counter) {
-
-    var filters = getFilters();
+    let filters = getFilters();
 
     if (filters.length === 0) {
         return true;
     }
-    var properties = getProperties(rowData);
+    let properties = getProperties(rowData);
 
     let shouldBeVisible = true;
-    filters.forEach(function (filter) {
-        //find a property for the given filter
-        let property = properties.filter(function (p) { return p.key === filter.key }).find(function () { return true; });
-        if (property) {
-            let propertyMatched = false;
-
-            if (Array.isArray(property.value)) {
-                filter.value.forEach(function (filterValue) {
-                    if (property.value.includes(filterValue)) {
-                        propertyMatched = true;
-                    }
-                });
-
-            } else {
-                filter.value.forEach(function (filterValue) {
-                    if (filterValue === property.value) {
-                        propertyMatched = true;
-                    }
-                });
-            }
-
-            if (!propertyMatched) {
+    for (let filterIndex = 0; filterIndex < filters.length; filterIndex++) {
+        let filter = filters[filterIndex];
+        //find properties for the given filter. there can be more than one property with the same name 
+        //(multiple components can have same property with different values)
+        let matchingProperties = properties.filter(function (p) { return p.key === filter.key });
+        if (matchingProperties && matchingProperties.length) {
+            if (!isAnyPropertyValueMatched(matchingProperties, filter)) {
                 shouldBeVisible = false;
-                return;
+                break;
             }
         } else {
             //the project row does not contain this property.
+            if (!filter.value.includes("repoCat_no_property")) {
+                shouldBeVisible = false;
+                break;
+            }
         }
-    });
+    }
 
     return shouldBeVisible;
+}
+
+
+function isAnyPropertyValueMatched(matchingProperties, filter) {
+    let propertyMatched = false;
+    for (let propertyIndex = 0; propertyIndex < matchingProperties.length; propertyIndex++) {
+        propertyMatched = isSinglePropertyMatched(matchingProperties[propertyIndex].value, filter);
+        if (propertyMatched) {
+            //these are all different values for the same property in the same row.
+            //if any is matched, we want to show it, because the filters are whitelists, not blacklists
+            break;
+        }
+    }
+
+    return propertyMatched ;
+}
+
+function isSinglePropertyMatched(propertyValue, filter) {
+    let propertyMatched = false;
+
+    if (Array.isArray(propertyValue)) {
+        filter.value.forEach(function (filterValue) {
+            if (propertyValue.includes(filterValue)) {
+                propertyMatched = true;
+            }
+        });
+    } else {
+        filter.value.forEach(function (filterValue) {
+            if (filterValue === propertyValue) {
+                propertyMatched = true;
+            }
+        });
+    }
+    return propertyMatched;
 }
 
 function getProperties(rowData) {

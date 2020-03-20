@@ -9,15 +9,7 @@
 }
 <div class="project-name"><strong>@Model.ProjectName</strong></div>
 <div class="mb-1">
-
-    @foreach (var tag in Model.Tags)
-    {
-        <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.OrganizationName, Model.RepositoryName, tag))" />
-    }
-    @foreach (var tag in Model.Components.SelectMany(x => x.Tags))
-    {
-        <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.OrganizationName, Model.RepositoryName, tag))" />
-    }
+    <partial name="_TagsList" model="@(new TagsListViewModel(Model.OrganizationName, Model.RepositoryName, Model.Tags, Model.Components.SelectMany(x=>x.Tags)))" />
 </div>
 
 

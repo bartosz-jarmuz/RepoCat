@@ -823,20 +823,39 @@ namespace Repocat.Persistence.Tests
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
                 TelemetryMock.InitializeMockTelemetryClient());
 
-            var prj2 = GetEmptyProject(this.testRepoOne, "Second");
-            prj2.ProjectDescription = "project description";
-            await service.Upsert(prj2).ConfigureAwait(false);
+            var project = GetEmptyProject(this.testRepoOne, "ByProjectName");
+            await service.Upsert(project).ConfigureAwait(false);
 
-            var prj = GetEmptyProject(this.testRepoOne, "First");
-            prj.Tags.Add("Tag");
-            await service.Upsert(prj).ConfigureAwait(false);
+            project = GetEmptyProject(this.testRepoOne, "ByAssemblyName");
+            project.AssemblyName = "BananaHamacks";
+            await service.Upsert(project).ConfigureAwait(false);
+            
+            project = GetEmptyProject(this.testRepoOne, "ByTag");
+            project.Tags.Add("Tag");
+            await service.Upsert(project).ConfigureAwait(false);
+
+            project = GetEmptyProject(this.testRepoOne, "ByPropertyValue");
+            project.Properties.Add("PropertyName", "SomeValue");
+            await service.Upsert(project).ConfigureAwait(false);
+
+            project = GetEmptyProject(this.testRepoOne, "ByDescription");
+            project.ProjectDescription = "project description";
+            await service.Upsert(project).ConfigureAwait(false);
+
+            project = GetEmptyProject(this.testRepoOne, "ByListPropertyValue");
+            project.Properties.Add("PropertyName", "SomeValue");
+            await service.Upsert(project).ConfigureAwait(false);
+
 
             //act and asssert multiple times
             for (int i = 0; i < 500; i++)
             {
                 var result = await this.GetResultFromRepoOne(service, "project description tag").ConfigureAwait(false);
-                Assert.AreEqual("First", result.Projects[0].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
-                Assert.AreEqual("Second", result.Projects[1].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
+                Assert.AreEqual("ByProjectName", result.Projects[0].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
+                Assert.AreEqual("ByAssemblyName", result.Projects[1].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
+                Assert.AreEqual("Second", result.Projects[2].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
+                Assert.AreEqual("Second", result.Projects[3].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
+                Assert.AreEqual("Second", result.Projects[4].ProjectInfo.ProjectName, $"Failed at attempt [{i}]");
             }
         }
 

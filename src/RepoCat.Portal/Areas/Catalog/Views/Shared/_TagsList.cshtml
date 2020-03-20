@@ -1,0 +1,50 @@
+
+@using RepoCat.Portal.Areas.Catalog.Models
+@model TagsListViewModel
+@{
+    //first only show some tags... then if use wants more, show a bit more
+    //only at third attempt show all (as the list might be huuuuge)
+    var firstThreshold = 4;
+    var secondThreshold = 8;
+
+    if (Model.Tags.Count < firstThreshold)
+    {
+        firstThreshold = Model.Tags.Count;
+    }
+    if (Model.Tags.Count < secondThreshold)
+    {
+        secondThreshold = Model.Tags.Count;
+    }
+}
+
+@for (int i = 0; i < firstThreshold; i++)
+{
+    var tag = Model.Tags[i];
+    <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.OrganizationName, Model.RepositoryName, tag))" />
+}
+<span>
+    @if (Model.Tags.Count > firstThreshold)
+    {
+        <span class="show-more-link show-tags">More (+@(@Model.Tags.Count - firstThreshold))</span>
+        <span class="tags-list" style="display: none;">
+            @for (int i = firstThreshold; i < secondThreshold; i++)
+            {
+                var tag = Model.Tags[i];
+                <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.OrganizationName, Model.RepositoryName, tag))" />
+            }
+            @if (Model.Tags.Count > secondThreshold)
+            {
+                <span class="show-more-link show-tags">Show all (+@(Model.Tags.Count - secondThreshold))</span>
+                <span class="tags-list" style="display: none;">
+                    @for (int i = secondThreshold; i < Model.Tags.Count; i++)
+                    {
+                        var tag = Model.Tags[i];
+                        <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.OrganizationName, Model.RepositoryName, tag))" />
+                    }
+                </span>
+            }
+        </span>
+    }
+</span>
+
+

@@ -17,7 +17,6 @@ function setArrowDown(icon) {
 function setArrowUp(icon) {
     icon.removeClass('icon-arrow-down').addClass('icon-arrow-up');
 }
-//# sourceMappingURL=collapseToggle.js.map
 function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -42,7 +41,6 @@ function getCookie(name) {
 function eraseCookie(name) {
     document.cookie = name + '=; Max-Age=-99999999;';
 }
-//# sourceMappingURL=cookies.js.map
 $(document).ready(function () {
     $('.nav-dropdown-toggle').click(function () {
         var itemText = $(this).text().trim();
@@ -83,7 +81,6 @@ $(document).ready(function () {
         });
     }
 });
-//# sourceMappingURL=navigationMenu.js.map
 function setupAddingColumns(table) {
     $('.add-column').off('click.rc.columns');
     $('.add-column').on('click.rc.columns', function () {
@@ -224,7 +221,6 @@ function addHideDefaultColumnButton(column, columnId, columnName) {
         removeFromCollectionDictionaryCookie('hiddenDefaultColumns', getRepositoriesKey(), columnId);
     });
 }
-//# sourceMappingURL=projectsTable-columns.js.map
 function getProjectsTable(activeColumnsCookie) {
     var t0 = performance.now();
     var showRepositoryColumn = $('#ResultsTableData').data('showrepositorycolumn');
@@ -260,9 +256,11 @@ function getProjectsTable(activeColumnsCookie) {
             },
             {
                 "targets": [3],
+                "width": "25%"
             },
             {
-                "targets": [5],
+                "targets": [4],
+                "width": "2%"
             },
         ],
         columns: getColumns(numberOfExtraColumns),
@@ -330,7 +328,6 @@ function hideOverlay() {
 function getRepositoriesKey() {
     return $('#ResultsTableData').attr('data-repositories');
 }
-//# sourceMappingURL=projectsTable-declaration.js.map
 function propertyFilter(settings, searchData, index, rowData, counter) {
     var filters = getFilters();
     if (filters.length === 0) {
@@ -338,35 +335,61 @@ function propertyFilter(settings, searchData, index, rowData, counter) {
     }
     var properties = getProperties(rowData);
     var shouldBeVisible = true;
-    filters.forEach(function (filter) {
-        //find a property for the given filter
-        var property = properties.filter(function (p) { return p.key === filter.key; }).find(function () { return true; });
-        if (property) {
-            var propertyMatched_1 = false;
-            if (Array.isArray(property.value)) {
-                filter.value.forEach(function (filterValue) {
-                    if (property.value.includes(filterValue)) {
-                        propertyMatched_1 = true;
-                    }
-                });
-            }
-            else {
-                filter.value.forEach(function (filterValue) {
-                    if (filterValue === property.value) {
-                        propertyMatched_1 = true;
-                    }
-                });
-            }
-            if (!propertyMatched_1) {
+    var _loop_1 = function (filterIndex) {
+        var filter = filters[filterIndex];
+        //find properties for the given filter. there can be more than one property with the same name 
+        //(multiple components can have same property with different values)
+        var matchingProperties = properties.filter(function (p) { return p.key === filter.key; });
+        if (matchingProperties && matchingProperties.length) {
+            if (!isAnyPropertyValueMatched(matchingProperties, filter)) {
                 shouldBeVisible = false;
-                return;
+                return "break";
             }
         }
         else {
             //the project row does not contain this property.
+            if (!filter.value.includes("repoCat_no_property")) {
+                shouldBeVisible = false;
+                return "break";
+            }
         }
-    });
+    };
+    for (var filterIndex = 0; filterIndex < filters.length; filterIndex++) {
+        var state_1 = _loop_1(filterIndex);
+        if (state_1 === "break")
+            break;
+    }
     return shouldBeVisible;
+}
+function isAnyPropertyValueMatched(matchingProperties, filter) {
+    var propertyMatched = false;
+    for (var propertyIndex = 0; propertyIndex < matchingProperties.length; propertyIndex++) {
+        propertyMatched = isSinglePropertyMatched(matchingProperties[propertyIndex].value, filter);
+        if (propertyMatched) {
+            //these are all different values for the same property in the same row.
+            //if any is matched, we want to show it, because the filters are whitelists, not blacklists
+            break;
+        }
+    }
+    return propertyMatched;
+}
+function isSinglePropertyMatched(propertyValue, filter) {
+    var propertyMatched = false;
+    if (Array.isArray(propertyValue)) {
+        filter.value.forEach(function (filterValue) {
+            if (propertyValue.includes(filterValue)) {
+                propertyMatched = true;
+            }
+        });
+    }
+    else {
+        filter.value.forEach(function (filterValue) {
+            if (filterValue === propertyValue) {
+                propertyMatched = true;
+            }
+        });
+    }
+    return propertyMatched;
 }
 function getProperties(rowData) {
     var propCell;
@@ -482,7 +505,6 @@ function hideFilter(filterToggle, data, table) {
         hideOverlay();
     }, 10);
 }
-//# sourceMappingURL=projectsTable-propertyFilter.js.map
 $(document).ready(function () {
     $.get("/Home/NavHeaderStats", function (data) {
         $("#NavHeaderStatsContainer").replaceWith(function () {
@@ -510,7 +532,6 @@ function intializeSelect2() {
         });
     });
 }
-//# sourceMappingURL=selectBox.js.map
 $(document).ready(function () {
     $.get("/Home/NavHeaderStats", function (data) {
         $("#NavHeaderStatsContainer").replaceWith(function () {
@@ -525,7 +546,16 @@ $(document).ready(function () {
             setCookie('sidebarOpen', 'true');
         }
     });
+    attachShowMoreTagsHandlers();
 });
+function attachShowMoreTagsHandlers() {
+    var selector = '.show-more-link.show-tags';
+    $(selector).off('click.rc.links');
+    $(selector).on('click.rc.links', function () {
+        $(this).next('.tags-list').show();
+        $(this).hide();
+    });
+}
 function getOrganizationFromKey(key) {
     return key.split(":")[0];
 }
@@ -619,4 +649,4 @@ function removeFromCollectionDictionaryCookie(cookieName, dictionaryKey, valueTo
         }
     }
 }
-//# sourceMappingURL=site.js.map
+//# sourceMappingURL=site-bundle.js.map

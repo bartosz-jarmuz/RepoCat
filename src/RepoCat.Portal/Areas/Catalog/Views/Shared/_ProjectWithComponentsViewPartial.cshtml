@@ -8,28 +8,20 @@
     <div class="row">
         <div class="col-md-3 project-info">
             <dl>
-                @if (!string.IsNullOrEmpty(Model.ProjectName))
+                @if (!string.IsNullOrEmpty(Model.Owner))
                 {
-                    <dt>Project name:</dt>
-                    <dd>@Model.ProjectName</dd>
-                }
-                @if (Model.Tags != null && Model.Tags.Any())
-                {
-                }
-                @if (!string.IsNullOrEmpty(Model.GetOutputFileName()))
-                {
-                    <dt>Assembly/script file name:</dt>
-                    <dd>@Model.GetOutputFileName()</dd>
+                    <dt>Owner:</dt>
+                    <dd>@Model.Owner</dd>
                 }
                 @if (!string.IsNullOrEmpty(Model.ProjectDescription))
                 {
                     <dt>Project description:</dt>
                     <dd>@Model.ProjectDescription</dd>
                 }
-                @if (!string.IsNullOrEmpty(Model.Owner))
+                @if (!string.IsNullOrEmpty(Model.GetOutputFileName()))
                 {
-                    <dt>Owner:</dt>
-                    <dd>@Model.Owner</dd>
+                    <dt>Assembly name:</dt>
+                    <dd>@Model.GetOutputFileName()</dd>
                 }
                 @if (!string.IsNullOrEmpty(Model.DocumentationUri))
                 {

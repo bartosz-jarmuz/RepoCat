@@ -26,8 +26,13 @@
                                             title="Filter by @property.Key" placeholder="Click to add a new filter">
                                         @foreach (var value in property.Values)
                                         {
-                                            <option value="@value.Value">@value.Value (@value.OccurenceCount)</option>
+                                            <option value="@value.Value"
+                                                    title="Add filter to only show project which have this value for '@property.Key'"
+                                                    >@value.Value (@value.OccurenceCount)</option>
                                         }
+                                        <option value="repoCat_no_property" 
+                                                title="Add this filter to include projects which do not have this property defined at all"
+                                                >&lt;No property&gt;</option>
                                     </select>
                                 </span>
                             </span>
@@ -78,10 +83,10 @@
                             <!--Hidden content for expanded row-->
                             <th style="display:none;"></th>
                             <th data-column-id="rc_Repository" class="repository-name">Repository</th>
-                            <th data-column-id="rc_Project Name" style="min-width: 10%;">Project Name</th>
+                            <th data-column-id="rc_Project Name" style="min-width: 15%;">Project Name</th>
                             <th data-column-id="rc_Type">Type</th>
-                            <th data-column-id="rc_Description">Description</th>
-                            <th data-column-id="rc_Properties" style="min-width: 20%;">Properties</th>
+                            <th data-column-id="rc_Description" style="min-width: 20%;">Description</th>
+                            <th data-column-id="rc_Properties">Properties</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,7 +101,7 @@
                                 <td class="break-all name-cell" data-order="@project.ProjectName"><partial name="_CellProjectName" for="@project" /></td>
                                 <td class="break-all"><partial name="_BadgeProjectType" for="@project" /></td>
                                 <td class="break-word"><partial name="_CellProjectDescription" for="@project" /></td>
-                                <td class="break-word properties"><partial name="_CellProjectProperties" for="@project" /></td>
+                                <td class="break-all properties"><partial name="_CellProjectProperties" for="@project" /></td>
                             </tr>
                         }
                     </tbody>

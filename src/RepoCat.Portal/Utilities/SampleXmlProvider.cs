@@ -101,6 +101,11 @@ namespace RepoCat.Portal.Utilities
                 OutputType = "Library",
                 ProjectUri = "//local/or/remote/path/to/project.csproj",
                 DownloadLocation = "//networkshare/or/url/path/to/program",
+                Owner = "DreamTeam Developers",
+                DocumentationUri = "http://maindocumentation.url/docs",
+                ProjectDescription = "Optional Description of a project",
+                Tags = { "Some", "Optional", "Project", "Tags"},
+                Properties = { {"ProjectProperty", "ValueWhichCouldAlsoBeAlist"}},
                 RepositoryInfo = new RepositoryInfo()
                 {
                     RepositoryName = "CoolProjects",
@@ -118,7 +123,9 @@ namespace RepoCat.Portal.Utilities
                         "Keywords"
                     }, new PropertiesCollection()
                     {
-                        ("OtherProjectMetadata", "As key and value pairs")
+                        ("OtherProjectMetadata", "As key and value pairs"),
+                        ("FewNumbers", new[]{"One", "Two", "Three"}),
+                        ("FewWords", new[]{"Car", "Banana", "Hamack"}),
                     }
                 )
                 {

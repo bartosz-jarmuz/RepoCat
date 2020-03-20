@@ -51,7 +51,7 @@
 
 .show-more-link {
     cursor: pointer;
-    font-size: smaller;
+    font-size: x-small;
     color: #63c2de;
 }
 .show-more-link:before {

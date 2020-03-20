@@ -33,9 +33,11 @@ function getProjectsTable(activeColumnsCookie) {
             },
             {
                 "targets": [3],
+                "width": "25%"
             },
             {
-                "targets": [5],
+                "targets": [4],
+                "width": "2%"
             },
         ],
         columns: getColumns(numberOfExtraColumns),

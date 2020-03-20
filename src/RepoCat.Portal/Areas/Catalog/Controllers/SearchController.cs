@@ -104,7 +104,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             if (org.Length != repo.Length)
             {
                 this.TempData["Error"] = $"Number of org parameters does not match the number of repo parameters. Orgs: {string.Join(", ", org)}. Repos: {string.Join(", ", repo)}";
-                return this.RedirectToAction("Error", "Error");
+                return this.RedirectToAction("Error", "Home");
             }
 
             IReadOnlyCollection<RepositoryQueryParameter> parameters = RepositoryQueryParameter.ConvertFromArrays(org, repo);
@@ -149,7 +149,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             if (org.Length != repo.Length)
             {
                 this.TempData["Error"] = $"Number of org parameters does not match the number of repo parameters. Orgs: {string.Join(", ", org)}. Repos: {string.Join(", ", repo)}";
-                return this.RedirectToAction("Error", "Error");
+                return this.RedirectToAction("Error", "Home");
             }
             SearchIndexViewModel model = new SearchIndexViewModel
             {

@@ -12,7 +12,16 @@ $(document).ready(function () {
             setCookie('sidebarOpen', 'true');
         }
     });
+    attachShowMoreTagsHandlers();
 });
+function attachShowMoreTagsHandlers() {
+    var selector = '.show-more-link.show-tags';
+    $(selector).off('click.rc.links');
+    $(selector).on('click.rc.links', function () {
+        $(this).next('.tags-list').show();
+        $(this).hide();
+    });
+}
 function getOrganizationFromKey(key) {
     return key.split(":")[0];
 }

@@ -26,6 +26,9 @@
     <Content Remove="Models\Domain\**" />
     <EmbeddedResource Remove="Models\Domain\**" />
     <None Remove="Models\Domain\**" />
+    <Content Update="appsettings.Development.json">
+      <DependentUpon>appsettings.json</DependentUpon>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
