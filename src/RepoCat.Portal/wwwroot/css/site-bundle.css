@@ -273,3 +273,8 @@ div.slider {
         .select2.condensed + .select2-container .select2-selection--single .select2-selection__rendered {
             line-height: inherit;
         }
+
+.search-mark {
+    background-color: #ffcd35 !important;
+    color: black;
+}

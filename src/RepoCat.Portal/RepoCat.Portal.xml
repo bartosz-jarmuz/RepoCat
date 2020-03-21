@@ -812,15 +812,24 @@
             
             </summary>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.TagsListViewModel.TagsInitialDisplayLimit">
+            <summary>
+            Limits the number of initially visible tags
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.TagsListViewModel.Tags">
             <summary>
             
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.TagsListViewModel.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.String}[])">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.TagsListViewModel.#ctor(System.String,System.String,System.Nullable{System.Int32},System.Collections.Generic.IEnumerable{System.String}[])">
             <summary>
-            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.TagBadgeViewModel"/> class.
+            
             </summary>
+            <param name="organizationName"></param>
+            <param name="repositoryName"></param>
+            <param name="tagsInitialDisplayLimit">Pass null to use default value. Pass -1 to set 'unlimited'</param>
+            <param name="tagsLists"></param>
         </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Views.Components.NavHeaderStats">
             <summary>

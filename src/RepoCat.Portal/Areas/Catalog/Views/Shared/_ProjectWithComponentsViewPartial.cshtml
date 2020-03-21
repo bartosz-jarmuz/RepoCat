@@ -8,40 +8,51 @@
     <div class="row">
         <div class="col-md-3 project-info">
             <dl>
-                @if (!string.IsNullOrEmpty(Model.Owner))
-                {
-                    <dt>Owner:</dt>
-                    <dd>@Model.Owner</dd>
+
+                <dt>Project name:</dt>
+                <dd>@Model.ProjectName</dd>
+
+                <dt>Tags:</dt>
+                <dd>
+                    <partial name="_TagsList" model="@(new TagsListViewModel(Model.OrganizationName, Model.RepositoryName, -1, Model.Tags, Model.Components.SelectMany(x=>x.Tags)))" />
+                </dd>
+
+                @{ 
+                    var outputFileName = @Model.GetOutputFileName()??"";
+                    var outputLabel = "Script file name";
+                    if (outputFileName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
+                        outputFileName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)
+                        )
+                    {
+                        outputLabel = "Assembly file name";
+                    }
                 }
-                @if (!string.IsNullOrEmpty(Model.ProjectDescription))
-                {
-                    <dt>Project description:</dt>
-                    <dd>@Model.ProjectDescription</dd>
-                }
-                @if (!string.IsNullOrEmpty(Model.GetOutputFileName()))
-                {
-                    <dt>Assembly name:</dt>
-                    <dd>@Model.GetOutputFileName()</dd>
-                }
-                @if (!string.IsNullOrEmpty(Model.DocumentationUri))
-                {
-                    <dt>Documentation:</dt>
-                    <dd class="project-path">
-                        <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DocumentationUri), Model.DocumentationUri, "help-link", "fa fa-external-link-alt"))" />
-                    </dd>
-                }
-                @if (!string.IsNullOrEmpty(Model.ProjectUri))
-                {
-                    <dt>Project path:</dt>
-                    <dd class="project-path">
-                        <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.ProjectUri), Model.ProjectUri, "help-link", "fa fa-external-link-alt"))" />
-                    </dd>
-                }
-                @if (!string.IsNullOrEmpty(Model.DownloadLocation))
-                {
-                    <dt>Download from:</dt>
-                    <dd class="project-path">@Html.ActionLink(Model.DownloadLocation, "Download", "Download", new { id = Model.Id })</dd>
-                }
+
+                <dt>@outputLabel:</dt>
+                <dd>@outputFileName</dd>
+
+                <dt>Project description:</dt>
+                <dd>@Model.ProjectDescription</dd>
+
+                <dt>Owner:</dt>
+                <dd>@Model.Owner</dd>
+
+
+                <dt>Documentation:</dt>
+                <dd class="project-path">
+                    <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DocumentationUri), Model.DocumentationUri, "help-link", "fa fa-external-link-alt"))" />
+                </dd>
+
+                <dt>Project path:</dt>
+                <dd class="project-path">
+                    <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.ProjectUri), Model.ProjectUri, "help-link", "fa fa-external-link-alt"))" />
+                </dd>
+
+                <dt>Download from:</dt>
+                <dd class="project-path">
+                    <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DownloadLocation), Model.DownloadLocation, "help-link", "fa fa-external-link-alt"))" />
+                </dd>
+
 
             </dl>
 
@@ -74,10 +85,7 @@
                                 </div>
                                 <div>
                                     <span class="component-label">Tags:&nbsp;</span>
-                                    @foreach (var tag in @component.Tags)
-                                    {
-                                        <partial name="_BadgeTag" model="@(new TagBadgeViewModel(@Model.OrganizationName, @Model.RepositoryName, tag))" />
-                                    }
+                                    <partial name="_TagsList" model="@(new TagsListViewModel(Model.OrganizationName, Model.RepositoryName, -1, Model.Tags, Model.Components.SelectMany(x=>x.Tags)))" />
                                 </div>
                             </div>
                             <div class="col-md-3">

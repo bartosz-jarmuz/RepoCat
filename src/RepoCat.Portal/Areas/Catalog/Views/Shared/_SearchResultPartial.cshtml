@@ -92,5 +92,13 @@ else
     docReady(function () {
         intializeSelect2();
         attachShowMoreTagsHandlers();
+        $('.projects-table-card').unmark({
+            done: function () {
+                $('.projects-table-card').mark($('#searchQuery').val(), {
+                    className: 'search-mark',
+                    element: 'span'
+                });
+            }
+        });
     });
 </script>

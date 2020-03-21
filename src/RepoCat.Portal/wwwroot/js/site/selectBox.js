@@ -23,7 +23,7 @@ function intializeSelect2() {
             }
         }
         if ($(this).hasClass('condensed')) {
-            width = 'element';
+            width = 'resolve';
             css = {
                 display: 'inline-block',
                 'font-size': 'small',

@@ -4,8 +4,8 @@
 @{
     //first only show some tags... then if use wants more, show a bit more
     //only at third attempt show all (as the list might be huuuuge)
-    var firstThreshold = 4;
-    var secondThreshold = 8;
+    var firstThreshold = Model.TagsInitialDisplayLimit;
+    var secondThreshold = Model.TagsInitialDisplayLimit*2;
 
     if (Model.Tags.Count < firstThreshold)
     {
