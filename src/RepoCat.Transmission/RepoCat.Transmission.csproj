@@ -18,6 +18,8 @@
     <Authors>Bartosz Jarmuż</Authors>
     <Description>A library of components allowing to generate and send project manifests to the repository catalog (RepoCat) web application.</Description>
     <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

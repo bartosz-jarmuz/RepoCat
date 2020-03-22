@@ -22,8 +22,10 @@ namespace RepoCat.Transmission
                 return;
             }
             
-            projectInfo.Properties.Add(new Property("ProjectFiles", project.Items
-                .Where(x=>x.ItemName.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
+            projectInfo.Properties.Add(new Property("CodeFiles", project.Items
+                .Where(x=>x.ItemType == "Compile"
+                          || x.ItemType == "Build"
+                          )
                 .Select(x=>x.ItemName)));
         }
     }

@@ -4,6 +4,10 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using RepoCat.Transmission.Contracts;
 
 namespace RepoCat.Transmission
@@ -14,10 +18,23 @@ namespace RepoCat.Transmission
     /// <seealso cref="IInputUriProvider" />
     public class LocalDotNetProjectUriProvider : InputUriProviderBase
     {
-        protected override string InputUriSuffix { get; } = ".csproj";
+        private string Csproj { get; } = ".csproj";
+        private string SqlProj { get; } = ".sqlproj";
+
+
+        protected override IEnumerable<string> GetPaths(DirectoryInfo root)
+        {
+            return root.EnumerateFiles("*", SearchOption.AllDirectories)
+                .Where(x => 
+                    x.FullName.EndsWith(this.Csproj, StringComparison.OrdinalIgnoreCase)||
+                    x.FullName.EndsWith(this.SqlProj, StringComparison.OrdinalIgnoreCase)
+                )
+                .Select(x => x.FullName);
+        }
 
         public LocalDotNetProjectUriProvider(ILogger logger) : base(logger)
         {
+
         }
     }
 }

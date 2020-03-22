@@ -4,6 +4,10 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using RepoCat.Transmission.Contracts;
 
 namespace RepoCat.Transmission
@@ -16,10 +20,16 @@ namespace RepoCat.Transmission
     /// <seealso cref="IInputUriProvider" />
     public class ManifestBasedUriProvider : InputUriProviderBase
     {
-        protected override string InputUriSuffix { get; } = Strings.ManifestSuffix;
-
         public ManifestBasedUriProvider(ILogger logger) : base(logger)
         {
+        }
+        protected override IEnumerable<string> GetPaths(DirectoryInfo root)
+        {
+            return root.EnumerateFiles("*", SearchOption.AllDirectories)
+                .Where(x =>
+                    x.FullName.EndsWith(Strings.ManifestSuffix, StringComparison.OrdinalIgnoreCase)
+                )
+                .Select(x => x.FullName);
         }
     }
 }

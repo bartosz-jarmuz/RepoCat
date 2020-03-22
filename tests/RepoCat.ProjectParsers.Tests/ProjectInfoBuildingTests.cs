@@ -46,7 +46,7 @@ namespace RepoCat.ProjectParsers.Tests
             info.AssemblyName.Should().Be("RepoCat.TestApps.NetFramework.NoManifest");
             info.Components.Count.Should().Be(0);
             info.Properties.Should()
-                .ContainEquivalentOf(new Property("ProjectFiles", new List<string>() {"Class1.cs", "AssemblyInfo.cs" }));
+                .ContainEquivalentOf(new Property("CodeFiles", new List<string>() {"Class1.cs", "AssemblyInfo.cs" }));
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace RepoCat.ProjectParsers.Tests
             info.Tags.Should().BeEquivalentTo(new[] { "These", "Tags", "Are", "Optional"});
             info.Properties.Should().ContainEquivalentOf(new Property("EntireProjectProperties", "AreAlsoOptional"));
             info.Properties.Should()
-                .ContainEquivalentOf(new Property("ProjectFiles", new List<string>() { "OtherClass.cs", "Program.cs" }));
+                .ContainEquivalentOf(new Property("CodeFiles", new List<string>() { "Program.cs" }));
             info.Properties.Should()
                 .ContainEquivalentOf(new Property("ManualCollection", new List<string>() { "Value 1", "Val2", "V3" }));
 
