@@ -46,7 +46,7 @@
             var list = (Model.PropertyValue as IEnumerable<string>).ToList();
             if (list.Count > 0)
             {
-                <select class="font-sm select2 condensed">
+                <select class="font-sm select2-deferred">
                     @foreach (var item in Model.PropertyValue as IEnumerable<string>)
                     {
                         <option>@item</option>

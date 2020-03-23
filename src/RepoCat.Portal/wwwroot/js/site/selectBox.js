@@ -13,7 +13,6 @@
 
 
 function intializeSelect2() {
-    let t0 = performance.now();
     $('.select2').each(function () {
         let css = {};
         let width = 'style';
@@ -23,25 +22,33 @@ function intializeSelect2() {
                 'font-size': 'large'
             }
         }
-        if ($(this).hasClass('condensed')) {
-            width = 'auto';
-            css = {
-                display: 'inline-block',
-                'font-size': 'small',
-            }
+
+        $(this).select2({
+            theme: 'bootstrap4',
+            placeholder: $(this).attr('placeholder'),
+            width: width,
+            allowClear: Boolean($(this).data('allow-clear')),
+            containerCss: css,
+        });
+    });
+
+    $('.select2-deferred').one('mouseenter', function () {
+        let width = 'auto';
+
+        let css = {
+            display: 'inline-block',
+            'font-size': 'small',
         }
 
         $(this).select2({
             theme: 'bootstrap4',
             placeholder: $(this).attr('placeholder'),
-            width: width ,
-            allowClear: Boolean($(this).data('allow-clear')),
+            width: width,
+            allowClear: false,
             containerCss: css,
         });
     });
-    let t1 = performance.now();
 
-    console.log("Initializing select boxes: " + (t1 - t0) + " milliseconds.");
 
 }
 
