@@ -31,24 +31,34 @@ function intializeSelect2() {
             containerCss: css,
         });
     });
+    var time = 500;
+    let t0 = performance.now();
 
-    $('.select2-deferred').one('mouseenter', function () {
-        // @ts-ignore
-        let width = ($(this).width() +6).toString();
+    setTimeout(function () {
 
-        let css = {
-            display: 'inline-block',
-            'font-size': 'small',
-        }
+        $('.select2-deferred').each(function () {
+            // @ts-ignore
+            let width = ($(this).width() + 6).toString();
 
-        $(this).select2({ 
-            theme: 'bootstrap4',
-            placeholder: $(this).attr('placeholder'),
-            width: width,
-            allowClear: false,
-            containerCss: css,
+            let css = {
+                display: 'inline-block',
+                'font-size': 'small',
+            }
+
+            $(this).select2({
+                theme: 'bootstrap4',
+                placeholder: $(this).attr('placeholder'),
+                width: width,
+                allowClear: false,
+                containerCss: css,
+            });
+
         });
-    });
+
+        let t1 = performance.now();
+        console.log("Drawing select boxes: " + (t1 - t0) + " milliseconds.");
+    }, time);
+    
 
 
 }
