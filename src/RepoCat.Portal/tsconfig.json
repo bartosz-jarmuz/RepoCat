@@ -12,8 +12,8 @@
     "noFallthroughCasesInSwitch": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "outFile": "./wwwroot/js/site-bundle.js" 
-  },
+    "outDir": "./wwwroot/scripts/built"
+  }, 
   "include": [
     "./wwwroot/js/site"
   ],

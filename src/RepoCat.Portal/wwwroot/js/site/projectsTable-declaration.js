@@ -28,9 +28,9 @@
             },
             {
                 "targets": [1],
-                "visible": false,
+                "visible": false, 
             },
-            {
+            { 
                 "targets": [2],
                 "visible": (showRepositoryColumn.toUpperCase() == 'TRUE'),
             },
@@ -60,11 +60,10 @@
     alignSearchPanel();
 
     hideDefaultColumnsFromCookies(table);
-    var t1 = performance.now();
-    console.log("Drawing table: " + (t1 - t0) + " milliseconds.");
-
     setupSearchHighlights();
 
+    var t1 = performance.now();
+    console.log("Drawing table: " + (t1 - t0) + " milliseconds.");
 
     return table;
 

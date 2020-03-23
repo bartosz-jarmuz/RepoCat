@@ -2,7 +2,7 @@
     let filters = getFilters();
 
     if (filters.length === 0) {
-        return true;
+        return true; 
     }
     let properties = getProperties(rowData);
 
@@ -23,8 +23,8 @@
                 shouldBeVisible = false;
                 break;
             }
-        }
-    }
+        } 
+    } 
 
     return shouldBeVisible;
 }
@@ -90,13 +90,13 @@ function getProperties(rowData) {
             let property = { key: propertyName, value: val };
             properties.push(property);
         }
-    });
+    }); 
     return properties;
-}
-
-function getFilters() {
-    var filters = [];
-
+} 
+ 
+function getFilters() { 
+    let filters = []; 
+     
     var activeFilters = $('.filter-active');
     if (!activeFilters) {
         return filters;

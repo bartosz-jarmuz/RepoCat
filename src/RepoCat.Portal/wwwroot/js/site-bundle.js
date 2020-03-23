@@ -17,6 +17,7 @@ function setArrowDown(icon) {
 function setArrowUp(icon) {
     icon.removeClass('icon-arrow-down').addClass('icon-arrow-up');
 }
+//# sourceMappingURL=collapseToggle.js.map
 function setCookie(name, value, days) {
     var expires = "";
     if (days) {
@@ -41,6 +42,7 @@ function getCookie(name) {
 function eraseCookie(name) {
     document.cookie = name + '=; Max-Age=-99999999;';
 }
+//# sourceMappingURL=cookies.js.map
 $(document).ready(function () {
     $('.nav-dropdown-toggle').click(function () {
         var itemText = $(this).text().trim();
@@ -81,6 +83,7 @@ $(document).ready(function () {
         });
     }
 });
+//# sourceMappingURL=navigationMenu.js.map
 function setupAddingColumns(table) {
     $('.add-column').off('click.rc.columns');
     $('.add-column').on('click.rc.columns', function () {
@@ -221,6 +224,7 @@ function addHideDefaultColumnButton(column, columnId, columnName) {
         removeFromCollectionDictionaryCookie('hiddenDefaultColumns', getRepositoriesKey(), columnId);
     });
 }
+//# sourceMappingURL=projectsTable-columns.js.map
 function getProjectsTable(activeColumnsCookie) {
     var t0 = performance.now();
     var showRepositoryColumn = $('#ResultsTableData').data('showrepositorycolumn');
@@ -271,9 +275,9 @@ function getProjectsTable(activeColumnsCookie) {
     setupHideButtons(table);
     alignSearchPanel();
     hideDefaultColumnsFromCookies(table);
+    setupSearchHighlights();
     var t1 = performance.now();
     console.log("Drawing table: " + (t1 - t0) + " milliseconds.");
-    setupSearchHighlights();
     return table;
 }
 function setupSearchHighlights() {
@@ -348,6 +352,7 @@ function hideOverlay() {
 function getRepositoriesKey() {
     return $('#ResultsTableData').attr('data-repositories');
 }
+//# sourceMappingURL=projectsTable-declaration.js.map
 function propertyFilter(settings, searchData, index, rowData, counter) {
     var filters = getFilters();
     if (filters.length === 0) {
@@ -525,6 +530,7 @@ function hideFilter(filterToggle, data, table) {
         hideOverlay();
     }, 10);
 }
+//# sourceMappingURL=projectsTable-propertyFilter.js.map
 $(document).ready(function () {
     $.get("/Home/NavHeaderStats", function (data) {
         $("#NavHeaderStatsContainer").replaceWith(function () {
@@ -560,6 +566,7 @@ function intializeSelect2() {
         });
     });
 }
+//# sourceMappingURL=selectBox.js.map
 $(document).ready(function () {
     $.get("/Home/NavHeaderStats", function (data) {
         $("#NavHeaderStatsContainer").replaceWith(function () {
@@ -677,4 +684,4 @@ function removeFromCollectionDictionaryCookie(cookieName, dictionaryKey, valueTo
         }
     }
 }
-//# sourceMappingURL=site-bundle.js.map
+//# sourceMappingURL=site.js.map

@@ -48,9 +48,28 @@ function getProjectsTable(activeColumnsCookie) {
     setupHideButtons(table);
     alignSearchPanel();
     hideDefaultColumnsFromCookies(table);
+    setupSearchHighlights();
     var t1 = performance.now();
     console.log("Drawing table: " + (t1 - t0) + " milliseconds.");
     return table;
+}
+function setupSearchHighlights() {
+    var timeout = null;
+    $('.table-search').on('input', function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            // @ts-ignore
+            $('.projects-table-card').unmark({
+                done: function () {
+                    // @ts-ignore
+                    $('.projects-table-card').mark($('.table-search').val(), {
+                        className: 'search-mark',
+                        element: 'span'
+                    });
+                }
+            });
+        }, 250);
+    });
 }
 function setupTableFeatures(table) {
     setupRowExpanding(table);
@@ -92,6 +111,7 @@ function alignSearchPanel() {
     $(input).attr('style', 'width: 100%;');
     $(input).removeClass('form-control-sm');
     $(input).addClass('form-control-lg');
+    $(input).addClass('table-search');
     $(input).attr('placeholder', 'Type to filter the table');
 }
 function showOverlay() {
