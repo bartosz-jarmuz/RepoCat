@@ -32,26 +32,33 @@
             break;
         case InteractiveStringModel.DataType.Url:
             <a href="@Model.PropertyValue" target="_blank" class="@Model.ClassName"
-               data-toggle="tooltip" title="@Model.PropertyValue"
-               >@displayText @Html.Raw(@imageTag)</a>
+               data-toggle="tooltip" title="@Model.PropertyValue">@displayText @Html.Raw(@imageTag)</a>
             break;
         case InteractiveStringModel.DataType.Path:
             <a href="@Url.Action("Download", "Download", new { id = Model.ProjectId, componentName = Model.ComponentName, Model.PropertyKey })"
-               data-toggle="tooltip" title="@Model.PropertyValue"
-               >@displayText @Html.Raw(@imageTag)</a>
+               data-toggle="tooltip" title="@Model.PropertyValue">@displayText @Html.Raw(@imageTag)</a>
             break;
         case InteractiveStringModel.DataType.Email:
             <a target="_blank" href="mailto:@(Model.PropertyValue)" class="@Model.ClassName"
-               data-toggle="tooltip" title="@Model.PropertyValue"
-               >@displayText @Html.Raw(@imageTag)</a>
+               data-toggle="tooltip" title="@Model.PropertyValue">@displayText @Html.Raw(@imageTag)</a>
             break;
-            case InteractiveStringModel.DataType.Collection:
-                <select class="font-sm select2 condensed"  >
+        case InteractiveStringModel.DataType.Collection:
+            var list = (Model.PropertyValue as IEnumerable<string>).ToList();
+            if (list.Count > 1)
+            {
+                <select class="font-sm select2 condensed">
                     @foreach (var item in Model.PropertyValue as IEnumerable<string>)
                     {
                         <option>@item</option>
                     }
                 </select>
+            }
+            else
+            {
+                @list[0];
+                break;
+            }
+
             break;
         default:
             break;

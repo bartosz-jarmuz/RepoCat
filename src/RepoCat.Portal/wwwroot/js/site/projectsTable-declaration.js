@@ -1,9 +1,9 @@
 ﻿function getProjectsTable(activeColumnsCookie) {
 
-    var t0 = performance.now();
+    let t0 = performance.now();
 
-    var showRepositoryColumn = $('#ResultsTableData').data('showrepositorycolumn');
-    var numberOfExtraColumns = 0;
+    let showRepositoryColumn = $('#ResultsTableData').data('showrepositorycolumn');
+    let numberOfExtraColumns = 0;
     if (activeColumnsCookie) {
         numberOfExtraColumns = showColumnsFromCookies(activeColumnsCookie);
     } else {
@@ -62,7 +62,7 @@
     hideDefaultColumnsFromCookies(table);
     setupSearchHighlights();
 
-    var t1 = performance.now();
+    let t1 = performance.now();
     console.log("Drawing table: " + (t1 - t0) + " milliseconds.");
 
     return table;

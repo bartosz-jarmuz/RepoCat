@@ -8,6 +8,7 @@ $(document).ready(function () {
     $('.select2-inline').parent().find('.select2-container').addClass('inline-filter');
 });
 function intializeSelect2() {
+    var t0 = performance.now();
     $('.select2').each(function () {
         var css = {};
         var width = 'style';
@@ -18,7 +19,7 @@ function intializeSelect2() {
             };
         }
         if ($(this).hasClass('condensed')) {
-            width = 'resolve';
+            width = 'auto';
             css = {
                 display: 'inline-block',
                 'font-size': 'small',
@@ -32,5 +33,7 @@ function intializeSelect2() {
             containerCss: css,
         });
     });
+    var t1 = performance.now();
+    console.log("Initializing select boxes: " + (t1 - t0) + " milliseconds.");
 }
 //# sourceMappingURL=selectBox.js.map

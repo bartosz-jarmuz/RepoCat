@@ -13,6 +13,7 @@
 
 
 function intializeSelect2() {
+    let t0 = performance.now();
     $('.select2').each(function () {
         let css = {};
         let width = 'style';
@@ -23,7 +24,7 @@ function intializeSelect2() {
             }
         }
         if ($(this).hasClass('condensed')) {
-            width = 'resolve';
+            width = 'auto';
             css = {
                 display: 'inline-block',
                 'font-size': 'small',
@@ -38,5 +39,9 @@ function intializeSelect2() {
             containerCss: css,
         });
     });
+    let t1 = performance.now();
+
+    console.log("Initializing select boxes: " + (t1 - t0) + " milliseconds.");
+
 }
 
