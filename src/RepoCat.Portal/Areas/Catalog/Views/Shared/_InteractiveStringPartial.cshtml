@@ -44,7 +44,7 @@
             break;
         case InteractiveStringModel.DataType.Collection:
             var list = (Model.PropertyValue as IEnumerable<string>).ToList();
-            if (list.Count > 1)
+            if (list.Count > 0)
             {
                 <select class="font-sm select2 condensed">
                     @foreach (var item in Model.PropertyValue as IEnumerable<string>)
