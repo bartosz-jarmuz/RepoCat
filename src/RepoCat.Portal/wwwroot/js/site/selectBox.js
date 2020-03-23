@@ -11,6 +11,33 @@
     $('.select2-inline').parent().find('.select2-container').addClass('inline-filter');
 });
 
+function initializeDeferredSelect2() {
+    let time = 200;
+
+    setTimeout(function () {
+        let t0 = performance.now();
+        $('.select2-deferred').each(function () {
+            // @ts-ignore
+            let width = ($(this).width() + 26).toString();
+
+            let css = {
+                display: 'inline-block',
+                'font-size': 'small',
+            }
+
+            $(this).select2({
+                theme: 'bootstrap4',
+                placeholder: $(this).attr('placeholder'),
+                width: width,
+                allowClear: false,
+                containerCss: css,
+            });
+
+        });
+        let t1 = performance.now();
+        console.log("Drawing select boxes: " + (t1 - t0) + " milliseconds.");
+    }, time);
+}
 
 function intializeSelect2() {
     $('.select2').each(function () {
@@ -31,35 +58,6 @@ function intializeSelect2() {
             containerCss: css,
         });
     });
-    var time = 1500;
-    let t0 = performance.now();
-
-    setTimeout(function () {
-
-        $('.select2-deferred').each(function () {
-            // @ts-ignore
-            let width = ($(this).width() + 6).toString();
-
-            let css = {
-                display: 'inline-block',
-                'font-size': 'small',
-            }
-
-            $(this).select2({
-                theme: 'bootstrap4',
-                placeholder: $(this).attr('placeholder'),
-                width: width,
-                allowClear: false,
-                containerCss: css,
-            });
-
-        });
-
-        let t1 = performance.now();
-        console.log("Drawing select boxes: " + (t1 - t0) + " milliseconds.");
-    }, time);
-    
-
 
 }
 
