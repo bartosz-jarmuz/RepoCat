@@ -33,14 +33,15 @@ function intializeSelect2() {
     });
 
     $('.select2-deferred').one('mouseenter', function () {
-        let width = 'auto';
+        // @ts-ignore
+        let width = ($(this).width() +6).toString();
 
         let css = {
             display: 'inline-block',
             'font-size': 'small',
         }
 
-        $(this).select2({
+        $(this).select2({ 
             theme: 'bootstrap4',
             placeholder: $(this).attr('placeholder'),
             width: width,

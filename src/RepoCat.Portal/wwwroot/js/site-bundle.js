@@ -559,7 +559,8 @@ function intializeSelect2() {
         });
     });
     $('.select2-deferred').one('mouseenter', function () {
-        var width = 'auto';
+        // @ts-ignore
+        var width = ($(this).width() + 6).toString();
         var css = {
             display: 'inline-block',
             'font-size': 'small',
