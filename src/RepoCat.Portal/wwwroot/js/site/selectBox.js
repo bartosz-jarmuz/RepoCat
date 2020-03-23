@@ -31,7 +31,7 @@ function intializeSelect2() {
             containerCss: css,
         });
     });
-    var time = 500;
+    var time = 1500;
     let t0 = performance.now();
 
     setTimeout(function () {

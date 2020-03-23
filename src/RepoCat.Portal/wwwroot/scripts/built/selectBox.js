@@ -25,7 +25,7 @@ function intializeSelect2() {
             containerCss: css,
         });
     });
-    var time = 500;
+    var time = 1500;
     var t0 = performance.now();
     setTimeout(function () {
         $('.select2-deferred').each(function () {
