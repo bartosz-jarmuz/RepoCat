@@ -14,29 +14,28 @@
 function initializeDeferredSelect2() {
     let time = 200;
 
-    setTimeout(function () {
-        let t0 = performance.now();
-        $('.select2-deferred').each(function () {
-            // @ts-ignore
-            let width = ($(this).width() + 26).toString();
+    //setTimeout(function () {
+    let t0 = performance.now();
+    $('.card').on('mouseover','.select2-deferred', function (event) {
+        // @ts-ignore
+        let width = ($(this).width() + 26).toString();
 
-            let css = {
-                display: 'inline-block',
-                'font-size': 'small',
-            }
+        let css = {
+            display: 'inline-block',
+            'font-size': 'small',
+        }
 
-            $(this).select2({
-                theme: 'bootstrap4',
-                placeholder: $(this).attr('placeholder'),
-                width: width,
-                allowClear: false,
-                containerCss: css,
-            });
-
+        $(this).select2({
+            theme: 'bootstrap4',
+            placeholder: $(this).attr('placeholder'),
+            width: width,
+            allowClear: false,
+            containerCss: css,
         });
-        let t1 = performance.now();
-        console.log("Drawing select boxes: " + (t1 - t0) + " milliseconds.");
-    }, time);
+    });
+    let t1 = performance.now();
+    console.log("Drawing select boxes: " + (t1 - t0) + " milliseconds.");
+    //}, time);
 }
 
 function intializeSelect2() {
@@ -58,7 +57,7 @@ function intializeSelect2() {
             containerCss: css,
             // @ts-ignore
             templateResult: function (data) {
-                
+
                 if (data.id && data.id.toString().endsWith(':*')) {
                     return $('<span style="font-style: italic">' + data.text + '</span>');
                 } else {

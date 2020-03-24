@@ -277,6 +277,26 @@
             Model of the projects table
             </summary>
         </member>
+        <member name="T:RepoCat.Portal.Areas.Catalog.Models.ColumnBadgeViewModel">
+            <summary>
+            Class TagBadgeViewModel.
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ColumnBadgeViewModel.ColumnName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ColumnBadgeViewModel.AdditionalClass">
+            <summary>
+            Extra css to add
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ColumnBadgeViewModel.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Models.ColumnBadgeViewModel"/> class.
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.ComponentManifestViewModel">
             <summary>
             Class ComponentManifestViewModel.

@@ -542,26 +542,26 @@ $(document).ready(function () {
 });
 function initializeDeferredSelect2() {
     var time = 200;
-    setTimeout(function () {
-        var t0 = performance.now();
-        $('.select2-deferred').each(function () {
-            // @ts-ignore
-            var width = ($(this).width() + 26).toString();
-            var css = {
-                display: 'inline-block',
-                'font-size': 'small',
-            };
-            $(this).select2({
-                theme: 'bootstrap4',
-                placeholder: $(this).attr('placeholder'),
-                width: width,
-                allowClear: false,
-                containerCss: css,
-            });
+    //setTimeout(function () {
+    var t0 = performance.now();
+    $('.card').on('mouseover', '.select2-deferred', function (event) {
+        // @ts-ignore
+        var width = ($(this).width() + 26).toString();
+        var css = {
+            display: 'inline-block',
+            'font-size': 'small',
+        };
+        $(this).select2({
+            theme: 'bootstrap4',
+            placeholder: $(this).attr('placeholder'),
+            width: width,
+            allowClear: false,
+            containerCss: css,
         });
-        var t1 = performance.now();
-        console.log("Drawing select boxes: " + (t1 - t0) + " milliseconds.");
-    }, time);
+    });
+    var t1 = performance.now();
+    console.log("Drawing select boxes: " + (t1 - t0) + " milliseconds.");
+    //}, time);
 }
 function intializeSelect2() {
     $('.select2').each(function () {

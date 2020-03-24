@@ -64,7 +64,7 @@
                             <span>
                                 @foreach (var property in Model.Properties)
                                 {
-                                    <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(property, "add-column", "fas fa-columns", showCount: false))" />
+                                    <partial name="_BadgeColumnButton" model="@(new ColumnBadgeViewModel(property.Key, "add-column"))" />
                                 }
                             </span>
                         </div>
@@ -72,7 +72,7 @@
                 </div>
 
                 <span style="display: none;">
-                    <partial name="_BadgeProperty" model="@(new PropertyBadgeViewModel(new PropertyFilterModel(), "hide-default-column", "fas fa-columns", showCount: false))" />
+                    <partial name="_BadgeColumnButton" model="@(new ColumnBadgeViewModel("", "hide-default-column"))" />
                 </span>
                 <div class="row mb-3 mt-1" id="TableSearchDiv">
                 </div>

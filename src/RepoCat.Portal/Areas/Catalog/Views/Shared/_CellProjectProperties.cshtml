@@ -1,14 +1,54 @@
 @using RepoCat.Portal.Areas.Catalog.Models
 @model ProjectInfoViewModel
 
-@foreach (var property in Model.Properties)
-{
-    <partial name="_PropertyPartial" model="@(new PropertyPartialViewModel(Model.Id, null, property))" />
-}
-@foreach (var component in Model.Components)
-{
-    foreach (var property in component.Properties)
+@{
+    //first only show some ... then if use wants more, show a bit more
+    //only at third attempt show all (as the list might be huuuuge)
+    var firstThreshold = 6;
+    var secondThreshold = firstThreshold * 2;
+
+    List<PropertyPartialViewModel> allPropertiesModels = Model.Properties
+        .Select(x => new PropertyPartialViewModel(Model.Id, null, x))
+        .Concat(Model.Components.SelectMany(cmp => cmp.Properties
+        .Select(p => new PropertyPartialViewModel(Model.Id, cmp.Name, p))))
+        .ToList();
+
+    if (allPropertiesModels.Count < firstThreshold)
     {
-        <partial name="_PropertyPartial" model="@(new PropertyPartialViewModel(Model.Id, component.Name, property))" />
+        firstThreshold = allPropertiesModels.Count;
+    }
+    if (allPropertiesModels.Count < secondThreshold)
+    {
+        secondThreshold = allPropertiesModels.Count;
     }
 }
+
+@for (int i = 0; i < firstThreshold; i++)
+{
+    var propertyModel = allPropertiesModels[i];
+    <partial name="_PropertyPartial" model="@propertyModel" />
+}
+<span>
+    @if (allPropertiesModels.Count > firstThreshold)
+    {
+        <span class="show-more-link show-tags">More (+@(@allPropertiesModels.Count - firstThreshold))</span>
+        <span class="tags-list" style="display: none;">
+            @for (int i = firstThreshold; i < secondThreshold; i++)
+            {
+                var propertyModel = allPropertiesModels[i];
+                <partial name="_PropertyPartial" model="@propertyModel" />
+            }
+            @if (allPropertiesModels.Count > secondThreshold)
+            {
+                <span class="show-more-link show-tags">Show all (+@(allPropertiesModels.Count - secondThreshold))</span>
+                <span class="tags-list" style="display: none;">
+                    @for (int i = secondThreshold; i < allPropertiesModels.Count; i++)
+                    {
+                        var propertyModel = allPropertiesModels[i];
+                        <partial name="_PropertyPartial" model="@propertyModel" />
+                    }
+                </span>
+            }
+        </span>
+    }
+</span>
