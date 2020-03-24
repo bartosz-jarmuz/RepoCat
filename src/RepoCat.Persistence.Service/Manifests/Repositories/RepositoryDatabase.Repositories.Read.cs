@@ -26,7 +26,15 @@ namespace RepoCat.Persistence.Service
             return this.repositories.FindAsync(FilterDefinition<RepositoryInfo>.Empty);
         }
 
-       
+        /// <summary>
+        /// Gets all repositories from a give organization
+        /// </summary>
+        /// <param name="organizationName"></param>
+        /// <returns></returns>
+        public Task<IAsyncCursor<RepositoryInfo>> GetAllRepositories(string organizationName)
+        {
+            return this.repositories.FindAsync(RepoCatFilterBuilder.BuildRepositoryFilter(organizationName));
+        }
 
 
         /// <summary>

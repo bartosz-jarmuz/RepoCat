@@ -6,7 +6,7 @@
 
 <div id="@Model.GetIdentifier()" class="project-card slider">
     <div class="row">
-        <div class="col-md-3 project-info">
+        <div class="col-md-4 project-info">
             <dl>
 
                 <dt>Project name:</dt>
@@ -57,13 +57,13 @@
             </dl>
 
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
             <ul class="compontents-list">
                 @foreach (var component in Model.Components)
                 {
                     <li class="component">
                         <div class="row">
-                            <div class="col-md-9 component-main">
+                            <div class="col-md-8 component-main">
 
                                 <div class="header">
                                     <span class="component-label">Component name:&nbsp;</span>
@@ -88,7 +88,7 @@
                                     <partial name="_TagsList" model="@(new TagsListViewModel(Model.OrganizationName, Model.RepositoryName, -1, Model.Tags, Model.Components.SelectMany(x=>x.Tags)))" />
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="">
                                     <div class="component-label">Properties&nbsp;</div>
                                     @foreach (var property in @component.Properties)

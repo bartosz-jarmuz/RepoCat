@@ -1,10 +1,10 @@
 @using RepoCat.RepositoryManagement.Service;
 @model IEnumerable<RepositoryQueryParameter>
 
-
 @foreach (RepositoryQueryParameter item in Model)
 {
     <partial name="_BadgeRepository" model="item" />
 }
+
 
 

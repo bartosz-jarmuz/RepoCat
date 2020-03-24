@@ -24,6 +24,15 @@ namespace RepoCat.Persistence.Service
     {
 
         [SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Predicate building does not support StringComparison enum")]
+        public static FilterDefinition<RepositoryInfo> BuildRepositoryFilter(string organizationName)
+        {
+            FilterDefinition<RepositoryInfo> repoNameFilter =
+                Builders<RepositoryInfo>.Filter.Where(x => x.OrganizationName.ToUpperInvariant() == organizationName.ToUpperInvariant()
+                );
+            return repoNameFilter;
+        }
+
+        [SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "Predicate building does not support StringComparison enum")]
         public static FilterDefinition<RepositoryInfo> BuildRepositoryFilter(string organizationName, string repositoryName)
         {
             FilterDefinition<RepositoryInfo> repoNameFilter =

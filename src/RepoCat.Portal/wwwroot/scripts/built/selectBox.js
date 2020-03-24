@@ -46,6 +46,24 @@ function intializeSelect2() {
             width: width,
             allowClear: Boolean($(this).data('allow-clear')),
             containerCss: css,
+            // @ts-ignore
+            templateResult: function (data) {
+                if (data.id && data.id.toString().endsWith(':*')) {
+                    return $('<span style="font-style: italic">' + data.text + '</span>');
+                }
+                else {
+                    return data.text;
+                }
+            },
+            // @ts-ignore
+            templateSelection: function (data) {
+                if (data.id && data.id.toString().endsWith(':*')) {
+                    return $('<span style="font-style: italic">' + data.text + '</span>');
+                }
+                else {
+                    return data.text;
+                }
+            }
         });
     });
 }

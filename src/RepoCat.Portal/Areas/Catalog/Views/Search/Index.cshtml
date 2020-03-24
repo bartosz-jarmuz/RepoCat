@@ -36,6 +36,10 @@
                     var items = selectedRepoCookie.split(',');
                     $('#selectedRepo').val(items);
                     $('#selectedRepo').trigger('change');
+                } else {
+                    //if no repo was stored in cookies, show the default 'everywhere' option
+                    $('#selectedRepo').val("*:*");
+                    $('#selectedRepo').trigger('change');
                 }
             } else {
                 //when refreshing a page, set the repositories to what was queried on
@@ -46,6 +50,7 @@
             $('#selectedRepo').change(function () {
                  setCookie("selectedRepo", $('#selectedRepo').val());
             })
+
 
 
             $('#ResultsTable').DataTable();

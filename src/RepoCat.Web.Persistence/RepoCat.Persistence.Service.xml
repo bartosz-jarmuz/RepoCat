@@ -100,6 +100,13 @@
             </summary>
             <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns> 
         </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAllRepositories(System.String)">
+            <summary>
+            Gets all repositories from a give organization
+            </summary>
+            <param name="organizationName"></param>
+            <returns></returns>
+        </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetRepository(System.String,System.String)">
             <summary>
             Gets a repository by the specified name and organization name

@@ -80,10 +80,30 @@ namespace RepoCat.Persistence.Service
         {
             if (repositoryParams == null) throw new ArgumentNullException(nameof(repositoryParams));
 
-            var tasks = new List<Task<RepositoryInfo>>();
-            foreach (RepositoryQueryParameter repositoryParam in repositoryParams)
+            List<Task<RepositoryInfo>> tasks = new List<Task<RepositoryInfo>>();
+            var paramsList = repositoryParams.ToList();
+            if (paramsList.Any(x => x.OrganizationName == "*"))
             {
-                 tasks.Add(this.GetRepository(repositoryParam.OrganizationName, repositoryParam.RepositoryName));
+                IAsyncCursor<RepositoryInfo> cursor = await this.GetAllRepositories();
+                await cursor.ForEachAsync(t => tasks.Add(Task.FromResult(t)));
+            }
+            else
+            {
+                foreach (IGrouping<string, RepositoryQueryParameter> groupedParams in paramsList.GroupBy(x=>x.OrganizationName))
+                {
+                    if (groupedParams.Any(x => x.RepositoryName == "*"))
+                    {
+                        IAsyncCursor<RepositoryInfo> cursor = await this.GetAllRepositories(groupedParams.Key);
+                        await cursor.ForEachAsync(t => tasks.Add(Task.FromResult(t)));
+                    }
+                    else
+                    {
+                        foreach (RepositoryQueryParameter repositoryParam in groupedParams)
+                        {
+                            tasks.Add(this.GetRepository(repositoryParam.OrganizationName, repositoryParam.RepositoryName));
+                        }
+                    }
+                }
             }
 
             await Task.WhenAll(tasks).ConfigureAwait(false);

@@ -72,10 +72,13 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             IReadOnlyCollection<RepositoryGrouping> groups = await this.repositoryService.GetAllRepositoriesGrouped().ConfigureAwait(false);
 
             List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem() { Text = "[All organizations, all repositories]", Value = $"*:*"});
 
             foreach (RepositoryGrouping repoGroup in groups)
             {
                 SelectListGroup group = new SelectListGroup() { Name = repoGroup.OrganizationName };
+                items.Add(new SelectListItem() { Text = "[All repositories]", Value = $"{repoGroup.OrganizationName}:*", Group = group });
+
                 foreach (RepositoryInfo repo in repoGroup.Repositories)
                 {
                     SelectListItem item = new SelectListItem() { Text = repo.RepositoryName, Value = $"{repo.OrganizationName}:{repo.RepositoryName}", Group = group };
@@ -168,8 +171,23 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         {
             ManifestQueryResult result = await this.repositoryService.GetCurrentProjects(parameters, query, isRegex).ConfigureAwait(false);
             ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
-            queryResultViewModel.ProjectsTable = new ProjectsTableModel(this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects), parameters.Count > 1);
+            queryResultViewModel.ProjectsTable = new ProjectsTableModel(this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects), this.IsMultipleRepos(parameters));
             return queryResultViewModel;
+        }
+
+        private bool IsMultipleRepos(IReadOnlyCollection<RepositoryQueryParameter> parameters)
+        {
+            if (parameters.Count > 1)
+            {
+                return true;
+            }
+
+            if (parameters.Any(x => x.RepositoryName == "*"))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
