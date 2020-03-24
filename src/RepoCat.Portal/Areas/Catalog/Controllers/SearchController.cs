@@ -77,7 +77,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             foreach (RepositoryGrouping repoGroup in groups)
             {
                 SelectListGroup group = new SelectListGroup() { Name = repoGroup.OrganizationName };
-                items.Add(new SelectListItem() { Text = "[All repositories]", Value = $"{repoGroup.OrganizationName}:*", Group = group });
+                items.Add(new SelectListItem() { Text = $"[{repoGroup.OrganizationName} - All repositories]", Value = $"{repoGroup.OrganizationName}:*", Group = group });
 
                 foreach (RepositoryInfo repo in repoGroup.Repositories)
                 {
