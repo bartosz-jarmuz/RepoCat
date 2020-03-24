@@ -8,6 +8,7 @@
     </span>
 }
 <div class="project-name"><strong>@Model.ProjectName</strong></div>
+<div style="margin-top: -0.5em"><small>@Model.GetOutputFileName()</small></div>
 <div class="mb-1">
     <partial name="_TagsList" model="@(new TagsListViewModel(Model.OrganizationName, Model.RepositoryName, null, Model.Tags, Model.Components.SelectMany(x=>x.Tags)))" />
 </div>
