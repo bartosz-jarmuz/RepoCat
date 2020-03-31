@@ -8,81 +8,96 @@
 }
 else
 {
+    var projectsCardCols = "col-md-12";
+    var projectInfoCols = "col-md-4";
+    var projectDescriptionCols = "col-md-8";
+    if (string.IsNullOrEmpty(Model.ProjectDescription) && !Model.Properties.Any())
+    {
+        projectsCardCols = "col-md-6";
+        projectInfoCols = "col-md-12";
+        projectDescriptionCols = "d-none";
+
+    }
     <div id="@Model.GetIdentifier()" class="project-card slider">
-        <div class="card">
-            <div class="card-header">
-                @Model.ProjectName
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4 project-info">
-                        <dl>
-                            <dt>Tags:</dt>
-                            <dd>
-                                <partial name="_TagsList" model="@(new TagsListViewModel(Model.OrganizationName, Model.RepositoryName, -1, Model.Tags, Model.Components.SelectMany(x => x.Tags)))" />
-                            </dd>
+        <div class="row">
+            <div class="@projectsCardCols">
 
-                            @{
-                                var outputFileName = @Model.GetOutputFileName() ?? "";
-                                var outputLabel = "Script file name";
-                                if (outputFileName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
-                                    outputFileName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)
-                                    )
-                                {
-                                    outputLabel = "Assembly file name";
-                                }
-                            }
-
-                            <dt>@outputLabel:</dt>
-                            <dd>@outputFileName</dd>
-
-                            <dt>Owner:</dt>
-                            <dd>@Model.Owner</dd>
-
-                            <dt>Documentation:</dt>
-                            <dd class="project-path">
-                                <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DocumentationUri), Model.DocumentationUri, "help-link", "fa fa-external-link-alt"))" />
-                            </dd>
-
-                            <dt>Project path:</dt>
-                            <dd class="project-path">
-                                <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.ProjectUri), Model.ProjectUri, "help-link", "fa fa-external-link-alt"))" />
-                            </dd>
-
-                            <dt>Download from:</dt>
-                            <dd class="project-path">
-                                <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DownloadLocation), Model.DownloadLocation, "help-link", "fa fa-external-link-alt"))" />
-                            </dd>
-
-                        </dl>
-
+                <div class="card card-accent-primary">
+                    <div class="card-header condensed">
+                        <small class="help-block text-secondary">Project details:</small>
+                        <strong class="d-block">@Model.ProjectName</strong>
                     </div>
-                    <div class="col-md-8">
-                        <dl>
-                            <dt>Project description:</dt>
-                            <dd>@Model.ProjectDescription</dd>
-                        </dl>
-                        <dl>
-                            <dt>Project properties:</dt>
-                            @foreach (var property in Model.Properties)
-                            {
-                                <partial name="_PropertyPartial" model="@(new PropertyPartialViewModel(Model.Id, null, property))" />
-                            }
-                        </dl>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="@projectInfoCols project-info">
+                                <dl>
+                                    <dt>Tags:</dt>
+                                    <dd>
+                                        <partial name="_TagsList" model="@(new TagsListViewModel(Model.OrganizationName, Model.RepositoryName, -1, Model.Tags, Model.Components.SelectMany(x => x.Tags)))" />
+                                    </dd>
+
+                                    @{
+                                        var outputFileName = @Model.GetOutputFileName() ?? "";
+                                        var outputLabel = "Script file name";
+                                        if (outputFileName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
+                                            outputFileName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)
+                                            )
+                                        {
+                                            outputLabel = "Assembly file name";
+                                        }
+                                    }
+
+                                    <dt>@outputLabel:</dt>
+                                    <dd>@outputFileName</dd>
+
+                                    <dt>Owner:</dt>
+                                    <dd>@Model.Owner</dd>
+
+                                    <dt>Documentation:</dt>
+                                    <dd class="project-path">
+                                        <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DocumentationUri), Model.DocumentationUri, "help-link", "fa fa-external-link-alt"))" />
+                                    </dd>
+
+                                    <dt>Project path:</dt>
+                                    <dd class="project-path">
+                                        <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.ProjectUri), Model.ProjectUri, "help-link", "fa fa-external-link-alt"))" />
+                                    </dd>
+
+                                    <dt>Download from:</dt>
+                                    <dd class="project-path">
+                                        <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DownloadLocation), Model.DownloadLocation, "help-link", "fa fa-external-link-alt"))" />
+                                    </dd>
+
+                                </dl>
+
+                            </div>
+                            <div class="@projectDescriptionCols project-description">
+                                <dl>
+                                    <dt>Project description:</dt>
+                                    <dd>@Model.ProjectDescription</dd>
+                                </dl>
+                                <dl>
+                                    <dt>Project properties:</dt>
+                                    @foreach (var property in Model.Properties)
+                                    {
+                                        <partial name="_PropertyPartial" model="@(new PropertyPartialViewModel(Model.Id, null, property))" />
+                                    }
+                                </dl>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        @if (Model.Components.Any())
-        {
-            <div class="row">
+            @if (Model.Components.Any())
+            {
                 @foreach (var component in Model.Components)
                 {
                     <div class="col-md-6">
 
                         <div class="card card-accent-primary">
-                            <div class="card-header">
-                                @component.Name
+                            <div class="card-header condensed">
+                                <small class="help-block text-secondary">Component details:</small>
+                                <strong class="d-block">@component.Name</strong>
                             </div>
                             <div class="card-body">
                                 <div class="component-main">
@@ -116,8 +131,7 @@ else
                         </div>
                     </div>
                 }
-            </div>
-        }
-
+            }
+        </div>
     </div>
 }

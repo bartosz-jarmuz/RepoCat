@@ -34,7 +34,10 @@
 
 .project-info {
     padding: 1rem;
-    border-right: 1px solid #c8ced3;
+}
+
+.project-description {
+    border-left: 1px solid #c8ced3;
 }
 
 .project-info dt {
@@ -50,4 +53,8 @@
 
 .project-info .project-path {
     font-size: 12px;
-}   
+}
+
+.card-header.condensed{
+    padding: 0.1rem 0.7rem;
+}
