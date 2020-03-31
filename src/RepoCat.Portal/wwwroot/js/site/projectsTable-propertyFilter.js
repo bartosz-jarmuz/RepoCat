@@ -91,7 +91,7 @@ function getProperties(rowData) {
             properties.push(property);
         }
     }); 
-    return properties;
+    return properties; 
 } 
  
 function getFilters() { 
@@ -121,6 +121,7 @@ function setupFiltering(table) {
                     showOverlay();
                     setTimeout(function () {
                         table.draw();
+                        redrawStripes();
                         hideOverlay();
                     }, 10);
                 }
@@ -137,7 +138,7 @@ function setupFiltering(table) {
             addToCollectionDictionaryCookie('activeFilters', getRepositoriesKey(), data);
             selectBox.data('inactive', 'FALSE');
         }
-        if ($(this).hasClass('filter-label')) {
+        if ($(this).hasClass('filter-label')) {    
             hideFilter(this, data, table);
             removeFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey(), data);
         }

@@ -115,6 +115,7 @@ function setupFiltering(table) {
                     showOverlay();
                     setTimeout(function () {
                         table.draw();
+                        redrawStripes();
                         hideOverlay();
                     }, 10);
                 }

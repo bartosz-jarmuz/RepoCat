@@ -3,7 +3,7 @@
     cursor: pointer;
 }
 
-tr.shown td.expand-table-row {
+tr.child-row-shown td.expand-table-row {
     background: url('../../images/details_close.png') no-repeat center center;
 }
 
@@ -72,4 +72,8 @@ div.slider {
 
 .name-cell dd {
     font-size: smaller;
+}
+
+.project-card-active{
+     /*box-shadow: 0 0 0 99999px rgba(0, 0, 0, .5);*/
 }
