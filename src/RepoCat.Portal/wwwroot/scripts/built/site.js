@@ -6,10 +6,10 @@ $(document).ready(function () {
     });
     $('.sidebar-minimizer').on('click', function () {
         if ($('body').hasClass('brand-minimized sidebar-minimized')) {
-            setCookie('sidebarOpen', 'false');
+            setCookie('sidebarOpen', 'true');
         }
         else {
-            setCookie('sidebarOpen', 'true');
+            setCookie('sidebarOpen', 'false');
         }
     });
     attachShowMoreTagsHandlers();

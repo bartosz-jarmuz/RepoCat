@@ -10,9 +10,9 @@ $(document).ready(function () {
 
     $('.sidebar-minimizer').on('click', function () {
         if ($('body').hasClass('brand-minimized sidebar-minimized')) { 
-            setCookie('sidebarOpen', 'false');
-        } else {
             setCookie('sidebarOpen', 'true');
+        } else {
+            setCookie('sidebarOpen', 'false');
         }
     });
     attachShowMoreTagsHandlers();
