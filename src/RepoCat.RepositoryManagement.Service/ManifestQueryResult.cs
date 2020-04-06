@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using RepoCat.Persistence.Models;
+using RepoCat.Utilities;
 
 namespace RepoCat.RepositoryManagement.Service
 {
@@ -31,8 +32,11 @@ namespace RepoCat.RepositoryManagement.Service
             this.Elapsed = elapsed;
             this.IsRegex = isRegex;
             this.QueryString = queryString;
+            this.Tokens = QueryStringTokenizer.GetTokens(queryString);
             this.Projects = projects.ToList();
         }
+
+        public IReadOnlyCollection<string> Tokens { get; set; }
 
         /// <summary>
         /// Gets or sets the project infos.

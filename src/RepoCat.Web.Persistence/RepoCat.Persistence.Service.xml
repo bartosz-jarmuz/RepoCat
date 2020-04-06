@@ -28,15 +28,6 @@
             <param name="id">The identifier.</param>
             <returns>ProjectInfo.</returns>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo},System.String,System.Boolean)">
-            <summary>
-            
-            </summary>
-            <param name="repos"></param>
-            <param name="query"></param>
-            <param name="isRegex"></param>
-            <returns></returns>
-        </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetStamps(RepoCat.Persistence.Models.RepositoryInfo)">
             <summary>
             Gets the coollection of stamps for a given repository
@@ -52,6 +43,15 @@
             <param name="query">The string to search by. Set to null, empty or * to ignore the query</param>
             <param name="isRegex">Specify whether the search string is a Regex</param>
             <returns>Task&lt;ManifestQueryResult&gt;.</returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo},System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="repos"></param>
+            <param name="query"></param>
+            <param name="isRegex"></param>
+            <returns></returns>
         </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetProjectsByQuery(System.String,System.Boolean)">
             <summary>

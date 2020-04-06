@@ -435,12 +435,6 @@
             </summary>
             <value>The query string.</value>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.GetSearchTokens">
-            <summary>
-            Gets the search tokens.
-            </summary>
-            <returns>List&lt;System.String&gt;.</returns>
-        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.SearchTokens">
             <summary>
             Gets or sets the search tokens.

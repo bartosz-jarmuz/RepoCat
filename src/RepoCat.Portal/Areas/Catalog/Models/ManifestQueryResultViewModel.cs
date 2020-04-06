@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using RepoCat.RepositoryManagement.Service;
-using RepoCat.Utilities;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
 {
@@ -16,10 +15,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
     /// </summary>
     public class ManifestQueryResultViewModel
     {
-        /// <summary>
-        /// The search tokens
-        /// </summary>
-        private List<string> searchTokens;
+        
         /// <summary>
         /// Gets or sets a value indicating whether this instance is regex.
         /// </summary>
@@ -33,43 +29,15 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         public string QueryString { get; set; }
 
         /// <summary>
-        /// Gets the search tokens.
-        /// </summary>
-        /// <returns>List&lt;System.String&gt;.</returns>
-        private List<string> GetSearchTokens()
-        {
-            if (!this.IsRegex)
-            {
-                return QueryStringTokenizer.GetTokens(this.QueryString);
-            }
-            else
-            {
-               return new List<string>() {this.QueryString };
-            }
-
-        }
-
-        /// <summary>
         /// Gets or sets the search tokens.
         /// </summary>
         /// <value>The search tokens.</value>
-        public List<string> SearchTokens
-        {
-            get
-            {
-                if (this.searchTokens == null)
-                {
-                    this.searchTokens = this.GetSearchTokens();
-                }
-                return this.searchTokens;
-            }
-            internal set => this.searchTokens = value;
-        }
+        public List<string> SearchTokens { get; set; }
 
         /// <summary>
         /// Projects table
         /// </summary>
-public ProjectsTableModel ProjectsTable { get; set; }
+        public ProjectsTableModel ProjectsTable { get; set; }
         /// <summary>
         /// Gets or sets the elapsed.
         /// </summary>

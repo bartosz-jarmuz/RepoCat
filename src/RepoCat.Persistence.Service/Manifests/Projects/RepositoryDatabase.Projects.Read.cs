@@ -32,27 +32,7 @@ namespace RepoCat.Persistence.Service
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="repos"></param>
-        /// <param name="query"></param>
-        /// <param name="isRegex"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<Project>> GetCurrentProjects(IEnumerable<RepositoryInfo> repos, string query, bool isRegex)
-        {
-            var tasks = new List<Task<IEnumerable<Project>>>();
-            if (repos != null)
-            {
-                foreach (RepositoryInfo repositoryInfo in repos)
-                {
-                    tasks.Add(this.GetProjects(repositoryInfo, query, isRegex));
-                }
-            }
-
-            await Task.WhenAll(tasks).ConfigureAwait(false);
-            return tasks.SelectMany(x => x.Result);
-        }
+       
 
         /// <summary>
         /// Gets the coollection of stamps for a given repository
@@ -109,6 +89,28 @@ namespace RepoCat.Persistence.Service
             await Task.WhenAll(tasks).ConfigureAwait(false);
 
             return await this.GetCurrentProjects(tasks.Select(x=>x.Result), query, isRegex).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repos"></param>
+        /// <param name="query"></param>
+        /// <param name="isRegex"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Project>> GetCurrentProjects(IEnumerable<RepositoryInfo> repos, string query, bool isRegex)
+        {
+            var tasks = new List<Task<IEnumerable<Project>>>();
+            if (repos != null)
+            {
+                foreach (RepositoryInfo repositoryInfo in repos)
+                {
+                    tasks.Add(this.GetProjects(repositoryInfo, query, isRegex));
+                }
+            }
+
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+            return tasks.SelectMany(x => x.Result);
         }
 
         /// <summary>
