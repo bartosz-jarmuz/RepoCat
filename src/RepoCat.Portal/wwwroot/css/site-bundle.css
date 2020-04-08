@@ -72,7 +72,7 @@
     
 }
 
-.project-card .header {
+.project-card .header { 
     font-size: 15px
 }
 
@@ -124,6 +124,7 @@
 .card-header.condensed{
     padding: 0.1rem 0.7rem;
 }
+
 td.expand-table-row {
     background: url('../images/details_open.png') no-repeat center center;
     cursor: pointer;
@@ -195,7 +196,7 @@ div.slider {
 .column-hide:hover {
     background-color: #e4e5e6;
 }
-
+ 
 .name-cell dd {
     font-size: smaller;
 }
@@ -203,6 +204,14 @@ div.slider {
 .project-card-active{
      /*box-shadow: 0 0 0 99999px rgba(0, 0, 0, .5);*/
 }
+
+.accuracy-score {
+    font-size: xx-small;
+    vertical-align: middle !important;
+    color: #909090;
+    text-align: center !important;
+}
+
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 
 /* Make .svg files in the carousel display properly in older browsers */

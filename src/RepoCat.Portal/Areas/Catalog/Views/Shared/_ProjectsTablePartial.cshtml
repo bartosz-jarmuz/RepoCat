@@ -44,7 +44,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div style="display: inline-block;">
-                            <small class="help-block text-secondary">Filter by properties</small>
+                            <small class="help-block text-secondary" data-toggle="tooltip" title="A repository can contain several custom properties, e.g. 'ProjectType'.
+It is possible to filter the list of projects by only including projects of certain type.">Filter by properties&nbsp;<i class="far fa-question-circle"></i></small>
                             <div id="PropertyFilterButtons" style="margin-bottom: 0.1em; ">
                                 <span>
                                     @foreach (var property in Model.Properties)
@@ -98,7 +99,7 @@
                             {
                                 <tr class="component project-row">
                                     <!--Expander button-->
-                                    <td></td>
+                                    <td data-order="@project.SearchAccuracyScore"></td>
                                     <!--Hidden content for expanded row-->
                                     <td class="break-all"><div class="details-view" style="display:none;"><partial name="_ProjectViewPartial" for="@project" /></div></td>
                                     <td class="break-all"><div class="repository-name"><partial name="_BadgeRepository" model="@(new RepositoryQueryParameter(project.OrganizationName, project.RepositoryName))" /></div></td>
@@ -136,7 +137,7 @@
 
         showOverlay();
         setTimeout(function () {
-            var table = getProjectsTable(activeColumnsCookie);
+            var table = getProjectsTable(activeColumnsCookie, ('@Model.IsSearchResult' === 'True'));
             setupTableFeatures(table);
             hideOverlay();
             initializeDeferredSelect2();

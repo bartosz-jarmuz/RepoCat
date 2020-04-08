@@ -19,6 +19,7 @@ using RepoCat.RepositoryManagement.Service;
 using RepoCat.Utilities;
 using SmartBreadcrumbs.Attributes;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
+using SearchKeywordData = RepoCat.RepositoryManagement.Service.SearchKeywordData;
 
 namespace RepoCat.Portal.Areas.Catalog.Controllers
 {
@@ -33,6 +34,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         private readonly TelemetryClient telemetryClient;
         private readonly IRepositoryManagementService repositoryService;
         private readonly IStatisticsService statisticsService;
+        private readonly IManifestQueryResultSorter sorter;
 
 
         /// <summary>
@@ -42,12 +44,13 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <param name="telemetryClient"></param>
         /// <param name="repositoryService"></param>
         /// <param name="statisticsService"></param>
-        public SearchController(IMapper mapper, TelemetryClient telemetryClient, IRepositoryManagementService repositoryService, IStatisticsService statisticsService)
+        public SearchController(IMapper mapper, TelemetryClient telemetryClient, IRepositoryManagementService repositoryService, IStatisticsService statisticsService, IManifestQueryResultSorter sorter)
         {
             this.mapper = mapper;
             this.telemetryClient = telemetryClient;
             this.repositoryService = repositoryService;
             this.statisticsService = statisticsService;
+            this.sorter = sorter;
         }
 
         /// <summary>
@@ -58,7 +61,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         public async Task<IActionResult> Index()
         {
             SearchIndexViewModel model = new SearchIndexViewModel();
-            var searchStatsTask = this.statisticsService.GetFlattened();
+            Task<IEnumerable<SearchKeywordData>> searchStatsTask = this.statisticsService.GetFlattened();
             model.Repositories = await this.GetRepositoriesSelectList().ConfigureAwait(false);
             await searchStatsTask.ConfigureAwait(false);
             model.TopSearchedTags = searchStatsTask.Result.ToList();
@@ -126,7 +129,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <returns></returns>
         public async Task UpdateSearchStatistics(IReadOnlyCollection<RepositoryQueryParameter> parameters, string query)
         {
-            var keywords = QueryStringTokenizer.GetTokens(query);
+            List<string> keywords = QueryStringTokenizer.GetTokens(query);
             foreach (RepositoryQueryParameter repositoryQueryParameter in parameters)
             {
                 await this.statisticsService.Update(repositoryQueryParameter, keywords);
@@ -171,7 +174,10 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         {
             ManifestQueryResult result = await this.repositoryService.GetCurrentProjects(parameters, query, isRegex).ConfigureAwait(false);
             ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
-            queryResultViewModel.ProjectsTable = new ProjectsTableModel(this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects), this.IsMultipleRepos(parameters));
+
+            IEnumerable<Project> sortedProjects = this.sorter.Sort(result.Projects, result.Tokens);
+
+            queryResultViewModel.ProjectsTable = new ProjectsTableModel(this.mapper.Map<List<ProjectInfoViewModel>>(sortedProjects), this.IsMultipleRepos(parameters), true);
             return queryResultViewModel;
         }
 

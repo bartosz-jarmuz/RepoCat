@@ -85,7 +85,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             await Task.WhenAll(projectsTask, stampsTask).ConfigureAwait(false);
             ManifestQueryResult result = projectsTask.Result;
             model.NumberOfStamps = stampsTask.Result.Count;
-            model.RepositoryMode = result?.Projects?.FirstOrDefault()?.RepositoryInfo?.RepositoryMode.ToString();
+            model.RepositoryMode = result.Projects?.FirstOrDefault()?.RepositoryInfo?.RepositoryMode.ToString();
 
            List<ProjectInfoViewModel> manifests = this.mapper.Map<List<ProjectInfoViewModel>>(result.Projects);
             if (manifests.Any())
@@ -98,7 +98,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
                 model.NumberOfComponents = manifests.Sum(x=>x.Components.Count);
                 model.NumberOfTags = manifests.Sum(prj => prj.Components.Sum(cmp=> cmp.Tags.Count));
             }
-            ProjectsTableModel projectsTableModel = new ProjectsTableModel(manifests, false);
+            ProjectsTableModel projectsTableModel = new ProjectsTableModel(manifests, false, false);
 
             model.ProjectsTable = projectsTableModel;
 

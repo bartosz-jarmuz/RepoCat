@@ -27,10 +27,10 @@
                         }
                         else
                         {
-                            @if (@Model.SearchTokens.Any())
+                            @if (@Model.Tokens.Any())
                             {
                                 <span>for </span>
-                                @foreach (var token in Model.SearchTokens)
+                                @foreach (var token in Model.Tokens)
                                 {
                                     <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
 
@@ -65,10 +65,10 @@ else
                         }
                         else
                         {
-                            @if (@Model.SearchTokens.Any())
+                            @if (@Model.Tokens.Any())
                             {
                                 <span>for </span>
-                                @foreach (var token in Model.SearchTokens)
+                                @foreach (var token in Model.Tokens)
                                 {
                                     <partial name="_BadgeTag" model="@(new TagBadgeViewModel(Model.RepositoryQueryParameters, token))" />
                                 }

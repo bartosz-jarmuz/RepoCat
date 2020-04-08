@@ -56,6 +56,11 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The name of the assembly.</value>
         public string AssemblyName { get; set; }
+        
+        /// <summary>
+        /// How relevant should be the result for a given query
+        /// </summary>
+        public decimal SearchAccuracyScore { get; set; }
         /// <summary>
         /// Gets or sets the project URI.
         /// </summary>

@@ -6,87 +6,205 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using RepoCat.Persistence.Models;
-using RepoCat.Utilities;
 
 namespace RepoCat.RepositoryManagement.Service
 {
-    public class ManifestQueryResultSorter
+    public class ManifestQueryResultSorter : IManifestQueryResultSorter
     {
         private static class ScoreMultipliers
         {
-            public static readonly decimal ProjectName = 2;
-            public static readonly decimal Tags = 1.5M;
-            public static readonly decimal Description = 1;
+            public const decimal Equal = 10;
+            public const decimal StartsWith = 5;
+            public const decimal Contains = 3;
+            
+            public const decimal Name = 7;
+            public const decimal Tags = 1.5M;
+            public const decimal Description = 1;
+            public const decimal Properties = 1;
         }
 
 
-        public IEnumerable<KeyValuePair<Project, decimal>> Sort(IEnumerable<Project> projects, IEnumerable<string> searchTokens)
+        public IEnumerable<Project> Sort(IEnumerable<Project> projects, IEnumerable<string> searchTokens)
         {
-            var sortedCollection = new List<KeyValuePair<Project, decimal>>();
+            var sortedCollection = new List<Project>();
             var enumeratedTokens = searchTokens.ToList();
-            foreach (Project sortedProject in  projects)
+            foreach (Project sortedProject in projects)
             {
                 var score = this.GetProjectScore(sortedProject, enumeratedTokens);
-                sortedCollection.Add(new KeyValuePair<Project, decimal>(sortedProject, score));
+                sortedProject.SearchAccuracyScore = score;
+                sortedCollection.Add(sortedProject);
             }
-            
-            return sortedCollection.OrderByDescending(x=>x.Value);
+
+            return sortedCollection.OrderByDescending(x => x.SearchAccuracyScore);
         }
 
         private decimal GetProjectScore(Project project, IReadOnlyCollection<string> tokens)
         {
             decimal score = 0;
 
-            score += this.GetStringScore(project.ProjectInfo.ProjectName, ScoreMultipliers.ProjectName, tokens);
-            score += this.GetStringScore(project.ProjectInfo.AssemblyName, ScoreMultipliers.ProjectName, tokens);
+            score += this.GetAssemblyNameScores(project.ProjectInfo, tokens);
 
+            score += this.GetStringScore(project.ProjectInfo.ProjectName, ScoreMultipliers.Name, tokens);
             score += this.GetStringScore(project.ProjectInfo.Tags, ScoreMultipliers.Tags, tokens);
-
-
+            score += this.GetStringScore(project.ProjectInfo.Owner, ScoreMultipliers.Tags, tokens);
+            score += this.GetStringScore(project.ProjectInfo.Properties, ScoreMultipliers.Tags, tokens);
             score += this.GetStringScore(project.ProjectInfo.ProjectDescription, ScoreMultipliers.Description, tokens);
 
-            return score;
-        }
-
-        private decimal GetStringScore(IEnumerable<string> toSearch, decimal scoreMultiplier, IReadOnlyCollection<string> tokens)
-        {
-            decimal score = 0;
-            foreach (string searchString in toSearch)
+            if (project.ProjectInfo.Components != null)
             {
-                score += this.GetStringScore(searchString, scoreMultiplier, tokens);
+                foreach (ComponentManifest component in project.ProjectInfo.Components)
+                {
+                    score += this.GetStringScore(component.Name, ScoreMultipliers.Name, tokens);
+                    score += this.GetStringScore(component.Tags, ScoreMultipliers.Tags, tokens);
+                    score += this.GetStringScore(component.Properties, ScoreMultipliers.Tags, tokens);
+                    score += this.GetStringScore(component.Description, ScoreMultipliers.Description, tokens);
+                }
             }
 
             return score;
         }
 
-        private decimal GetStringScore(string toSearch, decimal scoreMultiplier, IEnumerable<string> tokens)
+        
+
+        /// <summary>
+        /// Handle proj
+        /// ect name scoring separately because of the 'with/without extension'
+        /// </summary>
+        /// <param name="projectInfo"></param>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
+        private decimal GetAssemblyNameScores(ProjectInfo projectInfo, IReadOnlyCollection<string> tokens)
         {
-            const decimal equalsMultiplier = 2;
-            const decimal startsWithMultiplier = 1.5M;
-            const decimal containsMultiplier = 1;
+            const decimal scoreBaseValue = ScoreMultipliers.Name;
+            if (projectInfo.AssemblyName == null)
+            {
+                return 0;
+            }
+            decimal score = 0;
+            foreach (string token in tokens)
+            {
+
+                if (projectInfo.AssemblyName.Equals(token, StringComparison.OrdinalIgnoreCase)
+                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).Equals(token, StringComparison.OrdinalIgnoreCase)
+                )
+                {
+                    score += scoreBaseValue * ScoreMultipliers.Equal;
+                }
+                else if (projectInfo.AssemblyName.StartsWith(token, StringComparison.OrdinalIgnoreCase)
+                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).StartsWith(token, StringComparison.OrdinalIgnoreCase)
+                )
+                {
+                    if (IsSufficientTokenLength(token))
+                    {
+                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.StartsWith, token, projectInfo.AssemblyName, out decimal percentage);
+                            score += (scoreBaseValue * ScoreMultipliers.StartsWith) + bonus;
+                    }
+                }
+                else if (projectInfo.AssemblyName.Contains(token, StringComparison.OrdinalIgnoreCase)
+                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).Contains(token, StringComparison.OrdinalIgnoreCase)
+                )
+                {
+                    if (IsSufficientTokenLength(token))
+                    {
+                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, projectInfo.AssemblyName, out decimal percentage);
+                            score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
+                    }
+
+                }
+            }
+
+            return score;
+        }
+
+        
+
+        private decimal GetStringScore(PropertiesCollection projectInfoProperties, in decimal scoreBaseValue, IReadOnlyCollection<string> tokens)
+        {
+            var values = new List<string>();
+            foreach (Property projectInfoProperty in projectInfoProperties)
+            {
+                if (projectInfoProperty.ValueList != null && projectInfoProperty.ValueList.Any())
+                {
+                    values.AddRange(projectInfoProperty.ValueList);
+                }
+                else
+                {
+                    values.Add(projectInfoProperty.Value);
+                }
+            }
+
+            return this.GetStringScore(values, scoreBaseValue, tokens);
+        }
+
+        private decimal GetStringScore(IEnumerable<string> toSearch, decimal scoreBaseValue, IReadOnlyCollection<string> tokens)
+        {
+            decimal score = 0;
+            foreach (string searchString in toSearch)
+            {
+                score += this.GetStringScore(searchString, scoreBaseValue, tokens);
+            }
+
+            return score;
+        }
+
+        private decimal GetStringScore(string toSearch, decimal scoreBaseValue, IEnumerable<string> tokens)
+        {
+            if (string.IsNullOrWhiteSpace(toSearch))
+            {
+                return 0;
+            }
             decimal score = 0;
 
             foreach (string token in tokens)
             {
                 if (toSearch.Equals(token, StringComparison.OrdinalIgnoreCase))
                 {
-                    score += 1 * scoreMultiplier * equalsMultiplier;
+                    score += scoreBaseValue * ScoreMultipliers.Equal;
                 }
                 else if (toSearch.StartsWith(token, StringComparison.OrdinalIgnoreCase))
                 {
-                    score += 1 * scoreMultiplier * startsWithMultiplier;
+
+                    if (IsSufficientTokenLength(token))
+                    {
+                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.StartsWith, token, toSearch, out decimal percentage);
+                            score += (scoreBaseValue * ScoreMultipliers.StartsWith) + bonus;
+                    }
                 }
                 else if (toSearch.Contains(token, StringComparison.OrdinalIgnoreCase))
                 {
-                    score += 1 * scoreMultiplier * containsMultiplier;
+                    if (IsSufficientTokenLength(token))
+                    {
+                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, toSearch, out decimal percentage);
+                            score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
+                    }
                 }
             }
 
             return score;
         }
 
+        private static decimal GetPercentageBonus(decimal baseValue, string token, string toSearch, out decimal percentage)
+        {
+                percentage = token.Length / (decimal)toSearch.Length;
+            if (percentage < 0.1M)
+            {
+                return (baseValue * -1); //if the matched substring is absolutely tiny, do not add any score (i.e. add penalty equal to score)
+            }
+            if (percentage < 0.2M)
+            {
+                return (baseValue *-1 ) + baseValue * percentage ; //if the matched substring is only very insignificant, add a penalty instead of bonus
+            }
+            return baseValue * percentage;
+        }
 
+        private static bool IsSufficientTokenLength(string token)
+        {
+            return token.Length >= 3;
+        }
+
+        
     }
 }

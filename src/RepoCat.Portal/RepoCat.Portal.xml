@@ -145,7 +145,7 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(AutoMapper.IMapper,Microsoft.ApplicationInsights.TelemetryClient,RepoCat.RepositoryManagement.Service.IRepositoryManagementService,RepoCat.RepositoryManagement.Service.IStatisticsService)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.#ctor(AutoMapper.IMapper,Microsoft.ApplicationInsights.TelemetryClient,RepoCat.RepositoryManagement.Service.IRepositoryManagementService,RepoCat.RepositoryManagement.Service.IStatisticsService,RepoCat.RepositoryManagement.Service.IManifestQueryResultSorter)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Controllers.SearchController"/> class.
             </summary>
@@ -418,11 +418,6 @@
             Contains the result of a query
             </summary>
         </member>
-        <member name="F:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.searchTokens">
-            <summary>
-            The search tokens
-            </summary>
-        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.IsRegex">
             <summary>
             Gets or sets a value indicating whether this instance is regex.
@@ -435,7 +430,7 @@
             </summary>
             <value>The query string.</value>
         </member>
-        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.SearchTokens">
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ManifestQueryResultViewModel.Tokens">
             <summary>
             Gets or sets the search tokens.
             </summary>
@@ -505,6 +500,11 @@
             Gets or sets the name of the assembly.
             </summary>
             <value>The name of the assembly.</value>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.SearchAccuracyScore">
+            <summary>
+            How relevant should be the result for a given query
+            </summary>
         </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel.ProjectUri">
             <summary>
@@ -588,7 +588,7 @@
             
             </summary>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.#ctor(System.Collections.Generic.List{RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel},System.Boolean)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.#ctor(System.Collections.Generic.List{RepoCat.Portal.Areas.Catalog.Models.ProjectInfoViewModel},System.Boolean,System.Boolean)">
             <summary>
             
             </summary>

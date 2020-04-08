@@ -101,11 +101,11 @@ function hideDefaultColumnsFromCookies(table) {
         }
     }
 }
-function getColumns(numberOfExtraColumns) {
+function getColumns(numberOfExtraColumns, isSearchResult) {
     var columns = [
         {
             "className": 'expand-table-row',
-            "orderable": false,
+            "orderable": isSearchResult,
             "data": null,
             "defaultContent": ''
         },

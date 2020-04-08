@@ -41,15 +41,19 @@ namespace RepoCat.Portal.Mapping
                 .IncludeMembers(p => p.ProjectInfo)
                 .ForMember(x => x.RepositoryName, o => o.MapFrom(p => p.RepositoryInfo.RepositoryName))
                 .ForMember(x => x.OrganizationName, o => o.MapFrom(p => p.RepositoryInfo.OrganizationName))
+                .ForMember(x => x.SearchAccuracyScore, o => o.MapFrom(p => p.SearchAccuracyScore))
                 .ForMember(x => x.DisplayRepositoryName, o => o.Ignore())
                 .ForMember(x => x.Properties, o => o.Ignore())
                 ;
-            ;
+            
+
             this.CreateMap<ProjectInfo, ProjectInfoViewModel>()
                 .ForMember(x => x.RepositoryName, o => o.Ignore())
                 .ForMember(x => x.DisplayRepositoryName, o => o.Ignore())
                 .ForMember(x => x.OrganizationName, o => o.Ignore())
                 .ForMember(x => x.Properties, o => o.Ignore())
+                .ForMember(x => x.SearchAccuracyScore, o => o.Ignore())
+                
                 .AfterMap((src, dest, rc) =>
                 {
                     foreach (Property prop in src.Properties) dest.Properties.Add(new PropertyViewModel(){Key = prop.Key, Value = prop.Value, ValueList = prop.ValueList});
@@ -64,7 +68,7 @@ namespace RepoCat.Portal.Mapping
                 })
                 ;
             this.CreateMap<ManifestQueryResult, ManifestQueryResultViewModel>()
-                .ForMember(x => x.SearchTokens, o => o.Ignore())
+
                 .ForMember(x => x.ProjectsTable, o => o.Ignore())
                 ;
 

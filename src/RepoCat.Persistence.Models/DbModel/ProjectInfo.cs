@@ -107,7 +107,7 @@ namespace RepoCat.Persistence.Models
         /// (e.g. if a transmitter plugin uses reflection to scan through code for some extra info)
         /// </summary>
         /// <value>The properties.</value>
-        public PropertiesCollection Properties { get; internal set; } = new PropertiesCollection();
+        public PropertiesCollection Properties { get;  set; } = new PropertiesCollection();
        
         /// <summary>
         /// Gets or sets the components manifests

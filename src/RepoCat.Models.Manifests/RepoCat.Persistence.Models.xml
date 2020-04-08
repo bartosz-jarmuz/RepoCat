@@ -359,6 +359,11 @@
                 It is assembled by performing a join during a query.
             </summary>
         </member>
+        <member name="P:RepoCat.Persistence.Models.Project.SearchAccuracyScore">
+            <summary>
+            How relevant should be the result for a given query
+            </summary>
+        </member>
         <member name="P:RepoCat.Persistence.Models.Project.ProjectInfo">
             <summary>
                 Details about the project

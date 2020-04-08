@@ -187,11 +187,11 @@ function hideDefaultColumnsFromCookies(table) {
         }
     }
 }
-function getColumns(numberOfExtraColumns) {
+function getColumns(numberOfExtraColumns, isSearchResult) {
     var columns = [
         {
             "className": 'expand-table-row',
-            "orderable": false,
+            "orderable": isSearchResult,
             "data": null,
             "defaultContent": ''
         },
@@ -225,7 +225,7 @@ function addHideDefaultColumnButton(column, columnId, columnName) {
     });
 }
 //# sourceMappingURL=projectsTable-columns.js.map
-function getProjectsTable(activeColumnsCookie) {
+function getProjectsTable(activeColumnsCookie, isSearchResult) {
     var t0 = performance.now();
     var showRepositoryColumn = $('#ResultsTableData').data('showrepositorycolumn');
     var numberOfExtraColumns = 0;
@@ -235,20 +235,36 @@ function getProjectsTable(activeColumnsCookie) {
     else {
         numberOfExtraColumns = parseInt($('#ResultsTableData').attr('data-numberofextracolumns'));
     }
+    var ordering;
+    if (isSearchResult) {
+        ordering = [[0, 'desc']];
+    }
+    else {
+        ordering = [[3, 'asc']];
+    }
     var table = $('#ResultsTable').DataTable({
         pageLength: 50,
         stateSave: false,
         "autoWidth": true,
         "processing": true,
         "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-        order: [[3, 'asc']],
+        order: ordering,
         // @ts-ignore
         "columnDefs": [
             {
                 "targets": [0],
                 "visible": true,
                 "searchable": false,
-                "width": "2%"
+                "width": "2%",
+                render: function (data, type, full, meta) {
+                    if (type === "sort") {
+                        // @ts-ignore
+                        var api = new $.fn.dataTable.Api(meta.settings);
+                        var td = api.cell({ row: meta.row, column: meta.col }).node(); // the td of the row
+                        data = $(td).attr('data-order'); // the data it should be sorted by
+                    }
+                    return data;
+                }
             },
             {
                 "targets": [1],
@@ -267,11 +283,20 @@ function getProjectsTable(activeColumnsCookie) {
                 "width": "2%"
             },
         ],
-        columns: getColumns(numberOfExtraColumns),
+        columns: getColumns(numberOfExtraColumns, isSearchResult),
         dom: "R"
             + "<'#TopButtonsRow.row'<'col-md-1 first'l><'col-md-10 restore-columns-row'><'col-md-1 third'if>>"
             + "<rtip> ",
     });
+    if (isSearchResult) {
+        $('td.expand-table-row').each(function () {
+            $(this).html('<span class="accuracy-score" data-toggle="tooltip" title="This score indicates how relevant is this project to the search query.' +
+                '\r\nThe higher the better - there is no maximum defined.">' +
+                '<i class="far fa-star d-inline"></i>' +
+                Number($(this).data('order')).toFixed(2)
+                + '</span>');
+        });
+    }
     setupHideButtons(table);
     alignSearchPanel();
     hideDefaultColumnsFromCookies(table);

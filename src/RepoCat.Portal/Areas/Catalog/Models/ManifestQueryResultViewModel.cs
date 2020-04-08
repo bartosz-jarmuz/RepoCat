@@ -32,7 +32,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// Gets or sets the search tokens.
         /// </summary>
         /// <value>The search tokens.</value>
-        public List<string> SearchTokens { get; set; }
+        public List<string> Tokens { get; set; }
 
         /// <summary>
         /// Projects table

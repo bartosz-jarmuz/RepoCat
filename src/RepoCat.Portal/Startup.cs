@@ -64,6 +64,7 @@ namespace RepoCat.Portal
             services.AddSingleton<StatisticsDatabase>();
             services.AddScoped<IRepositoryManagementService, RepositoryManagementService>();
             services.AddScoped<IStatisticsService, StatisticsService>();
+            services.AddScoped<IManifestQueryResultSorter, ManifestQueryResultSorter>();
             AddRecurringRepositoryScanJob(services);
             ConfigureAutoMapper(services);
             this.AddHangfire(services);

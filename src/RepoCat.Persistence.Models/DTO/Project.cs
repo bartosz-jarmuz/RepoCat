@@ -14,6 +14,11 @@ namespace RepoCat.Persistence.Models
     public class Project
     {
         /// <summary>
+        /// How relevant should be the result for a given query
+        /// </summary>
+        public decimal SearchAccuracyScore { get; set; }
+
+        /// <summary>
         ///     Details about the project
         /// </summary>
         public ProjectInfo ProjectInfo { get; set; }
