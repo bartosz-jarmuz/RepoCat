@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div style="display: inline-block;">
-                            <small class="help-block text-secondary" data-toggle="tooltip" title="A repository can contain several custom properties, e.g. 'ProjectType'.
+                            <small class="help-block text-secondary" data-toggle="tooltip" title="Projects in repository can contain multiple custom properties, e.g. 'ProjectType'.
 It is possible to filter the list of projects by only including projects of certain type.">Filter by properties&nbsp;<i class="far fa-question-circle"></i></small>
                             <div id="PropertyFilterButtons" style="margin-bottom: 0.1em; ">
                                 <span>
@@ -60,7 +60,8 @@ It is possible to filter the list of projects by only including projects of cert
 
                 <div class="row">
                     <div class="col-12">
-                        <small class="help-block text-secondary">Add /Remove custom columns</small>
+                        <small class="help-block text-secondary" data-toggle="tooltip" title="Projects in repository can contain multiple custom properties, e.g. 'ProjectType'.
+You can customize the look of the table by adding or removing columns for these properties which show data imporatant to you.">Add /Remove custom columns&nbsp;<i class="far fa-question-circle"></i></small>
                         <div id="PropertyColumnsButtons" style="margin-bottom: 0.5em;">
                             <span>
                                 @foreach (var property in Model.Properties)
