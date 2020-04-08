@@ -247,5 +247,41 @@ namespace RepoCat.Tests
 
 
         }
+
+
+        [Test]
+        public void TestSorting_TokenizedContains_WorthMoreThanStartsWith()
+        {
+            //arrange
+            IManifestQueryResultSorter sorter = new ManifestQueryResultSorter();
+            var tokens = new string[] { "Project" };
+            var projects = new List<Project>()
+            {
+
+                new Project()
+                {
+                    ProjectInfo = new ProjectInfo()
+                    {
+                        ProjectName = "This.Is.My.Long.Namespace.Project.For.Xml.dll",
+                    }
+                },
+                new Project()
+                {
+                    ProjectInfo = new ProjectInfo()
+                    {
+                        ProjectName = "OtherProjectName",
+                    }
+                },
+            };
+
+            //act
+            var result = sorter.Sort(projects, tokens).ToList();
+
+            //assert
+            Assert.AreEqual("This.Is.My.Long.Namespace.Project.For.Xml.dll", result[0].ProjectInfo.ProjectName);
+            Assert.IsTrue(result[0].SearchAccuracyScore > result[1].SearchAccuracyScore);
+
+
+        }
     }
 }

@@ -17,8 +17,9 @@ namespace RepoCat.RepositoryManagement.Service
         private static class ScoreMultipliers
         {
             public const decimal Equal = 10;
-            public const decimal StartsWith = 5;
-            public const decimal Contains = 3;
+            public const decimal TokenizedEqual = 6;
+            public const decimal StartsWith = 4;
+            public const decimal Contains = 2;
             
             public const decimal Name = 7;
             public const decimal Tags = 1.5M;
@@ -67,60 +68,6 @@ namespace RepoCat.RepositoryManagement.Service
             return score;
         }
 
-        
-
-        /// <summary>
-        /// Handle proj
-        /// ect name scoring separately because of the 'with/without extension'
-        /// </summary>
-        /// <param name="projectInfo"></param>
-        /// <param name="tokens"></param>
-        /// <returns></returns>
-        private decimal GetAssemblyNameScores(ProjectInfo projectInfo, IReadOnlyCollection<string> tokens)
-        {
-            const decimal scoreBaseValue = ScoreMultipliers.Name;
-            if (projectInfo.AssemblyName == null)
-            {
-                return 0;
-            }
-            decimal score = 0;
-            foreach (string token in tokens)
-            {
-
-                if (projectInfo.AssemblyName.Equals(token, StringComparison.OrdinalIgnoreCase)
-                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).Equals(token, StringComparison.OrdinalIgnoreCase)
-                )
-                {
-                    score += scoreBaseValue * ScoreMultipliers.Equal;
-                }
-                else if (projectInfo.AssemblyName.StartsWith(token, StringComparison.OrdinalIgnoreCase)
-                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).StartsWith(token, StringComparison.OrdinalIgnoreCase)
-                )
-                {
-                    if (IsSufficientTokenLength(token))
-                    {
-                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.StartsWith, token, projectInfo.AssemblyName, out decimal percentage);
-                            score += (scoreBaseValue * ScoreMultipliers.StartsWith) + bonus;
-                    }
-                }
-                else if (projectInfo.AssemblyName.Contains(token, StringComparison.OrdinalIgnoreCase)
-                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).Contains(token, StringComparison.OrdinalIgnoreCase)
-                )
-                {
-                    if (IsSufficientTokenLength(token))
-                    {
-                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, projectInfo.AssemblyName, out decimal percentage);
-                            score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
-                    }
-
-                }
-            }
-
-            return score;
-        }
-
-        
-
         private decimal GetStringScore(PropertiesCollection projectInfoProperties, in decimal scoreBaseValue, IReadOnlyCollection<string> tokens)
         {
             var values = new List<string>();
@@ -157,28 +104,31 @@ namespace RepoCat.RepositoryManagement.Service
                 return 0;
             }
             decimal score = 0;
-
+            List<string> tokenizedSearchPhrase = this.Tokenize(toSearch);
             foreach (string token in tokens)
             {
                 if (toSearch.Equals(token, StringComparison.OrdinalIgnoreCase))
                 {
                     score += scoreBaseValue * ScoreMultipliers.Equal;
                 }
+                else if (this.TokenizedEquals(tokenizedSearchPhrase, token))
+                {
+                    score += scoreBaseValue * ScoreMultipliers.TokenizedEqual;
+                }
                 else if (toSearch.StartsWith(token, StringComparison.OrdinalIgnoreCase))
                 {
-
                     if (IsSufficientTokenLength(token))
                     {
-                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.StartsWith, token, toSearch, out decimal percentage);
-                            score += (scoreBaseValue * ScoreMultipliers.StartsWith) + bonus;
+                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.StartsWith, token, toSearch);
+                        score += (scoreBaseValue * ScoreMultipliers.StartsWith) + bonus;
                     }
                 }
                 else if (toSearch.Contains(token, StringComparison.OrdinalIgnoreCase))
                 {
                     if (IsSufficientTokenLength(token))
                     {
-                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, toSearch, out decimal percentage);
-                            score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
+                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, toSearch);
+                        score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
                     }
                 }
             }
@@ -186,9 +136,77 @@ namespace RepoCat.RepositoryManagement.Service
             return score;
         }
 
-        private static decimal GetPercentageBonus(decimal baseValue, string token, string toSearch, out decimal percentage)
+        /// <summary>
+        /// Handle proj
+        /// ect name scoring separately because of the 'with/without extension'
+        /// </summary>
+        /// <param name="projectInfo"></param>
+        /// <param name="tokens"></param>
+        /// <returns></returns>
+        private decimal GetAssemblyNameScores(ProjectInfo projectInfo, IReadOnlyCollection<string> tokens)
         {
-                percentage = token.Length / (decimal)toSearch.Length;
+            const decimal scoreBaseValue = ScoreMultipliers.Name;
+            if (projectInfo.AssemblyName == null)
+            {
+                return 0;
+            }
+            decimal score = 0;
+            var tokenizedSearchPhrase = this.Tokenize(projectInfo.AssemblyName);
+            foreach (string token in tokens)
+            {
+
+                if (projectInfo.AssemblyName.Equals(token, StringComparison.OrdinalIgnoreCase)
+                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).Equals(token, StringComparison.OrdinalIgnoreCase)
+                )
+                {
+                    score += scoreBaseValue * ScoreMultipliers.Equal;
+                }
+                else if (this.TokenizedEquals(tokenizedSearchPhrase, token))
+                {
+                    score += scoreBaseValue * ScoreMultipliers.TokenizedEqual;
+                }
+
+                else if (projectInfo.AssemblyName.StartsWith(token, StringComparison.OrdinalIgnoreCase)
+                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).StartsWith(token, StringComparison.OrdinalIgnoreCase)
+                )
+                {
+                    if (IsSufficientTokenLength(token))
+                    {
+                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.StartsWith, token, projectInfo.AssemblyName);
+                        score += (scoreBaseValue * ScoreMultipliers.StartsWith) + bonus;
+                    }
+                }
+                else if (projectInfo.AssemblyName.Contains(token, StringComparison.OrdinalIgnoreCase)
+                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).Contains(token, StringComparison.OrdinalIgnoreCase)
+                )
+                {
+                    if (IsSufficientTokenLength(token))
+                    {
+                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, projectInfo.AssemblyName);
+                        score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
+                    }
+
+                }
+            }
+
+            return score;
+        }
+
+
+        private List<string> Tokenize(string toSearch)
+        {
+            //larger than 3 is a fudge factor number that should eliminate a number of typical falsely high scores from file extensions etc
+            return toSearch.Split(new[] {'.', ' ', '-', '\\', '_', '/'}, StringSplitOptions.RemoveEmptyEntries).Where(x=>x.Length > 3).ToList();
+        }
+
+        private bool TokenizedEquals(List<string> tokenizedSearchPhrase, string token)
+        {
+            return tokenizedSearchPhrase.Any(x => x.Equals(token, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static decimal GetPercentageBonus(decimal baseValue, string token, string toSearch)
+        {
+            decimal percentage = token.Length / (decimal)toSearch.Length;
             if (percentage < 0.1M)
             {
                 return (baseValue * -1); //if the matched substring is absolutely tiny, do not add any score (i.e. add penalty equal to score)
