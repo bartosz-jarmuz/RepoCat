@@ -96,6 +96,11 @@ function markSearchPhrases() {
                 className: 'search-mark',
                 element: 'span'
             });
+            // @ts-ignore
+            $('.projects-table-card').mark($('#searchQuery').val(), {
+                className: 'search-mark',
+                element: 'span'
+            });
         }
     });
     redrawStripes();
