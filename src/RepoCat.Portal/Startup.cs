@@ -87,7 +87,8 @@ namespace RepoCat.Portal
         {
             ApplicationInsightsServiceOptions aiOptions = new ApplicationInsightsServiceOptions
             {
-                DeveloperMode = false
+                DeveloperMode = false,
+                EnableDependencyTrackingTelemetryModule = false
             };
             TelemetryDebugWriter.IsTracingDisabled = true;
 
