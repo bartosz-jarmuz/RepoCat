@@ -22,6 +22,16 @@
     font-size: smaller;
 }
 
+.badge-column-name {
+    background-color: #ffffff !important;
+    color: #000 !important;
+    border: 1px solid #999;
+    font-size: smaller;
+    border-radius: 0px;
+    padding: 5px;
+}
+
+
 .badge-button {
     color: #000 !important;
     cursor: pointer;    
