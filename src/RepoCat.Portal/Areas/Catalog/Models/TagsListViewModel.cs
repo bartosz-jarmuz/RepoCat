@@ -45,7 +45,7 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         {
             this.OrganizationName = organizationName;
             this.RepositoryName = repositoryName;
-            this.TagsInitialDisplayLimit = tagsInitialDisplayLimit??4;
+            this.TagsInitialDisplayLimit = tagsInitialDisplayLimit??20;
             if (this.TagsInitialDisplayLimit == -1)
             {
                 this.TagsInitialDisplayLimit = 10000; //expect more that 10k tags...?
