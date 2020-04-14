@@ -670,13 +670,15 @@ $(document).ready(function () {
             return $(data).hide().fadeIn(500);
         });
     });
-    $('.sidebar-minimizer').on('click', function () {
-        if ($('body').hasClass('brand-minimized sidebar-minimized')) {
-            setCookie('sidebarOpen', 'true');
-        }
-        else {
-            setCookie('sidebarOpen', 'false');
-        }
+    $('.sidebar-minimizer').on('change', function () {
+        setTimeout(function () {
+            if ($('body').hasClass('brand-minimized sidebar-minimized')) {
+                setCookie('sidebarOpen', 'true');
+            }
+            else {
+                setCookie('sidebarOpen', 'false');
+            }
+        }, 200);
     });
     attachShowMoreTagsHandlers();
 });
