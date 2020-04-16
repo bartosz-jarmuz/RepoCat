@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using RepoCat.Persistence.Models;
 
 namespace RepoCat.RepositoryManagement.Service
@@ -104,7 +106,7 @@ namespace RepoCat.RepositoryManagement.Service
                 return 0;
             }
             decimal score = 0;
-            List<string> tokenizedSearchPhrase = this.Tokenize(toSearch);
+            List<string> tokenizedSearchPhrase = SearchInputTokenizer.Tokenize(toSearch);
             foreach (string token in tokens)
             {
                 if (toSearch.Equals(token, StringComparison.OrdinalIgnoreCase))
@@ -151,7 +153,7 @@ namespace RepoCat.RepositoryManagement.Service
                 return 0;
             }
             decimal score = 0;
-            var tokenizedSearchPhrase = this.Tokenize(projectInfo.AssemblyName);
+            var tokenizedSearchPhrase = SearchInputTokenizer.Tokenize(projectInfo.AssemblyName);
             foreach (string token in tokens)
             {
 
@@ -193,11 +195,7 @@ namespace RepoCat.RepositoryManagement.Service
         }
 
 
-        private List<string> Tokenize(string toSearch)
-        {
-            //larger than 3 is a fudge factor number that should eliminate a number of typical falsely high scores from file extensions etc
-            return toSearch.Split(new[] {'.', ' ', '-', '\\', '_', '/'}, StringSplitOptions.RemoveEmptyEntries).Where(x=>x.Length > 3).ToList();
-        }
+     
 
         private bool TokenizedEquals(List<string> tokenizedSearchPhrase, string token)
         {
@@ -223,6 +221,74 @@ namespace RepoCat.RepositoryManagement.Service
             return token.Length >= 3;
         }
 
+        
+    }
+
+    /// <summary>
+    /// Tokenizes the input for the search sorter
+    /// </summary>
+    public static class SearchInputTokenizer
+    {
+        public static List<string> Tokenize(string toSearch)
+        {
+            if (toSearch.Length <= 3)
+            {
+                return new List<string>() { toSearch };
+            }
+            //larger than 3 is a fudge factor number that should eliminate a number of typical falsely high scores from file extensions etc
+            List<string> tokens = toSearch.Split(new[] { '.', ' ', '-', ',', '!', '?', ';', ':', '|', '—','–', '\\', '_', '/' }, StringSplitOptions.RemoveEmptyEntries)
+                .Where(x => x.Length > 3).ToList();
+
+
+            return tokens.SelectMany(RegexSplitPascalCase).ToList();
+        }
+
+        private static IEnumerable<string> RegexSplitPascalCase(string str)
+        {
+            return Regex.Replace(str, "[a-z][A-Z]", m => $"{m.Value[0]} {m.Value[1]}").Split(' ');
+        }
+
+        private static bool IsUpperOrDigit(char input)
+        {
+            return char.IsUpper(input) || char.IsDigit(input);
+        }
+
+        private  static IEnumerable<string> SplitPascalCase(string input)
+        {
+            var tokens = new List<string>();
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                var sb = new StringBuilder();
+                sb.Append(input[0]);
+
+                for (int i = 1; i < input.Length; i++)
+                {
+                    char currentChar = input[i];
+                    char previousChar = input[i - 1];
+                    // any time we hit an uppercase OR number, it's a new word
+                    if (IsUpperOrDigit(currentChar))
+                    {
+                        //unless its something like NETCore
+                        if (!IsUpperOrDigit(previousChar))
+                        {
+                            tokens.Add(sb.ToString());
+                            sb.Clear();
+                        }
+                    }
+
+                    // add regularly
+                    sb.Append(currentChar);
+                    if (i == input.Length - 1)
+                    {
+                        tokens.Add(sb.ToString());
+                    }
+                }
+
+            }
+
+            return tokens;
+        }
         
     }
 }
