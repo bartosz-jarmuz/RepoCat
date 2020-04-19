@@ -124,12 +124,19 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         public bool IsMultipleRepositories { get; set; }
 
+        /// <summary>
+        /// Specify whether the table presents search results or a repository contents lists
+        /// </summary>
         public bool IsSearchResult { get; }
-
 
         /// <summary>
         /// Collection of all properties and their values to be used in extra filters
         /// </summary>
         public List<PropertyFilterModel> Properties { get; set; } = new List<PropertyFilterModel> ();
+
+        /// <summary>
+        /// Filters that are active on the table
+        /// </summary>
+        public Dictionary<string, List<string>> Filters { get; set; } = new Dictionary<string, List<string>>();
     }
 }

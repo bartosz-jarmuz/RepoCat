@@ -1,4 +1,6 @@
-﻿function propertyFilter(settings, searchData, index, rowData, counter) {
+﻿/// <reference path="urlParams.js"/>
+
+function propertyFilter(settings, searchData, index, rowData, counter) {
     let filters = getFilters();
 
     if (filters.length === 0) {
@@ -30,6 +32,7 @@
 }
 
 
+
 function isAnyPropertyValueMatched(matchingProperties, filter) {
     let propertyMatched = false;
     for (let propertyIndex = 0; propertyIndex < matchingProperties.length; propertyIndex++) {
@@ -49,12 +52,18 @@ function isSinglePropertyMatched(propertyValue, filter) {
 
     if (Array.isArray(propertyValue)) {
         filter.value.forEach(function (filterValue) {
+            if (filterValue === "repoCat_empty" && propertyValue.includes('')) {
+                propertyMatched = true; //need special handling of 'empty' because the selectbox does not render options where value is empty
+            }
             if (propertyValue.includes(filterValue)) {
                 propertyMatched = true;
             }
         });
     } else {
         filter.value.forEach(function (filterValue) {
+            if (filterValue === "repoCat_empty" && propertyValue.length === 0) {
+                propertyMatched = true; //need special handling of 'empty' because the selectbox does not render options where value is empty
+            }
             if (filterValue === propertyValue) {
                 propertyMatched = true;
             }
@@ -112,12 +121,15 @@ function getFilters() {
     return filters;
 }
 
+
 function setupFiltering(table) {
     $('.property-filter').off('change.rc.filter');
     $('.property-filter').on('change.rc.filter', function () {
         if ($(this).hasClass('filter-active')) {
             if ($(this).data('inactive') !== 'TRUE') {
                 if ($(this).val() !== '') {
+                    addFilterToUrl($(this).data("property"), $(this).val())
+
                     showOverlay();
                     setTimeout(function () {
                         table.draw();
@@ -142,22 +154,40 @@ function setupFiltering(table) {
             hideFilter(this, data, table);
             removeFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey(), data);
         }
-    });
+    }); 
 }
 
-function showActiveFilters() {
-    var columns = getFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey())
-    if (columns) {
+
+function showActiveFilters(filtersFromModel) {
+    if (filtersFromModel !== undefined && Object.keys(filtersFromModel).length > 0) {
         $('.filter-toggle').each(function (index, toggler) {
             var data = $(toggler).data('property');
-            for (var i = 0; i < columns.length; i++) {
-                if (columns[i] === data) {
-                    var selectBox = $('.property-filter[data-property="' + data + '"');
+            for (let [key, value] of Object.entries(filtersFromModel)) {
+                if (key  === data) {
+                    var selectBox = $('.property-filter[data-property="' +key + '"');
                     showFilter(selectBox, $(toggler), data);
+                    $(selectBox).val(value);
                 }
             }
         });
+
+        
+    } else {
+        let columns = getFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey());
+        if (columns) {
+            $('.filter-toggle').each(function (index, toggler) {
+                var data = $(toggler).data('property');
+                for (var i = 0; i < columns.length; i++) {
+                    if (columns[i] === data) {
+                        var selectBox = $('.property-filter[data-property="' + data + '"');
+                        showFilter(selectBox, $(toggler), data);
+                    }
+                }
+            });
+        }
     }
+
+    
 }
 
 function showFilter(selectBox, filterToggle, data) {

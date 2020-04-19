@@ -118,12 +118,13 @@
             </summary>
             <returns>Task&lt;IEnumerable&lt;System.String&gt;&gt;.</returns>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.Index(System.String,System.String)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.Index(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}})">
             <summary>
             Indexes the specified repository name.
             </summary>
             <param name="organizationName"></param>
             <param name="repositoryName">Name of the repository.</param>
+            <param name="filters">Optional string of filter definitions</param>
             <returns>Task&lt;ViewResult&gt;.</returns>
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.AddProject">
@@ -168,14 +169,6 @@
             <param name="repo"></param>
             <param name="query"></param>
             <param name="isRegex"></param>
-            <returns></returns>
-        </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.UpdateSearchStatistics(System.Collections.Generic.IReadOnlyCollection{RepoCat.RepositoryManagement.Service.RepositoryQueryParameter},System.String)">
-            <summary>
-            
-            </summary>
-            <param name="parameters"></param>
-            <param name="query"></param>
             <returns></returns>
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String[],System.String[],System.String,System.Boolean)">
@@ -616,9 +609,19 @@
             Specifies whther the table contains projects from multiple repos
             </summary>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.IsSearchResult">
+            <summary>
+            Specify whether the table presents search results or a repository contents lists
+            </summary>
+        </member>
         <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.Properties">
             <summary>
             Collection of all properties and their values to be used in extra filters
+            </summary>
+        </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.ProjectsTableModel.Filters">
+            <summary>
+            Filters that are active on the table
             </summary>
         </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel">
@@ -978,13 +981,6 @@
             <param name="id">The identifier.</param>
             <param name="componentName"></param>
             <param name="propertyKey"></param>
-            <returns>ProjectInfo.</returns>
-        </member>
-        <member name="M:RepoCat.Portal.Controllers.api.DownloadController.Download(System.String)">
-            <summary>
-            Gets the project info with specified identifier.
-            </summary>
-            <param name="id">The identifier.</param>
             <returns>ProjectInfo.</returns>
         </member>
         <member name="T:RepoCat.Portal.Controllers.api.HealthcheckController">

@@ -68,13 +68,14 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// </summary>
         /// <param name="organizationName"></param>
         /// <param name="repositoryName">Name of the repository.</param>
+        /// <param name="filters">Optional string of filter definitions</param>
         /// <returns>Task&lt;ViewResult&gt;.</returns>
         [Route("{organizationName}/{repositoryName}")]
-        public async Task<ViewResult> Index(string organizationName, string repositoryName)
+        public async Task<ViewResult> Index(string organizationName, string repositoryName, [FromQuery] Dictionary<string, List<string>> filters = null)
         {
             var model = new BrowseRepositoryViewModel()
             {
-                RepositoryName = repositoryName
+                RepositoryName = repositoryName,
             };
 
             this.telemetryClient.TrackViewRepository( organizationName, repositoryName);
@@ -102,15 +103,17 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             ProjectsTableModel projectsTableModel = new ProjectsTableModel(manifests, false, false);
 
             model.ProjectsTable = projectsTableModel;
-
+            model.ProjectsTable.Filters = filters;
 
 
             MvcBreadcrumbNode breadcrumb = PrepareIndexBreadcrumb(organizationName, repositoryName);
 
-            ViewData["BreadcrumbNode"] = breadcrumb;
+            this.ViewData["BreadcrumbNode"] = breadcrumb;
             return this.View(model);
 
         }
+
+        
 
         private static MvcBreadcrumbNode PrepareIndexBreadcrumb(string organizationName, string repositoryName)
         {

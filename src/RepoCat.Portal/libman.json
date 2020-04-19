@@ -30,6 +30,10 @@
     {
       "library": "simple-line-icons@2.4.1",
       "destination": "wwwroot/vendors/simple-line-icons"
+    },
+    {
+      "library": "jasmine@3.5.0",
+      "destination": "wwwroot/vendors/jasmine"
     }
   ]
 }

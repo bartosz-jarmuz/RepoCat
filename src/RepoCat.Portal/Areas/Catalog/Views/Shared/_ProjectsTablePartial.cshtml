@@ -26,10 +26,20 @@
                                             title="Filter by @property.Key" placeholder="Click to add a new filter">
                                         @foreach (var value in property.Values)
                                         {
-                                            <option value="@value.Value"
-                                                    title="Add filter to only show project which have this value for '@property.Key'">
-                                                @value.Value (@value.OccurenceCount)
-                                            </option>
+                                            string val = value.Value;
+                                            string display = value.Value;
+                                            string title = $"Add filter to only show project which have this value for '{property.Key}'";
+                                            @if (string.IsNullOrEmpty(val))
+                                            {
+                                                val = "repoCat_empty";
+                                                display = "<Empty>";
+                                                title = "Add this filter to include projects which have an empty string for this property";
+                                            }
+
+                                        <option value="@val"
+                                                title="@title">
+                                            @display (@value.OccurenceCount)
+                                        </option>
                                         }
                                         <option value="repoCat_no_property"
                                                 title="Add this filter to include projects which do not have this property defined at all">
@@ -117,7 +127,6 @@ You can customize the look of the table by adding or removing columns for these 
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     docReady(function () {
         if (getCookie('searchPanesOpen') == 'false') {
@@ -125,7 +134,7 @@ You can customize the look of the table by adding or removing columns for these 
             setArrowDown($('#SearchPanesCollapser').find('.toggler-icon'));
         }
 
-        showActiveFilters();
+        showActiveFilters(@Html.Raw(Json.Serialize(Model.Filters)));
 
         $.fn.dataTable.ext.search.push(
             function (settings, searchData, index, rowData, counter) {

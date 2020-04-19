@@ -88,12 +88,6 @@ namespace RepoCat.Portal.Controllers.api
             }
         }
 
-
-        /// <summary>
-        /// Gets the project info with specified identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>ProjectInfo.</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Download(string id)
         {

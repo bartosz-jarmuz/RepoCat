@@ -121,6 +121,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
 
+        [NonAction]
         /// <summary>
         /// 
         /// </summary>

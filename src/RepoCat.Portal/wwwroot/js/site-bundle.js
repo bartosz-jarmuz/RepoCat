@@ -415,6 +415,7 @@ function getRepositoriesKey() {
     return $('#ResultsTableData').attr('data-repositories');
 }
 //# sourceMappingURL=projectsTable-declaration.js.map
+/// <reference path="urlParams.js"/>
 function propertyFilter(settings, searchData, index, rowData, counter) {
     var filters = getFilters();
     if (filters.length === 0) {
@@ -471,6 +472,9 @@ function isSinglePropertyMatched(propertyValue, filter) {
     }
     else {
         filter.value.forEach(function (filterValue) {
+            if (filterValue === "repoCat_empty" && propertyValue.length === 0) {
+                propertyMatched = true; //need special handling of 'empty' because the selectbox does not render options where value is empty
+            }
             if (filterValue === propertyValue) {
                 propertyMatched = true;
             }
@@ -529,6 +533,7 @@ function setupFiltering(table) {
         if ($(this).hasClass('filter-active')) {
             if ($(this).data('inactive') !== 'TRUE') {
                 if ($(this).val() !== '') {
+                    addFilterToUrl($(this).data("property"), $(this).val());
                     showOverlay();
                     setTimeout(function () {
                         table.draw();
@@ -555,18 +560,33 @@ function setupFiltering(table) {
         }
     });
 }
-function showActiveFilters() {
-    var columns = getFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey());
-    if (columns) {
+function showActiveFilters(filtersFromModel) {
+    if (filtersFromModel !== undefined && Object.keys(filtersFromModel).length > 0) {
         $('.filter-toggle').each(function (index, toggler) {
             var data = $(toggler).data('property');
-            for (var i = 0; i < columns.length; i++) {
-                if (columns[i] === data) {
-                    var selectBox = $('.property-filter[data-property="' + data + '"');
+            for (var _i = 0, _a = Object.entries(filtersFromModel); _i < _a.length; _i++) {
+                var _b = _a[_i], key = _b[0], value = _b[1];
+                if (key === data) {
+                    var selectBox = $('.property-filter[data-property="' + key + '"');
                     showFilter(selectBox, $(toggler), data);
+                    $(selectBox).val(value);
                 }
             }
         });
+    }
+    else {
+        var columns_1 = getFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey());
+        if (columns_1) {
+            $('.filter-toggle').each(function (index, toggler) {
+                var data = $(toggler).data('property');
+                for (var i = 0; i < columns_1.length; i++) {
+                    if (columns_1[i] === data) {
+                        var selectBox = $('.property-filter[data-property="' + data + '"');
+                        showFilter(selectBox, $(toggler), data);
+                    }
+                }
+            });
+        }
     }
 }
 function showFilter(selectBox, filterToggle, data) {
@@ -792,3 +812,70 @@ function rgbToHex(rgba) {
     return ('#' + r.toString(16) + g.toString(16) + b.toString(16) + (a * 255).toString(16).substring(0, 2));
 }
 //# sourceMappingURL=site.js.map
+var filtersParamName = 'filters';
+function addFilterToUrl(property, value) {
+    var currentUrl = document.location.href;
+    var newUrl = updateUrl(currentUrl, property, value);
+    window.history.pushState(null, null, newUrl);
+}
+function updateUrl(currentUrl, filterKey, activeFilterValues) {
+    var firstChar = '&';
+    if (currentUrl.indexOf('?') < 0) {
+        firstChar = '?';
+    }
+    var newUrl = currentUrl;
+    if (currentUrl.indexOf(filtersParamName) === -1) {
+        newUrl = currentUrl += firstChar + getNewFiltersString(filterKey, activeFilterValues);
+    }
+    else {
+        newUrl = updateExistingFiltersDefinition(currentUrl, filterKey, activeFilterValues);
+    }
+    return ensureFirstCharCorrect(newUrl);
+}
+function updateExistingFiltersDefinition(currentUrl, filterKey, activeFilterValues) {
+    var newUrl = currentUrl;
+    var allParameters = currentUrl.split(/(?=[\?&]+)/);
+    //rewrite the URL string with new parameters
+    for (var i = 0; i < allParameters.length; i++) {
+        var param = allParameters[i];
+        if (!param.startsWith('?' + filtersParamName) && !param.startsWith('&' + filtersParamName)) {
+            continue; //ignore non-filter params
+        }
+        var key = param.replace(filtersParamName + '[', '').substring(1);
+        key = key.substring(0, key.indexOf(']='));
+        if (key == encodeURIComponent(filterKey)) {
+            //the current key will be added 'from scratch', so remove all values for now
+            newUrl = newUrl.replace(param, "");
+        }
+        //and the other filter values as well as other params should just stay untouched
+    }
+    //now add filters for the current key - if there are fewer values because a filter is removed, the new URL will end up shorter than current URL
+    var firstChar = '&';
+    if (newUrl.endsWith('&') || newUrl.endsWith('?')) {
+        firstChar = '';
+    }
+    var newFilters = getNewFiltersString(filterKey, activeFilterValues);
+    if (newFilters.length > 0) {
+        newUrl += firstChar + newFilters;
+    }
+    return newUrl;
+}
+function ensureFirstCharCorrect(url) {
+    if (url.indexOf('?') === -1 && url.indexOf('&') >= 0) {
+        url = url.replace('&', '?');
+    }
+    return url;
+}
+function getNewFiltersString(filterKey, activeFilterValues) {
+    var newFiltersString = '';
+    for (var i = 0; i < activeFilterValues.length; i++) {
+        if (activeFilterValues[i].length > 0) {
+            newFiltersString += filtersParamName + '[' + encodeURIComponent(filterKey) + ']=' + encodeURIComponent(activeFilterValues[i]) + '&';
+        }
+    }
+    if (newFiltersString.endsWith('&')) {
+        newFiltersString = newFiltersString.slice(0, -1);
+    }
+    return newFiltersString;
+}
+//# sourceMappingURL=urlParams.js.map

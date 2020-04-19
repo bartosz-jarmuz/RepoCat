@@ -1,3 +1,4 @@
+/// <reference path="urlParams.js"/>
 function propertyFilter(settings, searchData, index, rowData, counter) {
     var filters = getFilters();
     if (filters.length === 0) {
@@ -47,6 +48,9 @@ function isSinglePropertyMatched(propertyValue, filter) {
     var propertyMatched = false;
     if (Array.isArray(propertyValue)) {
         filter.value.forEach(function (filterValue) {
+            if (filterValue === "repoCat_empty" && propertyValue.includes('')) {
+                propertyMatched = true; //need special handling of 'empty' because the selectbox does not render options where value is empty
+            }
             if (propertyValue.includes(filterValue)) {
                 propertyMatched = true;
             }
@@ -54,6 +58,9 @@ function isSinglePropertyMatched(propertyValue, filter) {
     }
     else {
         filter.value.forEach(function (filterValue) {
+            if (filterValue === "repoCat_empty" && propertyValue.length === 0) {
+                propertyMatched = true; //need special handling of 'empty' because the selectbox does not render options where value is empty
+            }
             if (filterValue === propertyValue) {
                 propertyMatched = true;
             }
@@ -112,6 +119,7 @@ function setupFiltering(table) {
         if ($(this).hasClass('filter-active')) {
             if ($(this).data('inactive') !== 'TRUE') {
                 if ($(this).val() !== '') {
+                    addFilterToUrl($(this).data("property"), $(this).val());
                     showOverlay();
                     setTimeout(function () {
                         table.draw();
@@ -138,18 +146,33 @@ function setupFiltering(table) {
         }
     });
 }
-function showActiveFilters() {
-    var columns = getFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey());
-    if (columns) {
+function showActiveFilters(filtersFromModel) {
+    if (filtersFromModel !== undefined && Object.keys(filtersFromModel).length > 0) {
         $('.filter-toggle').each(function (index, toggler) {
             var data = $(toggler).data('property');
-            for (var i = 0; i < columns.length; i++) {
-                if (columns[i] === data) {
-                    var selectBox = $('.property-filter[data-property="' + data + '"');
+            for (var _i = 0, _a = Object.entries(filtersFromModel); _i < _a.length; _i++) {
+                var _b = _a[_i], key = _b[0], value = _b[1];
+                if (key === data) {
+                    var selectBox = $('.property-filter[data-property="' + key + '"');
                     showFilter(selectBox, $(toggler), data);
+                    $(selectBox).val(value);
                 }
             }
         });
+    }
+    else {
+        var columns_1 = getFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey());
+        if (columns_1) {
+            $('.filter-toggle').each(function (index, toggler) {
+                var data = $(toggler).data('property');
+                for (var i = 0; i < columns_1.length; i++) {
+                    if (columns_1[i] === data) {
+                        var selectBox = $('.property-filter[data-property="' + data + '"');
+                        showFilter(selectBox, $(toggler), data);
+                    }
+                }
+            });
+        }
     }
 }
 function showFilter(selectBox, filterToggle, data) {
