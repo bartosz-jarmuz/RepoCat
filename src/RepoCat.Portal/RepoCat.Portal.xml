@@ -161,7 +161,7 @@
             </summary>
             <returns>Task&lt;IActionResult&gt;.</returns>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search(System.String[],System.String[],System.String,System.Boolean)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.Search(System.String[],System.String[],System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}})">
             <summary>
             
             </summary>
@@ -169,9 +169,10 @@
             <param name="repo"></param>
             <param name="query"></param>
             <param name="isRegex"></param>
+            <param name="filters"></param>
             <returns></returns>
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String[],System.String[],System.String,System.Boolean)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String[],System.String[],System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}})">
             <summary>
             Gets the search result page (for URL sharing).
             </summary>
@@ -179,6 +180,7 @@
             <param name="repo">Names of the repositories.</param>
             <param name="query">The query.</param>
             <param name="isRegex">if set to <c>true</c> [is regex].</param>
+            <param name="filters">Optional property filters</param>
             <returns>Task&lt;IActionResult&gt;.</returns>
         </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.AddProjectModel">

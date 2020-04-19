@@ -465,6 +465,9 @@ function isSinglePropertyMatched(propertyValue, filter) {
     var propertyMatched = false;
     if (Array.isArray(propertyValue)) {
         filter.value.forEach(function (filterValue) {
+            if (filterValue === "repoCat_empty" && propertyValue.includes('')) {
+                propertyMatched = true; //need special handling of 'empty' because the selectbox does not render options where value is empty
+            }
             if (propertyValue.includes(filterValue)) {
                 propertyMatched = true;
             }

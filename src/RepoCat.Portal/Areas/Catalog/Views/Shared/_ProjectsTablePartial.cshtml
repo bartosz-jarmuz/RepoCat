@@ -28,7 +28,7 @@
                                         {
                                             string val = value.Value;
                                             string display = value.Value;
-                                            string title = $"Add filter to only show project which have this value for '{property.Key}'";
+                                            string title = $"Add filter to only show project which have this value for '{property.Key}'\n{value.OccurenceCount} projects have this value.";
                                             @if (string.IsNullOrEmpty(val))
                                             {
                                                 val = "repoCat_empty";

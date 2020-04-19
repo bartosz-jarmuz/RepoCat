@@ -100,10 +100,11 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <param name="repo"></param>
         /// <param name="query"></param>
         /// <param name="isRegex"></param>
+        /// <param name="filters"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("Search")]
-        public async Task<IActionResult> Search(string[] org, string[] repo, string query, bool isRegex)
+        public async Task<IActionResult> Search(string[] org, string[] repo, string query, bool isRegex, [FromQuery] Dictionary<string, List<string>> filters = null)
         {
             if (org == null) throw new ArgumentNullException(nameof(org));
             if (repo == null) throw new ArgumentNullException(nameof(repo));
@@ -116,7 +117,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             IReadOnlyCollection<RepositoryQueryParameter> parameters = RepositoryQueryParameter.ConvertFromArrays(org, repo);
             BackgroundJob.Enqueue(() => this.UpdateSearchStatistics(parameters, query));
 
-            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(parameters, query, isRegex).ConfigureAwait(false);
+            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(parameters, query, isRegex, filters).ConfigureAwait(false);
             this.telemetryClient.TrackSearch(parameters, query, isRegex, queryResultViewModel.ProjectsTable.Projects.Count, queryResultViewModel.Elapsed);
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
@@ -138,7 +139,6 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         }
 
 
-
         /// <summary>
         /// Gets the search result page (for URL sharing).
         /// </summary>
@@ -146,10 +146,11 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <param name="repo">Names of the repositories.</param>
         /// <param name="query">The query.</param>
         /// <param name="isRegex">if set to <c>true</c> [is regex].</param>
+        /// <param name="filters">Optional property filters</param>
         /// <returns>Task&lt;IActionResult&gt;.</returns>
         [HttpGet]
         [Route("{controller}/Result")]
-        public async Task<IActionResult> GetSearchResultPage(string[] org, string[] repo, string query, bool isRegex)
+        public async Task<IActionResult> GetSearchResultPage(string[] org, string[] repo, string query, bool isRegex, [FromQuery] Dictionary<string, List<string>> filters = null)
         {
             if (org == null) throw new ArgumentNullException(nameof(org));
             if (repo == null) throw new ArgumentNullException(nameof(repo));
@@ -166,12 +167,14 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             };
             IReadOnlyCollection<RepositoryQueryParameter> parameters = RepositoryQueryParameter.ConvertFromArrays(org, repo);
 
-            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(parameters, query, isRegex).ConfigureAwait(false);
+            ManifestQueryResultViewModel queryResultViewModel = await this.GetQueryResultViewModel(parameters, query, isRegex, filters).ConfigureAwait(false);
             model.Result = queryResultViewModel;
             return this.View("Index", model);
         }
 
-        private async Task<ManifestQueryResultViewModel> GetQueryResultViewModel(IReadOnlyCollection<RepositoryQueryParameter> parameters, string query, bool isRegex)
+        private async Task<ManifestQueryResultViewModel> GetQueryResultViewModel(
+            IReadOnlyCollection<RepositoryQueryParameter> parameters, string query, bool isRegex,
+            Dictionary<string, List<string>> filters)
         {
             ManifestQueryResult result = await this.repositoryService.GetCurrentProjects(parameters, query, isRegex).ConfigureAwait(false);
             ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
@@ -179,6 +182,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             IEnumerable<Project> sortedProjects = this.sorter.Sort(result.Projects, result.Tokens);
 
             queryResultViewModel.ProjectsTable = new ProjectsTableModel(this.mapper.Map<List<ProjectInfoViewModel>>(sortedProjects), this.IsMultipleRepos(parameters), true);
+            queryResultViewModel.ProjectsTable.Filters = filters;
             return queryResultViewModel;
         }
 

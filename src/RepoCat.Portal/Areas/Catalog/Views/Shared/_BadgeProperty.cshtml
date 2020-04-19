@@ -1,6 +1,15 @@
 @model RepoCat.Portal.Areas.Catalog.Models.PropertyBadgeViewModel
+
+@{ 
+    var title = $"Click to add a '{Model.PropertyFilter.Key}' filter.";
+    if (Model.ShowCount)
+    {
+        title += "\n" + Model.PropertyFilter.Values.Count + " possible filter values exist.";
+    }
+}
+
 <span class="badge badge-property-name @Model.AdditionalClass" style="cursor: pointer" data-property="@Model.PropertyFilter.Key" data-toggle="tooltip"
-      title="Click to add a '@Model.PropertyFilter.Key' filter">
+      title="@title">
     @if (Model.InludeAddRemoveIcon)
     {
         <i class="icons icon-plus add-remove-icon"></i>@Html.Raw("&nbsp;")
