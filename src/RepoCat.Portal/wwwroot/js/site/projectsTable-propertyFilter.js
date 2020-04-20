@@ -135,7 +135,9 @@ function setupFiltering(table) {
                         table.draw();
                         redrawStripes();
                         hideOverlay();
+                        showShareButton();
                     }, 10);
+                    
                 }
             }
         }

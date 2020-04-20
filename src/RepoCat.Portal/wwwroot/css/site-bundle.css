@@ -313,3 +313,10 @@ div.slider {
     background-color: #ffcd35 !important;
     color: black;
 }
+
+.share-link {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.665625rem;
+    font-weight: 500;
+    line-height: 0.8;
+}

@@ -414,6 +414,21 @@ function hideOverlay() {
 function getRepositoriesKey() {
     return $('#ResultsTableData').attr('data-repositories');
 }
+function showShareButton() {
+    setTimeout(function () {
+        if ($('.table-header .share-link').length == 0) {
+            var button = '<a tabindex="0" class="btn btn-warning share-link" data-trigger="focus"><i class="fas fa-share-square"></i>&nbsp;Share results</div>';
+            $('.table-header').append($(button).hide().fadeIn());
+            // @ts-ignore
+            $('.share-link').tooltip({
+                placement: 'top',
+                trigger: 'hover',
+                delay: { "show": 400, "hide": 100 },
+                title: 'Get the URL of this results page'
+            });
+        }
+    }, 500);
+}
 //# sourceMappingURL=projectsTable-declaration.js.map
 /// <reference path="urlParams.js"/>
 function propertyFilter(settings, searchData, index, rowData, counter) {
@@ -542,6 +557,7 @@ function setupFiltering(table) {
                         table.draw();
                         redrawStripes();
                         hideOverlay();
+                        showShareButton();
                     }, 10);
                 }
             }
@@ -702,6 +718,20 @@ $(document).ready(function () {
                 setCookie('sidebarOpen', 'false');
             }
         }, 200);
+    });
+    $(document).on('click', '.share-link', function () {
+        var btn = $(this);
+        // @ts-ignore
+        btn.popover();
+        navigator.clipboard.writeText(document.location.href).then(function () {
+            btn.attr('data-content', 'Link copied to clipboard!');
+            // @ts-ignore
+            btn.popover('show');
+        }, function () {
+            btn.attr('data-content', 'Failed to copy link to clipboard. Copy it manually :(');
+            // @ts-ignore
+            btn.popover('show');
+        });
     });
     attachShowMoreTagsHandlers();
 });

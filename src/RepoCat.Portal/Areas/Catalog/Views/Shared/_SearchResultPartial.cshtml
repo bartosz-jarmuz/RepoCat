@@ -6,9 +6,9 @@
     <div class="row mb-1">
         <div class="col-md-12">
             <div id="searchResultsCard">
-                <div class="mb-1">
+                <div class="mb-1 table-header">
                     <h2 style="display: inline;">
-                        Search result
+                        Search results
                     </h2>
                 </div>
 
@@ -90,6 +90,7 @@ else
 
 <script type="text/javascript">
     docReady(function () {
+        showShareButton();
         intializeSelect2();
         attachShowMoreTagsHandlers();
         $('.projects-table-card').unmark({

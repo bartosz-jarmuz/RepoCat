@@ -14,6 +14,20 @@ $(document).ready(function () {
             }
         }, 200);
     });
+    $(document).on('click', '.share-link', function () {
+        var btn = $(this);
+        // @ts-ignore
+        btn.popover();
+        navigator.clipboard.writeText(document.location.href).then(function () {
+            btn.attr('data-content', 'Link copied to clipboard!');
+            // @ts-ignore
+            btn.popover('show');
+        }, function () {
+            btn.attr('data-content', 'Failed to copy link to clipboard. Copy it manually :(');
+            // @ts-ignore
+            btn.popover('show');
+        });
+    });
     attachShowMoreTagsHandlers();
 });
 function attachShowMoreTagsHandlers() {
