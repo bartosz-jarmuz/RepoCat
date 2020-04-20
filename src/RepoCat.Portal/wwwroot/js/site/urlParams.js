@@ -63,6 +63,18 @@ function ensureFirstCharCorrect(url) {
     return url;
 }
 
+function getAllActiveFiltersQuery() {
+    var filters = getFilters();
+    let allFiltersQuery = '';
+    if (filters.length > 0) {
+        filters.forEach(function (filter) {
+            allFiltersQuery += '&' + getNewFiltersString(filter.key, filter.value);
+        });
+    }   
+     
+    return allFiltersQuery;
+}
+
 function getNewFiltersString(filterKey, activeFilterValues) {
     let newFiltersString = '';
     for (let i = 0; i < activeFilterValues.length; i++) {

@@ -69,7 +69,7 @@
             $("#searchBtn").click(function () {
                 var overlay = $(this).closest('.card').find('.overlay');
                 $(overlay).fadeIn();
-
+                
                 var queryString ='&query=' + encodeURIComponent($('#searchQuery').val()) + '&isRegex=' + $('#isRegex').is(':checked');
                 var url = '@Url.Action("Search")'
                 var selectedOptions = $('#selectedRepo').val();
@@ -78,7 +78,7 @@
                     reposParam = reposParam + '&org=' + getOrganizationFromKey(item) + '&repo=' + getRepositoryFromKey(item);
                 });
 
-                var fullQuery = reposParam + queryString;
+                var fullQuery = reposParam + queryString + getAllActiveFiltersQuery();
                 fullQuery = '?' + fullQuery.replace(/^&/, '')
 
                 url = url + fullQuery;

@@ -108,9 +108,9 @@ function getFilters() {
      
     var activeFilters = $('.filter-active');
     if (!activeFilters) {
-        return filters;
+        return filters;  
     }
-
+     
     activeFilters.each(function () {
         var value = $(this).val();
         if (value.toString().length > 0) {

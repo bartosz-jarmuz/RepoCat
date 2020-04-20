@@ -129,10 +129,6 @@ You can customize the look of the table by adding or removing columns for these 
 </div>
 <script type="text/javascript">
     docReady(function () {
-        if (getCookie('searchPanesOpen') == 'false') {
-            $('#SearchPanesCard').removeClass('show');
-            setArrowDown($('#SearchPanesCollapser').find('.toggler-icon'));
-        }
 
         showActiveFilters(@Html.Raw(Json.Serialize(Model.Filters)));
 
