@@ -417,7 +417,7 @@ function getRepositoriesKey() {
 function showShareButton() {
     setTimeout(function () {
         if ($('.table-header .share-link').length == 0) {
-            var button = '<a tabindex="0" class="btn btn-warning share-link" data-trigger="focus"><i class="fas fa-share-square"></i>&nbsp;Share</div>';
+            var button = '<a tabindex="0" class="btn btn-warning share-link" ><i class="fas fa-share-square"></i>&nbsp;Share</div>';
             $('.table-header').append($(button).hide().fadeIn());
             // @ts-ignore
             $('.share-link').tooltip({
@@ -722,7 +722,9 @@ $(document).ready(function () {
     $(document).on('click', '.share-link', function () {
         var btn = $(this);
         // @ts-ignore
-        btn.popover();
+        btn.popover({
+            trigger: 'focus'
+        });
         try {
             copyTextToClipboard(document.location.href, function () {
                 btn.attr('data-content', 'Link copied to clipboard!');

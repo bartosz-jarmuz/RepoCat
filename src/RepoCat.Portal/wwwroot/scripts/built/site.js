@@ -17,7 +17,9 @@ $(document).ready(function () {
     $(document).on('click', '.share-link', function () {
         var btn = $(this);
         // @ts-ignore
-        btn.popover();
+        btn.popover({
+            trigger: 'focus'
+        });
         try {
             copyTextToClipboard(document.location.href, function () {
                 btn.attr('data-content', 'Link copied to clipboard!');

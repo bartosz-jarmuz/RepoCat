@@ -22,7 +22,10 @@ $(document).ready(function () {
     $(document).on('click', '.share-link', function () {
         let btn = $(this);
         // @ts-ignore
-        btn.popover();
+        btn.popover({
+            trigger: 'focus'
+        }); 
+
         try {
             copyTextToClipboard(document.location.href,
                 function () {

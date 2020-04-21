@@ -225,7 +225,7 @@ function showShareButton() {
     setTimeout(function () {
 
         if ($('.table-header .share-link').length == 0) {
-            var button = '<a tabindex="0" class="btn btn-warning share-link" data-trigger="focus"><i class="fas fa-share-square"></i>&nbsp;Share</div>';
+            var button = '<a tabindex="0" class="btn btn-warning share-link" ><i class="fas fa-share-square"></i>&nbsp;Share</div>';
             $('.table-header').append($(button).hide().fadeIn());
 
             // @ts-ignore
