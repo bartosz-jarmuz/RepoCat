@@ -137,6 +137,7 @@ function setupFiltering(table) {
         if ($(this).hasClass('add-filter')) {
             var selectBox = $('.property-filter[data-property="' + data + '"');
             selectBox.data('inactive', 'TRUE');
+            addFilterToUrl(data, selectBox.val());
             showFilter(selectBox, this, data);
             addToCollectionDictionaryCookie('activeFilters', getRepositoriesKey(), data);
             selectBox.data('inactive', 'FALSE');
@@ -144,6 +145,7 @@ function setupFiltering(table) {
         if ($(this).hasClass('filter-label')) {
             hideFilter(this, data, table);
             removeFromCollectionDictionaryCookie('activeFilters', getRepositoriesKey(), data);
+            addFilterToUrl($(this).data("property"), []);
         }
     });
 }
