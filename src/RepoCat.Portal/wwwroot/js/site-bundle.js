@@ -423,7 +423,7 @@ function showShareButton() {
             $('.share-link').tooltip({
                 placement: 'top',
                 trigger: 'hover',
-                delay: { "show": 400, "hide": 100 },
+                delay: { "show": 900, "hide": 100 },
                 title: 'Get the URL of this results set'
             });
         }
@@ -732,10 +732,14 @@ $(document).ready(function () {
                 btn.attr('data-content', 'Link copied to clipboard!');
                 // @ts-ignore
                 btn.popover('show');
+                // @ts-ignore
+                setTimeout(function () { btn.popover('hide'); }, 2000);
             }, function () {
                 btn.attr('data-content', 'Failed to copy link to clipboard. Copy it manually :(');
                 // @ts-ignore
                 btn.popover('show');
+                // @ts-ignore
+                setTimeout(function () { btn.popover('hide'); }, 2000);
             });
         }
         catch (_a) {

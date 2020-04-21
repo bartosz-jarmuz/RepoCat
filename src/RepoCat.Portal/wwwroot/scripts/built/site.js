@@ -25,10 +25,14 @@ $(document).ready(function () {
                 btn.attr('data-content', 'Link copied to clipboard!');
                 // @ts-ignore
                 btn.popover('show');
+                // @ts-ignore
+                setTimeout(function () { btn.popover('hide'); }, 2000);
             }, function () {
                 btn.attr('data-content', 'Failed to copy link to clipboard. Copy it manually :(');
                 // @ts-ignore
                 btn.popover('show');
+                // @ts-ignore
+                setTimeout(function () { btn.popover('hide'); }, 2000);
             });
         }
         catch (_a) {

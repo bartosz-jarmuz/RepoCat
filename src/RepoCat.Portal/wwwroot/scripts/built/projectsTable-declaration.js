@@ -196,7 +196,7 @@ function showShareButton() {
             $('.share-link').tooltip({
                 placement: 'top',
                 trigger: 'hover',
-                delay: { "show": 400, "hide": 100 },
+                delay: { "show": 900, "hide": 100 },
                 title: 'Get the URL of this results set'
             });
         }
