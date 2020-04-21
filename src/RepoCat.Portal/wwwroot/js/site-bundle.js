@@ -723,18 +723,56 @@ $(document).ready(function () {
         var btn = $(this);
         // @ts-ignore
         btn.popover();
-        navigator.clipboard.writeText(document.location.href).then(function () {
-            btn.attr('data-content', 'Link copied to clipboard!');
-            // @ts-ignore
-            btn.popover('show');
-        }, function () {
+        try {
+            copyTextToClipboard(document.location.href, function () {
+                btn.attr('data-content', 'Link copied to clipboard!');
+                // @ts-ignore
+                btn.popover('show');
+            }, function () {
+                btn.attr('data-content', 'Failed to copy link to clipboard. Copy it manually :(');
+                // @ts-ignore
+                btn.popover('show');
+            });
+        }
+        catch (_a) {
             btn.attr('data-content', 'Failed to copy link to clipboard. Copy it manually :(');
             // @ts-ignore
             btn.popover('show');
-        });
+        }
     });
     attachShowMoreTagsHandlers();
 });
+function copyTextToClipboard(text, success, fail) {
+    if (!navigator || !navigator.clipboard) {
+        fallbackCopyTextToClipboard(text, success, fail);
+        return;
+    }
+    navigator.clipboard.writeText(text).then(function () {
+        success();
+    }, function (err) {
+        fail();
+        console.log(err);
+    });
+}
+function fallbackCopyTextToClipboard(text, success, fail) {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    var successful = document.execCommand('copy');
+    if (successful) {
+        success();
+    }
+    else {
+        fail();
+    }
+    document.body.removeChild(textArea);
+}
 function attachShowMoreTagsHandlers() {
     var selector = '.show-more-link.show-tags';
     $(selector).off('click.rc.links');
