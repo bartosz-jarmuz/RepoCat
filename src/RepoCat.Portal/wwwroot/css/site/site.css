@@ -96,3 +96,13 @@
     font-weight: 500;
     line-height: 0.8;
 }
+
+.download-count {
+    margin: auto 7px;
+    font-size: smaller;
+    color: #6f6f6f;
+}
+.disabled{
+    cursor: not-allowed;
+    color: #ced4da;
+}

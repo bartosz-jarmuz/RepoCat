@@ -12,10 +12,13 @@
     }
     else
     {
-        if (type == InteractiveStringModel.DataType.Url
-            || type == InteractiveStringModel.DataType.Path)
+        if (type == InteractiveStringModel.DataType.Url)
         {
             imageTag = " <i class=\"fa fa-external-link-alt\"></i> ";
+        }
+        if (type == InteractiveStringModel.DataType.Path)
+        {
+            imageTag = " <i class=\"fas fa-download\"></i> ";
         }
         if (type == InteractiveStringModel.DataType.Email)
         {
@@ -35,7 +38,7 @@
                data-toggle="tooltip" title="@Model.PropertyValue">@displayText @Html.Raw(@imageTag)</a>
             break;
         case InteractiveStringModel.DataType.Path:
-            <a href="@Url.Action("Download", "Download", new { id = Model.ProjectId, componentName = Model.ComponentName, Model.PropertyKey })"
+            <a class="download-link" href="@Url.Action("Download", "Download", new { id = Model.ProjectId, componentName = Model.ComponentName, Model.PropertyKey })"
                data-toggle="tooltip" title="@Model.PropertyValue">@displayText @Html.Raw(@imageTag)</a>
             break;
         case InteractiveStringModel.DataType.Email:

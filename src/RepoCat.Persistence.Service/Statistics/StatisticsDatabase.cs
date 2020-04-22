@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using RepoCat.Persistence.Models;
 
@@ -16,9 +17,10 @@ namespace RepoCat.Persistence.Service
     /// <summary>
     /// Allows access to the stored Manifests data
     /// </summary>
-    public partial class StatisticsDatabase
+    public class StatisticsDatabase
     {
         private readonly IMongoCollection<SearchStatistics> searchStatisticsCollection;
+        private readonly IMongoCollection<DownloadStatistics> downloadsStatisticsCollection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RepositoryDatabase"/> class.
@@ -30,7 +32,8 @@ namespace RepoCat.Persistence.Service
 
             MongoClient client = new MongoClient(settings.ConnectionString);
             IMongoDatabase database = client.GetDatabase(settings.DatabaseName);
-            this.searchStatisticsCollection = database.GetCollection<SearchStatistics>(settings.SearchStatisticsCollectionName);
+            this.searchStatisticsCollection = database.GetCollection<SearchStatistics>(settings.SearchStatisticsCollectionName ?? nameof(SearchStatistics));
+            this.downloadsStatisticsCollection = database.GetCollection<DownloadStatistics>(settings.DownloadsStatisticsCollectionName??nameof(DownloadStatistics));
             this.ConfigureIndexes();
         }
 
@@ -56,7 +59,12 @@ namespace RepoCat.Persistence.Service
         /// <returns></returns>
         public async Task<SearchStatistics> Get(RepositoryQueryParameter repositoryParameter)
         {
-            if (repositoryParameter == null) throw new ArgumentNullException(nameof(repositoryParameter));
+            void CheckParams()
+            {
+                if (repositoryParameter == null) throw new ArgumentNullException(nameof(repositoryParameter));
+            }
+
+            CheckParams();
 
             FilterDefinition<SearchStatistics> repoNameFilter =
                 RepoCatFilterBuilder.BuildStatisticsRepositoryFilter(repositoryParameter.OrganizationName,
@@ -85,7 +93,12 @@ namespace RepoCat.Persistence.Service
         /// <returns></returns>
         public async Task<SearchStatistics> Update(RepositoryQueryParameter repositoryParameter, IEnumerable<string> keywords)
         {
-            if (repositoryParameter == null) throw new ArgumentNullException(nameof(repositoryParameter));
+            void CheckParams()
+            {
+                if (repositoryParameter == null) throw new ArgumentNullException(nameof(repositoryParameter));
+            }
+
+            CheckParams();
 
             FilterDefinition<SearchStatistics> repoNameFilter =
                 RepoCatFilterBuilder.BuildStatisticsRepositoryFilter(repositoryParameter.OrganizationName,
@@ -115,15 +128,74 @@ namespace RepoCat.Persistence.Service
                 }
             }
 
-            ReplaceOneResult result = await this.searchStatisticsCollection.ReplaceOneAsync(repoNameFilter, statistics);
+            await this.searchStatisticsCollection.ReplaceOneAsync(repoNameFilter, statistics);
 
             return statistics;
         }
 
+        
+
+        /// <summary>
+        /// Increments the number of times a project was downloaded
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        public async Task<DownloadStatistics> UpdateProjectDownloads(ProjectInfo project)
+        {
+            FilterDefinition<DownloadStatistics> repositoryFilter = RepoCatFilterBuilder.BuildStatisticsRepositoryFilter(project.RepositoryId);
+
+            var statistics = await this.FindOneOrCreateNewAsync(project.RepositoryId, repositoryFilter);
+
+            ProjectDownloadData existing = statistics.ProjectDownloadData.FirstOrDefault(x =>
+                x.ProjectKey.Equals(project.ProjectUri, StringComparison.OrdinalIgnoreCase));
+            if (existing != null)
+            {
+                existing.DownloadCount++;
+            }
+            else
+            {
+                statistics.ProjectDownloadData.Add(new ProjectDownloadData()
+                {
+                    ProjectKey = project.ProjectUri,
+                    DownloadCount= 1
+                });
+            }
+
+            await this.downloadsStatisticsCollection.ReplaceOneAsync(repositoryFilter, statistics);
+
+            return statistics;
+
+        }
+
+        private async Task<DownloadStatistics> FindOneOrCreateNewAsync(ObjectId repositoryId, FilterDefinition<DownloadStatistics> repositoryFilter)
+        {
+            FindOneAndUpdateOptions<DownloadStatistics, DownloadStatistics> options =
+                new FindOneAndUpdateOptions<DownloadStatistics, DownloadStatistics>()
+                {
+                    IsUpsert = true,
+                    ReturnDocument = ReturnDocument.After
+                };
+
+            UpdateDefinition<DownloadStatistics> updateDef = new UpdateDefinitionBuilder<DownloadStatistics>()
+                    .SetOnInsert(x => x.RepositoryId, repositoryId)
+                ;
+            try
+            {
+                return await this.downloadsStatisticsCollection.FindOneAndUpdateAsync(RepoCatFilterBuilder.BuildStatisticsRepositoryFilter(repositoryId), updateDef, options)
+                    .ConfigureAwait(false);
+            }
+            catch (MongoException)
+            {
+                //upsert might require a retry
+                //https://docs.mongodb.com/manual/reference/method/db.collection.findAndModify/#upsert-and-unique-index
+                //https://stackoverflow.com/questions/42752646/async-update-or-insert-mongodb-documents-using-net-driver
+                return await this.downloadsStatisticsCollection.FindOneAndUpdateAsync(repositoryFilter, updateDef, options)
+                    .ConfigureAwait(false);
+            }
+        }
+
         private async Task<SearchStatistics> FindOneOrCreateNewAsync(RepositoryQueryParameter repositoryParameter, FilterDefinition<SearchStatistics> repoNameFilter)
         {
-          
-
             FindOneAndUpdateOptions<SearchStatistics, SearchStatistics> options =
                 new FindOneAndUpdateOptions<SearchStatistics, SearchStatistics>()
                 {
@@ -149,6 +221,26 @@ namespace RepoCat.Persistence.Service
                 return await this.searchStatisticsCollection.FindOneAndUpdateAsync(repoNameFilter, updateDef, options)
                     .ConfigureAwait(false);
             }
+        }
+
+        /// <summary>
+        /// Get download statistics for a given repository
+        /// </summary>
+        /// <param name="repositoryId"></param>
+        /// <returns></returns>
+        public async Task<DownloadStatistics> GetDownloadStatistics(string repositoryId)
+        {
+            void CheckParams()
+            {
+                if (repositoryId == null) throw new ArgumentNullException(nameof(repositoryId));
+            }
+
+            CheckParams();
+
+            FilterDefinition<DownloadStatistics> repositoryFilter =
+                RepoCatFilterBuilder.BuildStatisticsRepositoryFilter(ObjectId.Parse(repositoryId));
+
+            return await this.FindOneOrCreateNewAsync(ObjectId.Parse(repositoryId), repositoryFilter);
         }
     }
 }

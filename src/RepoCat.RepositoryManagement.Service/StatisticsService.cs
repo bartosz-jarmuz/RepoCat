@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using RepoCat.Persistence.Models;
 using RepoCat.Persistence.Service;
 
 namespace RepoCat.RepositoryManagement.Service
@@ -34,6 +35,17 @@ namespace RepoCat.RepositoryManagement.Service
         {
             var result = await this.database.Get();
             return this.FlattenStats(result);
+        }
+
+        public Task UpdateProjectDownloads(ProjectInfo project)
+        {
+             return this.database.UpdateProjectDownloads(project);
+        }
+
+        public async Task<DownloadStatistics> GetDownloadStatistics(string repositoryId)
+        {
+            Persistence.Models.DownloadStatistics result = await this.database.GetDownloadStatistics(repositoryId);
+            return this.mapper.Map<DownloadStatistics>(result);
         }
 
         private List<SearchKeywordData> FlattenStats(IEnumerable<Persistence.Models.SearchStatistics> result)
@@ -64,12 +76,12 @@ namespace RepoCat.RepositoryManagement.Service
             return list;
         }
 
+
         public async Task<SearchStatistics> Update(RepositoryQueryParameter repositoryParameter, IEnumerable<string> keywords)
         {
             var result = await this.database.Update(
                 this.mapper.Map<Persistence.Models.RepositoryQueryParameter>(repositoryParameter), keywords);
             return this.mapper.Map<SearchStatistics>(result);
         }
-
     }
 }

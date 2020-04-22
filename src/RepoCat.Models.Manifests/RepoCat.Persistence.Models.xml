@@ -42,6 +42,44 @@
             </summary>
             <value>The properties.</value>
         </member>
+        <member name="T:RepoCat.Persistence.Models.DownloadStatistics">
+            <summary>
+            Statistics of project downloads
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.DownloadStatistics.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.DownloadStatistics.RepositoryId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.DownloadStatistics.ProjectDownloadData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:RepoCat.Persistence.Models.ProjectDownloadData">
+            <summary>
+            Statistics about download occurences of a certain project
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectDownloadData.ProjectKey">
+            <summary>
+            The identifier of a project which allows to determine which project is being downloaded <br/>
+            Since the ProjectId field is only an internal one and the same project might be available under various IDs. <br/>
+            The key should be e.g. a ProjectURI
+            </summary>
+        </member>
+        <member name="P:RepoCat.Persistence.Models.ProjectDownloadData.DownloadCount">
+            <summary>
+            How many times a project was downloaded
+            </summary>
+        </member>
         <member name="T:RepoCat.Persistence.Models.ProjectInfo">
             <summary>
             Project info contains data about a project, understood as a class library or an executable.

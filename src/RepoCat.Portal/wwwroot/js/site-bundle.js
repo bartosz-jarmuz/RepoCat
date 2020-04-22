@@ -748,8 +748,36 @@ $(document).ready(function () {
             btn.popover('show');
         }
     });
+    $(document).on('click', '.download-link', function () {
+        showTempPopoverNoTitle($(this), "Hold on...", 1300, 'left');
+        var counter = $(this).next('.download-count').find('span')[0];
+        if (!counter) {
+            counter = $(this).closest('.download').prev('.download-count').find('span')[0];
+        }
+        if (counter) {
+            var value = parseInt($(counter).text());
+            if (!isNaN(value)) {
+                $(counter).text(value + 1);
+            }
+        }
+    });
     attachShowMoreTagsHandlers();
 });
+function showTempPopoverNoTitle(element, text, timeout, placement) {
+    var title = $(element).attr('title'); //hide title as it interferes with tooltip
+    $(element).removeAttr('title');
+    // @ts-ignore
+    $(element).popover({
+        trigger: 'manual',
+        placement: placement,
+        content: text,
+    });
+    // @ts-ignore
+    $(element).popover('show');
+    $(element).attr('title', title);
+    // @ts-ignore
+    setTimeout(function () { $(element).popover('hide'); }, timeout);
+}
 function copyTextToClipboard(text, success, fail) {
     if (!navigator || !navigator.clipboard) {
         fallbackCopyTextToClipboard(text, success, fail);

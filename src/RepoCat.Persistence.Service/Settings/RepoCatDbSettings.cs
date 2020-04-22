@@ -10,6 +10,8 @@ namespace RepoCat.Persistence.Service
     public class RepoCatDbSettings : IRepoCatDbSettings
     {
         /// <inheritdoc />
+        public string DownloadsStatisticsCollectionName { get; set; }
+        /// <inheritdoc />
         public string SearchStatisticsCollectionName { get; set; }
         /// <inheritdoc />
         public string RepositoriesCollectionName { get; set; }

@@ -22,6 +22,17 @@
     font-size: smaller;
 }
 
+.badge-download {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+    border: 1px solid #999;
+    font-size: 1em;
+}
+
+.badge-download:hover {
+    text-decoration: none;
+}
+
 .badge-column-name {
     background-color: #ffffff !important;
     color: #000 !important;
@@ -319,4 +330,14 @@ div.slider {
     font-size: 0.665625rem;
     font-weight: 500;
     line-height: 0.8;
+}
+
+.download-count {
+    margin: auto 7px;
+    font-size: smaller;
+    color: #6f6f6f;
+}
+.disabled{
+    cursor: not-allowed;
+    color: #ced4da;
 }

@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using RepoCat.RepositoryManagement.Service;
 
 namespace RepoCat.Portal.Areas.Catalog.Models
 {
@@ -120,6 +121,8 @@ namespace RepoCat.Portal.Areas.Catalog.Models
         /// </summary>
         /// <value>The components.</value>
         public List<ComponentManifestViewModel> Components { get; internal set; } = new List<ComponentManifestViewModel>();
+
+        public int DownloadsCount { get; set; }
 
         /// <summary>
         /// Gets the name of the assembly.

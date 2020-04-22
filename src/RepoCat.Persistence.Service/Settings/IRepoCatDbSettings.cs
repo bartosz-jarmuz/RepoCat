@@ -26,6 +26,11 @@ namespace RepoCat.Persistence.Service
         /// Search statistics
         /// </summary>
         string SearchStatisticsCollectionName { get; set; }
+
+        /// <summary>
+        /// Downloads statistics
+        /// </summary>
+        string DownloadsStatisticsCollectionName { get; set; }
         /// <summary>
         /// Gets or sets the connection string.
         /// </summary>

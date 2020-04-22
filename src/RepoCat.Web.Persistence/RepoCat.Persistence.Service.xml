@@ -184,6 +184,11 @@
             Search statistics
             </summary>
         </member>
+        <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.DownloadsStatisticsCollectionName">
+            <summary>
+            Downloads statistics
+            </summary>
+        </member>
         <member name="P:RepoCat.Persistence.Service.IRepoCatDbSettings.ConnectionString">
             <summary>
             Gets or sets the connection string.
@@ -197,6 +202,9 @@
             <value>The name of the database.</value>
         </member>
         <member name="T:RepoCat.Persistence.Service.RepoCatDbSettings">
+            <inheritdoc />
+        </member>
+        <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.DownloadsStatisticsCollectionName">
             <inheritdoc />
         </member>
         <member name="P:RepoCat.Persistence.Service.RepoCatDbSettings.SearchStatisticsCollectionName">
@@ -244,6 +252,20 @@
             </summary>
             <param name="repositoryParameter"></param>
             <param name="keywords"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.UpdateProjectDownloads(RepoCat.Persistence.Models.ProjectInfo)">
+            <summary>
+            Increments the number of times a project was downloaded
+            </summary>
+            <param name="project"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.GetDownloadStatistics(System.String)">
+            <summary>
+            Get download statistics for a given repository
+            </summary>
+            <param name="repositoryId"></param>
             <returns></returns>
         </member>
     </members>

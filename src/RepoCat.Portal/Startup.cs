@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Hangfire;
 using Hangfire.Dashboard;
@@ -20,6 +21,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using RepoCat.Persistence.Service;
 using RepoCat.Portal.Mapping;
 using RepoCat.Portal.RecurringJobs;
@@ -54,7 +56,7 @@ namespace RepoCat.Portal
 
             services.Configure<RepoCatDbSettings>(this.Configuration.GetSection("RepoCatDbSettings"));
             services.AddSingleton<IRepoCatDbSettings>(sp => sp.GetRequiredService<IOptions<RepoCatDbSettings>>().Value);
-            
+
             services.Configure<RepositoryMonitoringSettings>(this.Configuration.GetSection("RepositoryMonitoringSettings"));
             services.AddSingleton<IRepositoryMonitoringSettings>(sp => sp.GetRequiredService<IOptions<RepositoryMonitoringSettings>>().Value);
 
@@ -69,7 +71,10 @@ namespace RepoCat.Portal
             ConfigureAutoMapper(services);
             this.AddHangfire(services);
 
-            services.AddMvc().AddNewtonsoftJson().AddRazorRuntimeCompilation();
+            services
+                .AddMvc()
+                .AddNewtonsoftJson()
+                .AddRazorRuntimeCompilation();
             AddApplicationInsights(services);
             services.AddBreadcrumbs(this.GetType().Assembly);
 
@@ -108,7 +113,10 @@ namespace RepoCat.Portal
             services.AddHangfire(configuration => configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
+                .UseSerializerSettings(new JsonSerializerSettings()
+                {
+                    Converters = new List<JsonConverter>() { new ObjectIdConverter() }
+                })
                 .UseSqlServerStorage(this.Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
                 {
                     CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
@@ -159,7 +167,7 @@ namespace RepoCat.Portal
                     name: "Catalog",
                     areaName: "Catalog",
                     pattern: "{area=Catalog}/{controller=Search}/{action=Index}/{id?}");
-              
+
             });
         }
 
@@ -167,13 +175,13 @@ namespace RepoCat.Portal
         {
             IDashboardAuthorizationFilter filter = new HangfireCustomBasicAuthenticationFilter()
             {
-                User = "admin", 
+                User = "admin",
                 Pass = "reset",
             };
             var options = new DashboardOptions
             {
                 Authorization = new[] { filter }
-                
+
             };
             app.UseHangfireDashboard(pathMatch: "/hangfire", options);
             app.UseHangfireServer();

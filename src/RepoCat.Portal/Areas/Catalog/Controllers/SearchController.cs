@@ -122,13 +122,13 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             return this.PartialView("_SearchResultPartial", queryResultViewModel);
         }
 
-        [NonAction]
         /// <summary>
         /// 
         /// </summary>
         /// <param name="parameters"></param>
         /// <param name="query"></param>
         /// <returns></returns>
+        [NonAction]
         public async Task UpdateSearchStatistics(IReadOnlyCollection<RepositoryQueryParameter> parameters, string query)
         {
             List<string> keywords = QueryStringTokenizer.GetTokens(query);

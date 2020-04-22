@@ -104,11 +104,12 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,AutoMapper.IMapper,Microsoft.ApplicationInsights.TelemetryClient)">
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,RepoCat.RepositoryManagement.Service.IStatisticsService,AutoMapper.IMapper,Microsoft.ApplicationInsights.TelemetryClient)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Areas.Catalog.Controllers.RepositoryController"/> class.
             </summary>
-            <param name="service">The repository management service.</param>
+            <param name="repositoryService">The repository management service.</param>
+            <param name="statisticsService"></param>
             <param name="mapper"></param>
             <param name="telemetryClient"></param>
         </member>
@@ -170,6 +171,14 @@
             <param name="query"></param>
             <param name="isRegex"></param>
             <param name="filters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.UpdateSearchStatistics(System.Collections.Generic.IReadOnlyCollection{RepoCat.RepositoryManagement.Service.RepositoryQueryParameter},System.String)">
+            <summary>
+            
+            </summary>
+            <param name="parameters"></param>
+            <param name="query"></param>
             <returns></returns>
         </member>
         <member name="M:RepoCat.Portal.Areas.Catalog.Controllers.SearchController.GetSearchResultPage(System.String[],System.String[],System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{System.String}})">
@@ -969,7 +978,7 @@
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.Controller" />
         </member>
-        <member name="M:RepoCat.Portal.Controllers.api.DownloadController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,Microsoft.ApplicationInsights.TelemetryClient)">
+        <member name="M:RepoCat.Portal.Controllers.api.DownloadController.#ctor(RepoCat.RepositoryManagement.Service.IRepositoryManagementService,Microsoft.ApplicationInsights.TelemetryClient,RepoCat.RepositoryManagement.Service.IStatisticsService)">
             <summary>
             Initializes a new instance of the <see cref="T:RepoCat.Portal.Controllers.api.ManifestController"/> class.
             </summary>
@@ -984,6 +993,20 @@
             <param name="componentName"></param>
             <param name="propertyKey"></param>
             <returns>ProjectInfo.</returns>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.api.DownloadController.Download(System.String)">
+            <summary>
+            Download a project
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Portal.Controllers.api.DownloadController.UpdateDownloadsStatistics(RepoCat.Persistence.Models.ProjectInfo)">
+            <summary>
+            Updates the downloads counts
+            </summary>
+            <param name="project"></param>
+            <returns></returns>
         </member>
         <member name="T:RepoCat.Portal.Controllers.api.HealthcheckController">
             <summary>
@@ -1109,6 +1132,36 @@
             Gets a value indicating whether [show request identifier].
             </summary>
             <value><c>true</c> if [show request identifier]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:RepoCat.Portal.ObjectIdConverter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.ObjectIdConverter.CanConvert(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Portal.ObjectIdConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            
+            </summary>
+            <param name="reader"></param>
+            <param name="objectType"></param>
+            <param name="existingValue"></param>
+            <param name="serializer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Portal.ObjectIdConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="serializer"></param>
         </member>
         <member name="T:RepoCat.Portal.RecurringJobs.DirectProjectInfoImporter">
             <summary>

@@ -55,6 +55,15 @@ namespace RepoCat.Persistence.Service
         }
 
 
+        public static FilterDefinition<DownloadStatistics> BuildStatisticsRepositoryFilter(ObjectId repositoryId)
+        {
+            FilterDefinition<DownloadStatistics> repoNameFilter =
+                Builders<DownloadStatistics>.Filter.Where(x =>
+                    x.RepositoryId == repositoryId
+                );
+            return repoNameFilter;
+        }
+
         public static async Task<FilterDefinition<ProjectInfo>> BuildProjectsFilter(IMongoCollection<ProjectInfo> projects, string query, bool isRegex, RepositoryInfo repo, string stamp = null)
         {
             if (isRegex)

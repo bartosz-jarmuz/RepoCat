@@ -16,7 +16,7 @@ $(document).ready(function () {
                 setCookie('sidebarOpen', 'false');
             }
         }, 200);
-        
+
     });
 
     $(document).on('click', '.share-link', function () {
@@ -24,7 +24,7 @@ $(document).ready(function () {
         // @ts-ignore
         btn.popover({
             trigger: 'focus'
-        }); 
+        });
 
         try {
             copyTextToClipboard(document.location.href,
@@ -51,19 +51,55 @@ $(document).ready(function () {
             btn.popover('show');
         }
     });
+
+    $(document).on('click', '.download-link', function () {
+        showTempPopoverNoTitle($(this), "Hold on...", 1300, 'left');
+        let counter = $(this).next('.download-count').find('span')[0];
+        if (!counter) {
+            counter = $(this).closest('.download').prev('.download-count').find('span')[0];
+        }
+        if (counter) {
+            let value = parseInt($(counter).text());
+            if (!isNaN(value)) {
+                $(counter).text(value + 1);
+            }
+        }
+    });
+
     attachShowMoreTagsHandlers();
-});
+}); 
+
+
+
+function showTempPopoverNoTitle(element, text, timeout, placement) {
+    var title = $(element).attr('title'); //hide title as it interferes with tooltip
+    $(element).removeAttr('title');
+
+    // @ts-ignore
+    $(element).popover({
+        trigger: 'manual',
+        placement: placement,
+        content: text,
+    });
+
+     
+    // @ts-ignore
+    $(element).popover('show');
+    $(element).attr('title', title);
+    // @ts-ignore
+    setTimeout(function () { $(element).popover('hide'); }, timeout);
+}
 
 function copyTextToClipboard(text, success, fail) {
     if (!navigator || !navigator.clipboard) {
         fallbackCopyTextToClipboard(text, success, fail);
         return;
     }
-    navigator.clipboard.writeText(text).then(function () { 
+    navigator.clipboard.writeText(text).then(function () {
         success();
     }, function (err) {
         fail();
-         console.log(err);
+        console.log(err);
     });
 }
 
@@ -88,11 +124,11 @@ function fallbackCopyTextToClipboard(text, success, fail) {
     }
     document.body.removeChild(textArea);
 }
- 
+
 function attachShowMoreTagsHandlers() {
-    let selector = '.show-more-link.show-tags'; 
-    $(selector ).off('click.rc.links');
-    $(selector ).on('click.rc.links', function () {
+    let selector = '.show-more-link.show-tags';
+    $(selector).off('click.rc.links');
+    $(selector).on('click.rc.links', function () {
         $(this).next('.tags-list').show();
         $(this).hide();
     });
@@ -154,7 +190,7 @@ function addToCollectionDictionaryCookie(cookieName, dictionaryKey, valueToAddTo
         let collection = [];
         collection.push(valueToAddToCollection);
         dictionary[dictionaryKey] = collection;
-        setCookie(cookieName, JSON.stringify(dictionary)); 
+        setCookie(cookieName, JSON.stringify(dictionary));
     }
 }
 
@@ -167,7 +203,7 @@ function getFromCollectionDictionaryCookie(cookieName, dictionaryKey) {
         }
         catch (error) {
             //ok, cookie corrupted, ignore it
-            return; 
+            return;
         }
         return dictionary[dictionaryKey];
     }

@@ -8,10 +8,12 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Hangfire;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using RepoCat.Persistence.Models;
 using RepoCat.RepositoryManagement.Service;
+using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 
 namespace RepoCat.Portal.Controllers.api
 {
@@ -25,16 +27,19 @@ namespace RepoCat.Portal.Controllers.api
     {
         private readonly IRepositoryManagementService service;
         private readonly TelemetryClient telemetryClient;
+        private readonly IStatisticsService statisticsService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManifestController"/> class.
         /// </summary>
         /// <param name="repositoryManagementService"></param>
         /// <param name="telemetryClient"></param>
-        public DownloadController(IRepositoryManagementService repositoryManagementService, TelemetryClient telemetryClient)
+        public DownloadController(IRepositoryManagementService repositoryManagementService, TelemetryClient telemetryClient, IStatisticsService statisticsService)
         {
             this.service = repositoryManagementService;
+
             this.telemetryClient = telemetryClient;
+            this.statisticsService = statisticsService;
         }
 
         /// <summary>
@@ -88,16 +93,20 @@ namespace RepoCat.Portal.Controllers.api
             }
         }
 
+        /// <summary>
+        /// Download a project
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Download(string id)
         {
-            var project = await this.service.GetById(id).ConfigureAwait(false);
+            ProjectInfo project = await this.service.GetById(id).ConfigureAwait(false);
             if (project == null)
             {
                 this.TempData["Error"] = $"Project [{id}] does not exist";
                 return this.RedirectToAction("Error", "Home");
             }
-
 
             if (string.IsNullOrEmpty(project.DownloadLocation))
             {
@@ -106,6 +115,7 @@ namespace RepoCat.Portal.Controllers.api
             }
 
 
+            BackgroundJob.Enqueue(() => this.UpdateDownloadsStatistics(project));
 
             if (IsLocalFile(project.DownloadLocation))
             {
@@ -115,6 +125,17 @@ namespace RepoCat.Portal.Controllers.api
             {
                 return this.GetRedirectResult(project);
             }
+        }
+
+        /// <summary>
+        /// Updates the downloads counts
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        [NonAction]
+        public async Task UpdateDownloadsStatistics(ProjectInfo project)
+        {
+            await this.statisticsService.UpdateProjectDownloads(project);
         }
 
 

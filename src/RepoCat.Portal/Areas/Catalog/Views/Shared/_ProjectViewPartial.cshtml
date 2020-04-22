@@ -62,12 +62,21 @@ else
                                     <dd class="project-path">
                                         <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.ProjectUri), Model.ProjectUri, "help-link", "fa fa-external-link-alt"))" />
                                     </dd>
-
-                                    <dt>Download from:</dt>
-                                    <dd class="project-path">
-                                        <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DownloadLocation), Model.DownloadLocation, "help-link", "fa fa-external-link-alt"))" />
+                                    
+                                    <dt>
+                                        @if (string.IsNullOrEmpty(Model.DownloadLocation))
+                                        {
+                                            <button disabled class="badge badge-download download-link disabled">Download:</button>
+                                        }
+                                        else
+                                        {
+                                            <a class="badge badge-download download-link" href="@Url.Action("Download", "Download", new { id = Model.Id })">Download:</a>
+                                            <span class="download-count" data-toggle="tooltip" title="Number of downloads so far"><i class="fas fa-download"></i>&nbsp;<span>@Model.DownloadsCount</span></span>
+                                        }
+                                    </dt>
+                                    <dd class="project-path download">
+                                        <partial name="_InteractiveStringPartial" model="@(new InteractiveStringModel(Model.Id, null, nameof(Model.DownloadLocation), Model.DownloadLocation, "help-link", "fas fa-download"))" />
                                     </dd>
-
                                 </dl>
 
                             </div>

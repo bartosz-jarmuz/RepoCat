@@ -12,6 +12,8 @@ using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.RecurringJobs;
 using RepoCat.RepositoryManagement.Service;
 using RepoCat.Transmission.Contracts;
+using DownloadStatistics = RepoCat.Persistence.Models.DownloadStatistics;
+using ProjectDownloadData = RepoCat.Persistence.Models.ProjectDownloadData;
 using RepositoryInfo = RepoCat.Transmission.Models.RepositoryInfo;
 using RepositoryQueryParameter = RepoCat.RepositoryManagement.Service.RepositoryQueryParameter;
 using SearchKeywordData = RepoCat.Persistence.Models.SearchKeywordData;
@@ -82,6 +84,10 @@ namespace RepoCat.Portal.Mapping
 
             this.CreateMap<SearchStatistics, RepositoryManagement.Service.SearchStatistics>();
             this.CreateMap<SearchKeywordData, RepositoryManagement.Service.SearchKeywordData>();
+
+            this.CreateMap<DownloadStatistics, RepositoryManagement.Service.DownloadStatistics>();
+            this.CreateMap<ProjectDownloadData, RepositoryManagement.Service.ProjectDownloadData>();
+
         }
 
         private void MapTransmitterModels()
