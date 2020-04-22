@@ -4,6 +4,9 @@
 //  </copyright>
 // -----------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -36,6 +39,51 @@ namespace RepoCat.Persistence.Service
             return this.repositories.FindAsync(RepoCatFilterBuilder.BuildRepositoryFilter(organizationName));
         }
 
+
+        /// <summary>
+        /// Gets all repositories matching search params
+        /// </summary>
+        /// <param name="repositoryParams">List of key value pairs - Organization and Repository name</param>
+        /// <returns>Task&lt;ManifestQueryResult&gt;.</returns>
+        public async Task<IEnumerable<RepositoryInfo>> GetRepositories(IEnumerable<RepositoryQueryParameter> repositoryParams)
+        {
+            void CheckParams()
+            {
+                if (repositoryParams == null) throw new ArgumentNullException(nameof(repositoryParams));
+            }
+
+            CheckParams();
+
+            List<Task<RepositoryInfo>> tasks = new List<Task<RepositoryInfo>>();
+            var paramsList = repositoryParams.ToList();
+            if (paramsList.Any(x => x.OrganizationName == "*"))
+            {
+                IAsyncCursor<RepositoryInfo> cursor = await this.GetAllRepositories();
+                await cursor.ForEachAsync(t => tasks.Add(Task.FromResult(t)));
+            }
+            else
+            {
+                foreach (IGrouping<string, RepositoryQueryParameter> groupedParams in paramsList.GroupBy(x => x.OrganizationName))
+                {
+                    if (groupedParams.Any(x => x.RepositoryName == "*"))
+                    {
+                        IAsyncCursor<RepositoryInfo> cursor = await this.GetAllRepositories(groupedParams.Key);
+                        await cursor.ForEachAsync(t => tasks.Add(Task.FromResult(t)));
+                    }
+                    else
+                    {
+                        foreach (RepositoryQueryParameter repositoryParam in groupedParams)
+                        {
+                            tasks.Add(this.GetRepository(repositoryParam.OrganizationName, repositoryParam.RepositoryName));
+                        }
+                    }
+                }
+            }
+
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+
+            return tasks.Select(x => x.Result);
+        }
 
         /// <summary>
         /// Gets a repository by the specified name and organization name

@@ -41,55 +41,18 @@ namespace RepoCat.Persistence.Service
         /// <returns></returns>
         public async Task<List<string>> GetStamps(RepositoryInfo repository)
         {
-            if (repository == null) throw new ArgumentNullException(nameof(repository));
+            void CheckParams()
+            {
+                if (repository == null) throw new ArgumentNullException(nameof(repository));
+            }
 
-            var filter = Builders<ProjectInfo>.Filter.Eq(p => p.RepositoryId, repository.Id);
+            CheckParams();
+
+            FilterDefinition<ProjectInfo> filter = Builders<ProjectInfo>.Filter.Eq(p => p.RepositoryId, repository.Id);
             List<string> stamps = await (await this.projects.DistinctAsync(x => x.RepositoryStamp, filter).ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
             return stamps;
         }
 
-
-        /// <summary>
-        /// Gets all projects for the latest version of a given repository matching specified search parameters
-        /// </summary>
-        /// <param name="repositoryParams">List of key value pairs - Organization and Repository name</param>
-        /// <param name="query">The string to search by. Set to null, empty or * to ignore the query</param>
-        /// <param name="isRegex">Specify whether the search string is a Regex</param>
-        /// <returns>Task&lt;ManifestQueryResult&gt;.</returns>
-        public async Task<IEnumerable<Project>> GetCurrentProjects(IEnumerable<RepositoryQueryParameter> repositoryParams, string query, bool isRegex)
-        {
-            if (repositoryParams == null) throw new ArgumentNullException(nameof(repositoryParams));
-
-            List<Task<RepositoryInfo>> tasks = new List<Task<RepositoryInfo>>();
-            var paramsList = repositoryParams.ToList();
-            if (paramsList.Any(x => x.OrganizationName == "*"))
-            {
-                IAsyncCursor<RepositoryInfo> cursor = await this.GetAllRepositories();
-                await cursor.ForEachAsync(t => tasks.Add(Task.FromResult(t)));
-            }
-            else
-            {
-                foreach (IGrouping<string, RepositoryQueryParameter> groupedParams in paramsList.GroupBy(x=>x.OrganizationName))
-                {
-                    if (groupedParams.Any(x => x.RepositoryName == "*"))
-                    {
-                        IAsyncCursor<RepositoryInfo> cursor = await this.GetAllRepositories(groupedParams.Key);
-                        await cursor.ForEachAsync(t => tasks.Add(Task.FromResult(t)));
-                    }
-                    else
-                    {
-                        foreach (RepositoryQueryParameter repositoryParam in groupedParams)
-                        {
-                            tasks.Add(this.GetRepository(repositoryParam.OrganizationName, repositoryParam.RepositoryName));
-                        }
-                    }
-                }
-            }
-
-            await Task.WhenAll(tasks).ConfigureAwait(false);
-
-            return await this.GetCurrentProjects(tasks.Select(x=>x.Result), query, isRegex).ConfigureAwait(false);
-        }
 
         /// <summary>
         /// 
@@ -100,7 +63,7 @@ namespace RepoCat.Persistence.Service
         /// <returns></returns>
         public async Task<IEnumerable<Project>> GetCurrentProjects(IEnumerable<RepositoryInfo> repos, string query, bool isRegex)
         {
-            var tasks = new List<Task<IEnumerable<Project>>>();
+            List<Task<IEnumerable<Project>>> tasks = new List<Task<IEnumerable<Project>>>();
             if (repos != null)
             {
                 foreach (RepositoryInfo repositoryInfo in repos)
@@ -144,7 +107,7 @@ namespace RepoCat.Persistence.Service
 
         private async Task<IEnumerable<Project>> ExecuteFilter(FilterDefinition<ProjectInfo> filter)
         {
-            var containsTextFilter = RepoCatFilterBuilder.CheckIfContainsTextFilter(filter);
+            bool containsTextFilter = RepoCatFilterBuilder.CheckIfContainsTextFilter(filter);
             IAggregateFluent<ProjectWithRepos> aggr;
             if (containsTextFilter)
             {
@@ -180,9 +143,13 @@ namespace RepoCat.Persistence.Service
         [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses")]
         private class ProjectWithRepos : ProjectInfo
         {
-
+            /// <summary>
+            /// 
+            /// </summary>
+#pragma warning disable S3459 // Unassigned members should be removed
             public List<RepositoryInfo> RepositoryInfo { get; set; }
+#pragma warning restore S3459 // Unassigned members should be removed
         }
-
+        
     }
 }

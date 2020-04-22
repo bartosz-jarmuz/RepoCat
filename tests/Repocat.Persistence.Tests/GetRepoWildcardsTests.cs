@@ -149,9 +149,9 @@ namespace Repocat.Persistence.Tests
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
                 TelemetryMock.InitializeMockTelemetryClient());
             var parameters = new[] {new RepositoryQueryParameter("*", "*")};
-
+            var repos = (await service.GetRepositories(parameters)).ToList();
             //act 
-            ManifestQueryResult result = await service.GetCurrentProjects(parameters, "FindMe",false);
+            ManifestQueryResult result = await service.GetCurrentProjects(repos, "FindMe",false);
 
             //assert
             Assert.AreEqual(7, result.Projects.Count);
@@ -172,9 +172,9 @@ namespace Repocat.Persistence.Tests
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
                 TelemetryMock.InitializeMockTelemetryClient());
             var parameters = new[] { new RepositoryQueryParameter("*", "*"), new RepositoryQueryParameter(this.orgThree_RepoThree),  };
-
+            var repos = (await service.GetRepositories(parameters)).ToList();
             //act 
-            ManifestQueryResult result = await service.GetCurrentProjects(parameters, "FindMe", false);
+            ManifestQueryResult result = await service.GetCurrentProjects(repos, "FindMe", false);
 
             //assert
             Assert.AreEqual(7, result.Projects.Count);
@@ -195,9 +195,10 @@ namespace Repocat.Persistence.Tests
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
                 TelemetryMock.InitializeMockTelemetryClient());
             var parameters = new[] { new RepositoryQueryParameter(this.orgOne_RepoOne.OrganizationName, "*") };
+            var repos = (await service.GetRepositories(parameters)).ToList();
 
             //act 
-            ManifestQueryResult result = await service.GetCurrentProjects(parameters, "FindMe", false);
+            ManifestQueryResult result = await service.GetCurrentProjects(repos, "FindMe", false);
 
             //assert
             Assert.AreEqual(2, result.Projects.Count);
@@ -218,9 +219,10 @@ namespace Repocat.Persistence.Tests
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()),
                 TelemetryMock.InitializeMockTelemetryClient());
             var parameters = new[] { new RepositoryQueryParameter(this.orgOne_RepoOne.OrganizationName, "*"), new RepositoryQueryParameter(this.orgTwo_RepoOne),  };
+            var repos = (await service.GetRepositories(parameters)).ToList();
 
             //act 
-            ManifestQueryResult result = await service.GetCurrentProjects(parameters, "FindMe", false);
+            ManifestQueryResult result = await service.GetCurrentProjects(repos, "FindMe", false);
 
             //assert
             Assert.AreEqual(3, result.Projects.Count);
@@ -248,9 +250,10 @@ namespace Repocat.Persistence.Tests
                 new RepositoryQueryParameter(this.orgThree_RepoOne),
                 new RepositoryQueryParameter(this.orgThree_RepoOne.OrganizationName, "*"),
             };
+            var repos = (await service.GetRepositories(parameters)).ToList();
 
             //act 
-            ManifestQueryResult result = await service.GetCurrentProjects(parameters, "FindMe", false);
+            ManifestQueryResult result = await service.GetCurrentProjects(repos, "FindMe", false);
 
             //assert
             Assert.AreEqual(5, result.Projects.Count);
@@ -276,9 +279,10 @@ namespace Repocat.Persistence.Tests
                 new RepositoryQueryParameter(this.orgTwo_RepoOne),
                 new RepositoryQueryParameter(this.orgThree_RepoOne),
             };
+            var repos = (await service.GetRepositories(parameters)).ToList();
 
             //act 
-            ManifestQueryResult result = await service.GetCurrentProjects(parameters, "FindMe", false);
+            ManifestQueryResult result = await service.GetCurrentProjects(repos, "FindMe", false);
 
             //assert
             Assert.AreEqual(3, result.Projects.Count);

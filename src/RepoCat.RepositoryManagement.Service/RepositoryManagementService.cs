@@ -81,33 +81,42 @@ namespace RepoCat.RepositoryManagement.Service
             return await this.database.GetSummary().ConfigureAwait(false);
         }
 
-        public async Task<List<string>> GetStamps(RepositoryQueryParameter repositoryQueryParameter)
+        public async Task<List<string>> GetStamps(RepositoryInfo repositoryInfo)
         {
-            var repo = await this.database.GetRepository(repositoryQueryParameter.OrganizationName,repositoryQueryParameter.RepositoryName);
-            return await this.database.GetStamps(repo);
+            return await this.database.GetStamps(repositoryInfo);
 
         }
-        public  Task<ManifestQueryResult> GetAllCurrentProjects(RepositoryQueryParameter repositoryQueryParameter)
+        public  Task<ManifestQueryResult> GetAllCurrentProjects(RepositoryInfo repositoryInfo)
         {
-            return this.GetCurrentProjects(repositoryQueryParameter, "*", false);
+            return this.GetCurrentProjects(repositoryInfo, "*", false);
         }
 
-        public Task<ManifestQueryResult> GetAllCurrentProjects(List<RepositoryQueryParameter> repoParams)
+        public Task<ManifestQueryResult> GetAllCurrentProjects(List<RepositoryInfo> repoParams)
         {
-            return this.GetCurrentProjects(repoParams, "*", false);
+            return this.GetCurrentProjects( repoParams, "*", false);
         }
 
-        public Task<ManifestQueryResult> GetCurrentProjects(RepositoryQueryParameter repositoryQueryParameter, string query, bool isRegex)
+        public Task<ManifestQueryResult> GetCurrentProjects(RepositoryInfo repositoryInfo, string query, bool isRegex)
         {
-            return this.GetCurrentProjects(new List<RepositoryQueryParameter>() { repositoryQueryParameter }, query, isRegex);
+            return this.GetCurrentProjects(new List<RepositoryInfo>() { repositoryInfo }, query, isRegex);
         }
 
-        public async Task<ManifestQueryResult> GetCurrentProjects(IReadOnlyCollection<RepositoryQueryParameter> repoParams, string query, bool isRegex)
+        public async Task<ManifestQueryResult> GetCurrentProjects(IReadOnlyCollection<RepositoryInfo> repositories, string query, bool isRegex)
         {
             var sw = Stopwatch.StartNew();
-            var projects = await this.database.GetCurrentProjects(this.mapper.Map<IReadOnlyCollection<Persistence.Models.RepositoryQueryParameter>>(repoParams), query, isRegex).ConfigureAwait(false);
+            var projects = await this.database.GetCurrentProjects(repositories, query, isRegex).ConfigureAwait(false);
             sw.Stop();
-            return new ManifestQueryResult(repoParams, projects, sw.Elapsed, query, isRegex);
+            return new ManifestQueryResult(repositories, projects, sw.Elapsed, query, isRegex);
+        }
+
+        public async Task<IEnumerable<RepositoryInfo>> GetRepositories(IReadOnlyCollection<RepositoryQueryParameter> repoParams)
+        {
+           return await this.database.GetRepositories(this.mapper.Map<IReadOnlyCollection<Persistence.Models.RepositoryQueryParameter>>(repoParams)).ConfigureAwait(false);
+        }
+
+        public async Task<IEnumerable<RepositoryInfo>> GetRepositories(RepositoryQueryParameter repoParam)
+        {
+            return await this.database.GetRepositories(this.mapper.Map<IReadOnlyCollection<Persistence.Models.RepositoryQueryParameter>>(new List<RepositoryQueryParameter>(){repoParam})).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<RepositoryInfo>> GetAllRepositories()

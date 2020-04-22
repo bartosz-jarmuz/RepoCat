@@ -48,17 +48,7 @@ namespace RepoCat.Portal
             telemetryClient.TrackEvent(Names.RecurringJobFinished, props);
         }
 
-        private static IDictionary<string, string> GetProperties(TransmitterArguments arguments)
-        {
-            return new Dictionary<string, string>()
-            {
-                {PropertyKeys.OrganizationName, arguments?.OrganizationName ?? "NULL"},
-                {PropertyKeys.RepositoryName, arguments?.RepositoryName ?? "NULL"},
-                {PropertyKeys.RepositoryPath, arguments?.CodeRootFolder ?? "NULL"},
-                {PropertyKeys.RepositoryMode, arguments?.RepositoryMode.ToString()},
-                {PropertyKeys.TransmissionMode, arguments?.TransmissionMode.ToString()},
-            };
-        }
+    
 
 
         /// <summary>
@@ -85,6 +75,18 @@ namespace RepoCat.Portal
                 {PropertyKeys.TransmissionMode, settings?.TransmissionMode.ToString() },
                 {PropertyKeys.JobExecutionCron, settings?.JobExecutionCron ?? "NULL"},
 
+            };
+        }
+
+        private static IDictionary<string, string> GetProperties(TransmitterArguments arguments)
+        {
+            return new Dictionary<string, string>()
+            {
+                {PropertyKeys.OrganizationName, arguments?.OrganizationName ?? "NULL"},
+                {PropertyKeys.RepositoryName, arguments?.RepositoryName ?? "NULL"},
+                {PropertyKeys.RepositoryPath, arguments?.CodeRootFolder ?? "NULL"},
+                {PropertyKeys.RepositoryMode, arguments?.RepositoryMode.ToString()},
+                {PropertyKeys.TransmissionMode, arguments?.TransmissionMode.ToString()},
             };
         }
     }

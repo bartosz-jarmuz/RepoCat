@@ -15,11 +15,11 @@ namespace RepoCat.RepositoryManagement.Service
     {
         Task<ProjectInfo> Upsert(Transmission.Models.ProjectInfo projectInfo);
         Task<ProjectInfo> GetById(string id);
-        Task<ManifestQueryResult> GetAllCurrentProjects(RepositoryQueryParameter repositoryQueryParameter);
+        Task<ManifestQueryResult> GetAllCurrentProjects(RepositoryInfo repositoryInfo);
 
-        Task<ManifestQueryResult> GetCurrentProjects(IReadOnlyCollection<RepositoryQueryParameter> repoParams, string query, bool isRegex);
+        Task<ManifestQueryResult> GetCurrentProjects(IReadOnlyCollection<RepositoryInfo> repositories, string query, bool isRegex);
 
-        Task<ManifestQueryResult> GetCurrentProjects(RepositoryQueryParameter repositoryQueryParameter, string query, bool isRegex);
+        Task<ManifestQueryResult> GetCurrentProjects(RepositoryInfo repositoryInfo, string query, bool isRegex);
 
         Task<IEnumerable<RepositoryInfo>> GetAllRepositories();
 
@@ -30,7 +30,9 @@ namespace RepoCat.RepositoryManagement.Service
         Task<IReadOnlyCollection<RepositoryGrouping>> GetAllRepositoriesGrouped();
 
 
-        Task<List<string>> GetStamps(RepositoryQueryParameter repositoryQueryParameter);
+        Task<List<string>> GetStamps(RepositoryInfo repositoryInfo);
         Task<IEnumerable<CollectionSummary>> GetSummary();
+        Task<IEnumerable<RepositoryInfo>> GetRepositories(IReadOnlyCollection<RepositoryQueryParameter> repoParams);
+        Task<IEnumerable<RepositoryInfo>> GetRepositories(RepositoryQueryParameter repoParam);
     }
 }

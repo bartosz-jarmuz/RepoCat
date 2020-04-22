@@ -152,8 +152,13 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         [Route("{controller}/Result")]
         public async Task<IActionResult> GetSearchResultPage(string[] org, string[] repo, string query, bool isRegex, [FromQuery] Dictionary<string, List<string>> filters = null)
         {
-            if (org == null) throw new ArgumentNullException(nameof(org));
-            if (repo == null) throw new ArgumentNullException(nameof(repo));
+            void CheckArgs()
+            {
+                if (org == null) throw new ArgumentNullException(nameof(org));
+                if (repo == null) throw new ArgumentNullException(nameof(repo));
+            }
+
+            CheckArgs();
             if (org.Length != repo.Length)
             {
                 this.TempData["Error"] = $"Number of org parameters does not match the number of repo parameters. Orgs: {string.Join(", ", org)}. Repos: {string.Join(", ", repo)}";
@@ -176,13 +181,25 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             IReadOnlyCollection<RepositoryQueryParameter> parameters, string query, bool isRegex,
             Dictionary<string, List<string>> filters)
         {
-            ManifestQueryResult result = await this.repositoryService.GetCurrentProjects(parameters, query, isRegex).ConfigureAwait(false);
-            ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(result);
+            List<RepositoryInfo> repositories = (await this.repositoryService.GetRepositories(parameters)).ToList();
 
-            IEnumerable<Project> sortedProjects = this.sorter.Sort(result.Projects, result.Tokens);
+            var downloadStatsTask = this.statisticsService.GetDownloadStatistics(repositories);
+            var projectsTask = this.repositoryService.GetCurrentProjects(repositories, query, isRegex);
+            await Task.WhenAll(downloadStatsTask, projectsTask);
+            var flattenedDownloadStats = downloadStatsTask.Result.SelectMany(x => x.ProjectDownloadData).ToList();
+            ManifestQueryResultViewModel queryResultViewModel = this.mapper.Map<ManifestQueryResultViewModel>(projectsTask.Result);
+
+            IEnumerable<Project> sortedProjects = this.sorter.Sort(projectsTask.Result.Projects, projectsTask.Result.Tokens);
 
             queryResultViewModel.ProjectsTable = new ProjectsTableModel(this.mapper.Map<List<ProjectInfoViewModel>>(sortedProjects), this.IsMultipleRepos(parameters), true);
             queryResultViewModel.ProjectsTable.Filters = filters;
+
+            foreach (ProjectInfoViewModel projectInfoViewModel in queryResultViewModel.ProjectsTable.Projects)
+            {
+                projectInfoViewModel.DownloadsCount =
+                    flattenedDownloadStats.FirstOrDefault(x =>
+                        x.ProjectKey == projectInfoViewModel.ProjectUri)?.DownloadCount ?? 0;
+            }
             return queryResultViewModel;
         }
 

@@ -44,7 +44,8 @@ namespace RepoCat.Portal.Areas.Catalog.Views.Components
             IReadOnlyCollection<RepositoryGrouping> repositoryGroups = await this.service.GetAllRepositoriesGrouped().ConfigureAwait(false);
 
             List<RepositoryQueryParameter> parameters = repositoryGroups.SelectMany(g => g.Repositories.Select(r => new RepositoryQueryParameter(r))).ToList();
-            ManifestQueryResult result = await this.service.GetCurrentProjects(parameters, "", false).ConfigureAwait(false);
+            var repos = (await this.service.GetRepositories(parameters)).ToList();
+            ManifestQueryResult result = await this.service.GetCurrentProjects(repos, "", false).ConfigureAwait(false);
             List<ComponentManifest> components = result.Projects.SelectMany(x => x.ProjectInfo.Components).ToList();
             int tags = components.Sum(x => x.Tags.Count);
             int props = components.Sum(x => x.Properties.Count);

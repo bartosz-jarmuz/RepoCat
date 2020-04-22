@@ -78,7 +78,7 @@ namespace Repocat.Persistence.Tests
         {
             RepositoryDatabase database = new RepositoryDatabase(Settings);
             var service = new RepositoryManagementService(database, new Mapper(MappingConfigurationFactory.Create()), this.telemetryClient);
-            var allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
+            var allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
             allProjects.Projects.Count.Should().Be(0, "because there are no projects yet");
 
             await this.AddTwoProjectsWithSameRepoStamp(service).ConfigureAwait(false);
@@ -113,7 +113,7 @@ namespace Repocat.Persistence.Tests
 
             var returnedPrj2Again = await service.Upsert(prj2Again).ConfigureAwait(false);
 
-            allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
+            allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
 
 
             allProjects.Projects.Count.Should().Be(2, "because we don't return latest stamp only");
@@ -177,7 +177,7 @@ namespace Repocat.Persistence.Tests
             
             await SetSnapshotMode(database, this.testRepoOne).ConfigureAwait(false);
 
-            var allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
+            var allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
             allProjects.Projects.Count.Should().Be(0, "because there are no projects yet");
 
             ProjectInfo returnedPrj2 = await this.AddTwoProjectsWithSameRepoStamp(service).ConfigureAwait(false);
@@ -198,7 +198,7 @@ namespace Repocat.Persistence.Tests
             };
             var returnedPrj2Again = await service.Upsert(prj2Again).ConfigureAwait(false);
 
-            allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
+            allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
 
 
             allProjects.Projects.Count.Should().Be(1, "because recently only added 1 project");
@@ -253,7 +253,7 @@ namespace Repocat.Persistence.Tests
             };
             ProjectInfo returnedPrj2 = await service.Upsert(prj2).ConfigureAwait(false);
 
-            allProjects = await service.GetAllCurrentProjects(new RepositoryQueryParameter(this.testRepoOne)).ConfigureAwait(false);
+            allProjects = await service.GetAllCurrentProjects(this.testRepoOne).ConfigureAwait(false);
 
             allProjects.Projects.Count.Should().Be(2, "because we just added 2 projects with same stamp");
             allProjects.Projects.Should().OnlyContain(x => x.ProjectInfo.RepositoryStamp == "1.0");

@@ -125,13 +125,10 @@ namespace RepoCat.RepositoryManagement.Service
                         score += (scoreBaseValue * ScoreMultipliers.StartsWith) + bonus;
                     }
                 }
-                else if (toSearch.Contains(token, StringComparison.OrdinalIgnoreCase))
+                else if (toSearch.Contains(token, StringComparison.OrdinalIgnoreCase) && IsSufficientTokenLength(token))
                 {
-                    if (IsSufficientTokenLength(token))
-                    {
-                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, toSearch);
-                        score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
-                    }
+                    decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, toSearch);
+                    score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
                 }
             }
 
@@ -178,16 +175,12 @@ namespace RepoCat.RepositoryManagement.Service
                         score += (scoreBaseValue * ScoreMultipliers.StartsWith) + bonus;
                     }
                 }
-                else if (projectInfo.AssemblyName.Contains(token, StringComparison.OrdinalIgnoreCase)
-                || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).Contains(token, StringComparison.OrdinalIgnoreCase)
+                else if ((projectInfo.AssemblyName.Contains(token, StringComparison.OrdinalIgnoreCase)
+                          || Path.GetFileNameWithoutExtension(projectInfo.AssemblyName).Contains(token, StringComparison.OrdinalIgnoreCase)) && IsSufficientTokenLength(token)
                 )
                 {
-                    if (IsSufficientTokenLength(token))
-                    {
-                        decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, projectInfo.AssemblyName);
-                        score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
-                    }
-
+                    decimal bonus = GetPercentageBonus(scoreBaseValue * ScoreMultipliers.Contains, token, projectInfo.AssemblyName);
+                    score += (scoreBaseValue * ScoreMultipliers.Contains) + bonus;
                 }
             }
 
@@ -240,7 +233,7 @@ namespace RepoCat.RepositoryManagement.Service
                 .Where(x => x.Length > 3).ToList();
 
 
-            return tokens.SelectMany(RegexSplitPascalCase).ToList();
+            return tokens.SelectMany(SplitPascalCase).ToList();
         }
 
         private static IEnumerable<string> RegexSplitPascalCase(string str)
@@ -267,14 +260,11 @@ namespace RepoCat.RepositoryManagement.Service
                     char currentChar = input[i];
                     char previousChar = input[i - 1];
                     // any time we hit an uppercase OR number, it's a new word
-                    if (IsUpperOrDigit(currentChar))
+                    if (IsUpperOrDigit(currentChar) && !IsUpperOrDigit(previousChar))
                     {
                         //unless its something like NETCore
-                        if (!IsUpperOrDigit(previousChar))
-                        {
-                            tokens.Add(sb.ToString());
-                            sb.Clear();
-                        }
+                        tokens.Add(sb.ToString());
+                        sb.Clear();
                     }
 
                     // add regularly

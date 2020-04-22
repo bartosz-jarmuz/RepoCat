@@ -25,7 +25,7 @@ namespace RepoCat.RepositoryManagement.Service
         /// <param name="elapsed"></param>
         /// <param name="queryString"></param>
         /// <param name="isRegex"></param>
-        public ManifestQueryResult(IEnumerable<RepositoryQueryParameter> repoParams, IEnumerable<Project> projects,
+        public ManifestQueryResult(IEnumerable<RepositoryInfo> repoParams, IEnumerable<Project> projects,
             TimeSpan elapsed, string queryString, bool isRegex)
         {
             this.RepositoryQueryParameters = repoParams;
@@ -44,7 +44,7 @@ namespace RepoCat.RepositoryManagement.Service
         /// <value>The manifests.</value>
         public IReadOnlyList<Project> Projects { get; internal set; }
 
-        public IEnumerable<RepositoryQueryParameter> RepositoryQueryParameters { get; set; }
+        public IEnumerable<RepositoryInfo> RepositoryQueryParameters { get; set; }
 
         /// <summary>
         /// How long it took to execute the query

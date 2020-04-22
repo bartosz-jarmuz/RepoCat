@@ -35,15 +35,6 @@
             <param name="repository"></param>
             <returns></returns>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryQueryParameter},System.String,System.Boolean)">
-            <summary>
-            Gets all projects for the latest version of a given repository matching specified search parameters
-            </summary>
-            <param name="repositoryParams">List of key value pairs - Organization and Repository name</param>
-            <param name="query">The string to search by. Set to null, empty or * to ignore the query</param>
-            <param name="isRegex">Specify whether the search string is a Regex</param>
-            <returns>Task&lt;ManifestQueryResult&gt;.</returns>
-        </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetCurrentProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo},System.String,System.Boolean)">
             <summary>
             
@@ -60,6 +51,11 @@
             <param name="query"></param>
             <param name="isRegex"></param>
             <returns></returns>
+        </member>
+        <member name="P:RepoCat.Persistence.Service.RepositoryDatabase.ProjectWithRepos.RepositoryInfo">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Create(RepoCat.Persistence.Models.ProjectInfo)">
             <summary>
@@ -106,6 +102,13 @@
             </summary>
             <param name="organizationName"></param>
             <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetRepositories(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryQueryParameter})">
+            <summary>
+            Gets all repositories matching search params
+            </summary>
+            <param name="repositoryParams">List of key value pairs - Organization and Repository name</param>
+            <returns>Task&lt;ManifestQueryResult&gt;.</returns>
         </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetRepository(System.String,System.String)">
             <summary>
@@ -261,11 +264,18 @@
             <param name="project"></param>
             <returns></returns>
         </member>
-        <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.GetDownloadStatistics(System.String)">
+        <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.GetDownloadStatistics(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryInfo})">
             <summary>
             Get download statistics for a given repository
             </summary>
-            <param name="repositoryId"></param>
+            <param name="reposistories"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.StatisticsDatabase.GetDownloadStatistics(RepoCat.Persistence.Models.RepositoryInfo)">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
             <returns></returns>
         </member>
     </members>

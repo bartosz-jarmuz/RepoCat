@@ -42,10 +42,16 @@ namespace RepoCat.RepositoryManagement.Service
              return this.database.UpdateProjectDownloads(project);
         }
 
-        public async Task<DownloadStatistics> GetDownloadStatistics(string repositoryId)
+        public async Task<DownloadStatistics> GetDownloadStatistics(RepositoryInfo repository)
         {
-            Persistence.Models.DownloadStatistics result = await this.database.GetDownloadStatistics(repositoryId);
+            var result = await this.database.GetDownloadStatistics(repository).ConfigureAwait(false);
             return this.mapper.Map<DownloadStatistics>(result);
+        }
+
+        public async Task<IEnumerable<DownloadStatistics>> GetDownloadStatistics(List<RepositoryInfo> repositories)
+        {
+            var result = await this.database.GetDownloadStatistics(repositories);
+            return this.mapper.Map<IEnumerable<DownloadStatistics>>(result);
         }
 
         private List<SearchKeywordData> FlattenStats(IEnumerable<Persistence.Models.SearchStatistics> result)

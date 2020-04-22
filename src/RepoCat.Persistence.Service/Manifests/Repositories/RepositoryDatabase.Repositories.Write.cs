@@ -52,7 +52,12 @@ namespace RepoCat.Persistence.Service
         
         public async Task<RepositoryInfo> UpsertUpdate(RepositoryInfo repositoryInfo)
         {
-            if (repositoryInfo == null) throw new ArgumentNullException(nameof(repositoryInfo));
+            void CheckArgs()
+            {
+                if (repositoryInfo == null) throw new ArgumentNullException(nameof(repositoryInfo));
+            }
+
+            CheckArgs();
 
             FilterDefinition<RepositoryInfo> repoNameFilter =
                 Builders<RepositoryInfo>.Filter.Where(x => 

@@ -545,9 +545,9 @@ namespace Repocat.Persistence.Tests
 
 
             //act
-            var byQueryResult = await service.GetCurrentProjects(new RepositoryQueryParameter(repo), "Banana", false)
+            var byQueryResult = await service.GetCurrentProjects(repo, "Banana", false)
                 .ConfigureAwait(false);
-            var allProjectsResult = await service.GetAllCurrentProjects(new RepositoryQueryParameter(repo))
+            var allProjectsResult = await service.GetAllCurrentProjects(repo)
                 .ConfigureAwait(false);
 
             //assert by query
@@ -659,9 +659,9 @@ namespace Repocat.Persistence.Tests
 
 
             //act
-            var byQueryResult = await service.GetCurrentProjects(new RepositoryQueryParameter(repo), "Banana", false)
+            var byQueryResult = await service.GetCurrentProjects(repo, "Banana", false)
                 .ConfigureAwait(false);
-            var allProjectsResult = await service.GetAllCurrentProjects(new RepositoryQueryParameter(repo))
+            var allProjectsResult = await service.GetAllCurrentProjects(repo)
                 .ConfigureAwait(false);
 
             //assert by query
@@ -730,8 +730,7 @@ namespace Repocat.Persistence.Tests
             await database.Upsert(prj3).ConfigureAwait(false);
 
             ManifestQueryResult result = await service.GetCurrentProjects(
-                new RepositoryQueryParameter(this.testRepoOne.OrganizationName.ToUpperInvariant(),
-                    this.testRepoOne.RepositoryName.ToUpperInvariant()),
+                this.testRepoOne,
                 "findme", false).ConfigureAwait(false);
             result.Projects.Should()
                 .OnlyContain(x => x.RepositoryInfo.RepositoryName == this.testRepoOne.RepositoryName);
@@ -772,11 +771,10 @@ namespace Repocat.Persistence.Tests
                 new RepositoryQueryParameter(defaultRepo1Seed.Repository.OrganizationName,
                     defaultRepo1Seed.Repository.RepositoryName)
             };
+            var repos = (await service.GetRepositories(parameters)).ToList();
+
             //act
-            var byQueryResult = await service.GetCurrentProjects(parameters, "Banana", false).ConfigureAwait(false);
-
-
-            var allProjectsResult = await service.GetAllCurrentProjects(parameters).ConfigureAwait(false);
+            var byQueryResult = await service.GetCurrentProjects(repos, "Banana", false).ConfigureAwait(false);
 
             //assert by query
             byQueryResult.Projects.Count.Should().Be(4, "because only one project in V2 matches this query");
@@ -987,9 +985,7 @@ namespace Repocat.Persistence.Tests
             await database.Upsert(prj3).ConfigureAwait(false);
 
             ManifestQueryResult result = await service
-                .GetCurrentProjects(
-                    new RepositoryQueryParameter(this.testRepoOne.OrganizationName.ToUpperInvariant(),
-                        this.testRepoOne.RepositoryName.ToUpperInvariant()), "findme", false).ConfigureAwait(false);
+                .GetCurrentProjects(this.testRepoOne, "findme", false).ConfigureAwait(false);
 
             result.Projects.Should()
                 .OnlyContain(x => x.RepositoryInfo.RepositoryName == this.testRepoOne.RepositoryName);
@@ -1083,9 +1079,7 @@ namespace Repocat.Persistence.Tests
 
         async Task<ManifestQueryResult> GetResultFromRepoOne(RepositoryManagementService repositoryManagementService, string query)
         {
-            ManifestQueryResult manifestQueryResult = await repositoryManagementService.GetCurrentProjects(
-                new RepositoryQueryParameter(this.testRepoOne.OrganizationName.ToUpperInvariant(),
-                    this.testRepoOne.RepositoryName.ToUpperInvariant())
+            ManifestQueryResult manifestQueryResult = await repositoryManagementService.GetCurrentProjects(this.testRepoOne
                 , query, false).ConfigureAwait(false);
             return manifestQueryResult;
         }

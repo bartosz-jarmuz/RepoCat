@@ -13,7 +13,9 @@ using Microsoft.AspNetCore.Hosting;
 namespace RepoCat.Portal
 {
     [SuppressMessage("Design", "CA1052:Static holder types should be Static or NotInheritable", Justification = "<Pending>")]
+#pragma warning disable S1118 // Utility classes should not have public constructors
     public class Program
+#pragma warning restore S1118 // Utility classes should not have public constructors
     {
         public static void Main(string[] args)
         {

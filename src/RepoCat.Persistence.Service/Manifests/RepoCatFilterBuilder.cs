@@ -5,13 +5,11 @@
 // -----------------------------------------------------------------------
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.VisualBasic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -78,7 +76,12 @@ namespace RepoCat.Persistence.Service
 
         private static async Task<FilterDefinition<ProjectInfo>> BuildProjectFilterBase(IMongoCollection<ProjectInfo> projects, string query, RepositoryInfo repo, Func<string, FilterDefinition<ProjectInfo>, FilterDefinition<ProjectInfo>> textFilter, string stamp = null )
         {
-            if (projects == null) throw new ArgumentNullException(nameof(projects));
+            void CheckArgs()
+            {
+                if (projects == null) throw new ArgumentNullException(nameof(projects));
+            }
+
+            CheckArgs();
 
             FilterDefinition<ProjectInfo> respositoryFilter = Builders<ProjectInfo>.Filter.Empty;
 

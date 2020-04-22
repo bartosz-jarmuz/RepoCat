@@ -26,7 +26,12 @@ namespace RepoCat.Persistence.Service
         /// <returns>ProjectInfo.</returns>
         public async Task<ProjectInfo> Create(ProjectInfo info)
         {
-            if (info == null) throw new ArgumentNullException(nameof(info));
+            void CheckArgs()
+            {
+                if (info == null) throw new ArgumentNullException(nameof(info));
+            }
+
+            CheckArgs();
 
             EnsureRepoStampIsSet(info);
 
@@ -49,7 +54,12 @@ namespace RepoCat.Persistence.Service
         /// <returns></returns>
         public async Task<ProjectInfo> Upsert(ProjectInfo prjInfo)
         {
-            if (prjInfo == null) throw new ArgumentNullException(nameof(prjInfo));
+            void CheckArgs()
+            {
+                if (prjInfo == null) throw new ArgumentNullException(nameof(prjInfo));
+            }
+
+            CheckArgs();
 
             EnsureRepoStampIsSet(prjInfo);
 

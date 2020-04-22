@@ -226,21 +226,48 @@ namespace RepoCat.Persistence.Service
         /// <summary>
         /// Get download statistics for a given repository
         /// </summary>
-        /// <param name="repositoryId"></param>
+        /// <param name="reposistories"></param>
         /// <returns></returns>
-        public async Task<DownloadStatistics> GetDownloadStatistics(string repositoryId)
+        public async Task<IEnumerable<DownloadStatistics>> GetDownloadStatistics(IEnumerable<RepositoryInfo> reposistories)
         {
             void CheckParams()
             {
-                if (repositoryId == null) throw new ArgumentNullException(nameof(repositoryId));
+                if (reposistories == null) throw new ArgumentNullException(nameof(reposistories));
             }
 
             CheckParams();
 
-            FilterDefinition<DownloadStatistics> repositoryFilter =
-                RepoCatFilterBuilder.BuildStatisticsRepositoryFilter(ObjectId.Parse(repositoryId));
+            var tasks = new List<Task<DownloadStatistics>>();
 
-            return await this.FindOneOrCreateNewAsync(ObjectId.Parse(repositoryId), repositoryFilter);
+            foreach (RepositoryInfo repositoryInfo in reposistories)
+            {
+                tasks.Add(this.GetDownloadStatistics(repositoryInfo));
+            }
+
+            return await Task.WhenAll(tasks).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repository"></param>
+        /// <returns></returns>
+        public async Task<DownloadStatistics> GetDownloadStatistics(RepositoryInfo repository)
+        {
+            void CheckParams()
+            {
+                if (repository == null) throw new ArgumentNullException(nameof(repository));
+            }
+
+            CheckParams();
+
+
+            FilterDefinition<DownloadStatistics> repositoryFilter =
+                RepoCatFilterBuilder.BuildStatisticsRepositoryFilter(repository.Id);
+
+            return await this.FindOneOrCreateNewAsync(repository.Id, repositoryFilter);
+        }
+
+
     }
 }

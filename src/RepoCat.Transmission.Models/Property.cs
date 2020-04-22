@@ -32,7 +32,7 @@ namespace RepoCat.Transmission.Models
 
             if (value != null)
             {
-                if (value.GetType() != typeof(string) && value is IEnumerable enumerable)
+                if (!(value is string) && value is IEnumerable enumerable)
                 {
                     foreach (object o in enumerable)
                     {

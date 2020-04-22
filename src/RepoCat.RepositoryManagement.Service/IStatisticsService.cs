@@ -17,6 +17,7 @@ namespace RepoCat.RepositoryManagement.Service
         Task<IEnumerable<SearchKeywordData>> GetFlattened();
         Task UpdateProjectDownloads(ProjectInfo project);
 
-        Task<DownloadStatistics> GetDownloadStatistics(string repositoryId);
+        Task<DownloadStatistics> GetDownloadStatistics(RepositoryInfo repository);
+        Task<IEnumerable<DownloadStatistics>> GetDownloadStatistics(List<RepositoryInfo> repositories);
     }
 }

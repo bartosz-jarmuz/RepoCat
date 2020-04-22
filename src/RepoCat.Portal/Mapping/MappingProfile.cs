@@ -46,6 +46,7 @@ namespace RepoCat.Portal.Mapping
                 .ForMember(x => x.SearchAccuracyScore, o => o.MapFrom(p => p.SearchAccuracyScore))
                 .ForMember(x => x.DisplayRepositoryName, o => o.Ignore())
                 .ForMember(x => x.Properties, o => o.Ignore())
+                .ForMember(x => x.DownloadsCount, o => o.Ignore())
                 ;
             
 
@@ -55,6 +56,7 @@ namespace RepoCat.Portal.Mapping
                 .ForMember(x => x.OrganizationName, o => o.Ignore())
                 .ForMember(x => x.Properties, o => o.Ignore())
                 .ForMember(x => x.SearchAccuracyScore, o => o.Ignore())
+                .ForMember(x => x.DownloadsCount, o => o.Ignore())
                 
                 .AfterMap((src, dest, rc) =>
                 {
@@ -81,6 +83,7 @@ namespace RepoCat.Portal.Mapping
         private void MapPersistenceModels()
         {
             this.CreateMap<RepositoryQueryParameter, Persistence.Models.RepositoryQueryParameter>();
+            this.CreateMap<Persistence.Models.RepositoryInfo, RepositoryQueryParameter>();
 
             this.CreateMap<SearchStatistics, RepositoryManagement.Service.SearchStatistics>();
             this.CreateMap<SearchKeywordData, RepositoryManagement.Service.SearchKeywordData>();
