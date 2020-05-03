@@ -29,5 +29,8 @@ namespace RepoCat.Telemetry
         public static string Verbosity => "Verbosity";
         public static string Exception => "Exception";
         public static string Origin => "Origin";
+        public static string ExecutionTime => "ExecutionTime";
+        public static string RepositoriesCount => "RepositoriesCount";
+        public static string ProjectsCleanedCount=> "ProjectsCleanedCount";
     }
 }

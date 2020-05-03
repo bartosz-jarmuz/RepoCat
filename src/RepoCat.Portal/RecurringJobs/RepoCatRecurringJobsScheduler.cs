@@ -49,6 +49,8 @@ namespace RepoCat.Portal.RecurringJobs
                     telemetryClient.TrackRecurringJobScheduled(repositorySetting);
                 }
             }
+
+          //  RecurringJob.AddOrUpdate<SnapshotRepoCleanupJob>(nameof(SnapshotRepoCleanupJob), job=> job.Run(), "0 * * * *");
         }
     }
 }

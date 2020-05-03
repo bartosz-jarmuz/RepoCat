@@ -52,6 +52,12 @@
             <param name="isRegex"></param>
             <returns></returns>
         </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAllProjects">
+            <summary>
+            Gets all projects
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:RepoCat.Persistence.Service.RepositoryDatabase.ProjectWithRepos.RepositoryInfo">
             <summary>
             
@@ -84,13 +90,18 @@
             </summary>
             <param name="info">The information.</param>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Remove(System.String)">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Remove(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.ProjectInfo})">
             <summary>
-            Removes the item with specified identifier.
+            Removes the specified items.
             </summary>
-            <param name="id">The identifier.</param>
+            <param name="infos">The information.</param>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAllRepositories">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.RemoveProjectsByStamp(RepoCat.Persistence.Models.RepositoryInfo,System.String)">
+            <summary>
+            Removes the specified items.
+            </summary>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAllSnapshotRepositories">
             <summary>
             Gets all the repositories names
             </summary>
@@ -102,6 +113,12 @@
             </summary>
             <param name="organizationName"></param>
             <returns></returns>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetAllRepositories">
+            <summary>
+            Gets all the repositories names
+            </summary>
+            <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns> 
         </member>
         <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.GetRepositories(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.RepositoryQueryParameter})">
             <summary>

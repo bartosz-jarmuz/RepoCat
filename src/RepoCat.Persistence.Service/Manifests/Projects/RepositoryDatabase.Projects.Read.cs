@@ -103,7 +103,17 @@ namespace RepoCat.Persistence.Service
 
             return await this.ExecuteFilter(filter).ConfigureAwait(false);
         }
-   
+
+        /// <summary>
+        /// Gets all projects
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<ProjectInfo>> GetAllProjects()
+        {
+            return await (await this.projects.FindAsync(new FilterDefinitionBuilder<ProjectInfo>().Empty)
+                .ConfigureAwait(false)).ToListAsync().ConfigureAwait(false);
+        }
+
 
         private async Task<IEnumerable<Project>> ExecuteFilter(FilterDefinition<ProjectInfo> filter)
         {

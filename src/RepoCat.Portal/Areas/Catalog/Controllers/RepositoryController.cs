@@ -130,8 +130,6 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
 
         }
 
-        
-
         private static MvcBreadcrumbNode PrepareIndexBreadcrumb(string organizationName, string repositoryName)
         {
             var breadCrumb = new MvcBreadcrumbNode(nameof(RepositoryController.Index), "Repository",

@@ -1307,6 +1307,24 @@
             A mapping of custom values to a ProjectInfo property name
             </summary>
         </member>
+        <member name="T:RepoCat.Portal.RecurringJobs.SnapshotRepoCleanupJob">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:RepoCat.Portal.RecurringJobs.SnapshotRepoCleanupJob.#ctor(Microsoft.ApplicationInsights.TelemetryClient,AutoMapper.IMapper,RepoCat.RepositoryManagement.Service.ISnapshotRepoCleaner)">
+            <summary>
+            The job of looking into specified repository for manifests and sending them to RepoCat
+            </summary>
+            <param name="telemetryClient"></param>
+            <param name="mapper"></param>
+            <param name="cleaner"></param>
+        </member>
+        <member name="M:RepoCat.Portal.RecurringJobs.SnapshotRepoCleanupJob.Run">
+            <summary>
+            Performs the job
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.TelemetryExtensions">
             <summary>
             

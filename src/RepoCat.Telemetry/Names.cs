@@ -17,5 +17,7 @@ namespace RepoCat.Telemetry
         public static string UpsertedProject => "UpsertedProject";
         public static string FileDownload => "FileDownload";
         public static string RepositorySearch => "RepositorySearch";
+        public static string RepositoryBatchCleanupJobFinished => "RepositoryBatchCleanupJobFinished";
+        public static string RepositoryCleanup => "RepositoryCleanup";
     }
 }

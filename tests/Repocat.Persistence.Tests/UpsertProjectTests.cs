@@ -140,7 +140,7 @@ namespace Repocat.Persistence.Tests
         [Test]
         public async Task DefaultRepo_ShouldReturnTheSameIdButNewProperties()
         {
-            RepositoryDatabase service = new RepositoryDatabase(Settings);
+            RepositoryDatabase database = new RepositoryDatabase(Settings);
             ProjectInfo prj = new ProjectInfo()
             {
                 ProjectName = "Project1",
@@ -149,7 +149,7 @@ namespace Repocat.Persistence.Tests
                 TargetExtension = "exe"
             };
             prj.Id.Should().Be(ObjectId.Empty);
-            ProjectInfo returnedPrj = await service.Upsert(prj).ConfigureAwait(false);
+            ProjectInfo returnedPrj = await database.Upsert(prj).ConfigureAwait(false);
             returnedPrj.Id.Should().NotBe(ObjectId.Empty);
 
             ProjectInfo prj2 = new ProjectInfo()
@@ -161,11 +161,11 @@ namespace Repocat.Persistence.Tests
 
             };
 
-            ProjectInfo returnedPrj2 = await service.Upsert(prj2).ConfigureAwait(false);
+            ProjectInfo returnedPrj2 = await database.Upsert(prj2).ConfigureAwait(false);
 
             returnedPrj2.Id.Should().BeEquivalentTo(returnedPrj.Id, "because it's the same project");
 
-            ProjectInfo attempt3 = await service.GetById(returnedPrj2.Id.ToString()).ConfigureAwait(false);
+            ProjectInfo attempt3 = await database.GetById(returnedPrj2.Id.ToString()).ConfigureAwait(false);
             attempt3.TargetExtension.Should().Be("dll", "because the project was updated");
         }
 

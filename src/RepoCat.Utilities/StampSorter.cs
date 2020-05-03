@@ -29,40 +29,55 @@ namespace RepoCat.Utilities
             {
                 return null;
             }
-            //else if (stamps.Count == 1)
-            //{
-            //    return stamps.First();
-            //}
             try
             {
-                if (stamps.Any(s => DateTime.TryParseExact(s, "O", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out _)))
-                {
-                    var dict = new Dictionary<DateTime, string>();
-                    foreach (string stamp in stamps)
-                    {
-                        if(DateTime.TryParseExact(stamp, "O", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTime stampDateTime))
-                        {
-                            dict.Add(stampDateTime, stamp);
-                        }
-                    }
-
-                    var ordered = dict.OrderByDescending(x => x.Key).First();
-                    return ordered.Value;
-                }
-                else if (stamps.Any(s=>Version.TryParse(s, out _)))
-                {
-                    return stamps.OrderByDescending(s => s, new VersionStringComparer()).FirstOrDefault();
-                }
+                return OrderStamps(stamps).FirstOrDefault();
             }
 #pragma warning disable CA1031 // Do not catch general exception types
             catch (Exception)
 #pragma warning restore CA1031 // Do not catch general exception types
             {
-                //todo
                 return stamps.FirstOrDefault();
             }
 
-            return null;
+        }
+
+
+        /// <summary>
+        /// Gets the newest stamp.
+        /// </summary>
+        /// <param name="stamps">The stamps.</param>
+        /// <returns>System.String.</returns>
+        public static IEnumerable<string> OrderStamps(ICollection<string> stamps)
+        {
+            if (stamps == null) throw new ArgumentNullException(nameof(stamps));
+
+            if (!stamps.Any())
+            {
+                return stamps;
+            }
+           
+            if (stamps.Any(s => DateTime.TryParseExact(s, "O", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out _)))
+            {
+                var dict = new Dictionary<DateTime, string>();
+                foreach (string stamp in stamps)
+                {
+                    if (DateTime.TryParseExact(stamp, "O", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTime stampDateTime))
+                    {
+                        dict.Add(stampDateTime, stamp);
+                    }
+                }
+
+                var ordered = dict.OrderByDescending(x => x.Key).Select(x=>x.Value);
+                return ordered.ToList().AsReadOnly();
+            }
+            else if (stamps.Any(s => Version.TryParse(s, out _)))
+            {
+                return stamps.OrderByDescending(s => s, new VersionStringComparer()).ToList().AsReadOnly();
+            }
+       
+
+            return stamps;
         }
     }
 }

@@ -5,7 +5,9 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -89,7 +91,6 @@ namespace RepoCat.Persistence.Service
             }
         }
 
-
         /// <summary>
         /// Updates the specified item.
         /// </summary>
@@ -104,18 +105,26 @@ namespace RepoCat.Persistence.Service
         /// Removes the specified item.
         /// </summary>
         /// <param name="info">The information.</param>
-        public void Remove(ProjectInfo info)
+        public Task<DeleteResult> Remove(ProjectInfo info)
         {
-            this.projects.DeleteOne(manifest => manifest.Id == info.Id);
+            return this.projects.DeleteOneAsync(manifest => manifest.Id == info.Id);
         }
 
         /// <summary>
-        /// Removes the item with specified identifier.
+        /// Removes the specified items.
         /// </summary>
-        /// <param name="id">The identifier.</param>
-        public void Remove(string id)
+        /// <param name="infos">The information.</param>
+        public Task<DeleteResult> Remove(IEnumerable<ProjectInfo> infos)
         {
-            this.projects.DeleteOne(manifest => manifest.Id == ObjectId.Parse(id));
+            return this.projects.DeleteManyAsync(new FilterDefinitionBuilder<ProjectInfo>().In(p=>p.Id, infos.Select(x=>x.Id)));
+        }
+        
+        /// <summary>
+        /// Removes the specified items.
+        /// </summary>
+        public Task<DeleteResult> RemoveProjectsByStamp(RepositoryInfo repository, string stamp)
+        {
+            return this.projects.DeleteManyAsync(new FilterDefinitionBuilder<ProjectInfo>().Where(p=>p.RepositoryId == repository.Id && p.RepositoryStamp == stamp));
         }
 
     }

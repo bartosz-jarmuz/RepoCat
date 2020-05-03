@@ -36,6 +36,13 @@
             <param name="stamps">The stamps.</param>
             <returns>System.String.</returns>
         </member>
+        <member name="M:RepoCat.Utilities.StampSorter.OrderStamps(System.Collections.Generic.ICollection{System.String})">
+            <summary>
+            Gets the newest stamp.
+            </summary>
+            <param name="stamps">The stamps.</param>
+            <returns>System.String.</returns>
+        </member>
         <member name="T:RepoCat.Utilities.VersionStringComparer">
             <summary>
             Compares version strings

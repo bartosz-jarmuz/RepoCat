@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.ApplicationInsights;
 using RepoCat.Persistence.Models;
 using RepoCat.Telemetry;
@@ -84,6 +85,27 @@ namespace RepoCat.RepositoryManagement.Service
             });
         }
 
-       
+        public static void TrackCleanupJob(this TelemetryClient telemetryClient, SnapshotRepoCleanupResult result, long elapsedMiliseconds)
+        {
+            telemetryClient.TrackEvent(Names.RepositoryBatchCleanupJobFinished, new Dictionary<string, string>()
+            {
+                {PropertyKeys.ExecutionTime, elapsedMiliseconds.ToString()},
+                {PropertyKeys.RepositoriesCount, result.RepositoryResults.Count.ToString()},
+                {PropertyKeys.ProjectsCleanedCount, result.RepositoryResults.Sum(x=>x.Value).ToString()},
+
+            });
+
+            foreach (KeyValuePair<RepositoryInfo, long> repositoryResult in result.RepositoryResults)
+            {
+                telemetryClient.TrackEvent(Names.RepositoryCleanup, new Dictionary<string, string>()
+                {
+                    {PropertyKeys.OrganizationName, repositoryResult.Key.OrganizationName},
+                    {PropertyKeys.RepositoryName, repositoryResult.Key.RepositoryName},
+                    {PropertyKeys.ProjectsCleanedCount, repositoryResult.Value.ToString()},
+                });
+            }
+        }
+
+
     }
 }

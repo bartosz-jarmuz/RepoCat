@@ -20,13 +20,15 @@ namespace RepoCat.Persistence.Service
     public partial class RepositoryDatabase
     {
 
+      
+
         /// <summary>
         /// Gets all the repositories names
         /// </summary>
         /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns> 
-        public Task<IAsyncCursor<RepositoryInfo>> GetAllRepositories()
+        public Task<IAsyncCursor<RepositoryInfo>> GetAllSnapshotRepositories()
         {
-            return this.repositories.FindAsync(FilterDefinition<RepositoryInfo>.Empty);
+            return this.repositories.FindAsync(new FilterDefinitionBuilder<RepositoryInfo>().Where(x=>x.RepositoryMode == RepositoryMode.Snapshot));
         }
 
         /// <summary>
@@ -39,6 +41,14 @@ namespace RepoCat.Persistence.Service
             return this.repositories.FindAsync(RepoCatFilterBuilder.BuildRepositoryFilter(organizationName));
         }
 
+        /// <summary>
+        /// Gets all the repositories names
+        /// </summary>
+        /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns> 
+        public Task<IAsyncCursor<RepositoryInfo>> GetAllRepositories()
+        {
+            return this.repositories.FindAsync(FilterDefinition<RepositoryInfo>.Empty);
+        }
 
         /// <summary>
         /// Gets all repositories matching search params
