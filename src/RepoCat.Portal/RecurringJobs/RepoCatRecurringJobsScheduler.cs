@@ -50,7 +50,7 @@ namespace RepoCat.Portal.RecurringJobs
                 }
             }
 
-          //  RecurringJob.AddOrUpdate<SnapshotRepoCleanupJob>(nameof(SnapshotRepoCleanupJob), job=> job.Run(), "0 * * * *");
+            RecurringJob.AddOrUpdate<SnapshotRepoCleanupJob>(nameof(SnapshotRepoCleanupJob), job=> job.Run(), "0 * * * *");
         }
     }
 }
