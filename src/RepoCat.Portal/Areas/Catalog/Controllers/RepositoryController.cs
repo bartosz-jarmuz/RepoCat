@@ -137,8 +137,8 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <param name="organizationName"></param>
         /// <param name="repositoryName"></param>
         /// <returns></returns>
-        [Route("{organizationName}/{repositoryName}")]
-        [HttpDelete]
+        [Route("{organizationName}/{repositoryName}/delete")]
+        [HttpPost]
         public async Task<IActionResult> Delete(string organizationName, string repositoryName)
         {
             this.telemetryClient.TrackDeleteRepository(organizationName, repositoryName);
