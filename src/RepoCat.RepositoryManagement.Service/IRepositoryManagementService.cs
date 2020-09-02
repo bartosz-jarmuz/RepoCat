@@ -34,5 +34,6 @@ namespace RepoCat.RepositoryManagement.Service
         Task<IEnumerable<CollectionSummary>> GetSummary();
         Task<IEnumerable<RepositoryInfo>> GetRepositories(IReadOnlyCollection<RepositoryQueryParameter> repoParams);
         Task<IEnumerable<RepositoryInfo>> GetRepositories(RepositoryQueryParameter repoParam);
+        Task<bool> DeleteRepository(RepositoryQueryParameter repoParam);
     }
 }

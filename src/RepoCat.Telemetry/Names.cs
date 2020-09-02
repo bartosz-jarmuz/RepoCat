@@ -12,6 +12,7 @@ namespace RepoCat.Telemetry
         public static string RecurringJobStarted => "RecurringJobStarted";
         public static string RecurringJobFinished => "RecurringJobFinished";
         public static string ViewRepository => "ViewRepository";
+        public static string DeleteRepository => "DeleteRepository";
         public static string PostingProjectInfo => "PostingProjectInfo";
         public static string UpsertedRepository => "UpsertedRepository";
         public static string UpsertedProject => "UpsertedProject";

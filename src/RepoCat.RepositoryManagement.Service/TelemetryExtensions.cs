@@ -22,8 +22,18 @@ namespace RepoCat.RepositoryManagement.Service
                 {PropertyKeys.OrganizationName, organizationName},
                 {PropertyKeys.RepositoryName, repositoryName},
             });
-        } 
-        
+        }
+
+        public static void TrackDeleteRepository(this TelemetryClient telemetryClient, string organizationName, string repositoryName)
+        {
+            telemetryClient.TrackEvent(Names.DeleteRepository, new Dictionary<string, string>()
+            {
+                {PropertyKeys.OrganizationName, organizationName},
+                {PropertyKeys.RepositoryName, repositoryName},
+            });
+        }
+
+
         public static void TrackSearch(this TelemetryClient telemetryClient, IReadOnlyCollection<RepositoryQueryParameter> parameters, string query, bool isRegex, int resultsCount, TimeSpan elapsed)
         {
             foreach (RepositoryQueryParameter repositoryQueryParameter in parameters)

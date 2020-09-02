@@ -84,19 +84,31 @@
             <param name="id">The identifier.</param>
             <param name="info">The information.</param>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Remove(RepoCat.Persistence.Models.ProjectInfo)">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.DeleteProjects(RepoCat.Persistence.Models.ProjectInfo)">
             <summary>
             Removes the specified item.
             </summary>
             <param name="info">The information.</param>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.Remove(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.ProjectInfo})">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.DeleteProjects(System.Collections.Generic.IEnumerable{RepoCat.Persistence.Models.ProjectInfo})">
             <summary>
             Removes the specified items.
             </summary>
             <param name="infos">The information.</param>
         </member>
-        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.RemoveProjectsByStamp(RepoCat.Persistence.Models.RepositoryInfo,System.String)">
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.DeleteProjects(RepoCat.Persistence.Models.RepositoryInfo)">
+            <summary>
+            Removes the specified items.
+            </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.DeleteRepository(RepoCat.Persistence.Models.RepositoryInfo)">
+            <summary>
+            Removes the specified items.
+            </summary>
+            <param name="repository">The repository.</param>
+        </member>
+        <member name="M:RepoCat.Persistence.Service.RepositoryDatabase.DeleteProjectsByStamp(RepoCat.Persistence.Models.RepositoryInfo,System.String)">
             <summary>
             Removes the specified items.
             </summary>

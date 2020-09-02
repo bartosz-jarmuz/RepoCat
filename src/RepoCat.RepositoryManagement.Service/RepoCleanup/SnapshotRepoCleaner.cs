@@ -34,7 +34,7 @@ namespace RepoCat.RepositoryManagement.Service
                 List<string> stampsToRemove = StampSorter.OrderStamps(allStamps).Skip(settings.NumberOfSnapshotsToKeep).ToList();
                 foreach (string stamp in stampsToRemove)
                 {
-                    DeleteResult repoResults = await this.database.RemoveProjectsByStamp(repo, stamp);
+                    DeleteResult repoResults = await this.database.DeleteProjectsByStamp(repo, stamp);
                     if (result.RepositoryResults.ContainsKey(repo))
                     {
                         result.RepositoryResults[repo] += repoResults.DeletedCount;

@@ -75,7 +75,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         /// <param name="filters">Optional string of filter definitions</param>
         /// <returns>Task&lt;ViewResult&gt;.</returns>
         [Route("{organizationName}/{repositoryName}")]
-        public async Task<ViewResult> Index(string organizationName, string repositoryName, [FromQuery] Dictionary<string, List<string>> filters = null)
+        public async Task<IActionResult> Index(string organizationName, string repositoryName, [FromQuery] Dictionary<string, List<string>> filters = null)
         {
             var model = new BrowseRepositoryViewModel()
             {
@@ -87,7 +87,8 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             var repositoryInfo = (await this.repositoryService.GetRepositories(queryParam)).FirstOrDefault();
             if (repositoryInfo == null)
             {
-                throw new InvalidOperationException("Repository not found");
+                this.TempData["Error"] = $"Did not find a repository [{repositoryName}] on [{organizationName}].";
+                return this.RedirectToAction("PageNotFound", "Home");
             }
 
             var projectsTask = this.repositoryService.GetAllCurrentProjects(repositoryInfo);
@@ -128,6 +129,36 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             this.ViewData["BreadcrumbNode"] = breadcrumb;
             return this.View(model);
 
+        }
+
+        /// <summary>
+        /// Deletes a specified repository along with all projects
+        /// </summary>
+        /// <param name="organizationName"></param>
+        /// <param name="repositoryName"></param>
+        /// <returns></returns>
+        [Route("{organizationName}/{repositoryName}")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string organizationName, string repositoryName)
+        {
+            this.telemetryClient.TrackDeleteRepository(organizationName, repositoryName);
+            var queryParam = new RepositoryQueryParameter(organizationName, repositoryName);
+            var repositoryInfo = (await this.repositoryService.GetRepositories(queryParam)).FirstOrDefault();
+            if (repositoryInfo == null)
+            {
+                throw new InvalidOperationException("Repository not found");
+            }
+
+            var isSuccess = await this.repositoryService.DeleteRepository(new RepositoryQueryParameter(repositoryInfo)).ConfigureAwait(false);
+            if (isSuccess)
+            {
+                return this.RedirectToAction("Index", "Search");
+            }
+            else
+            {
+                this.TempData["Error"] = $"Problem when trying to delete repository";
+                return this.RedirectToAction("Error", "Home");
+            }
         }
 
         private static MvcBreadcrumbNode PrepareIndexBreadcrumb(string organizationName, string repositoryName)
@@ -216,5 +247,8 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
                 return this.Json(this.Url.Action("AddProject"));
             }
         }
+
+
+
     }
 }

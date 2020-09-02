@@ -103,8 +103,8 @@ namespace RepoCat.RepositoryManagement.Service
 
         public async Task<ManifestQueryResult> GetCurrentProjects(IReadOnlyCollection<RepositoryInfo> repositories, string query, bool isRegex)
         {
-            var sw = Stopwatch.StartNew();
-            var projects = await this.database.GetCurrentProjects(repositories, query, isRegex).ConfigureAwait(false);
+            Stopwatch sw = Stopwatch.StartNew();
+            IEnumerable<Project> projects = await this.database.GetCurrentProjects(repositories, query, isRegex).ConfigureAwait(false);
             sw.Stop();
             return new ManifestQueryResult(repositories, projects, sw.Elapsed, query, isRegex);
         }
@@ -118,6 +118,29 @@ namespace RepoCat.RepositoryManagement.Service
         {
             return await this.database.GetRepositories(this.mapper.Map<IReadOnlyCollection<Persistence.Models.RepositoryQueryParameter>>(new List<RepositoryQueryParameter>(){repoParam})).ConfigureAwait(false);
         }
+        
+        public async Task<bool> DeleteRepository(RepositoryQueryParameter repoParam)
+        {
+            RepositoryInfo repo = await this.database.GetRepository(repoParam.OrganizationName,repoParam.RepositoryName).ConfigureAwait(false);
+            if (repo == null)
+            {
+                throw new InvalidOperationException($"Failed to find repository {repoParam.RepositoryName} in {repoParam.OrganizationName}");
+            }
+
+            DeleteResult projectsResult = await this.database.DeleteProjects(repo).ConfigureAwait(false);
+            if (projectsResult.IsAcknowledged)
+            {
+                DeleteResult repoResult = await this.database.DeleteRepository(repo).ConfigureAwait(false);
+                if (repoResult.IsAcknowledged)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        
 
         public async Task<IEnumerable<RepositoryInfo>> GetAllRepositories()
         {
@@ -130,7 +153,7 @@ namespace RepoCat.RepositoryManagement.Service
         /// <returns></returns>
         public async Task<IReadOnlyCollection<RepositoryGrouping>> GetAllRepositoriesGrouped()
         {
-            var repos = await this.GetAllRepositories().ConfigureAwait(false);
+            IEnumerable<RepositoryInfo> repos = await this.GetAllRepositories().ConfigureAwait(false);
             return RepositoryGrouping.CreateGroupings(repos.ToList()).ToList().AsReadOnly();
         }
 

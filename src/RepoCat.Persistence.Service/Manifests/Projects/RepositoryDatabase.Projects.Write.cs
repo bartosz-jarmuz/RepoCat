@@ -105,7 +105,7 @@ namespace RepoCat.Persistence.Service
         /// Removes the specified item.
         /// </summary>
         /// <param name="info">The information.</param>
-        public Task<DeleteResult> Remove(ProjectInfo info)
+        public Task<DeleteResult> DeleteProjects(ProjectInfo info)
         {
             return this.projects.DeleteOneAsync(manifest => manifest.Id == info.Id);
         }
@@ -114,15 +114,33 @@ namespace RepoCat.Persistence.Service
         /// Removes the specified items.
         /// </summary>
         /// <param name="infos">The information.</param>
-        public Task<DeleteResult> Remove(IEnumerable<ProjectInfo> infos)
+        public Task<DeleteResult> DeleteProjects(IEnumerable<ProjectInfo> infos)
         {
             return this.projects.DeleteManyAsync(new FilterDefinitionBuilder<ProjectInfo>().In(p=>p.Id, infos.Select(x=>x.Id)));
         }
-        
+
         /// <summary>
         /// Removes the specified items.
         /// </summary>
-        public Task<DeleteResult> RemoveProjectsByStamp(RepositoryInfo repository, string stamp)
+        /// <param name="repository">The repository.</param>
+        public Task<DeleteResult> DeleteProjects(RepositoryInfo repository)
+        {
+            return this.projects.DeleteManyAsync(new FilterDefinitionBuilder<ProjectInfo>().Eq(p => p.RepositoryId, repository.Id));
+        }
+
+        /// <summary>
+        /// Removes the specified items.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        public Task<DeleteResult> DeleteRepository(RepositoryInfo repository)
+        {
+            return this.repositories.DeleteOneAsync(new FilterDefinitionBuilder<RepositoryInfo>().Eq(r => r.Id, repository.Id));
+        }
+
+        /// <summary>
+        /// Removes the specified items.
+        /// </summary>
+        public Task<DeleteResult> DeleteProjectsByStamp(RepositoryInfo repository, string stamp)
         {
             return this.projects.DeleteManyAsync(new FilterDefinitionBuilder<ProjectInfo>().Where(p=>p.RepositoryId == repository.Id && p.RepositoryStamp == stamp));
         }
