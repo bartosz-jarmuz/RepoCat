@@ -260,6 +260,60 @@ namespace RepoCat.Tests
 
         }
 
+
+        [Test]
+        public void TestSorting_ListProperties_AreWorthLessThanStandard()
+        {
+            //arrange
+            IManifestQueryResultSorter sorter = new ManifestQueryResultSorter();
+            string[] tokens = new string[] {"file"};
+            var projects = new List<Project>()
+            {
+                new Project()
+                {
+                    ProjectInfo = new ProjectInfo()
+                    {
+                        ProjectName = "ProjectOne",
+                        Properties = new PropertiesCollection()
+                        {
+                            {
+                                "Property", new List<string>()
+                                {
+                                    "SomefileName.xml",
+                                    "SomeOtherFileName.xml",
+                                    "YetAnotherFileName.xml",
+                                }
+
+                            }
+                        }
+
+                    }
+                },
+                new Project()
+                {
+                    ProjectInfo = new ProjectInfo()
+                    {
+                        ProjectName = "ProjectTwo",
+                        Properties = new PropertiesCollection()
+                        {
+                            {
+                                "ProjectTye", "FileValidator"
+                            }
+                        }
+                    }
+                },
+
+            };
+
+            //act
+            var result = sorter.Sort(projects, tokens).ToList();
+
+            //assert
+            Assert.AreEqual("ProjectTwo", result[0].ProjectInfo.ProjectName);
+            Assert.IsTrue(result[0].SearchAccuracyScore > result[1].SearchAccuracyScore);
+
+        }
+
         [Test]
         public void TestSorting_PropertyValueShortContains_PenaltyAdded()
         {

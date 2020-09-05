@@ -27,16 +27,17 @@ namespace RepoCat.RepositoryManagement.Service
             public const decimal Tags = 1.5M;
             public const decimal Description = 1;
             public const decimal Properties = 1;
+            public const decimal ListProperties = 0.1M;
         }
 
 
         public IEnumerable<Project> Sort(IEnumerable<Project> projects, IEnumerable<string> searchTokens)
         {
-            var sortedCollection = new List<Project>();
-            var enumeratedTokens = searchTokens.ToList();
+            List<Project> sortedCollection = new List<Project>();
+            List<string> enumeratedTokens = searchTokens.ToList();
             foreach (Project sortedProject in projects)
             {
-                var score = this.GetProjectScore(sortedProject, enumeratedTokens);
+                decimal score = this.GetProjectScore(sortedProject, enumeratedTokens);
                 sortedProject.SearchAccuracyScore = score;
                 sortedCollection.Add(sortedProject);
             }
@@ -53,7 +54,7 @@ namespace RepoCat.RepositoryManagement.Service
             score += this.GetStringScore(project.ProjectInfo.ProjectName, ScoreMultipliers.Name, tokens);
             score += this.GetStringScore(project.ProjectInfo.Tags, ScoreMultipliers.Tags, tokens);
             score += this.GetStringScore(project.ProjectInfo.Owner, ScoreMultipliers.Tags, tokens);
-            score += this.GetStringScore(project.ProjectInfo.Properties, ScoreMultipliers.Tags, tokens);
+            score += this.GetPropertiesScore(project.ProjectInfo.Properties, tokens);
             score += this.GetStringScore(project.ProjectInfo.ProjectDescription, ScoreMultipliers.Description, tokens);
 
             if (project.ProjectInfo.Components != null)
@@ -62,30 +63,39 @@ namespace RepoCat.RepositoryManagement.Service
                 {
                     score += this.GetStringScore(component.Name, ScoreMultipliers.Name, tokens);
                     score += this.GetStringScore(component.Tags, ScoreMultipliers.Tags, tokens);
-                    score += this.GetStringScore(component.Properties, ScoreMultipliers.Tags, tokens);
                     score += this.GetStringScore(component.Description, ScoreMultipliers.Description, tokens);
+                    score += this.GetPropertiesScore(component.Properties, tokens);
                 }
             }
 
             return score;
         }
 
-        private decimal GetStringScore(PropertiesCollection projectInfoProperties, in decimal scoreBaseValue, IReadOnlyCollection<string> tokens)
+        private decimal GetPropertiesScore(PropertiesCollection projectInfoProperties, IReadOnlyCollection<string> tokens)
         {
-            var values = new List<string>();
+            List<string> listValues = new List<string>();
             foreach (Property projectInfoProperty in projectInfoProperties)
             {
                 if (projectInfoProperty.ValueList != null && projectInfoProperty.ValueList.Any())
                 {
-                    values.AddRange(projectInfoProperty.ValueList);
+                    listValues.AddRange(projectInfoProperty.ValueList);
                 }
-                else
+                
+            }
+            decimal listPropertiesScore = this.GetStringScore(listValues, ScoreMultipliers.ListProperties, tokens);
+
+
+            List<string> singleValues = new List<string>();
+            foreach (Property projectInfoProperty in projectInfoProperties)
+            {
+                if (projectInfoProperty.ValueList == null || !projectInfoProperty.ValueList.Any())
                 {
-                    values.Add(projectInfoProperty.Value);
+                    singleValues.Add(projectInfoProperty.Value);
                 }
             }
+            decimal singlePropertiesScore = this.GetStringScore(singleValues, ScoreMultipliers.Properties, tokens);
 
-            return this.GetStringScore(values, scoreBaseValue, tokens);
+            return singlePropertiesScore + listPropertiesScore;
         }
 
         private decimal GetStringScore(IEnumerable<string> toSearch, decimal scoreBaseValue, IReadOnlyCollection<string> tokens)
@@ -150,7 +160,7 @@ namespace RepoCat.RepositoryManagement.Service
                 return 0;
             }
             decimal score = 0;
-            var tokenizedSearchPhrase = SearchInputTokenizer.Tokenize(projectInfo.AssemblyName);
+            List<string> tokenizedSearchPhrase = SearchInputTokenizer.Tokenize(projectInfo.AssemblyName);
             foreach (string token in tokens)
             {
 
@@ -248,11 +258,11 @@ namespace RepoCat.RepositoryManagement.Service
 
         private  static IEnumerable<string> SplitPascalCase(string input)
         {
-            var tokens = new List<string>();
+            List<string> tokens = new List<string>();
 
             if (!string.IsNullOrEmpty(input))
             {
-                var sb = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 sb.Append(input[0]);
 
                 for (int i = 1; i < input.Length; i++)
