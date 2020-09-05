@@ -285,7 +285,7 @@ function getProjectsTable(activeColumnsCookie, isSearchResult) {
         ],
         columns: getColumns(numberOfExtraColumns, isSearchResult),
         dom: "R"
-            + "<'#TopButtonsRow.row'<'col-md-1 first'l><'col-md-10 restore-columns-row'><'col-md-1 third'if>>"
+            + "<'#TopButtonsRow.row'<'col-md-1 first'l><'col-md-2 table-filter'><'col-md-8 restore-columns-row'><'col-md-1 third'if>>"
             + "<rtip> ",
     });
     if (isSearchResult) {
@@ -384,8 +384,11 @@ function alignTopButtonsRow() {
     $('#TopButtonsRow').children('.third').attr('style', 'margin-left: -10px;');
 }
 function alignSearchPanel() {
-    var container = $('#TableSearchDiv').empty();
-    var input = $('#ResultsTable_filter label input').appendTo(container).wrap("<div class='col'><small class='help-block text-secondary' data-toggle='tooltip'" +
+    var input = $('#ResultsTable_filter label input').appendTo($('.table-filter')).wrap("<div class='col'></div>");
+    $('#ResultsTable_filter label').remove();
+    $(input).attr('style', 'width: 11rem; display: inline;');
+    $(input).addClass('table-search');
+    $(input).after("<i class='far fa-question-circle d-inline m-2' style='cursor: help;' data-toggle='tooltip'" +
         "title='Filtering is a basic method for searching within a table.\r\n" +
         "It simply shows only the rows which contain a given search string anywhere in the content.\r\n" +
         "Contrary to the repository Search function:\r\n" +
@@ -394,13 +397,7 @@ function alignSearchPanel() {
         "For example, if looking for \"Miss Universe\", a project with name \"Miss Universe\" is more relevant than\r\n" +
         "a project which description states something like \"This project is missing a universal template\"\r\n" +
         "The search function will order the results so that more \"relevant\" matches are shown on the top of the list." +
-        "'>Filter table&nbsp;</small></div>");
-    $('#ResultsTable_filter label').remove();
-    $(input).attr('style', 'width: 100%;');
-    $(input).removeClass('form-control-sm');
-    $(input).addClass('form-control-lg');
-    $(input).addClass('table-search');
-    $(input).before("<i class='far fa-question-circle d-inline'></i>");
+        "'></i>");
     $(input).attr('placeholder', 'Type to filter the table');
 }
 function showOverlay() {

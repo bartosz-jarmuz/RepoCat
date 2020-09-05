@@ -1,0 +1,46 @@
+@model RepoCat.Portal.Areas.Catalog.Models.SearchIndexViewModel
+
+
+<div class="card border-info">
+    <div class="card-header card-header-sm font-weight-bold">
+        Repository search
+    </div>
+    <partial name="_busy-spinner"/>
+    <div class="card-body">
+        <div class="form">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="row" style="margin-bottom: -1rem;">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <div class="col-md-11">
+                                    <input type="text" id="searchQuery" class="form-control" placeholder="Keywords or phrases" asp-for="Query" tabindex="1">
+                                    <div class="form-check checkbox" style="display: none;">
+                                        <input class="form-check-input" id="isRegex" asp-for="IsRegex" type="checkbox" value="" tabindex="3">
+                                        <label class="form-check-label" for="isRegex">Is Regex search?</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <button type="submit" id="searchBtn" class="btn btn-primary" tabindex="2">
+                                            <i class="fa fa-dot-circle-o"></i> Search
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>

@@ -341,3 +341,7 @@ div.slider {
     cursor: not-allowed;
     color: #ced4da;
 }
+
+.card-header-sm {
+    padding: 0.3rem 1rem;
+}

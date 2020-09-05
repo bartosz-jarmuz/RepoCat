@@ -61,10 +61,16 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
         public async Task<IActionResult> Index()
         {
             SearchIndexViewModel model = new SearchIndexViewModel();
-            Task<IEnumerable<SearchKeywordData>> searchStatsTask = this.statisticsService.GetFlattened();
+
+#pragma warning disable S125 // Sections of code should not be commented out - remember to implement it... someday:)
+            //   Task<IEnumerable<SearchKeywordData>> searchStatsTask = this.statisticsService.GetFlattened();
+            //  await searchStatsTask.ConfigureAwait(false);
+            // model.TopSearchedTags = searchStatsTask.Result.ToList();
+#pragma warning restore S125 // Sections of code should not be commented out
+
             model.Repositories = await this.GetRepositoriesSelectList().ConfigureAwait(false);
-            await searchStatsTask.ConfigureAwait(false);
-            model.TopSearchedTags = searchStatsTask.Result.ToList();
+            
+
             return this.View(model);
         }
 

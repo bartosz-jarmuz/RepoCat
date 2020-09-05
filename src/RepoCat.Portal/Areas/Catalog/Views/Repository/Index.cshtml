@@ -107,13 +107,23 @@ for which the data was not prepared by a human, but rather by a automatic tool."
 
     </div>
 
-    <div class="mb-2 table-header">
-        <h2 style="display: inline;">
-            Projects list
-        </h2>
+    <div class="row">
+        <div class="col-md-12">
+            <partial name="_RepoSearchPartial" for="@Model.SearchIndexViewModel" />
+        </div>
     </div>
 
-    <partial name="_ProjectsTablePartial" model="@Model.ProjectsTable" />
+
+    <div id="searchResults">
+        
+        <div class="mb-2 table-header">
+            <h2 style="display: inline;">
+                Projects list
+            </h2>
+        </div>
+        <partial name="_ProjectsTablePartial" model="@Model.ProjectsTable"/>
+    </div>
+
 }
 
 <span id="RepositoryInfo" style="display: none; color: #73818f;">
@@ -134,5 +144,46 @@ for which the data was not prepared by a human, but rather by a automatic tool."
             $('#RepositoryInfo').show();
         });
 
+        $(document).ready(function () {
+
+            $('#searchQuery').keypress(function (e) {
+                var key = e.which;
+                if(key === 13)  // the enter key code
+                {
+                    $('#searchBtn').click();
+                    return false;
+                }
+            });
+            //RegexColorizer.addStyleSheet();
+            RegexColorizer.colorizeAll();
+
+            $("#searchBtn").click(function () {
+                var overlay = $(this).closest('.card').find('.overlay');
+                $(overlay).fadeIn();
+
+                var queryString ='&query=' + encodeURIComponent($('#searchQuery').val()) + '&isRegex=' + $('#isRegex').is(':checked');
+                var url = '@Url.Action("Search","Search")';
+                var reposParam= "'&org=@Model.OrganizationName&repo=@Model.RepositoryName";
+
+                var fullQuery = reposParam + queryString + getAllActiveFiltersQuery();
+                fullQuery = '?' + fullQuery.replace(/^&/, '');
+
+                url = url + fullQuery;
+                $.get(url,
+                    function (data) {
+                        $(overlay).fadeOut();
+                        $('#searchResults').fadeIn();
+                        $("#searchResults").html(data);
+                        RegexColorizer.colorizeAll();
+
+                    });
+                var historyUrl = '@Url.Action("GetSearchResultPage", "Search")';
+                historyUrl = historyUrl + fullQuery;
+                history.pushState(null, null, historyUrl);
+            });
+        });
     </script>
+
 }
+
+

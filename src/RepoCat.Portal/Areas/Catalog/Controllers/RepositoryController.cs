@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using AutoMapper;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RepoCat.Persistence.Models;
 using RepoCat.Portal.Areas.Catalog.Models;
 using RepoCat.Portal.Controllers;
@@ -80,6 +81,7 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             var model = new BrowseRepositoryViewModel()
             {
                 RepositoryName = repositoryName,
+                OrganizationName = organizationName
             };
 
             this.telemetryClient.TrackViewRepository( organizationName, repositoryName);
@@ -123,12 +125,28 @@ namespace RepoCat.Portal.Areas.Catalog.Controllers
             model.ProjectsTable = projectsTableModel;
             model.ProjectsTable.Filters = filters;
 
+            model.SearchIndexViewModel = this.GetRepositoriesSelectList(organizationName, repositoryName);
 
             MvcBreadcrumbNode breadcrumb = PrepareIndexBreadcrumb(organizationName, repositoryName);
 
             this.ViewData["BreadcrumbNode"] = breadcrumb;
             return this.View(model);
 
+        }
+
+
+        private SearchIndexViewModel GetRepositoriesSelectList(string org, string repo)
+        {
+            var model = new SearchIndexViewModel();
+            List<SelectListItem> items = new List<SelectListItem>();
+
+            SelectListGroup group = new SelectListGroup() { Name = org};
+
+            SelectListItem item = new SelectListItem() { Text = repo, Value = $"{org}:{repo}", Group = group };
+            items.Add(item);
+            model.Repositories = items;
+             
+            return model;
         }
 
         /// <summary>

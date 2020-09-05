@@ -294,6 +294,11 @@
             How many projects where generated automatically
             </summary>
         </member>
+        <member name="P:RepoCat.Portal.Areas.Catalog.Models.BrowseRepositoryViewModel.SearchIndexViewModel">
+            <summary>
+             for a repository search box
+            </summary>
+        </member>
         <member name="T:RepoCat.Portal.Areas.Catalog.Models.ColumnBadgeViewModel">
             <summary>
             Class TagBadgeViewModel.
